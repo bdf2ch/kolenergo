@@ -17,6 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "kolenergo-core": [
+        "dist/kolenergo-core"
+      ],
+      "kolenergo-core/*": [
+        "dist/kolenergo-core/*"
+      ]
+    }
   }
 }

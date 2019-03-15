@@ -23,6 +23,7 @@
     "member-ordering": [
       true,
       {
+        "alphabetize": false,
         "order": [
           "static-field",
           "instance-field",

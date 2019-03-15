@@ -2,5 +2,175 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "kolenergo-core": {
+      "root": "projects/kolenergo-core",
+      "sourceRoot": "projects/kolenergo-core/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/kolenergo-core/tsconfig.lib.json",
+            "project": "projects/kolenergo-core/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/kolenergo-core/src/test.ts",
+            "tsConfig": "projects/kolenergo-core/tsconfig.spec.json",
+            "karmaConfig": "projects/kolenergo-core/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/kolenergo-core/tsconfig.lib.json",
+              "projects/kolenergo-core/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "aho-requests": {
+      "root": "projects/aho-requests/",
+      "sourceRoot": "projects/aho-requests/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "less"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/aho-requests",
+            "index": "projects/aho-requests/src/index.html",
+            "main": "projects/aho-requests/src/main.ts",
+            "polyfills": "projects/aho-requests/src/polyfills.ts",
+            "tsConfig": "projects/aho-requests/tsconfig.app.json",
+            "assets": [
+              "projects/aho-requests/src/favicon.ico",
+              "projects/aho-requests/src/assets"
+            ],
+            "styles": [
+              "projects/aho-requests/src/custom-theme.scss",
+              "projects/aho-requests/src/styles.less"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/aho-requests/src/environments/environment.ts",
+                  "with": "projects/aho-requests/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "aho-requests:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "aho-requests:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "aho-requests:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/aho-requests/src/test.ts",
+            "polyfills": "projects/aho-requests/src/polyfills.ts",
+            "tsConfig": "projects/aho-requests/tsconfig.spec.json",
+            "karmaConfig": "projects/aho-requests/karma.conf.js",
+            "styles": [
+              "projects/aho-requests/src/styles.less"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/aho-requests/src/favicon.ico",
+              "projects/aho-requests/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/aho-requests/tsconfig.app.json",
+              "projects/aho-requests/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "aho-requests-e2e": {
+      "root": "projects/aho-requests-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/aho-requests-e2e/protractor.conf.js",
+            "devServerTarget": "aho-requests:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "aho-requests:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/aho-requests-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "kolenergo-core"
 }
