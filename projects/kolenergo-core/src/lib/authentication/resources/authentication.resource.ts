@@ -24,7 +24,7 @@ export class AuthenticationResource extends Resource {
   constructor(@Inject(AuthenticationConfigService) private readonly config: IAuthenticationModuleConfig,
               private handler: ResourceHandler) {
     super(handler);
-    this.$setPathPrefix(this.config.apiUrl + this.config.pathPrefix)
+    this.$setPathPrefix(this.config.apiUrl + this.config.pathPrefix);
   }
 
   @ResourceAction({

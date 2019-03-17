@@ -14,7 +14,7 @@ export class AppComponent {
 
   openDialog() {
     this.dialog.open(SignInComponent, {
-      width: '400px'
+      width: '350px'
     });
   }
 }
