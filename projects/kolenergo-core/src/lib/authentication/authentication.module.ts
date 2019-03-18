@@ -1,12 +1,16 @@
 import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatDialogModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { EffectsModule } from '@ngrx/effects';
+
 
 import { StoreModule } from '@ngrx/store';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { AuthenticationResource } from './resources/authentication.resource';
 import { IAuthenticationModuleConfig } from './config.interface';
 import { reducer } from './state/authentication.reducer';
+import { AppEffects } from './state/app.effects';
 
 export const AuthenticationConfigService = new InjectionToken<IAuthenticationModuleConfig>('AuthenticationConfig');
 
@@ -14,9 +18,13 @@ export const AuthenticationConfigService = new InjectionToken<IAuthenticationMod
   declarations: [SignInComponent],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     MatButtonModule,
     MatDialogModule,
-    StoreModule.forFeature('session', reducer)
+    MatInputModule,
+    MatFormFieldModule,
+    StoreModule.forFeature('session', reducer),
+    EffectsModule.forFeature([AppEffects])
   ],
   entryComponents: [SignInComponent],
   exports: [SignInComponent]

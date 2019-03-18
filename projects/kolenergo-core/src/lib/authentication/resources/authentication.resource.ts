@@ -39,12 +39,12 @@ export class AuthenticationResource extends Resource {
     method: ResourceRequestMethod.Post,
     withCredentials: true
   })
-  login: IResourceMethod<{account: string, password: string, addIfNotExists?: boolean, appCode?: string}, IUser>;
+  signIn: IResourceMethod<{account: string, password: string, addIfNotExists?: boolean, appCode?: string}, IUser>;
 
   @ResourceAction({
     path: '/logout',
     method: ResourceRequestMethod.Get,
     withCredentials: true
   })
-  logout: IResourceMethod<void, void>;
+  signOut: IResourceMethod<void, void>;
 }

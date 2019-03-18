@@ -9,8 +9,12 @@ import { AuthenticationModule } from 'kolenergo-core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {Store, StoreModule} from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { metaReducers, IApplicationState} from './state';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './app.effects';
+
+
 
 @NgModule({
   declarations: [
@@ -26,7 +30,8 @@ import { metaReducers, IApplicationState} from './state';
     }),
     StoreModule.forRoot({}),
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    EffectsModule.forRoot([AppEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]
