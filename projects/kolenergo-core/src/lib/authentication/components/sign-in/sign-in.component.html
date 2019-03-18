@@ -5,19 +5,23 @@
     <mat-form-field
       class="w-100 mb-1"
       [hideRequiredMarker]="true">
+      <mat-label>Учетная запись</mat-label>
       <input matInput
+             [(ngModel)]="account"
              formControlName="account"
-             placeholder="Учетная запись"
+             placeholder="Введите учетную запись"
              required>
       <mat-error *ngIf="signInForm.controls['account'].invalid">{{getFormErrorMessage('account')}}</mat-error>
     </mat-form-field>
     <!-- End: Учетная запись -->
+
 
     <!-- Start: Пароль -->
     <mat-form-field
       class="w-100 mb-3"
       [hideRequiredMarker]="true">
       <input matInput
+             [(ngModel)]="password"
              formControlName="password"
              placeholder="Пароль"
              required>
@@ -32,8 +36,12 @@
   <button mat-stroked-button
           color="accent"
           class="w-100"
-          [disabled]="signInForm.invalid">
-    Войти
+          [disabled]="signInForm.invalid"
+          (click)="signIn()">
+    <div class="d-flex justify-content-center align-items-center">
+      <mat-spinner color="primary" diameter="10" class="mr-2" mode="indeterminate"></mat-spinner>
+      <span>Войти</span>
+    </div>
   </button>
 </div>
 <!-- Start: Кнопка отправки данных для авторизации на сервер -->

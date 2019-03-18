@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { Store } from '@ngrx/store';
 import { AuthenticationService } from '../../services/authentication.service';
+import { IAuthenticationState } from '../../state/authentication.state';
+import { AuthenticationSignIn } from '../../state/authentication.actions';
 
 @Component({
   selector: 'lib-sign-in',
@@ -14,7 +17,7 @@ export class SignInComponent implements OnInit {
   public password: string = null;
 
   constructor(private builder: FormBuilder,
-              private authentication: AuthenticationService) {
+              private store: Store<IAuthenticationState>) {
   }
 
   ngOnInit() {
@@ -36,7 +39,7 @@ export class SignInComponent implements OnInit {
   }
 
   signIn() {
-
+    this.store.dispatch(new AuthenticationSignIn({account: this.account, password: this.password}));
   }
 
 }

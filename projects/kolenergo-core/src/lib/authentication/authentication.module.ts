@@ -1,16 +1,18 @@
 import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+
+import { MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSnackBarModule, MatProgressSpinnerModule } from '@angular/material';
 import { EffectsModule } from '@ngrx/effects';
-
-
 import { StoreModule } from '@ngrx/store';
+import { ResourceModule } from '@ngx-resource/handler-ngx-http';
+
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { AuthenticationResource } from './resources/authentication.resource';
 import { IAuthenticationModuleConfig } from './config.interface';
 import { reducer } from './state/authentication.reducer';
-import { AppEffects } from './state/app.effects';
+import { AuthenticationEffects } from './state/authentication.effects';
 
 export const AuthenticationConfigService = new InjectionToken<IAuthenticationModuleConfig>('AuthenticationConfig');
 
@@ -18,13 +20,17 @@ export const AuthenticationConfigService = new InjectionToken<IAuthenticationMod
   declarations: [SignInComponent],
   imports: [
     CommonModule,
+    HttpClientModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatDialogModule,
     MatInputModule,
     MatFormFieldModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    ResourceModule.forChild(),
     StoreModule.forFeature('session', reducer),
-    EffectsModule.forFeature([AppEffects])
+    EffectsModule.forFeature([AuthenticationEffects])
   ],
   entryComponents: [SignInComponent],
   exports: [SignInComponent]
