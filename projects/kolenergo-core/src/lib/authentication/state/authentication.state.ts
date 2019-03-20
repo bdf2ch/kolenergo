@@ -1,4 +1,4 @@
-import {IUser} from '../../interfaces';
+import { IUser } from '../../interfaces';
 
 /**
  * Интерфейс, описывающий состояние текущей сессии

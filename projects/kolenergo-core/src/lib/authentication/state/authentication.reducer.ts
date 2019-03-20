@@ -24,6 +24,7 @@ export function reducer(
     case authentication.actionTypes.AUTHENTICATION_FAIL:
       return {
         ...state,
+        user: null,
         isFetchingData: false
       };
     default: {

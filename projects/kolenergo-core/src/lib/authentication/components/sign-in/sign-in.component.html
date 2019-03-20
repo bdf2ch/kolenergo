@@ -7,7 +7,6 @@
       [hideRequiredMarker]="true">
       <mat-label>Учетная запись</mat-label>
       <input matInput
-             [(ngModel)]="account"
              formControlName="account"
              placeholder="Введите учетную запись"
              required>
@@ -21,30 +20,30 @@
       class="w-100 mb-3"
       [hideRequiredMarker]="true">
       <input matInput
-             [(ngModel)]="password"
+             type="password"
              formControlName="password"
              placeholder="Пароль"
              required>
       <mat-error *ngIf="signInForm.controls['password'].invalid">{{getFormErrorMessage('password')}}</mat-error>
     </mat-form-field>
     <!-- End: Пароль -->
+
+    <!-- Start: Кнопка отправки данных для авторизации на сервер -->
+    <button mat-stroked-button
+            type="submit"
+            color="accent"
+            class="w-100"
+            [disabled]="signInForm.invalid || (isFetchingData$ | async)"
+            (click)="signIn()">
+      <div class="d-flex justify-content-center align-items-center">
+        <mat-spinner color="primary" diameter="15" class="mr-3" mode="indeterminate" *ngIf="(isFetchingData$ | async)"></mat-spinner>
+        <span>Войти</span>
+      </div>
+    </button>
+    <!-- Start: Кнопка отправки данных для авторизации на сервер -->
   </form>
 </div>
 
-<!-- Start: Кнопка отправки данных для авторизации на сервер -->
-<div class="d-flex justify-content-center w-100 pb-2" [formGroup]="signInForm">
-  <button mat-stroked-button
-          color="accent"
-          class="w-100"
-          [disabled]="signInForm.invalid"
-          (click)="signIn()">
-    <div class="d-flex justify-content-center align-items-center">
-      <mat-spinner color="primary" diameter="10" class="mr-2" mode="indeterminate"></mat-spinner>
-      <span>Войти</span>
-    </div>
-  </button>
-</div>
-<!-- Start: Кнопка отправки данных для авторизации на сервер -->
 
 <!-- Start: Напоминание об использовании учетной записи Active Directory -->
 <div class="reminder text-muted border-top mt-3 pt-2 text-center">

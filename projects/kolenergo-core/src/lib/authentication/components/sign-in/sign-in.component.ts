@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { AuthenticationService } from '../../services/authentication.service';
 import { IAuthenticationState } from '../../state/authentication.state';
 import { AuthenticationSignIn } from '../../state/authentication.actions';
+import * as selectors from '../../state/authentication.selectors';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'lib-sign-in',
@@ -13,17 +15,15 @@ import { AuthenticationSignIn } from '../../state/authentication.actions';
 })
 export class SignInComponent implements OnInit {
   public signInForm: FormGroup;
-  public account: string = null;
-  public password: string = null;
+  public isFetchingData$: Observable<boolean> = this.store.select((state) => state.isFetchingData);
 
   constructor(private builder: FormBuilder,
-              private store: Store<IAuthenticationState>) {
-  }
+              private store: Store<IAuthenticationState>) {}
 
   ngOnInit() {
     this.signInForm = this.builder.group({
-      account: [this.account, Validators.required],
-      password: [this.password, Validators.required]
+      account: [null, Validators.required],
+      password: [null, Validators.required]
     });
   }
 
@@ -39,7 +39,12 @@ export class SignInComponent implements OnInit {
   }
 
   signIn() {
-    this.store.dispatch(new AuthenticationSignIn({account: this.account, password: this.password}));
+    this.store.dispatch(
+      new AuthenticationSignIn({
+        account: this.signInForm.get('account').value,
+        password: this.signInForm.get('password').value
+      })
+    );
   }
 
 }

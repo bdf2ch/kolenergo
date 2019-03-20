@@ -39,15 +39,4 @@ export class AuthenticationEffects {
             catchError(() => EMPTY)
           ))
       );
-
-  @Effect()
-  sigInSuccess$ = this.actions$
-    .pipe(
-      ofType(auth.actionTypes.AUTHENTICATION_SUCCESS),
-      mergeMap((action: AuthenticationSuccess) => EMPTY
-        .pipe(
-          tap(() => this.snackBar.open('SIGN IN COMPLETE')),
-          catchError(() => EMPTY)
-        ))
-    );
 }
