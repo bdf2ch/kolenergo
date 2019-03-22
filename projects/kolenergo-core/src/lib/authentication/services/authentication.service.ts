@@ -16,11 +16,13 @@ export class AuthenticationService {
               private snackBar: MatSnackBar) {}
 
   signIn(account: string, password: string, addIfNotExists?: boolean, appCode?: string): Observable<any> {
-    return from(this.resource.signIn({account, password, addIfNotExists, appCode}))
+    return from(this.resource.signIn({account, password, addIfNotExists, appCode}));
+      /*
       .pipe(
         map((response: IUser) => {
           return response ? new User(response) : null;
         }),
+
         catchError((error) => {
           console.error(error);
           switch (error.status) {
@@ -46,8 +48,10 @@ export class AuthenticationService {
               });
               break;
           }
-          return EMPTY;
+          throw new Error();
         })
+
       );
+      */
   }
 }

@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSnackBarModule, MatProgressSpinnerModule } from '@angular/material';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ResourceModule } from '@ngx-resource/handler-ngx-http';
 
 import { SignInComponent } from './components/sign-in/sign-in.component';
@@ -30,7 +31,8 @@ export const AuthenticationConfigService = new InjectionToken<IAuthenticationMod
     MatProgressSpinnerModule,
     ResourceModule.forChild(),
     StoreModule.forFeature('session', reducer),
-    EffectsModule.forFeature([AuthenticationEffects])
+    EffectsModule.forFeature([AuthenticationEffects]),
+    StoreDevtoolsModule.instrument({ maxAge: 25 })
   ],
   entryComponents: [SignInComponent],
   exports: [SignInComponent]

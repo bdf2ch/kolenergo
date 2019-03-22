@@ -23,8 +23,9 @@ export class AuthenticationEffects {
         ofType(auth.actionTypes.AUTHENTICATION_SIGN_IN),
         mergeMap((action: AuthenticationSignIn) => this.authentication.signIn(action.payload.account, action.payload.password)
           .pipe(
-            tap(() => console.log('SIGN IN')),
+            tap(() => console.log('SIGN IN EFFECT')),
             map((result) => {
+              console.log('SIGN IN RESULT', result);
               if (result) {
                 return {
                   type: auth.actionTypes.AUTHENTICATION_SUCCESS,
@@ -36,7 +37,10 @@ export class AuthenticationEffects {
                 };
               }
             }),
-            catchError(() => EMPTY)
+            catchError(() => {
+              console.log('fucking error');
+              return of({type: auth.actionTypes.AUTHENTICATION_FAIL});
+            })
           ))
       );
 }

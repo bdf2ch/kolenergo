@@ -7,10 +7,13 @@ import {
 } from '@ngrx/store';
 import { environment } from '../../environments/environment';
 import { IApplicationState } from './application.state';
+export { reducer } from './application.reducers';
 export * from './application.state';
-
+export * from './application.actions';
 /*
-export const reducers: ActionReducerMap<IApplicationState> = {};
+export const reducers: ActionReducerMap<IApplicationState> = {
+  aho: reducer
+};
 */
 
 

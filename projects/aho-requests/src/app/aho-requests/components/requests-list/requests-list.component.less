@@ -1,0 +1,23 @@
+@request-background-color-hover: white;
+@request-border-color: #eceff1;
+
+.aho-requests-list {
+  display: flex;
+  flex-direction: column;
+
+  .aho-request {
+    display: flex;
+    flex-direction: row;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid @request-border-color;
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: @request-background-color-hover;
+    }
+  }
+}

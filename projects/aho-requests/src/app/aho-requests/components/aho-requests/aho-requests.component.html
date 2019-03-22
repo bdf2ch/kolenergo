@@ -1,0 +1,35 @@
+<div class="d-flex flex-column h-100">
+  <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+  <mat-sidenav-container hasBackdrop="false" style="flex: 1;">
+    <mat-sidenav mode="over">sidenav</mat-sidenav>
+    <mat-sidenav-content>
+
+      <div class="container-fluid">
+        <div class="row no-gutters app-header">
+          <div class="d-none d-md-flex col-2 justify-content-start align-items-center pl-4">title</div>
+
+          <div class="col-12 col-md-8 d-flex justify-content-center align-items-center">
+            <button mat-icon-button class="d-md-none" color="primary">
+              <mat-icon>menu</mat-icon>
+            </button>
+            <app-requests-search class="w-100"></app-requests-search>
+          </div>
+
+          <div class="d-none d-md-flex col-2 justify-content-end align-items-center pr-4">
+            <button mat-stroked-button>
+              Викентий Старовойтов
+              <mat-icon>arrow_drop_down</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 pl-2 pr-2 pl-md-4 pr-md-4">
+            <app-requests-list></app-requests-list>
+          </div>
+        </div>
+      </div>
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

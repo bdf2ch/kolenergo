@@ -31,12 +31,12 @@
     <!-- Start: Кнопка отправки данных для авторизации на сервер -->
     <button mat-stroked-button
             type="submit"
-            color="accent"
+            color="primary"
             class="w-100"
-            [disabled]="signInForm.invalid || (isFetchingData$ | async)"
+            [disabled]="signInForm.invalid"
             (click)="signIn()">
       <div class="d-flex justify-content-center align-items-center">
-        <mat-spinner color="primary" diameter="15" class="mr-3" mode="indeterminate" *ngIf="(isFetchingData$ | async)"></mat-spinner>
+        <mat-spinner color="primary" diameter="15" class="mr-3" mode="indeterminate"></mat-spinner>
         <span>Войти</span>
       </div>
     </button>
@@ -50,5 +50,4 @@
   <small>Для входа в приложение используйте Вашу учетную запись Active Directory</small>
 </div>
 <!-- End: Напоминание об использовании учетной записи Active Directory -->
-
 

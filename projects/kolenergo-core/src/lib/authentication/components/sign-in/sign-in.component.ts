@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { select, Store } from '@ngrx/store';
+import {createFeatureSelector, select, Store} from '@ngrx/store';
 import { AuthenticationService } from '../../services/authentication.service';
 import { IAuthenticationState } from '../../state/authentication.state';
 import { AuthenticationSignIn } from '../../state/authentication.actions';
 import * as selectors from '../../state/authentication.selectors';
 import { Observable } from 'rxjs';
+import {IUser} from '../../../interfaces';
 
 @Component({
   selector: 'lib-sign-in',
@@ -15,7 +16,7 @@ import { Observable } from 'rxjs';
 })
 export class SignInComponent implements OnInit {
   public signInForm: FormGroup;
-  public isFetchingData$: Observable<boolean> = this.store.select((state) => state.isFetchingData);
+  // public isFetchingData$: Observable<boolean> = this.store.pipe(createFeatureSelector());
 
   constructor(private builder: FormBuilder,
               private store: Store<IAuthenticationState>) {}
@@ -24,6 +25,21 @@ export class SignInComponent implements OnInit {
     this.signInForm = this.builder.group({
       account: [null, Validators.required],
       password: [null, Validators.required]
+    });
+
+    /*
+    this.isFetchingData$.subscribe((value: boolean) => {
+      console.log('isFetchingData', value);
+    });
+    */
+
+
+    this.store.select(state => state.isFetchingData).subscribe((isFetchingData: boolean) => {
+      console.log('isFetchingData', isFetchingData);
+    });
+
+    this.store.select(state => state.user).subscribe((user: IUser) => {
+      console.log('user', user);
     });
   }
 
