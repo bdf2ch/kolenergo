@@ -2,11 +2,28 @@
   <div class="search-before">
     <mat-icon>search</mat-icon>
   </div>
-  <div class="search-filters"></div>
+  <div class="search-filters d-none d-md-flex">
+    <div class="filter" *ngFor="let filter of filterManager.getAppliedFilters()"
+         (click)="resetFilter(filter)"
+         matTooltip="{{filter.getTitle()}}"
+         matTooltipPosition="above">
+      {{filter.getLabel()}}
+    </div>
+  </div>
   <div class="search-input">
     <input type="text" [(ngModel)]="search">
   </div>
   <div class="search-after">
-    after
+    <button
+      *ngIf="search"
+      mat-icon-button
+      matTooltip="Очистить поиск"
+      (click)="clearSearchField()">
+      <mat-icon>close</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Фильтры">
+      <mat-icon>filter_list</mat-icon>
+      <div class="indicator" *ngIf="filterManager.isFiltersApplied()"></div>
+    </button>
   </div>
 </div>

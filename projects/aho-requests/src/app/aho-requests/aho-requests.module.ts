@@ -7,14 +7,22 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatBadgeModule } from '@angular/material/badge';
 
 import { AhoRequestsRoutingModule } from './aho-requests-routing.module';
 import { AhoRequestsComponent } from './components/aho-requests/aho-requests.component';
 import { RequestsSearchComponent } from './components/requests-search/requests-search.component';
 import { RequestsListComponent } from './components/requests-list/requests-list.component';
+import { TabsComponent } from './components/tabs/tabs.component';
 
 @NgModule({
-  declarations: [AhoRequestsComponent, RequestsSearchComponent, RequestsListComponent],
+  declarations: [
+    AhoRequestsComponent,
+    RequestsSearchComponent,
+    RequestsListComponent,
+    TabsComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -24,7 +32,9 @@ import { RequestsListComponent } from './components/requests-list/requests-list.
     MatProgressBarModule,
     MatButtonModule,
     MatMenuModule,
-    MatIconModule
+    MatIconModule,
+    MatTooltipModule,
+    MatBadgeModule
   ]
 })
 export class AhoRequestsModule { }

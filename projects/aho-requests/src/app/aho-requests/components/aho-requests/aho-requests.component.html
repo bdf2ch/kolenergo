@@ -5,31 +5,61 @@
     <mat-sidenav-content>
 
       <div class="container-fluid">
-        <div class="row no-gutters app-header">
-          <div class="d-none d-md-flex col-2 justify-content-start align-items-center pl-4">title</div>
-
-          <div class="col-12 col-md-8 d-flex justify-content-center align-items-center">
-            <button mat-icon-button class="d-md-none" color="primary">
-              <mat-icon>menu</mat-icon>
-            </button>
-            <app-requests-search class="w-100"></app-requests-search>
+        <div class="row no-gutters app-header pt-3 pb-3 pt-md-4 pb-md-4">
+          <div class="header-title d-none d-md-flex col-auto col-xl-2 justify-content-start align-items-center pl-2 pl-xl-4 pr-0 pr-md-2">
+            <div class="header-title-label">
+              <mat-icon class="title-icon" color="primary">build</mat-icon>
+              <span class="title-label d-none d-xl-flex">Заявки АХО</span>
+            </div>
           </div>
 
-          <div class="d-none d-md-flex col-2 justify-content-end align-items-center pr-4">
-            <button mat-stroked-button>
-              Викентий Старовойтов
+          <div class="col-12 col-md-8 d-flex justify-content-center align-items-center">
+            <button mat-icon-button class="d-md-none mr-2" color="primary">
+              <mat-icon>menu</mat-icon>
+            </button>
+            <app-requests-search
+              [filters]="(filters$ | async)"
+              (clearSearch)="clearSearch()"
+              (changeFilters)="filtersChange($event)"
+              class="w-100">
+            </app-requests-search>
+          </div>
+
+          <div class="d-none d-md-flex col-2 col-md-auto justify-content-end align-items-center pr-2 pl-xl-4">
+            <button mat-stroked-button color="primary" class="col-auto col-md-12 col-xl-auto" [matMenuTriggerFor]="userMenu">
+              <span class="d-xl-inline d-md-none">Викентий Старовойтов</span>
+              <span class="d-md-inline d-xl-none">Викентий</span>
               <mat-icon>arrow_drop_down</mat-icon>
             </button>
+            <mat-menu #userMenu="matMenu" [yPosition]="'below'" class="user-menu">
+              <button mat-menu-item>
+                <mat-icon color="primary">exit_to_app</mat-icon>
+                Выйти
+              </button>
+            </mat-menu>
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-12 pl-2 pr-2 pl-md-4 pr-md-4">
+        <!-- Start: Вкладки с режимами отображения заявок -->
+        <div class="row no-gutters d-none d-md-flex mt-3">
+          <div class="col-12 pl-2 pr-2 pl-xl-4 pr-xl-4">
+            <app-tabs></app-tabs>
+          </div>
+        </div>
+        <!-- End: Вклвдки с режимами отображения заявок -->
+
+        <div class="row no-gutters">
+          <div class="col-12 pl-xl-4 pr-xl-4">
             <app-requests-list></app-requests-list>
           </div>
         </div>
       </div>
 
+
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
+
+<button mat-fab color="accent" class="add-request-button" matTooltip="Добавить заявку" matTooltipPosition="left">
+  <mat-icon color="primary">add</mat-icon>
+</button>

@@ -1,0 +1,45 @@
+<div class="tabs-component">
+  <div class="tabs-container">
+    <div class="tab selected">
+      <mat-icon>search</mat-icon>
+      <span class="tab-label">
+        Найденные
+      </span>
+    </div>
+    <div class="tab">
+      <mat-icon>list</mat-icon>
+      <span class="tab-label">
+        Все заявки
+      </span>
+    </div>
+    <div class="tab">
+      <mat-icon>person</mat-icon>
+      <span class="tab-label">
+        Ваши заявки
+      </span>
+    </div>
+    <div class="tab">
+      <mat-icon>play_circle_outline</mat-icon>
+      <span class="tab-label">
+        Вы исполнитель
+      </span>
+    </div>
+    <div class="tab">
+      <mat-icon>calendar_today</mat-icon>
+      <span class="tab-label">
+        Просроченные
+      </span>
+    </div>
+  </div>
+  <div class="controls-container">
+    <button mat-icon-button [matMenuTriggerFor]="requestListMenu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #requestListMenu="matMenu" [yPosition]="'below'" class="user-menu">
+      <button mat-menu-item>
+        <mat-icon color="primary">insert_drive_file</mat-icon>
+        Экспорт в Excel
+      </button>
+    </mat-menu>
+  </div>
+</div>

@@ -2,6 +2,14 @@
 @background-color: #eceff1;
 @border-radius: 4px;
 @icon-color: #b0bec5;
+@icon-color-hover: #90a4ae;
+@indicator-background-color: #ffb300;
+@filter-background-color: #ffd740;
+@filter-bacground-color-hover: #ffc400;
+@filter-font-size: 12px;
+@filter-font-color: #37474f;
+@filter-border-radius: 4px;
+
 
 .requests-search-component {
   display: flex;
@@ -16,21 +24,62 @@
     justify-content: center;
     align-items: center;
     padding-left: 10px;
-    padding-right: 10px;
+    // padding-right: 10px;
 
     .mat-icon {
+      width: 32px;
+      height: 32px;
+      font-size: 22px;
+      line-height: 32px;
       color: @icon-color;
+      &:hover {
+
+      }
     }
   }
 
-  .search-filters {}
+  .search-filters {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    // margin-left: 10px;
+
+    .filter {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 60%;
+      padding-left: 7px;
+      padding-right: 7px;
+      margin-right: 5px;
+      font-family: "Segoe UI";
+      font-size: @filter-font-size;
+      color: @filter-font-color;
+      background: @filter-background-color;
+      border-radius: @filter-border-radius;
+      cursor: pointer;
+
+      &:hover {
+        background: @filter-bacground-color-hover;
+      }
+
+      &:nth-last-of-type {
+        margin-left: 0px;
+      }
+    }
+  }
 
   .search-input {
     display: flex;
     flex: 1;
+    // margin-left: 10px;
+
     input {
       width: 100%;
       height: @height;
+      font-family: "Segoe UI";
       background: @background-color;
       border: none;
       outline: none;
@@ -44,5 +93,33 @@
     align-items: center;
     padding-left: 10px;
     padding-right: 10px;
+
+    .mat-icon-button {
+      position: relative;
+      width: 28px;
+      height: 28px;
+      line-height: 31px !important;
+
+      .mat-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 20px;
+        color: @icon-color;
+
+        &:hover {
+          color: @icon-color-hover;
+        }
+      }
+
+      .indicator {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        right: 0px;
+        top: 3px;
+        border-radius: 50%;
+        background: @indicator-background-color;
+      }
+    }
   }
 }
