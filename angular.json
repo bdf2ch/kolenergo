@@ -63,7 +63,8 @@
             ],
             "styles": [
               "projects/aho-requests/src/custom-theme.scss",
-              "projects/aho-requests/src/styles.less"
+              "projects/aho-requests/src/styles.less",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
             "scripts": [],
             "es5BrowserSupport": true

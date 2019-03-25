@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as state from './index';
-import {map, mergeMap, switchMap, tap, withLatestFrom} from 'rxjs/operators';
-import {AhoRequestsActionTypes, IApplicationState, LoadInitialData, selectCurrentPage} from './index';
-import {EMPTY, of} from 'rxjs';
-import {AhoRequestsService} from '../aho-requests/services/aho-requests.service';
-import {IAhoRequest, IAhoRequestsInitialData} from '../aho-requests/interfaces';
-import {IServerResponse} from '../../../../kolenergo-core/src/lib/interfaces';
-import {select, Store} from '@ngrx/store';
+import {
+  AhoRequestsActionTypes,
+  ApplicationModes,
+  IApplicationState,
+  selectCurrentPage,
+  SelectRequestsMode
+} from './index';
+import { map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
+import { AhoRequestsService } from '../aho-requests/services/aho-requests.service';
+import { IAhoRequest, IAhoRequestsInitialData } from '../aho-requests/interfaces';
+import { IServerResponse } from '../../../../kolenergo-core/src/lib/interfaces';
+import { select, Store } from '@ngrx/store';
 
 @Injectable()
 export class AppEffects {
@@ -17,6 +23,21 @@ export class AppEffects {
               private actions$: Actions,
               private aho: AhoRequestsService) {
   }
+
+  /*
+  @Effect()
+  modeChange$ = this.actions$.pipe(
+    ofType(state.AhoRequestsActionTypes.SELECT_REQUESTS_MODE),
+    mergeMap((action: SelectRequestsMode) => {
+      switch (action.payload) {
+        case ApplicationModes.EXPIRED_REQUESTS_MODE: {
+          return this.aho.fetchRequests();
+        }
+      }
+      return EMPTY;
+    })
+  );
+  */
 
   @Effect()
   loadInitialData$ = this.actions$.pipe(

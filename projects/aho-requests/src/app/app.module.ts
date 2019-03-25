@@ -10,6 +10,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatIconRegistry } from '@angular/material';
 import { ResourceModule} from '@ngx-resource/handler-ngx-http';
 
 import { metaReducers, IApplicationState, reducer, AhoRequestsActions, LoadInitialData } from './state';
@@ -23,6 +24,7 @@ import { AppComponent } from './app.component';
 import { AppEffects } from './state/app.effects';
 
 import { environment } from '../environments/environment';
+
 
 
 
@@ -54,12 +56,17 @@ import { environment } from '../environments/environment';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private store: Store<IApplicationState>) {
+  constructor(private store: Store<IApplicationState>,
+              private matIconRegistry: MatIconRegistry) {
     store.select((state: IApplicationState) => state)
       .subscribe((state: IApplicationState) => {
         console.log(state);
       });
 
     store.dispatch(new LoadInitialData());
+
+    this.matIconRegistry.registerFontClassAlias('fontawesome', 'fa');
+    this.matIconRegistry.registerFontClassAlias('fortawesome', 'fas');
+    this.matIconRegistry.registerFontClassAlias('fortawesome', 'far');
   }
 }

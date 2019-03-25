@@ -50,7 +50,7 @@ export function reducer(
     case actions.AhoRequestsActionTypes.LOAD_REQUESTS_SUCCESS: {
       return {
         ...state,
-        requests: [...state.requests, ...action.payload.data.requests],
+        requests: [...state.requests, ...action.payload.data.requests.map((item: IAhoRequest) => new AhoRequest(item))],
         currentPage: action.payload.data.page,
         fetchingDataInProgress: false
       };

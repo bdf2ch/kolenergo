@@ -23,6 +23,15 @@
         vertical-align: top;
         &.request-meta-details {
           min-width: 120px;
+          .mat-icon {
+            &.fa {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 18px;
+              height: 18px;
+            }
+          }
         }
 
         &.request-author-initiator {
@@ -42,7 +51,16 @@
         }
 
         &.request-status {
-
+          .mat-icon {
+            width: 20px;
+            height: 20px;
+            font-size: 20px;
+            &.far {
+              width: 21px;
+              height: 22px;
+              font-size: 22px;
+            }
+          }
         }
       }
     }
