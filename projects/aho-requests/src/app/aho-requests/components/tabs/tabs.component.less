@@ -1,4 +1,9 @@
 @icon-color: #b0bec5;
+@indicator-width: 20px;
+@indicator-height: 20px;
+@indicator-font-size: 13px;
+@indicator-font-color: black;
+@indicator-background-color: #ffd740;
 
 .tabs-component {
   display: flex;
@@ -30,7 +35,7 @@
 
       &.selected {
         background: #eeeeee;
-        border: 1px solid transparent;
+        // border: 1px solid transparent;
       }
 
       .tab-label {
@@ -44,6 +49,21 @@
         line-height: 21px;
         margin-right: 5px;
         color: @icon-color;
+      }
+
+      .indicator {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: @indicator-width;
+        height: @indicator-height;
+        margin-left: 10px;
+        font-family: "Segoe UI";
+        font-size: @indicator-font-size;
+        color: @indicator-font-color;
+        text-align: center;
+        background: @indicator-background-color;
+        border-radius: 50%;
       }
     }
   }

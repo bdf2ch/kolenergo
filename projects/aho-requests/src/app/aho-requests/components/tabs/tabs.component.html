@@ -1,33 +1,53 @@
 <div class="tabs-component">
   <div class="tabs-container">
-    <div class="tab selected">
+    <div class="tab" (click)="selectTab(applicationModes.SEARCH_REQUESTS_MODE)" [ngClass]="{'selected': (mode$ | async) === applicationModes.SEARCH_REQUESTS_MODE}">
       <mat-icon>search</mat-icon>
       <span class="tab-label">
         Найденные
       </span>
+      <span class="indicator"
+            matTooltip="Найдено заявок: 0"
+            matTooltipPosition="below">{{0}}
+      </span>
     </div>
-    <div class="tab">
+    <div class="tab" (click)="selectTab(applicationModes.ALL_REQUESTS_MODE)" [ngClass]="{'selected': (mode$ | async) === applicationModes.ALL_REQUESTS_MODE}">
       <mat-icon>list</mat-icon>
       <span class="tab-label">
         Все заявки
       </span>
+      <span class="indicator"
+            matTooltip="Новых заявок: {{(newRequestsCount$ | async)}}"
+            matTooltipPosition="below">{{(newRequestsCount$ | async)}}
+      </span>
     </div>
-    <div class="tab">
+    <div class="tab" (click)="selectTab(applicationModes.OWN_REQUESTS_MODE)" [ngClass]="{'selected': (mode$ | async) === applicationModes.OWN_REQUESTS_MODE}">
       <mat-icon>person</mat-icon>
       <span class="tab-label">
         Ваши заявки
       </span>
+      <span class="indicator"
+            matTooltip="Ваших заявок в работе: {{(ownUncompletedRequestsCount$ | async)}}"
+            matTooltipPosition="below">{{(ownUncompletedRequestsCount$ | async)}}
+      </span>
     </div>
-    <div class="tab">
+    <div class="tab" (click)="selectTab(applicationModes.EMPLOYEE_REQUESTS_MODE)" [ngClass]="{'selected': (mode$ | async) === applicationModes.EMPLOYEE_REQUESTS_MODE}">
       <mat-icon>play_circle_outline</mat-icon>
       <span class="tab-label">
         Вы исполнитель
       </span>
+      <span class="indicator"
+            matTooltip="Заявки в работе: {{(employeeUncompletedRequestsCount$ | async)}}"
+            matTooltipPosition="below">{{(employeeUncompletedRequestsCount$ | async)}}
+      </span>
     </div>
-    <div class="tab">
+    <div class="tab" (click)="selectTab(applicationModes.EXPIRED_REQUESTS_MODE)" [ngClass]="{'selected': (mode$ | async) === applicationModes.EXPIRED_REQUESTS_MODE}">
       <mat-icon>calendar_today</mat-icon>
       <span class="tab-label">
         Просроченные
+      </span>
+      <span class="indicator"
+            matTooltip="Просроченных заявок: {{(expiredRequestsCount$ | async)}}"
+            matTooltipPosition="below">{{(expiredRequestsCount$ | async)}}
       </span>
     </div>
   </div>

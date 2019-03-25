@@ -1,19 +1,41 @@
 import { IAuthenticationState, authenticationInitialState } from 'kolenergo-core';
 import { AhoRequestStatus, AhoRequestType, SearchFilter } from '../aho-requests/models';
-import { IAhoRequestRejectReason, IAhoRequestStatus, IAhoRequestType } from '../aho-requests/interfaces';
+import { IAhoRequest, IAhoRequestRejectReason, IAhoRequestStatus, IAhoRequestType} from '../aho-requests/interfaces';
 import { User } from 'kolenergo-core';
 import * as moment from 'moment';
 
+export enum ApplicationModes {
+  SEARCH_REQUESTS_MODE = 'search-requests-mode',
+  ALL_REQUESTS_MODE = 'all-requests-mode',
+  OWN_REQUESTS_MODE = 'own-requests-mode',
+  EMPLOYEE_REQUESTS_MODE = 'employee-requests-mode',
+  EXPIRED_REQUESTS_MODE = 'expired-requests-mode'
+}
+
 export interface IApplicationState {
   // session: IAuthenticationState;
+  mode: ApplicationModes;
+  fetchingDataInProgress: boolean;
   requestTypes: IAhoRequestType[];
   requestStatuses: IAhoRequestStatus[];
   requestRejectReasons: IAhoRequestRejectReason[];
   filters: SearchFilter<any>[];
+  requests: IAhoRequest[];
+  totalRequestsCount: number;
+  newRequestsCount: number;
+  ownRequestsCount: number;
+  ownUncompletedRequestsCount: number;
+  employeeRequestsCount: number;
+  employeeUncompletedRequestsCount: number;
+  expiredRequestsCount: number;
+  totalPages: number;
+  currentPage: number;
 }
 
 export const initialState: IApplicationState = {
   // session: authenticationInitialState
+  mode: ApplicationModes.ALL_REQUESTS_MODE,
+  fetchingDataInProgress: false,
   requestTypes: [],
   requestStatuses: [],
   requestRejectReasons: [],
@@ -23,5 +45,17 @@ export const initialState: IApplicationState = {
     new SearchFilter<User>('request-employee', 'Исполнитель', null, (value: User) => `${value.firstName} ${value.lastName}`, null),
     new SearchFilter<AhoRequestType>('request-type', 'Тип заявки', null, (value: AhoRequestType) => value.title, null),
     new SearchFilter<AhoRequestStatus>('request-status', 'Статус заявки', null, (value: AhoRequestStatus) => value.title, null)
-  ]
+  ],
+  requests: [],
+  totalRequestsCount: 0,
+  newRequestsCount: 0,
+  ownRequestsCount: 0,
+  ownUncompletedRequestsCount: 0,
+  employeeRequestsCount: 0,
+  employeeUncompletedRequestsCount: 0,
+  expiredRequestsCount: 0,
+  totalPages: 0,
+  currentPage: 0
 };
+
+

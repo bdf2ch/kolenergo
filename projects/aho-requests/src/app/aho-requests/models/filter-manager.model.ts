@@ -11,6 +11,13 @@ export class FilterManager {
   }
 
   /**
+   * Порлучение всех фильтров
+   */
+  getFilters(): SearchFilter<any>[] {
+    return this.filters;
+  }
+
+  /**
    * Поиск фильтра по идентификатору
    * @param id - Идентификатор фильтра
    */

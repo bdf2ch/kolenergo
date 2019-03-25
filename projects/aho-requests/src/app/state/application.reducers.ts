@@ -1,16 +1,23 @@
-import { IApplicationState, initialState } from './application.state';
+import {ApplicationModes, IApplicationState, initialState} from './application.state';
 import * as actions from './application.actions';
-import {AhoRequestRejectReason, AhoRequestStatus, AhoRequestType} from '../aho-requests/models';
-import {IAhoRequestRejectReason, IAhoRequestStatus, IAhoRequestType} from '../aho-requests/interfaces';
+import {AhoRequest, AhoRequestRejectReason, AhoRequestStatus, AhoRequestType} from '../aho-requests/models';
+import {IAhoRequest, IAhoRequestRejectReason, IAhoRequestStatus, IAhoRequestType} from '../aho-requests/interfaces';
 
 export function reducer(
   state: IApplicationState = initialState,
   action: actions.AhoRequestsActions
 ): IApplicationState {
   switch (action.type) {
+    case actions.AhoRequestsActionTypes.SELECT_REQUESTS_MODE: {
+      return {
+        ...state,
+        mode: action.payload
+      };
+    }
     case actions.AhoRequestsActionTypes.LOAD_INITIAL_DATA: {
       return {
-        ...state
+        ...state,
+        fetchingDataInProgress: true
       };
     }
     case actions.AhoRequestsActionTypes.INITIAL_DATA_LOAD_SUCCESS: {
@@ -25,13 +32,29 @@ export function reducer(
         }),
         requestRejectReasons: action.payload.data.rejectReasons.map((item: IAhoRequestRejectReason) => {
           return new AhoRequestRejectReason(item);
-        })
+        }),
+        requests: action.payload.data.requests.map((item: IAhoRequest) => {
+          return new AhoRequest(item);
+        }),
+        employeeRequestsCount: action.payload.data.employeeRequests_.totalRequestsCount,
+        expiredRequestsCount: action.payload.data.expiredRequests_.totalRequestsCount,
+        totalPages: Math.round(action.payload.data.allRequests.totalRequestsCount / 20),
+        fetchingDataInProgress: false
       };
     }
     case actions.AhoRequestsActionTypes.LOAD_REQUESTS:
       return {
-        ...state
+        ...state,
+        fetchingDataInProgress: true
       };
+    case actions.AhoRequestsActionTypes.LOAD_REQUESTS_SUCCESS: {
+      return {
+        ...state,
+        requests: [...state.requests, ...action.payload.data.requests],
+        currentPage: action.payload.data.page,
+        fetchingDataInProgress: false
+      };
+    }
     default: {
       return state;
     }

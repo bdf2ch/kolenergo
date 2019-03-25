@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as state from './index';
-import {map, mergeMap, tap} from 'rxjs/operators';
-import {AhoRequestsActionTypes, LoadInitialData} from './index';
+import {map, mergeMap, switchMap, tap, withLatestFrom} from 'rxjs/operators';
+import {AhoRequestsActionTypes, IApplicationState, LoadInitialData, selectCurrentPage} from './index';
 import {EMPTY, of} from 'rxjs';
 import {AhoRequestsService} from '../aho-requests/services/aho-requests.service';
-import {IAhoRequestsInitialData} from '../aho-requests/interfaces';
+import {IAhoRequest, IAhoRequestsInitialData} from '../aho-requests/interfaces';
 import {IServerResponse} from '../../../../kolenergo-core/src/lib/interfaces';
+import {select, Store} from '@ngrx/store';
 
 @Injectable()
 export class AppEffects {
-  constructor(private actions$: Actions,
-              private aho: AhoRequestsService) {}
+  currentPage: number;
+
+  constructor(private store: Store<IApplicationState>,
+              private actions$: Actions,
+              private aho: AhoRequestsService) {
+  }
 
   @Effect()
   loadInitialData$ = this.actions$.pipe(
@@ -21,6 +26,20 @@ export class AppEffects {
       .pipe(
         map((data: IServerResponse<IAhoRequestsInitialData>) => {
           return {type: AhoRequestsActionTypes.INITIAL_DATA_LOAD_SUCCESS, payload: {data: data.data}};
+        })
+      )
+    )
+  );
+
+  @Effect()
+  loadRequests$ = this.actions$.pipe(
+    ofType(state.AhoRequestsActionTypes.LOAD_REQUESTS),
+    tap(() => console.log('LOAD_REQUESTS_EFFECT')),
+    withLatestFrom(this.store.pipe(select(selectCurrentPage))),
+    switchMap(([action, page]) => this.aho.fetchRequests(0, 0, 0, 0, 0, 0, false, (page + 1), 20, null)
+      .pipe(
+        map((response: IServerResponse<{requests: IAhoRequest[], totalRequests: number}>) => {
+          return {type: AhoRequestsActionTypes.LOAD_REQUESTS_SUCCESS, payload: {data: {...response.data, page: page + 1}}};
         })
       )
     )

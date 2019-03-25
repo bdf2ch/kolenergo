@@ -1,9 +1,12 @@
+/**
+ * Класс, реализующий функционал фильтра поиска
+ */
 export class SearchFilter<T> {
-  private id: string;                                       // Идентификатор
-  private title: string;                                    // Наиманование
-  private label: (value: T) => string;       // Надпись
-  private value: T;                                         // Значение
-  private defaultValue: T;                                  // Значение по умолчанию
+  private readonly id: string;                    // Идентификатор
+  private readonly title: string;                 // Наиманование
+  private readonly label: (value: T) => string;   // Надпись
+  private value: T;                               // Значение
+  private readonly defaultValue: T;               // Значение по умолчанию
 
   /**
    * Конструктор
@@ -39,12 +42,6 @@ export class SearchFilter<T> {
   getLabel(): string {
     return this.label(this.value);
   }
-
-  /*
-  setLabel(func: (filter: SearchFilter<T>) => string) {
-    this.label = func;
-  }
-  */
 
   /**
    * Получение значения фильтра

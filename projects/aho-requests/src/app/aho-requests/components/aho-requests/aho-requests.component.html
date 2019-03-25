@@ -1,19 +1,25 @@
 <div class="d-flex flex-column h-100">
-  <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+  <mat-progress-bar mode="indeterminate" color="accent" [ngStyle]="{'visibility': !(fetchingDataInProgress$ | async) ? 'hidden' : 'visible'}"></mat-progress-bar>
   <mat-sidenav-container hasBackdrop="false" style="flex: 1;">
     <mat-sidenav mode="over">sidenav</mat-sidenav>
     <mat-sidenav-content>
 
-      <div class="container-fluid">
-        <div class="row no-gutters app-header pt-3 pb-3 pt-md-4 pb-md-4">
-          <div class="header-title d-none d-md-flex col-auto col-xl-2 justify-content-start align-items-center pl-2 pl-xl-4 pr-0 pr-md-2">
+      <div class="container-fluid p-2 pr-xl-4 pl-xl-4">
+
+        <!-- Start: Заголовок, поиск и фильтрация, меню пользователя -->
+        <div class="row no-gutters app-header pt-2 pb-3 pt-md-4 pb-md-4">
+
+          <!-- Start: Заголовок приложения -->
+          <div class="header-title d-none d-md-flex col-auto justify-content-start align-items-center pr-0 pr-md-2 pr-xl-4">
             <div class="header-title-label">
               <mat-icon class="title-icon" color="primary">build</mat-icon>
               <span class="title-label d-none d-xl-flex">Заявки АХО</span>
             </div>
           </div>
+          <!-- End: Заголовок приложения -->
 
-          <div class="col-12 col-md-8 d-flex justify-content-center align-items-center">
+          <!-- Start: Поиск и фильтрация заявок -->
+          <div class="col-12 col-md d-flex justify-content-center align-items-center">
             <button mat-icon-button class="d-md-none mr-2" color="primary">
               <mat-icon>menu</mat-icon>
             </button>
@@ -24,9 +30,11 @@
               class="w-100">
             </app-requests-search>
           </div>
+          <!-- End: Поиск и фильтрация заявок -->
 
-          <div class="d-none d-md-flex col-2 col-md-auto justify-content-end align-items-center pr-2 pl-xl-4">
-            <button mat-stroked-button color="primary" class="col-auto col-md-12 col-xl-auto" [matMenuTriggerFor]="userMenu">
+          <!-- Start: Меню текущего пользователя -->
+          <div class="d-none d-md-flex col-2 col-md-auto justify-content-end align-items-center pl-md-2 pl-xl-4">
+            <button mat-stroked-button color="primary" class="col-auto col-md-auto" [matMenuTriggerFor]="userMenu">
               <span class="d-xl-inline d-md-none">Викентий Старовойтов</span>
               <span class="d-md-inline d-xl-none">Викентий</span>
               <mat-icon>arrow_drop_down</mat-icon>
@@ -34,25 +42,31 @@
             <mat-menu #userMenu="matMenu" [yPosition]="'below'" class="user-menu">
               <button mat-menu-item>
                 <mat-icon color="primary">exit_to_app</mat-icon>
-                Выйти
+                Выйти  из приложения
               </button>
             </mat-menu>
           </div>
+          <!-- End: Меню текущего пользователя -->
+
         </div>
+        <!-- End: Заголовок, поиск и фильтрация, меню пользователя -->
 
         <!-- Start: Вкладки с режимами отображения заявок -->
         <div class="row no-gutters d-none d-md-flex mt-3">
-          <div class="col-12 pl-2 pr-2 pl-xl-4 pr-xl-4">
+          <div class="col-12">
             <app-tabs></app-tabs>
           </div>
         </div>
-        <!-- End: Вклвдки с режимами отображения заявок -->
+        <!-- End: Вкладки с режимами отображения заявок -->
 
+        <!-- Start: Список заявок -->
         <div class="row no-gutters">
-          <div class="col-12 pl-xl-4 pr-xl-4">
-            <app-requests-list></app-requests-list>
+          <div class="col-12 pt-3">
+            <app-requests-list [requests]="(requests$ | async)"></app-requests-list>
           </div>
         </div>
+        <!-- End: Списсок заявок -->
+
       </div>
 
 
