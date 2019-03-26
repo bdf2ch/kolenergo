@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { MatDialog } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -13,6 +14,7 @@ import {
   selectFetchingDataInProgress
 } from '../../../state';
 import { IAhoRequest } from '../../interfaces';
+import { FiltersDialogComponent } from '../filters-dialog/filters-dialog.component';
 
 @Component({
   selector: 'app-aho-requests',
@@ -26,7 +28,8 @@ export class AhoRequestsComponent implements OnInit {
   public filters$: Observable<FilterManager>;
   public applicationModes = ApplicationModes;
 
-  constructor(private store: Store<IApplicationState>) { }
+  constructor(private store: Store<IApplicationState>,
+              private dialog: MatDialog) { }
 
   ngOnInit() {
     this.fetchingDataInProgress$ = this.store.pipe(select(selectFetchingDataInProgress));
@@ -51,6 +54,12 @@ export class AhoRequestsComponent implements OnInit {
     // const endDateFilter = manager.getFilterById('end-date');
     // console.log('endDateFilter', endDateFilter);
     // endDateFilter.setLabel((endDateFilter) => endDateFilter.getValue().toDateString());
+  }
+
+  openFiltersDialog() {
+    this.dialog.open(FiltersDialogComponent, {
+      width: '380px'
+    });
   }
 
   clearSearch() {

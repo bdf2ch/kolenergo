@@ -26,6 +26,7 @@
             <app-requests-search
               [filters]="(filters$ | async).getFilters()"
               (clearSearch)="clearSearch()"
+              (openFilters)="openFiltersDialog()"
               (changeFilters)="filtersChange($event)"
               class="w-100">
             </app-requests-search>

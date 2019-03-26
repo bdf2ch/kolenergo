@@ -11,7 +11,16 @@ export function reducer(
     case actions.AhoRequestsActionTypes.LOAD_EXPIRED_REQUESTS: {
       return {
         ...state,
-        mode: ApplicationModes.EXPIRED_REQUESTS_MODE
+        mode: ApplicationModes.EXPIRED_REQUESTS_MODE,
+        fetchingDataInProgress: true
+      };
+    }
+    case actions.AhoRequestsActionTypes.LOAD_EXPIRED_REQUESTS_SUCCESS: {
+      return {
+        ...state,
+        requests: [...action.payload.data.requests.map((item: IAhoRequest) => new AhoRequest(item))],
+        totalPages: Math.floor(action.payload.data.totalRequests / state.itemsOnPage),
+        fetchingDataInProgress: false
       };
     }
     case actions.AhoRequestsActionTypes.SELECT_REQUESTS_MODE: {
@@ -44,7 +53,7 @@ export function reducer(
         }),
         employeeRequestsCount: action.payload.data.employeeRequests_.totalRequestsCount,
         expiredRequestsCount: action.payload.data.expiredRequests_.totalRequestsCount,
-        totalPages: Math.round(action.payload.data.allRequests.totalRequestsCount / 20),
+        totalPages: Math.round(action.payload.data.allRequests.totalRequestsCount / state.itemsOnPage),
         fetchingDataInProgress: false
       };
     }

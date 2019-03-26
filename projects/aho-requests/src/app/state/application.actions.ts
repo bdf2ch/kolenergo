@@ -15,6 +15,8 @@ export enum AhoRequestsActionTypes {
   LOAD_NEXT_PAGE = '[AHO Requests] Load next page of requests',
   CHANGE_SEARCH = '[Search] Search changed',
   CLEAR_SEARCH = '[Search] Search cleared',
+  OPEN_FILTERS_DIALOG = '[Filters] Open filters dialog',
+  CLOSE_FILTERS_DIALOG = '[Filters] Close filters dialog',
   CHANGE_FILTERS = '[Filters] Filters changed',
   RESET_FILTERS = '[Filters] Filters reset'
 }
@@ -32,7 +34,7 @@ export class LoadExpiredRequests implements Action {
 export class LoadExpiredRequestsSuccess implements Action {
   readonly type = AhoRequestsActionTypes.LOAD_EXPIRED_REQUESTS_SUCCESS;
 
-  constructor(public payload: IServerResponse<{requests: IAhoRequest[], totalRequest: number}>) {}
+  constructor(public payload: IServerResponse<{requests: IAhoRequest[], totalRequests: number}>) {}
 }
 
 /**
@@ -93,6 +95,20 @@ export class ClearSearch implements Action {
 }
 
 /**
+ * Открытие диалогового окна с фильтрами
+ */
+export class OpenFiltersDialog implements Action {
+  readonly type = AhoRequestsActionTypes.OPEN_FILTERS_DIALOG;
+}
+
+/**
+ * Закрытие диалогового окна с фильтрами
+ */
+export class CloseFiltersDialog implements Action {
+  readonly  type = AhoRequestsActionTypes.CLOSE_FILTERS_DIALOG;
+}
+
+/**
  * Событие изменения примененных фильтров
  */
 export class ChangeFilters implements Action {
@@ -110,6 +126,7 @@ export class ResetFilters implements Action {
 
 export type AhoRequestsActions =
   LoadExpiredRequests |
+  LoadExpiredRequestsSuccess |
   LoadRequestsSuccess |
   SelectRequestsMode |
   LoadInitialData |

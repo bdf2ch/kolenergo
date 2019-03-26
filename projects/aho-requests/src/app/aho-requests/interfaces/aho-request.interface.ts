@@ -20,6 +20,7 @@ export interface IAhoRequest {
   room: string;                             // Кабинет
   dateCreated: number;                      // Дата создания заявки в формате Unix
   dateExpires: number;                      // Дата исполнения заявки в формате Unix
+  isExpired: boolean;                       // Просрочена ли заявка
   numberOfLoaders: number;                  // Требуемое количество грузчиков
   initiator: string;                        // Инициатор
   phone: string;                            // Контактный телефон

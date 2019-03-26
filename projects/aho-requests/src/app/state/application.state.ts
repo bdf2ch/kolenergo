@@ -30,6 +30,7 @@ export interface IApplicationState {
   expiredRequestsCount: number;
   totalPages: number;
   currentPage: number;
+  itemsOnPage: number;
 }
 
 export const initialState: IApplicationState = {
@@ -40,8 +41,8 @@ export const initialState: IApplicationState = {
   requestStatuses: [],
   requestRejectReasons: [],
   filters: new FilterManager([
-    new SearchFilter<Date>('start-date', 'Начальная дата', new Date(), (value: Date) => `с ${moment(value).format('DD.MM.YYYY')}`),
-    new SearchFilter<Date>('end-date', 'Конечная дата', new Date(), (value: Date) => `по ${moment(value).format('DD.MM.YYYY')}`),
+    new SearchFilter<Date>('start-date', 'Начальная дата', null, (value: Date) => `с ${moment(value).format('DD.MM.YYYY')}`),
+    new SearchFilter<Date>('end-date', 'Конечная дата', null, (value: Date) => `по ${moment(value).format('DD.MM.YYYY')}`),
     new SearchFilter<User>('request-employee', 'Исполнитель', null, (value: User) => `${value.firstName} ${value.lastName}`, null),
     new SearchFilter<AhoRequestType>('request-type', 'Тип заявки', null, (value: AhoRequestType) => value.title, null),
     new SearchFilter<AhoRequestStatus>('request-status', 'Статус заявки', null, (value: AhoRequestStatus) => value.title, null)
@@ -55,7 +56,8 @@ export const initialState: IApplicationState = {
   employeeUncompletedRequestsCount: 0,
   expiredRequestsCount: 0,
   totalPages: 0,
-  currentPage: 0
+  currentPage: 0,
+  itemsOnPage: 20
 };
 
 

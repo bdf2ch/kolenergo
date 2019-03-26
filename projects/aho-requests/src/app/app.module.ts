@@ -21,7 +21,7 @@ import { metaReducers, IApplicationState, reducer, AhoRequestsActions, LoadIniti
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { AppEffects } from './state/app.effects';
+import { ApplicationEffects } from './state/application.effects';
 
 import { environment } from '../environments/environment';
 
@@ -49,7 +49,7 @@ import { environment } from '../environments/environment';
     */
     ResourceModule.forRoot(),
     StoreModule.forRoot({ aho: reducer }),
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([ApplicationEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [],

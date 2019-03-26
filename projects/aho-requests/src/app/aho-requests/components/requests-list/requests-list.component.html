@@ -42,6 +42,13 @@
         </div>
       </td>
 
+      <td class="request-date-expires">
+        <div class="d-flex flex-column">
+          <div *ngIf="!request.dateExpires" class="text-muted">Не задана</div>
+          <div *ngIf="request.dateExpires">{{request.dateExpiresD | date:'dd.MM.yyyy'}}</div>
+        </div>
+      </td>
+
       <td class="request-employees">
         <div class="d-flex flex-column">
           <div *ngIf="request.employees.length === 0" class="text-muted">Не назначен</div>
@@ -65,7 +72,7 @@
   </table>
 
   <div class="d-flex justify-content-center align-items-center pt-2 pb-2 pt-md-4 pb-md-4"
-       *ngIf="(currentPage$ | async) < (totalPages$ | async)">
+       *ngIf="(currentPage$ | async) < (totalPages$ | async) || ($totalPages | async) === 0">
     <button mat-stroked-button
             [disabled]="(fetchingDataInProgress$ | async)"
             (click)="loadNextPage()"

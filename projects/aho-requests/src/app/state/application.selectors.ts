@@ -4,6 +4,21 @@ import { IApplicationState } from './application.state';
 
 export const aho = (state: IApplicationState) => state['aho'];
 
+export const selectRequestTypes = createSelector(
+  aho,
+  (state: IApplicationState) => state.requestTypes
+);
+
+export const selectRequestStatuses = createSelector(
+  aho,
+  (state: IApplicationState) => state.requestStatuses
+);
+
+export const selectRequestRejectReasons = createSelector(
+  aho,
+  (state: IApplicationState) => state.requestRejectReasons
+);
+
 export const selectMode = createSelector(
   aho,
   (state: IApplicationState) => state.mode

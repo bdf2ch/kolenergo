@@ -21,7 +21,7 @@
       (click)="clearSearchField()">
       <mat-icon>close</mat-icon>
     </button>
-    <button mat-icon-button matTooltip="Фильтры">
+    <button mat-icon-button matTooltip="Фильтры" (click)="filtersClickHandler()">
       <mat-icon>filter_list</mat-icon>
       <div class="indicator" *ngIf="filterManager.isFiltersApplied()"></div>
     </button>

@@ -21,6 +21,7 @@ export class RequestsSearchComponent implements OnInit, OnChanges {
   @Input() filters: SearchFilter<any>[];
   @Output() clearSearch: EventEmitter<void> = new EventEmitter();
   @Output() changeFilters: EventEmitter<SearchFilter<any>[]> = new EventEmitter();
+  @Output() openFilters: EventEmitter<void> = new EventEmitter();
   public filterManager: FilterManager;
 
   constructor() {
@@ -52,6 +53,13 @@ export class RequestsSearchComponent implements OnInit, OnChanges {
   resetFilter(filter: SearchFilter<any>) {
     filter.reset();
     this.changeFilters.emit(this.filterManager.getAppliedFilters());
+  }
+
+  /**
+   * Обработчик нажатия на иконку фильтров
+   */
+  filtersClickHandler() {
+    this.openFilters.emit();
   }
 
 }

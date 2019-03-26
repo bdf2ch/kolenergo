@@ -29,6 +29,7 @@ export class AhoRequest implements IAhoRequest {
   dateCreatedD: Date;                       // Дата создвния заявки
   dateExpires: number;                      // Дата исполнения заявки в формате Unix
   dateExpiresD: Date;                       // Дата исполенния заявки
+  isExpired: boolean;                       // Просрочена ли заявка
   numberOfLoaders: number;                  // Требуемое количество грузчиков
   initiator: string;                        // Инициатор
   phone: string;                            // Контактный телефон
@@ -50,7 +51,8 @@ export class AhoRequest implements IAhoRequest {
     this.dateCreated = config ? config.dateCreated : null;
     this.dateCreatedD = config ? new Date(config.dateCreated) : null;
     this.dateExpires = config ? config.dateExpires : null;
-    this.dateExpiresD = config ? new Date(config.dateCreated) : null;
+    this.dateExpiresD = config ? new Date(config.dateExpires) : null;
+    this.isExpired = config ? config.isExpired : false;
     this.numberOfLoaders = config ? config.numberOfLoaders : null;
     this.initiator = config ? config.initiator : null;
     this.phone = config ? config.phone : null;

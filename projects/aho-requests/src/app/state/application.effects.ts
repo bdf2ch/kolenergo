@@ -17,7 +17,7 @@ import { select, Store } from '@ngrx/store';
 import {FilterManager} from '../aho-requests/models';
 
 @Injectable()
-export class AppEffects {
+export class ApplicationEffects {
   currentPage: number;
 
   constructor(private store: Store<IApplicationState>,
@@ -31,13 +31,13 @@ export class AppEffects {
     withLatestFrom(this.store.pipe(select(selectCurrentPage)), this.store.pipe(select(selectFilters))),
     mergeMap(([action, page, filters]) =>
        this.aho.fetchRequests(
-        filters.getFilterById('start-date').getValue().getTime(),
-        filters.getFilterById('end-date').getValue().getTime(),
         0,
         0,
         0,
         0,
-        false,
+        0,
+        0,
+        true,
         page,
         20
       ).pipe(
