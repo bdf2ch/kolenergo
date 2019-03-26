@@ -5,6 +5,8 @@ import { SearchFilter } from '../aho-requests/models';
 import { ApplicationModes } from './application.state';
 
 export enum AhoRequestsActionTypes {
+  LOAD_EXPIRED_REQUESTS = '[AHO Requests API] Show expired requests',
+  LOAD_EXPIRED_REQUESTS_SUCCESS = '[AHO Requests API] Expired requests loaded successfully',
   SELECT_REQUESTS_MODE = '[AHO Requests] Requests mode change',
   LOAD_INITIAL_DATA = '[AHO Requests API] Load initial data',
   INITIAL_DATA_LOAD_SUCCESS = '[AHO Requests API] initial data loaded successfully',
@@ -15,6 +17,22 @@ export enum AhoRequestsActionTypes {
   CLEAR_SEARCH = '[Search] Search cleared',
   CHANGE_FILTERS = '[Filters] Filters changed',
   RESET_FILTERS = '[Filters] Filters reset'
+}
+
+/**
+ * Загрузка просроченных заявок
+ */
+export class LoadExpiredRequests implements Action {
+  readonly type = AhoRequestsActionTypes.LOAD_EXPIRED_REQUESTS;
+}
+
+/**
+ * Просроченные заявки успешно загружены
+ */
+export class LoadExpiredRequestsSuccess implements Action {
+  readonly type = AhoRequestsActionTypes.LOAD_EXPIRED_REQUESTS_SUCCESS;
+
+  constructor(public payload: IServerResponse<{requests: IAhoRequest[], totalRequest: number}>) {}
 }
 
 /**
@@ -90,4 +108,11 @@ export class ResetFilters implements Action {
   readonly  type = AhoRequestsActionTypes.RESET_FILTERS;
 }
 
-export type AhoRequestsActions = SelectRequestsMode | LoadInitialData | InitialDataLoadSuccess | LoadRequests | LoadRequestsSuccess;
+export type AhoRequestsActions =
+  LoadExpiredRequests |
+  LoadRequestsSuccess |
+  SelectRequestsMode |
+  LoadInitialData |
+  InitialDataLoadSuccess |
+  LoadRequests |
+  LoadRequestsSuccess;

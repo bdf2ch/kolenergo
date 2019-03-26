@@ -23,7 +23,7 @@ export class AhoRequestsComponent implements OnInit {
   public fetchingDataInProgress$: Observable<boolean>;
   public requests$: Observable<IAhoRequest[]>;
   public expiredRequestsCount$: Observable<number>;
-  public filters$: Observable<SearchFilter<any>[]>;
+  public filters$: Observable<FilterManager>;
   public applicationModes = ApplicationModes;
 
   constructor(private store: Store<IApplicationState>) { }
@@ -33,7 +33,7 @@ export class AhoRequestsComponent implements OnInit {
     this.requests$ = this.store.pipe(select(selectRequests));
     this.filters$ = this.store.pipe(select(selectFilters));
 
-    this.filters$.subscribe((filters: SearchFilter<any>[]) => {
+    this.filters$.subscribe((filters: FilterManager) => {
       console.log('FILTERS', filters);
     });
 

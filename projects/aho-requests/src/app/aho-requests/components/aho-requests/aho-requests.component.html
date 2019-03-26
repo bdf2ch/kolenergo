@@ -24,7 +24,7 @@
               <mat-icon>menu</mat-icon>
             </button>
             <app-requests-search
-              [filters]="(filters$ | async)"
+              [filters]="(filters$ | async).getFilters()"
               (clearSearch)="clearSearch()"
               (changeFilters)="filtersChange($event)"
               class="w-100">

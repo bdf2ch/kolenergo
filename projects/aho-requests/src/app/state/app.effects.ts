@@ -5,15 +5,16 @@ import {
   AhoRequestsActionTypes,
   ApplicationModes,
   IApplicationState,
-  selectCurrentPage,
-  SelectRequestsMode
+  selectCurrentPage, selectFilters,
+  SelectRequestsMode, LoadExpiredRequests
 } from './index';
 import { map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
-import { EMPTY } from 'rxjs';
+import {combineLatest, EMPTY} from 'rxjs';
 import { AhoRequestsService } from '../aho-requests/services/aho-requests.service';
 import { IAhoRequest, IAhoRequestsInitialData } from '../aho-requests/interfaces';
 import { IServerResponse } from '../../../../kolenergo-core/src/lib/interfaces';
 import { select, Store } from '@ngrx/store';
+import {FilterManager} from '../aho-requests/models';
 
 @Injectable()
 export class AppEffects {
@@ -24,20 +25,27 @@ export class AppEffects {
               private aho: AhoRequestsService) {
   }
 
-  /*
   @Effect()
-  modeChange$ = this.actions$.pipe(
-    ofType(state.AhoRequestsActionTypes.SELECT_REQUESTS_MODE),
-    mergeMap((action: SelectRequestsMode) => {
-      switch (action.payload) {
-        case ApplicationModes.EXPIRED_REQUESTS_MODE: {
-          return this.aho.fetchRequests();
-        }
-      }
-      return EMPTY;
-    })
-  );
-  */
+  showExpiredRequests$ = this.actions$.pipe(
+    ofType(AhoRequestsActionTypes.LOAD_EXPIRED_REQUESTS),
+    withLatestFrom(this.store.pipe(select(selectCurrentPage)), this.store.pipe(select(selectFilters))),
+    mergeMap(([action, page, filters]) =>
+       this.aho.fetchRequests(
+        filters.getFilterById('start-date').getValue().getTime(),
+        filters.getFilterById('end-date').getValue().getTime(),
+        0,
+        0,
+        0,
+        0,
+        false,
+        page,
+        20
+      ).pipe(
+        map((response: IServerResponse<{requests: IAhoRequest[], totalRequests: number}>) => {
+          return {type: AhoRequestsActionTypes.LOAD_EXPIRED_REQUESTS_SUCCESS, payload: response};
+        })
+      )
+  ));
 
   @Effect()
   loadInitialData$ = this.actions$.pipe(

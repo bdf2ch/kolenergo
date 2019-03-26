@@ -1,17 +1,19 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import {select, Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
 
 import {
   ApplicationModes,
   IApplicationState,
   selectEmployeeRequestsCount,
   selectEmployeeUncompletedRequestsCount,
-  selectExpiredRequestsCount, selectMode,
+  selectExpiredRequestsCount,
+  selectMode,
   selectNewRequestsCount,
   selectOwnRequestsCount,
-  selectOwnUncompletedRequestsCount, SelectRequestsMode
+  selectOwnUncompletedRequestsCount,
+  SelectRequestsMode, LoadExpiredRequests
 } from '../../../state';
 
 
@@ -47,7 +49,13 @@ export class TabsComponent implements OnInit {
   }
 
   selectTab(mode: ApplicationModes) {
-    this.store.dispatch(new SelectRequestsMode(mode));
+    switch (mode) {
+      case ApplicationModes.EXPIRED_REQUESTS_MODE: {
+        this.store.dispatch(new LoadExpiredRequests());
+        break;
+      }
+    }
+    // this.store.dispatch(new SelectRequestsMode(mode));
   }
 
 }

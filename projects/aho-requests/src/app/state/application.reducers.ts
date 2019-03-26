@@ -8,6 +8,12 @@ export function reducer(
   action: actions.AhoRequestsActions
 ): IApplicationState {
   switch (action.type) {
+    case actions.AhoRequestsActionTypes.LOAD_EXPIRED_REQUESTS: {
+      return {
+        ...state,
+        mode: ApplicationModes.EXPIRED_REQUESTS_MODE
+      };
+    }
     case actions.AhoRequestsActionTypes.SELECT_REQUESTS_MODE: {
       return {
         ...state,
