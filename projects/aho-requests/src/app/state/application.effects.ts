@@ -6,7 +6,7 @@ import {
   ApplicationModes,
   IApplicationState,
   selectCurrentPage, selectFilters,
-  SelectRequestsMode, LoadExpiredRequests
+  SelectRequestsMode, LoadExpiredRequests, selectItemsOnPage
 } from './index';
 import { map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import {combineLatest, EMPTY} from 'rxjs';
@@ -26,7 +26,74 @@ export class ApplicationEffects {
   }
 
   @Effect()
-  showExpiredRequests$ = this.actions$.pipe(
+  loadAllRequests$ = this.actions$.pipe(
+    ofType(AhoRequestsActionTypes.LOAD_ALL_REQUESTS),
+    withLatestFrom(this.store.pipe(select(selectCurrentPage)), this.store.pipe(select(selectItemsOnPage))),
+    mergeMap(([action, page, itemsOnPage]) =>
+      this.aho.fetchRequests(
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        false,
+        page,
+        itemsOnPage
+      ).pipe(
+        map((response: IServerResponse<{ requests: IAhoRequest[], totalRequests: number, newRequestsCount: number }>) => {
+          return {type: AhoRequestsActionTypes.LOAD_ALL_REQUESTS_SUCCESS, payload: response};
+        })
+      )
+    )
+  );
+
+  @Effect()
+  loadOwnRequests$ = this.actions$.pipe(
+    ofType(AhoRequestsActionTypes.LOAD_OWN_REQUESTS),
+    withLatestFrom(this.store.pipe(select(selectCurrentPage)), this.store.pipe(select(selectItemsOnPage))),
+    mergeMap(([action, page, itemsOnPage]) =>
+      this.aho.fetchRequests(
+        0,
+        0,
+        34,
+        0,
+        0,
+        0,
+        false,
+        page,
+        itemsOnPage
+      ).pipe(
+        map((response: IServerResponse<{ requests: IAhoRequest[], totalRequests: number, newRequestsCount: number }>) => {
+          return {type: AhoRequestsActionTypes.LOAD_OWN_REQUESTS_SUCCESS, payload: response};
+        })
+      ))
+  );
+
+  @Effect()
+  loadEmployeeRequests$ = this.actions$.pipe(
+    ofType(AhoRequestsActionTypes.LOAD_EMPLOYEE_REQUESTS),
+    withLatestFrom(this.store.pipe(select(selectCurrentPage)), this.store.pipe(select(selectItemsOnPage))),
+    mergeMap(([action, page, itemsOnPage]) =>
+      this.aho.fetchRequests(
+        0,
+        0,
+        0,
+        34,
+        0,
+        0,
+        false,
+        page,
+        itemsOnPage
+      ).pipe(
+        map((response: IServerResponse<{ requests: IAhoRequest[], totalRequests: number, newRequestsCount: number }>) => {
+          return {type: AhoRequestsActionTypes.LOAD_EMPLOYEE_REQUESTS_SUCCESS, payload: response};
+        })
+      ))
+  );
+
+  @Effect()
+  loadExpiredRequests$ = this.actions$.pipe(
     ofType(AhoRequestsActionTypes.LOAD_EXPIRED_REQUESTS),
     withLatestFrom(this.store.pipe(select(selectCurrentPage)), this.store.pipe(select(selectFilters))),
     mergeMap(([action, page, filters]) =>

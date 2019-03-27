@@ -34,10 +34,24 @@
         </div>
       </td>
 
-      <td>
-        <div class="request-content">
-          <div class="request-content-task" *ngFor="let task of request.tasks">
+      <td class="request-content">
+        <div class="d-flex flex-column">
+          <div class="request-content-task" *ngFor="let task of (request.tasks.length > 4 && !request.isExpanded ? request.tasks.slice(0,4) : request.tasks)">
             <div class="request-task-content">{{task.content.title}}</div>
+          </div>
+          <div class="request-tasks-expander"
+               *ngIf="request.tasks.length > 4 && !request.isExpanded">
+            <span class="expander-content text-muted"
+                  (click)="request.expand()"
+                  matTooltip="Показать все задачи"
+                  matTooltipPosition="below">
+              <small>... ещё {{request.tasks.length - 4}}</small>
+            </span>
+            <!--
+            <button mat-icon-button color="primary" (click)="request.expand()">
+              <mat-icon>expand_more</mat-icon>
+            </button>
+            -->
           </div>
         </div>
       </td>
@@ -46,6 +60,11 @@
         <div class="d-flex flex-column">
           <div *ngIf="!request.dateExpires" class="text-muted">Не задана</div>
           <div *ngIf="request.dateExpires">{{request.dateExpiresD | date:'dd.MM.yyyy'}}</div>
+          <div *ngIf="request.isExpired">
+            <span class="expired-label">
+              <small>просрочено</small>
+            </span>
+          </div>
         </div>
       </td>
 

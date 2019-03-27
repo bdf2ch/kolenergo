@@ -14,6 +14,11 @@ export const selectRequestStatuses = createSelector(
   (state: IApplicationState) => state.requestStatuses
 );
 
+export const selectEmployees = createSelector(
+  aho,
+  (state: IApplicationState) => state.employees
+);
+
 export const selectRequestRejectReasons = createSelector(
   aho,
   (state: IApplicationState) => state.requestRejectReasons
@@ -83,4 +88,9 @@ export const selectTotalPagesCount = createSelector(
 export const selectCurrentPage = createSelector(
   aho,
   (state: IApplicationState) => state.currentPage
+);
+
+export const selectItemsOnPage = createSelector(
+  aho,
+  (state: IApplicationState) => state.itemsOnPage
 );

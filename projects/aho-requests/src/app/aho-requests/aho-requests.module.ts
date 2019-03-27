@@ -28,6 +28,18 @@ import { TabsComponent } from './components/tabs/tabs.component';
 import { FiltersDialogComponent } from './components/filters-dialog/filters-dialog.component';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
 
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'LL',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
 @NgModule({
   declarations: [
     AhoRequestsComponent,
@@ -59,8 +71,9 @@ import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
     FiltersDialogComponent
   ],
   providers: [
-    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } },
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' }
   ]
 })

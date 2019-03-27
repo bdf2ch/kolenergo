@@ -33,6 +33,7 @@ export class AhoRequest implements IAhoRequest {
   numberOfLoaders: number;                  // Требуемое количество грузчиков
   initiator: string;                        // Инициатор
   phone: string;                            // Контактный телефон
+  isExpanded: boolean;                      // Развернута ли заявка
 
   /**
    * Конструктор
@@ -56,6 +57,7 @@ export class AhoRequest implements IAhoRequest {
     this.numberOfLoaders = config ? config.numberOfLoaders : null;
     this.initiator = config ? config.initiator : null;
     this.phone = config ? config.phone : null;
+    this.isExpanded = false;
 
     this.tasks = config.tasks.map((item: IAhoRequestTask) => {
       return new AhoRequestTask(item);
@@ -68,5 +70,9 @@ export class AhoRequest implements IAhoRequest {
     this.comments = config.comments.map((item: IAhoRequestComment) => {
       return new AhoRequestComment(item);
     });
+  }
+
+  expand() {
+    this.isExpanded = true;
   }
 }

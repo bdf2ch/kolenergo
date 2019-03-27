@@ -1,24 +1,78 @@
 import { Action } from '@ngrx/store';
-import {IAhoRequest, IAhoRequestsInitialData} from '../aho-requests/interfaces';
-import {IServerResponse} from '../../../../kolenergo-core/src/lib/interfaces';
+import { IAhoRequest, IAhoRequestsInitialData } from '../aho-requests/interfaces';
+import { IServerResponse } from '../../../../kolenergo-core/src/lib/interfaces';
 import { SearchFilter } from '../aho-requests/models';
 import { ApplicationModes } from './application.state';
 
 export enum AhoRequestsActionTypes {
-  LOAD_EXPIRED_REQUESTS = '[AHO Requests API] Show expired requests',
+  LOAD_ALL_REQUESTS = '[AHO Requests API] Load all requests',
+  LOAD_ALL_REQUESTS_SUCCESS = '[AHO Requests API] All requests loaded successfully',
+  LOAD_OWN_REQUESTS = '[AHO Requests API] Load own requests',
+  LOAD_OWN_REQUESTS_SUCCESS = '[AHO Requests API] Own requests loaded successfully',
+  LOAD_EMPLOYEE_REQUESTS = '[AHO Requests API] Load employee requests',
+  LOAD_EMPLOYEE_REQUESTS_SUCCESS = '[AHO Requests API] Employee requests loaded successfully',
+  LOAD_EXPIRED_REQUESTS = '[AHO Requests API] Load expired requests',
   LOAD_EXPIRED_REQUESTS_SUCCESS = '[AHO Requests API] Expired requests loaded successfully',
+  SET_CURRENT_PAGE = '[AHO Requests] Set current page',
   SELECT_REQUESTS_MODE = '[AHO Requests] Requests mode change',
   LOAD_INITIAL_DATA = '[AHO Requests API] Load initial data',
-  INITIAL_DATA_LOAD_SUCCESS = '[AHO Requests API] initial data loaded successfully',
+  INITIAL_DATA_LOAD_SUCCESS = '[AHO Requests API] Initial data loaded successfully',
   LOAD_REQUESTS = '[AHO Requests API] Load requests',
   LOAD_REQUESTS_SUCCESS = '[AHO Requests API] Requests loaded successfully',
-  LOAD_NEXT_PAGE = '[AHO Requests] Load next page of requests',
   CHANGE_SEARCH = '[Search] Search changed',
   CLEAR_SEARCH = '[Search] Search cleared',
   OPEN_FILTERS_DIALOG = '[Filters] Open filters dialog',
   CLOSE_FILTERS_DIALOG = '[Filters] Close filters dialog',
   CHANGE_FILTERS = '[Filters] Filters changed',
   RESET_FILTERS = '[Filters] Filters reset'
+}
+
+/**
+ * Загрузка всех заявок
+ */
+export class LoadAllRequests implements Action {
+  readonly type = AhoRequestsActionTypes.LOAD_ALL_REQUESTS;
+}
+
+/**
+ * Все заявки успешно загружены
+ */
+export class LoadAllRequestsSuccess implements Action {
+  readonly type = AhoRequestsActionTypes.LOAD_ALL_REQUESTS_SUCCESS;
+
+  constructor(public payload: IServerResponse<{requests: IAhoRequest[], totalRequests: number, newRequestsCount: number}>) {}
+}
+
+/**
+ * Загрузка собственных заявок
+ */
+export class LoadOwnRequests implements Action {
+  readonly  type = AhoRequestsActionTypes.LOAD_OWN_REQUESTS;
+}
+
+/**
+ * Собственные заявки успешно загружены
+ */
+export class LoadOwnRequestsSuccess implements Action {
+  readonly type = AhoRequestsActionTypes.LOAD_OWN_REQUESTS_SUCCESS;
+
+  constructor(public payload: IServerResponse<{requests: IAhoRequest[], totalRequests: number}>) {}
+}
+
+/**
+ * Загрузка заявок, где пользователь является исполнителем
+ */
+export class LoadEmployeeRequests implements Action {
+  readonly type = AhoRequestsActionTypes.LOAD_EMPLOYEE_REQUESTS;
+}
+
+/**
+ * Заявки, где пользователь является исполнителем успешно загружены
+ */
+export class LoadEmployeeRequestsSuccess implements Action {
+  readonly type = AhoRequestsActionTypes.LOAD_EMPLOYEE_REQUESTS_SUCCESS;
+
+  constructor(public payload: IServerResponse<{requests: IAhoRequest[], totalRequests: number}>) {}
 }
 
 /**
@@ -35,6 +89,15 @@ export class LoadExpiredRequestsSuccess implements Action {
   readonly type = AhoRequestsActionTypes.LOAD_EXPIRED_REQUESTS_SUCCESS;
 
   constructor(public payload: IServerResponse<{requests: IAhoRequest[], totalRequests: number}>) {}
+}
+
+/**
+ * Установка текущей страницы
+ */
+export class SetCurrentPage implements Action {
+  readonly type = AhoRequestsActionTypes.SET_CURRENT_PAGE;
+
+  constructor(public payload: number) {}
 }
 
 /**
@@ -124,12 +187,21 @@ export class ResetFilters implements Action {
   readonly  type = AhoRequestsActionTypes.RESET_FILTERS;
 }
 
+
 export type AhoRequestsActions =
+  LoadAllRequests |
+  LoadAllRequestsSuccess |
+  LoadOwnRequests |
+  LoadOwnRequestsSuccess |
   LoadExpiredRequests |
+  LoadEmployeeRequestsSuccess |
+  LoadEmployeeRequests |
   LoadExpiredRequestsSuccess |
+  SetCurrentPage |
   LoadRequestsSuccess |
   SelectRequestsMode |
   LoadInitialData |
   InitialDataLoadSuccess |
   LoadRequests |
-  LoadRequestsSuccess;
+  LoadRequestsSuccess |
+  ChangeFilters;

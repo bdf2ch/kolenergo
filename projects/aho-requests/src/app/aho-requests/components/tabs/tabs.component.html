@@ -7,17 +7,20 @@
       </span>
       <span class="indicator"
             matTooltip="Найдено заявок: 0"
-            matTooltipPosition="below">{{0}}
+            matTooltipPosition="above">{{0}}
       </span>
     </div>
-    <div class="tab" (click)="selectTab(applicationModes.ALL_REQUESTS_MODE)" [ngClass]="{'selected': (mode$ | async) === applicationModes.ALL_REQUESTS_MODE}">
+    <div class="tab"
+         [ngClass]="{'selected': (mode$ | async) === applicationModes.ALL_REQUESTS_MODE}"
+         (click)="selectTab(applicationModes.ALL_REQUESTS_MODE)" >
       <mat-icon>list</mat-icon>
       <span class="tab-label">
         Все заявки
       </span>
       <span class="indicator"
+            *ngIf="(newRequestsCount$ | async) > 0"
             matTooltip="Новых заявок: {{(newRequestsCount$ | async)}}"
-            matTooltipPosition="below">{{(newRequestsCount$ | async)}}
+            matTooltipPosition="above">{{(newRequestsCount$ | async)}}
       </span>
     </div>
     <div class="tab" (click)="selectTab(applicationModes.OWN_REQUESTS_MODE)" [ngClass]="{'selected': (mode$ | async) === applicationModes.OWN_REQUESTS_MODE}">
@@ -26,8 +29,9 @@
         Ваши заявки
       </span>
       <span class="indicator"
+            *ngIf="(ownUncompletedRequestsCount$ | async) > 0"
             matTooltip="Ваших заявок в работе: {{(ownUncompletedRequestsCount$ | async)}}"
-            matTooltipPosition="below">{{(ownUncompletedRequestsCount$ | async)}}
+            matTooltipPosition="above">{{(ownUncompletedRequestsCount$ | async)}}
       </span>
     </div>
     <div class="tab" (click)="selectTab(applicationModes.EMPLOYEE_REQUESTS_MODE)" [ngClass]="{'selected': (mode$ | async) === applicationModes.EMPLOYEE_REQUESTS_MODE}">
@@ -36,8 +40,9 @@
         Вы исполнитель
       </span>
       <span class="indicator"
+            *ngIf="(employeeUncompletedRequestsCount$ | async) > 0"
             matTooltip="Заявки в работе: {{(employeeUncompletedRequestsCount$ | async)}}"
-            matTooltipPosition="below">{{(employeeUncompletedRequestsCount$ | async)}}
+            matTooltipPosition="above">{{(employeeUncompletedRequestsCount$ | async)}}
       </span>
     </div>
     <div class="tab" (click)="selectTab(applicationModes.EXPIRED_REQUESTS_MODE)" [ngClass]="{'selected': (mode$ | async) === applicationModes.EXPIRED_REQUESTS_MODE}">
@@ -46,8 +51,9 @@
         Просроченные
       </span>
       <span class="indicator"
-            matTooltip="Просроченных заявок: {{(expiredRequestsCount$ | async)}}"
-            matTooltipPosition="below">{{(expiredRequestsCount$ | async)}}
+            *ngIf="(expiredRequestsCount$ | async) > 0"
+            matTooltip="Просроченных заявок в работе: {{(expiredRequestsCount$ | async)}}"
+            matTooltipPosition="above">{{(expiredRequestsCount$ | async)}}
       </span>
     </div>
   </div>

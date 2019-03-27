@@ -6,14 +6,15 @@ import {Observable} from 'rxjs';
 import {
   ApplicationModes,
   IApplicationState,
+  LoadAllRequests, LoadEmployeeRequests,
+  LoadExpiredRequests, LoadOwnRequests,
   selectEmployeeRequestsCount,
   selectEmployeeUncompletedRequestsCount,
   selectExpiredRequestsCount,
   selectMode,
   selectNewRequestsCount,
   selectOwnRequestsCount,
-  selectOwnUncompletedRequestsCount,
-  SelectRequestsMode, LoadExpiredRequests
+  selectOwnUncompletedRequestsCount, SetCurrentPage
 } from '../../../state';
 
 
@@ -49,9 +50,36 @@ export class TabsComponent implements OnInit {
   }
 
   selectTab(mode: ApplicationModes) {
+    let currentMode = null;
+    this.mode$.subscribe((item: ApplicationModes) => {
+      currentMode = item;
+    });
+    console.log('currentMode', currentMode);
+    this.store.dispatch(new SetCurrentPage(0));
+
     switch (mode) {
+      case ApplicationModes.ALL_REQUESTS_MODE: {
+        if (currentMode !== ApplicationModes.ALL_REQUESTS_MODE) {
+          this.store.dispatch(new LoadAllRequests());
+        }
+        break;
+      }
+      case ApplicationModes.OWN_REQUESTS_MODE: {
+        if (currentMode !== ApplicationModes.OWN_REQUESTS_MODE) {
+          this.store.dispatch(new LoadOwnRequests());
+        }
+        break;
+      }
+      case ApplicationModes.EMPLOYEE_REQUESTS_MODE: {
+        if (currentMode !== ApplicationModes.EMPLOYEE_REQUESTS_MODE) {
+          this.store.dispatch(new LoadEmployeeRequests());
+        }
+        break;
+      }
       case ApplicationModes.EXPIRED_REQUESTS_MODE: {
-        this.store.dispatch(new LoadExpiredRequests());
+        if (currentMode !== ApplicationModes.EXPIRED_REQUESTS_MODE) {
+          this.store.dispatch(new LoadExpiredRequests());
+        }
         break;
       }
     }

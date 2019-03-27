@@ -43,11 +43,33 @@
         }
 
         &.request-content {
+          .request-tasks-expander {
+            .expander-content {
+              display: inline-flex;
+              flex-direction: row;
+              justify-content: flex-start;
+              align-items: center;
 
+              &:hover {
+                text-decoration: underline #6c757d;
+              }
+
+              .mat-icon {
+                width: 13px;
+                height: 13px;
+                font-size: 13px;
+                line-height: 17px;
+                color: #6c757d;
+              }
+            }
+          }
         }
 
         &.request-date-expires {
           min-width: 85px;
+          .expired-label {
+            color: #e53935;
+          }
         }
 
         &.request-employees {
