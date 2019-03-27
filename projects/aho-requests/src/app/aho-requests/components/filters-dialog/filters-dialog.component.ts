@@ -1,14 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
+import { MatDatepickerInputEvent, MatDialogRef, MatSelectChange } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { Moment } from 'moment';
 
-import {ChangeFilters, IApplicationState, selectFilters, selectRequestStatuses, selectRequestTypes} from '../../../state';
+import {
+  ChangeFilters,
+  IApplicationState,
+  selectEmployees,
+  selectFilters,
+  selectRequestStatuses,
+  selectRequestTypes
+} from '../../../state';
 import { AhoRequestStatus, AhoRequestType, FilterManager } from '../../models';
-import { take, withLatestFrom } from 'rxjs/operators';
-import {MatDatepickerInputEvent, MatSelectChange} from '@angular/material';
-import {Moment} from 'moment';
+import { User } from 'kolenergo-core';
 
 @Component({
   selector: 'app-filters-dialog',
@@ -19,15 +25,17 @@ export class FiltersDialogComponent implements OnInit {
   public filters$: Observable<FilterManager>;
   public requestTypes$: Observable<AhoRequestType[]>;
   public requestStatuses$: Observable<AhoRequestStatus[]>;
+  public employees$: Observable<User[]>;
   public manager: FilterManager;
 
   constructor(private store: Store<IApplicationState>,
-              private builder: FormBuilder) {}
+              private dialogRef: MatDialogRef<FiltersDialogComponent>) {}
 
   ngOnInit() {
     this.filters$ = this.store.pipe(select(selectFilters));
     this.requestTypes$ = this.store.pipe(select(selectRequestTypes));
     this.requestStatuses$ = this.store.pipe(select(selectRequestStatuses));
+    this.employees$ = this.store.pipe(select(selectEmployees));
 
     this.filters$.subscribe((filters: FilterManager) => {
       this.manager = filters;
@@ -52,8 +60,14 @@ export class FiltersDialogComponent implements OnInit {
     this.manager.getFilterById('request-status').setValue(event.value);
   }
 
+  requestEmployeeChange(event: MatSelectChange) {
+    console.log(event);
+    this.manager.getFilterById('request-employee').setValue(event.value);
+  }
+
   applyFilters() {
     this.store.dispatch(new ChangeFilters(this.manager.getFilters()));
+    this.dialogRef.close();
   }
 
 }

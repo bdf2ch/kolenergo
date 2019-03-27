@@ -7,6 +7,7 @@
                [matDatepicker]="startDate"
                [value]="(filters$ | async).getFilterById('start-date').getValue()"
                (dateChange)="startDateChange($event)"
+               disabled
                placeholder="Начальная дата">
         <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
         <mat-datepicker #startDate disabled="false"></mat-datepicker>
@@ -15,21 +16,38 @@
       <mat-form-field class="w-100">
         <input matInput
                [matDatepicker]="endDate"
+               [value]="(filters$ | async).getFilterById('end-date').getValue()"
                (dateChange)="endDateChange($event)"
+               disabled
                placeholder="Конечная дата">
         <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
         <mat-datepicker #endDate disabled="false"></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field class="w-100">
-        <mat-select placeholder="Категория заявки" (selectionChange)="requestTypeChange($event)">
+        <mat-select
+          placeholder="Категория заявки"
+          [value]="(filters$ | async).getFilterById('request-type').getValue()"
+          (selectionChange)="requestTypeChange($event)">
           <mat-option *ngFor="let type of (requestTypes$ | async)" [value]="type">{{type.title}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field class="w-100">
-        <mat-select placeholder="Статус заявки" (selectionChange)="requestStatusChange($event)">
+        <mat-select
+          placeholder="Статус заявки"
+          [value]="(filters$ | async).getFilterById('request-status').getValue()"
+          (selectionChange)="requestStatusChange($event)">
           <mat-option *ngFor="let status of (requestStatuses$ | async)" [value]="status">{{status.title}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="w-100">
+        <mat-select
+          placeholder="Исполнитель"
+          [value]="(filters$ | async).getFilterById('request-employee').getValue()"
+          (selectionChange)="requestEmployeeChange($event)">
+          <mat-option *ngFor="let employee of (employees$ | async)" [value]="employee">{{employee.firstName + ' ' + employee.lastName}}</mat-option>
         </mat-select>
       </mat-form-field>
 
