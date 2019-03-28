@@ -5,7 +5,6 @@
     <mat-sidenav-content>
 
       <div class="container-fluid p-2 pr-xl-4 pl-xl-4">
-
         <!-- Start: Заголовок, поиск и фильтрация, меню пользователя -->
         <div class="row no-gutters app-header pt-2 pb-3 pt-md-4 pb-md-4">
 
@@ -52,22 +51,7 @@
         </div>
         <!-- End: Заголовок, поиск и фильтрация, меню пользователя -->
 
-        <!-- Start: Вкладки с режимами отображения заявок -->
-        <div class="row no-gutters d-none d-md-flex mt-3">
-          <div class="col-12">
-            <app-tabs></app-tabs>
-          </div>
-        </div>
-        <!-- End: Вкладки с режимами отображения заявок -->
-
-        <!-- Start: Список заявок -->
-        <div class="row no-gutters">
-          <div class="col-12">
-            <app-requests-list [requests]="(requests$ | async)"></app-requests-list>
-          </div>
-        </div>
-        <!-- End: Списсок заявок -->
-
+        <router-outlet></router-outlet>
       </div>
 
 

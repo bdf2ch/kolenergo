@@ -1,12 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit, Output,
-  SimpleChanges
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+
 import { SearchFilter } from '../../models/search-filter.model';
 import { FilterManager } from '../../models';
 
@@ -32,7 +25,6 @@ export class RequestsSearchComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
     if (changes['filters']) {
       this.filterManager = new FilterManager(changes['filters'].currentValue);
     }
@@ -52,7 +44,7 @@ export class RequestsSearchComponent implements OnInit, OnChanges {
    */
   resetFilter(filter: SearchFilter<any>) {
     filter.reset();
-    this.changeFilters.emit(this.filterManager.getAppliedFilters());
+    this.changeFilters.emit(this.filterManager.getFilters());
   }
 
   /**

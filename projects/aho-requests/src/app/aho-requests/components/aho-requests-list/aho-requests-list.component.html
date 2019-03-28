@@ -1,0 +1,104 @@
+<div class="aho-requests-list">
+  <table class="w-100">
+    <tbody>
+    <tr *ngFor="let request of requests" (click)="showRequestDetails(request)">
+
+      <td class="request-meta-details">
+        <div class="d-flex flex-column">
+          <div class="d-flex flex-row align-items-center">
+            <span class="mr-2">#{{request.id}}</span>
+            <mat-icon
+              color="primary"
+              fontSet="fa"
+              fontIcon="{{request.type.icon}}"
+              matTooltip="{{request.type.title}}"
+              matTooltipPosition="right">
+            </mat-icon>
+          </div>
+          <div class="text-muted">
+            <small>{{request.dateCreatedD | date:'dd.MM.yyyy, hh:mm'}}</small>
+          </div>
+        </div>
+      </td>
+
+      <td class="request-author-initiator">
+        <div class="d-flex flex-column">
+          <div *ngIf="request.initiator">{{request.initiator}}</div>
+          <div>{{request.user.firstName + ' ' + request.user.lastName}}</div>
+        </div>
+      </td>
+
+      <td>
+        <div class="request-location">
+          {{request.room}}
+        </div>
+      </td>
+
+      <td class="request-content">
+        <div class="d-flex flex-column">
+          <div class="request-content-task" *ngFor="let task of (request.tasks.length > 4 && !request.isExpanded ? request.tasks.slice(0,4) : request.tasks)">
+            <div class="request-task-content">{{task.content.title}}</div>
+          </div>
+          <div class="request-tasks-expander"
+               *ngIf="request.tasks.length > 4 && !request.isExpanded">
+            <span class="expander-content text-muted"
+                  (click)="expandRequestTasks(request, $event)"
+                  matTooltip="Показать все задачи"
+                  matTooltipPosition="below">
+              <small>... ещё {{request.tasks.length - 4}}</small>
+            </span>
+            <!--
+            <button mat-icon-button color="primary" (click)="request.expand()">
+              <mat-icon>expand_more</mat-icon>
+            </button>
+            -->
+          </div>
+        </div>
+      </td>
+
+      <td class="request-date-expires">
+        <div class="d-flex flex-column">
+          <div *ngIf="!request.dateExpires" class="text-muted">Не задана</div>
+          <div *ngIf="request.dateExpires">{{request.dateExpiresD | date:'dd.MM.yyyy'}}</div>
+          <div *ngIf="request.isExpired">
+            <span class="expired-label">
+              <small>просрочено</small>
+            </span>
+          </div>
+        </div>
+      </td>
+
+      <td class="request-employees">
+        <div class="d-flex flex-column">
+          <div *ngIf="request.employees.length === 0" class="text-muted">Не назначен</div>
+          <div *ngFor="let employee of request.employees">{{employee.firstName + ' ' + employee.lastName}}</div>
+        </div>
+      </td>
+
+      <td class="request-status">
+        <div class="d-flex flex-row justify-content-center align-items-center">
+          <mat-icon fontSet="far"
+                    fontIcon="{{request.status.icon}}"
+                    [style.color]="request.status.iconColor ? request.status.iconColor : 'black'"
+                    *ngIf="request.status.icon"
+                    matTooltip="{{request.status.id !== 4 ? request.status.title : request.status.title + ' (' + request.rejectReason.content + ')'}}"
+                    matTooltipPosition="left">
+          </mat-icon>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-center align-items-center pt-2 pb-2 pt-md-4 pb-md-4"
+       *ngIf="(currentPage$ | async) < (totalPages$ | async) || ($totalPages | async) === 0">
+    <button mat-stroked-button
+            [disabled]="(fetchingDataInProgress$ | async)"
+            (click)="loadNextPage()"
+            color="primary"
+            class="p-2 pl-md-5 pr-md-5 col-12 col-md-auto">
+      <mat-icon>refresh</mat-icon>
+      Загрузить еще
+    </button>
+  </div>
+</div>

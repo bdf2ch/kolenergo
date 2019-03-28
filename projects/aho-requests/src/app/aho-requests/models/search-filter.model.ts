@@ -69,6 +69,6 @@ export class SearchFilter<T> {
    * Сброс фильтра
    */
   reset() {
-    this.value = this.defaultValue !== null ? this.defaultValue : null;
+    this.value = this.defaultValue;
   }
 }

@@ -23,10 +23,12 @@ import {
 import { AhoRequestsRoutingModule } from './aho-requests-routing.module';
 import { AhoRequestsComponent } from './components/aho-requests/aho-requests.component';
 import { RequestsSearchComponent } from './components/requests-search/requests-search.component';
-import { RequestsListComponent } from './components/requests-list/requests-list.component';
+import { AhoRequestsListComponent } from './components/aho-requests-list/aho-requests-list.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { FiltersDialogComponent } from './components/filters-dialog/filters-dialog.component';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
+import { RequestDetailsComponent } from './components/request-details/request-details.component';
+import { RequestsListComponent } from './components/requests-list/requests-list.component';
 
 export const MY_FORMATS = {
   parse: {
@@ -44,9 +46,11 @@ export const MY_FORMATS = {
   declarations: [
     AhoRequestsComponent,
     RequestsSearchComponent,
-    RequestsListComponent,
+    AhoRequestsListComponent,
     TabsComponent,
-    FiltersDialogComponent
+    FiltersDialogComponent,
+    RequestDetailsComponent,
+    RequestsListComponent
   ],
   imports: [
     CommonModule,

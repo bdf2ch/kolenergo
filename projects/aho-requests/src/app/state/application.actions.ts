@@ -23,7 +23,8 @@ export enum AhoRequestsActionTypes {
   CLEAR_SEARCH = '[Search] Search cleared',
   OPEN_FILTERS_DIALOG = '[Filters] Open filters dialog',
   CLOSE_FILTERS_DIALOG = '[Filters] Close filters dialog',
-  CHANGE_FILTERS = '[Filters] Filters changed',
+  APPLY_FILTERS = '[Filters] Filters changed',
+  FILTERED_REQUESTS_LOAD_SUCCESS = '[AHO Requests API] Filtered requests loaded successfully',
   RESET_FILTERS = '[Filters] Filters reset'
 }
 
@@ -174,10 +175,19 @@ export class CloseFiltersDialog implements Action {
 /**
  * Событие изменения примененных фильтров
  */
-export class ChangeFilters implements Action {
-  readonly type = AhoRequestsActionTypes.CHANGE_FILTERS;
+export class ApplyFilters implements Action {
+  readonly type = AhoRequestsActionTypes.APPLY_FILTERS;
 
   constructor(public payload: SearchFilter<any>[]) {}
+}
+
+/**
+ * Отфильтрованные заявки успешно загружены
+ */
+export class FilteredRequestsLoadedSuccess implements Action {
+  readonly type = AhoRequestsActionTypes.FILTERED_REQUESTS_LOAD_SUCCESS;
+
+  constructor(public payload: IServerResponse<{requests: IAhoRequest[], totalRequests: number}>) {}
 }
 
 /**
@@ -204,4 +214,6 @@ export type AhoRequestsActions =
   InitialDataLoadSuccess |
   LoadRequests |
   LoadRequestsSuccess |
-  ChangeFilters;
+  ApplyFilters |
+  FilteredRequestsLoadedSuccess |
+  ResetFilters;

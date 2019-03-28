@@ -1,8 +1,8 @@
 import { ApplicationModes, IApplicationState, initialState } from './application.state';
 import * as actions from './application.actions';
-import { AhoRequest, AhoRequestRejectReason, AhoRequestStatus, AhoRequestType, FilterManager } from '../aho-requests/models';
-import {IAhoRequest, IAhoRequestRejectReason, IAhoRequestStatus, IAhoRequestType} from '../aho-requests/interfaces';
-import {User} from '../../../../kolenergo-core/src/lib/models';
+import {AhoRequest, AhoRequestRejectReason, AhoRequestStatus, AhoRequestType, FilterManager, SearchFilter} from '../aho-requests/models';
+import { IAhoRequest, IAhoRequestRejectReason, IAhoRequestStatus, IAhoRequestType } from '../aho-requests/interfaces';
+import { User } from 'kolenergo-core';
 
 export function reducer(
   state: IApplicationState = initialState,
@@ -94,7 +94,6 @@ export function reducer(
       };
     }
     case actions.AhoRequestsActionTypes.INITIAL_DATA_LOAD_SUCCESS: {
-      console.log(action);
       return {
         ...state,
         requestTypes: action.payload.data.types.map((item: IAhoRequestType) => {
@@ -130,10 +129,37 @@ export function reducer(
         fetchingDataInProgress: false
       };
     }
-    case actions.AhoRequestsActionTypes.CHANGE_FILTERS: {
+    case actions.AhoRequestsActionTypes.APPLY_FILTERS: {
       return {
         ...state,
-        filters: new FilterManager(action.payload)
+        mode: ApplicationModes.SEARCH_REQUESTS_MODE,
+        filters: new FilterManager(action.payload),
+        fetchingDataInProgress: true
+      };
+    }
+    case actions.AhoRequestsActionTypes.FILTERED_REQUESTS_LOAD_SUCCESS: {
+      return {
+        ...state,
+        requests: state.currentPage > 0
+          ? [...state.requests, ...action.payload.data.requests.map((item: IAhoRequest) => new AhoRequest(item))]
+          : [...action.payload.data.requests.map((item: IAhoRequest) => new AhoRequest(item))],
+        filteredRequestsCount: action.payload.data.totalRequests,
+        isFiltersApplied: true,
+        totalPages: Math.round(action.payload.data.totalRequests / state.itemsOnPage),
+        fetchingDataInProgress: false
+      };
+    }
+    case actions.AhoRequestsActionTypes.RESET_FILTERS: {
+      const filters = state.filters;
+      filters.getFilters().forEach((filter: SearchFilter<any>) => {
+        filter.reset();
+      });
+      return {
+        ...state,
+        filters: new FilterManager(filters.getFilters()),
+        filteredRequestsCount: 0,
+        isFiltersApplied: false,
+        currentPage: 0
       };
     }
     default: {

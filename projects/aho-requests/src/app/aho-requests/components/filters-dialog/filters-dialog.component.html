@@ -1,72 +1,92 @@
 <div class="container-fluid">
   <div class="row" matDialogTitle>Фильтры</div>
   <div class="row" matDialogContent>
-    <form>
-      <mat-form-field class="w-100">
-        <input matInput
-               [matDatepicker]="startDate"
-               [value]="(filters$ | async).getFilterById('start-date').getValue()"
-               (dateChange)="startDateChange($event)"
-               disabled
-               placeholder="Начальная дата">
-        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-        <mat-datepicker #startDate disabled="false"></mat-datepicker>
-      </mat-form-field>
 
-      <mat-form-field class="w-100">
-        <input matInput
-               [matDatepicker]="endDate"
-               [value]="(filters$ | async).getFilterById('end-date').getValue()"
-               (dateChange)="endDateChange($event)"
-               disabled
-               placeholder="Конечная дата">
-        <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-        <mat-datepicker #endDate disabled="false"></mat-datepicker>
-      </mat-form-field>
+    <!-- Start: Начальная дата -->
+    <mat-form-field class="w-100">
+      <input matInput
+             [matDatepicker]="startDate"
+             [value]="(filters$ | async).getFilterById('start-date').getValue()"
+             (dateChange)="startDateChange($event)"
+             disabled
+             touchUi
+             placeholder="Начальная дата">
+      <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+      <mat-datepicker #startDate disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <!-- End: Начальная дата -->
 
-      <mat-form-field class="w-100">
-        <mat-select
-          placeholder="Категория заявки"
-          [value]="(filters$ | async).getFilterById('request-type').getValue()"
-          (selectionChange)="requestTypeChange($event)">
-          <mat-option *ngFor="let type of (requestTypes$ | async)" [value]="type">{{type.title}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <!-- Start: Конечная дата -->
+    <mat-form-field class="w-100">
+      <input matInput
+             [matDatepicker]="endDate"
+             [value]="(filters$ | async).getFilterById('end-date').getValue()"
+             (dateChange)="endDateChange($event)"
+             disabled
+             touchUi
+             placeholder="Конечная дата">
+      <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+      <mat-datepicker #endDate disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <!-- End: Конечная дата -->
 
-      <mat-form-field class="w-100">
-        <mat-select
-          placeholder="Статус заявки"
-          [value]="(filters$ | async).getFilterById('request-status').getValue()"
-          (selectionChange)="requestStatusChange($event)">
-          <mat-option *ngFor="let status of (requestStatuses$ | async)" [value]="status">{{status.title}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <!-- Start: Исполнитель -->
+    <mat-form-field class="w-100">
+      <mat-select
+        placeholder="Исполнитель"
+        [value]="(filters$ | async).getFilterById('request-employee').getValue()"
+        (selectionChange)="requestEmployeeChange($event)">
+        <mat-option *ngFor="let employee of (employees$ | async)"
+                    [value]="employee">{{employee.firstName + ' ' + employee.lastName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- End: Исполнитель -->
 
-      <mat-form-field class="w-100">
-        <mat-select
-          placeholder="Исполнитель"
-          [value]="(filters$ | async).getFilterById('request-employee').getValue()"
-          (selectionChange)="requestEmployeeChange($event)">
-          <mat-option *ngFor="let employee of (employees$ | async)" [value]="employee">{{employee.firstName + ' ' + employee.lastName}}</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <!-- Start: Категория заявки -->
+    <mat-form-field class="w-100">
+      <mat-select
+        placeholder="Категория заявки"
+        [value]="(filters$ | async).getFilterById('request-type').getValue()"
+        (selectionChange)="requestTypeChange($event)">
+        <mat-option *ngFor="let type of (requestTypes$ | async)" [value]="type">{{type.title}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- End: Категория заявки -->
 
-      <div class="w-100 mb-2">
-        <button mat-flat-button
-                color="primary"
-                class="w-100"
-                [disabled]="!(filters$ | async).isFiltersApplied()"
-                (click)="applyFilters()">
-          Применить фильтры
-        </button>
-      </div>
+    <!-- Start: Статус заявки -->
+    <mat-form-field class="w-100">
+      <mat-select
+        placeholder="Статус заявки"
+        [value]="(filters$ | async).getFilterById('request-status').getValue()"
+        (selectionChange)="requestStatusChange($event)">
+        <mat-option *ngFor="let status of (requestStatuses$ | async)" [value]="status">{{status.title}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- End: Статус заявки -->
 
-      <div class="w-100">
-        <button mat-flat-button color="warn" [disabled]="!(filters$ | async).isFiltersApplied()" class="w-100">
-          Очистить фильтры
-        </button>
-      </div>
+    <!-- Start: Кнопка применения фильтров -->
+    <div class="w-100 mb-2">
+      <button mat-flat-button
+              color="primary"
+              class="w-100"
+              [disabled]="!(filters$ | async).isFiltersApplied()"
+              (click)="applyFilters()">
+        Применить фильтры
+      </button>
+    </div>
+    <!-- End: Кнопка применения фильтров -->
 
-    </form>
+    <!-- Start: Кнопка очистки фильтров -->
+    <div class="w-100">
+      <button mat-flat-button
+              color="warn"
+              class="w-100"
+              [disabled]="!(filters$ | async).isFiltersApplied()"
+              (click)="resetFilters()">
+        Очистить фильтры
+      </button>
+    </div>
+    <!-- End: Кнопка очистки фильтров -->
+
   </div>
 </div>

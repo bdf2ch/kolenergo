@@ -1,13 +1,17 @@
 <div class="tabs-component">
   <div class="tabs-container">
-    <div class="tab" (click)="selectTab(applicationModes.SEARCH_REQUESTS_MODE)" [ngClass]="{'selected': (mode$ | async) === applicationModes.SEARCH_REQUESTS_MODE}">
+    <div class="tab"
+         *ngIf="(isFiltersApplied$ | async)"
+         [ngClass]="{'selected': (mode$ | async) === applicationModes.SEARCH_REQUESTS_MODE}"
+         (click)="selectTab(applicationModes.SEARCH_REQUESTS_MODE)">
       <mat-icon>search</mat-icon>
       <span class="tab-label">
         Найденные
       </span>
       <span class="indicator"
-            matTooltip="Найдено заявок: 0"
-            matTooltipPosition="above">{{0}}
+            matTooltip="Найдено заявок: {{(filteredRequestsCount$ | async)}}"
+            matTooltipPosition="above">
+        {{(filteredRequestsCount$ | async)}}
       </span>
     </div>
     <div class="tab"

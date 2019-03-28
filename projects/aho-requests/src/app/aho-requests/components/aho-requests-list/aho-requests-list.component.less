@@ -1,0 +1,119 @@
+@request-background-color-hover: white;
+@request-border-color: #eceff1;
+
+.aho-requests-list {
+  display: flex;
+  flex-direction: column;
+
+  table tbody {
+    font-family: "Segoe UI";
+    font-size: 14px;
+    background: white;
+
+    tr {
+      border-bottom: 1px solid @request-border-color;
+      cursor: pointer;
+
+      &:hover {
+        background: #fffde7;
+      }
+
+      td {
+        padding: 10px;
+        vertical-align: top;
+        &.request-meta-details {
+          min-width: 120px;
+          .mat-icon {
+            &.fa {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 18px;
+              height: 18px;
+            }
+          }
+        }
+
+        &.request-author-initiator {
+          min-width: 180px;
+        }
+
+        &.request-location {
+
+        }
+
+        &.request-content {
+          .request-tasks-expander {
+            .expander-content {
+              display: inline-flex;
+              flex-direction: row;
+              justify-content: flex-start;
+              align-items: center;
+
+              &:hover {
+                text-decoration: underline #6c757d;
+              }
+
+              .mat-icon {
+                width: 13px;
+                height: 13px;
+                font-size: 13px;
+                line-height: 17px;
+                color: #6c757d;
+              }
+            }
+          }
+        }
+
+        &.request-date-expires {
+          min-width: 85px;
+          .expired-label {
+            color: #e53935;
+          }
+        }
+
+        &.request-employees {
+          min-width: 180px;
+        }
+
+        &.request-status {
+          .mat-icon {
+            width: 20px;
+            height: 20px;
+            font-size: 20px;
+            &.far {
+              width: 21px;
+              height: 22px;
+              font-size: 22px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+  .aho-request {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 10px;
+    font-family: "Segoe UI Light";
+    border-bottom: 1px solid @request-border-color;
+
+    border-right: 4px;
+    &:last-of-type {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: @request-background-color-hover;
+      // border-top: none;
+      // border-bottom: 1px solid transparent;
+      cursor: pointer;
+
+      &:nth-of-type(n-1) {
+        // border-bottom: none !important;
+      }
+    }
+  }
+}

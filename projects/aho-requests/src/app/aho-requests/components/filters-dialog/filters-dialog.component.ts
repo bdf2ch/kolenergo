@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
 import { Moment } from 'moment';
 
 import {
-  ChangeFilters,
-  IApplicationState,
+  ApplyFilters,
+  IApplicationState, ResetFilters,
   selectEmployees,
   selectFilters,
   selectRequestStatuses,
@@ -28,6 +28,11 @@ export class FiltersDialogComponent implements OnInit {
   public employees$: Observable<User[]>;
   public manager: FilterManager;
 
+  /**
+   * Конструктор
+   * @param store - Контейнер состояния приложения
+   * @param dialogRef - Диалгоовое окно с фильтрами
+   */
   constructor(private store: Store<IApplicationState>,
               private dialogRef: MatDialogRef<FiltersDialogComponent>) {}
 
@@ -42,32 +47,60 @@ export class FiltersDialogComponent implements OnInit {
     });
   }
 
+  /**
+   * Изменение фильтра начальной даты
+   * @param event - Событие выбора начальной даты
+   */
   startDateChange(event: MatDatepickerInputEvent<Moment>) {
     this.manager.getFilterById('start-date').setValue(event.value.toDate());
   }
 
+  /**
+   * Изменение фильтра конечной даты
+   * @param event - Событие выбора конечной даты
+   */
   endDateChange(event: MatDatepickerInputEvent<Moment>) {
-    this.manager.getFilterById('end-date').setValue(event.value.toDate());
+    this.manager.getFilterById('end-date').setValue(event.value.hours(23).minutes(59).seconds(59).toDate());
   }
 
+  /**
+   * Изменение фильтра категории заявки
+   * @param event - Событие выбора категории заявки
+   */
   requestTypeChange(event: MatSelectChange) {
-    console.log(event);
     this.manager.getFilterById('request-type').setValue(event.value);
   }
 
+  /**
+   * Изменение фильтра статуса заявки
+   * @param event - Событие выбора статуса заявки
+   */
   requestStatusChange(event: MatSelectChange) {
-    console.log(event);
     this.manager.getFilterById('request-status').setValue(event.value);
   }
 
+  /**
+   * Изменение фильтра исполнителя
+   * @param event - Событие выбора исполнителя
+   */
   requestEmployeeChange(event: MatSelectChange) {
     console.log(event);
     this.manager.getFilterById('request-employee').setValue(event.value);
   }
 
+  /**
+   * Применение фильтров
+   */
   applyFilters() {
-    this.store.dispatch(new ChangeFilters(this.manager.getFilters()));
+    this.store.dispatch(new ApplyFilters(this.manager.getFilters()));
     this.dialogRef.close();
   }
 
+  /**
+   * Очистка фильтров
+   */
+  resetFilters() {
+    this.store.dispatch(new ResetFilters());
+    this.dialogRef.close();
+  }
 }

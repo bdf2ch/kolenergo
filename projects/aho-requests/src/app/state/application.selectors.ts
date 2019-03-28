@@ -80,6 +80,16 @@ export const selectExpiredRequestsCount = createSelector(
   (state: IApplicationState) => state.expiredRequestsCount
 );
 
+export const selectFilteredRequestsCount = createSelector(
+  aho,
+  (state: IApplicationState) => state.filteredRequestsCount
+);
+
+export const selectIsFiltersApplied = createSelector(
+  aho,
+  (state: IApplicationState) => state.isFiltersApplied
+);
+
 export const selectTotalPagesCount = createSelector(
   aho,
   (state: IApplicationState) => state.totalPages

@@ -11,7 +11,7 @@ import {
   selectFilters,
   selectExpiredRequestsCount,
   ApplicationModes,
-  selectFetchingDataInProgress
+  selectFetchingDataInProgress, ApplyFilters, LoadOwnRequests, ResetFilters, SetCurrentPage
 } from '../../../state';
 import { IAhoRequest } from '../../interfaces';
 import { FiltersDialogComponent } from '../filters-dialog/filters-dialog.component';
@@ -35,25 +35,6 @@ export class AhoRequestsComponent implements OnInit {
     this.fetchingDataInProgress$ = this.store.pipe(select(selectFetchingDataInProgress));
     this.requests$ = this.store.pipe(select(selectRequests));
     this.filters$ = this.store.pipe(select(selectFilters));
-
-    this.filters$.subscribe((filters: FilterManager) => {
-      console.log('FILTERS', filters);
-    });
-
-    this.requests$.subscribe((requests: IAhoRequest[]) => {
-      console.log('REQUESTS', requests);
-    });
-  }
-
-  searchFiltersAttached(manager: FilterManager) {
-    console.log('SEARCH FILTERS ATTACHED', manager);
-    // const startDateFilter = manager.getFilterById('start-date');
-    // console.log('startDateFilter', startDateFilter);
-    // startDateFilter.setLabel((startDateFilter) => startDateFilter.getValue().toDateString());
-
-    // const endDateFilter = manager.getFilterById('end-date');
-    // console.log('endDateFilter', endDateFilter);
-    // endDateFilter.setLabel((endDateFilter) => endDateFilter.getValue().toDateString());
   }
 
   openFiltersDialog() {
@@ -62,11 +43,15 @@ export class AhoRequestsComponent implements OnInit {
     });
   }
 
-  clearSearch() {
-    console.log('SEARCH FIELD CLEARED');
-  }
+  clearSearch() {}
 
-  filtersChange(appliedFilters: SearchFilter<any>[]) {
-    console.log('applied filters', appliedFilters);
+  filtersChange(filters: SearchFilter<any>[]) {
+    const manager = new FilterManager(filters);
+    if (manager.isFiltersApplied()) {
+      this.store.dispatch(new SetCurrentPage(0));
+      this.store.dispatch(new ApplyFilters(filters));
+    } else {
+      this.store.dispatch(new ResetFilters());
+    }
   }
 }

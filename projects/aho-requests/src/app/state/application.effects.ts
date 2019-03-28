@@ -26,6 +26,41 @@ export class ApplicationEffects {
   }
 
   @Effect()
+  loadFilteredRequests$ = this.actions$.pipe(
+    ofType(AhoRequestsActionTypes.APPLY_FILTERS),
+    withLatestFrom(
+      this.store.pipe(select(selectFilters)),
+      this.store.pipe(select(selectCurrentPage)),
+      this.store.pipe(select(selectItemsOnPage))
+    ),
+    mergeMap(([action, filters, page, itemsOnPage]) =>
+      this.aho.fetchRequests(
+        filters.getFilterById('start-date').getValue() ? filters.getFilterById('start-date').getValue().getTime() : 0,
+        filters.getFilterById('end-date').getValue() ? filters.getFilterById('end-date').getValue().getTime() : 0,
+        0,
+        filters.getFilterById('request-employee').getValue() ? filters.getFilterById('request-employee').getValue().id : 0,
+        filters.getFilterById('request-type').getValue() ? filters.getFilterById('request-type').getValue().id : 0,
+        filters.getFilterById('request-status').getValue() ? filters.getFilterById('request-status').getValue().id : 0,
+        false,
+        page,
+        itemsOnPage
+      ).pipe(
+        map((response: IServerResponse<{ requests: IAhoRequest[], totalRequests: number }>) => {
+          return {type: AhoRequestsActionTypes.FILTERED_REQUESTS_LOAD_SUCCESS, payload: response};
+        })
+      )
+    )
+  );
+
+  @Effect()
+  resetFilters$ = this.actions$.pipe(
+    ofType(AhoRequestsActionTypes.RESET_FILTERS),
+    map(() => {
+      return { type: AhoRequestsActionTypes.LOAD_OWN_REQUESTS };
+    })
+  );
+
+  @Effect()
   loadAllRequests$ = this.actions$.pipe(
     ofType(AhoRequestsActionTypes.LOAD_ALL_REQUESTS),
     withLatestFrom(this.store.pipe(select(selectCurrentPage)), this.store.pipe(select(selectItemsOnPage))),
@@ -117,7 +152,6 @@ export class ApplicationEffects {
   @Effect()
   loadInitialData$ = this.actions$.pipe(
     ofType(state.AhoRequestsActionTypes.LOAD_INITIAL_DATA),
-    tap(() => console.log('LOAD_INITIAL_DATA_EFFECT')),
     mergeMap(() => this.aho.fetchInitialData()
       .pipe(
         map((data: IServerResponse<IAhoRequestsInitialData>) => {
@@ -130,7 +164,6 @@ export class ApplicationEffects {
   @Effect()
   loadRequests$ = this.actions$.pipe(
     ofType(state.AhoRequestsActionTypes.LOAD_REQUESTS),
-    tap(() => console.log('LOAD_REQUESTS_EFFECT')),
     withLatestFrom(this.store.pipe(select(selectCurrentPage))),
     switchMap(([action, page]) => this.aho.fetchRequests(0, 0, 0, 0, 0, 0, false, (page + 1), 20, null)
       .pipe(

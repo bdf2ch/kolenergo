@@ -29,6 +29,8 @@ export interface IApplicationState {
   employeeRequestsCount: number;
   employeeUncompletedRequestsCount: number;
   expiredRequestsCount: number;
+  isFiltersApplied: boolean;
+  filteredRequestsCount: number;
   totalPages: number;
   currentPage: number;
   itemsOnPage: number;
@@ -57,6 +59,8 @@ export const initialState: IApplicationState = {
   employeeRequestsCount: 0,
   employeeUncompletedRequestsCount: 0,
   expiredRequestsCount: 0,
+  filteredRequestsCount: 0,
+  isFiltersApplied: false,
   totalPages: 0,
   currentPage: 0,
   itemsOnPage: 20
