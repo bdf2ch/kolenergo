@@ -90,6 +90,11 @@ export const selectIsFiltersApplied = createSelector(
   (state: IApplicationState) => state.isFiltersApplied
 );
 
+export const selectSelectedRequest = createSelector(
+  aho,
+  (state: IApplicationState) => state.selectedRequest
+);
+
 export const selectTotalPagesCount = createSelector(
   aho,
   (state: IApplicationState) => state.totalPages

@@ -1,5 +1,5 @@
 import { IAuthenticationState, authenticationInitialState } from 'kolenergo-core';
-import {AhoRequestStatus, AhoRequestType, FilterManager, SearchFilter} from '../aho-requests/models';
+import {AhoRequest, AhoRequestStatus, AhoRequestType, FilterManager, SearchFilter} from '../aho-requests/models';
 import { IAhoRequest, IAhoRequestRejectReason, IAhoRequestStatus, IAhoRequestType} from '../aho-requests/interfaces';
 import { User } from 'kolenergo-core';
 import * as moment from 'moment';
@@ -31,6 +31,7 @@ export interface IApplicationState {
   expiredRequestsCount: number;
   isFiltersApplied: boolean;
   filteredRequestsCount: number;
+  selectedRequest: AhoRequest;
   totalPages: number;
   currentPage: number;
   itemsOnPage: number;
@@ -61,6 +62,7 @@ export const initialState: IApplicationState = {
   expiredRequestsCount: 0,
   filteredRequestsCount: 0,
   isFiltersApplied: false,
+  selectedRequest:  null,
   totalPages: 0,
   currentPage: 0,
   itemsOnPage: 20

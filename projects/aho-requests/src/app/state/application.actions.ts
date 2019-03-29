@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import { IAhoRequest, IAhoRequestsInitialData } from '../aho-requests/interfaces';
 import { IServerResponse } from '../../../../kolenergo-core/src/lib/interfaces';
-import { SearchFilter } from '../aho-requests/models';
+import {AhoRequest, SearchFilter} from '../aho-requests/models';
 import { ApplicationModes } from './application.state';
 
 export enum AhoRequestsActionTypes {
@@ -25,7 +25,8 @@ export enum AhoRequestsActionTypes {
   CLOSE_FILTERS_DIALOG = '[Filters] Close filters dialog',
   APPLY_FILTERS = '[Filters] Filters changed',
   FILTERED_REQUESTS_LOAD_SUCCESS = '[AHO Requests API] Filtered requests loaded successfully',
-  RESET_FILTERS = '[Filters] Filters reset'
+  RESET_FILTERS = '[Filters] Filters reset',
+  SELECT_REQUEST = '[AHO Requests] Request selected'
 }
 
 /**
@@ -194,7 +195,16 @@ export class FilteredRequestsLoadedSuccess implements Action {
  * Событие сброса примененных фильтров
  */
 export class ResetFilters implements Action {
-  readonly  type = AhoRequestsActionTypes.RESET_FILTERS;
+  readonly type = AhoRequestsActionTypes.RESET_FILTERS;
+}
+
+/**
+ * Выбор заявки
+ */
+export class SelectRequest implements Action {
+  readonly type = AhoRequestsActionTypes.SELECT_REQUEST;
+
+  constructor(public payload: AhoRequest) {}
 }
 
 
@@ -216,4 +226,5 @@ export type AhoRequestsActions =
   LoadRequestsSuccess |
   ApplyFilters |
   FilteredRequestsLoadedSuccess |
-  ResetFilters;
+  ResetFilters |
+  SelectRequest;

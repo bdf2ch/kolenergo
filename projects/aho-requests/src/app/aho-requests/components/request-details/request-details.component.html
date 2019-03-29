@@ -1,3 +1,11 @@
-<p>
-  request-details works!
-</p>
+<div class="row no-gutters d-none d-md-flex mt-3">
+  <!--
+  <div class="col-2">
+
+    <div class="lead">Заявка #{{(selectedRequest$ | async)?.id}}</div>
+    <div class="">от {{(selectedRequest$ | async)?.dateCreatedD | date:'dd.MM.yyyy, HH:mm'}}</div>
+  </div>
+  -->
+  <div class="col-3 request-type-image" [ngStyle]="{'background': 'url(' + (selectedRequest$ | async)?.type.imageUrl + ')'}"></div>
+
+</div>

@@ -12,7 +12,7 @@ import {
   LoadOwnRequests,
   selectCurrentPage,
   selectFetchingDataInProgress, selectFilters,
-  selectMode,
+  selectMode, SelectRequest,
   selectTotalPagesCount,
   SetCurrentPage
 } from '../../../state';
@@ -48,7 +48,8 @@ export class AhoRequestsListComponent implements OnInit {
   }
 
   showRequestDetails(request: AhoRequest) {
-    this.router.navigate(['/', request.id]);
+    this.store.dispatch(new SelectRequest(request));
+    this.router.navigate(['/request', request.id]);
   }
 
   loadNextPage() {

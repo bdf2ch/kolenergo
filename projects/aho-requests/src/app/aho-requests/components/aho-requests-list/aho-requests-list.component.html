@@ -37,7 +37,14 @@
       <td class="request-content">
         <div class="d-flex flex-column">
           <div class="request-content-task" *ngFor="let task of (request.tasks.length > 4 && !request.isExpanded ? request.tasks.slice(0,4) : request.tasks)">
-            <div class="request-task-content">{{task.content.title}}</div>
+            <div class="request-task-content">
+              <span>{{task.content.title}}</span>
+              <span *ngIf="request.type.isCountable" class="text-muted">
+                -
+                <span>{{task.count}}</span>
+                <span>{{task.content.boxing ? task.content.boxing : ' шт'}}</span>
+              </span>
+            </div>
           </div>
           <div class="request-tasks-expander"
                *ngIf="request.tasks.length > 4 && !request.isExpanded">

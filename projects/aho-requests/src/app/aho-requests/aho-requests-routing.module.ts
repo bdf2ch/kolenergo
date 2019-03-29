@@ -15,7 +15,7 @@ const routes: Routes = [
         component: RequestsListComponent
       },
       {
-        path: ':id',
+        path: 'request/:id',
         component: RequestDetailsComponent
       }
     ]

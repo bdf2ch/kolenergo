@@ -162,6 +162,12 @@ export function reducer(
         currentPage: 0
       };
     }
+    case actions.AhoRequestsActionTypes.SELECT_REQUEST: {
+      return {
+        ...state,
+        selectedRequest: action.payload
+      };
+    }
     default: {
       return state;
     }
