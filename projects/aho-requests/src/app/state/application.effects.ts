@@ -6,24 +6,50 @@ import {
   ApplicationModes,
   IApplicationState,
   selectCurrentPage, selectFilters,
-  SelectRequestsMode, LoadExpiredRequests, selectItemsOnPage
+  SelectRequestsMode, LoadExpiredRequests, selectItemsOnPage, LoadInitialData, LoadRequestDetails
 } from './index';
-import { map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { filter, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import {combineLatest, EMPTY} from 'rxjs';
 import { AhoRequestsService } from '../aho-requests/services/aho-requests.service';
 import { IAhoRequest, IAhoRequestsInitialData } from '../aho-requests/interfaces';
 import { IServerResponse } from '../../../../kolenergo-core/src/lib/interfaces';
 import { select, Store } from '@ngrx/store';
 import {FilterManager} from '../aho-requests/models';
+import { ROUTER_NAVIGATION } from '@ngrx/router-store';
+import { of } from 'rxjs/internal/observable/of';
 
 @Injectable()
 export class ApplicationEffects {
-  currentPage: number;
 
   constructor(private store: Store<IApplicationState>,
               private actions$: Actions,
               private aho: AhoRequestsService) {
   }
+
+  /*
+  @Effect()
+  routeNavigation = this.actions$.pipe(
+    ofType(ROUTER_NAVIGATION),
+    tap((action) => {
+      console.log('ROUTER EFFECT', action.payload.event.state.root.children["0"].firstChild.firstChild.routeConfig.path);
+      return action.payload.event.state.root.children["0"].firstChild.firstChild.routeConfig.path;
+    }),
+    switchMap((action) => {
+        return {type: 'hfghf', payload: action.payload.event.state.root.children["0"].firstChild.firstChild.routeConfig.path};
+    })
+  );
+   */
+
+  @Effect()
+  loadRequestDetails$ = this.actions$.pipe(
+    ofType(AhoRequestsActionTypes.LOAD_REQUEST_DETAILS),
+    mergeMap( (action: LoadRequestDetails) => this.aho.fetchRequestById(action.payload)
+      .pipe(
+        map((response: IAhoRequest) => {
+          return {type: AhoRequestsActionTypes.LOAD_REQUEST_DETAILS_SUCCESS, payload: response};
+        })
+      ))
+  );
 
   @Effect()
   loadFilteredRequests$ = this.actions$.pipe(
@@ -152,7 +178,7 @@ export class ApplicationEffects {
   @Effect()
   loadInitialData$ = this.actions$.pipe(
     ofType(state.AhoRequestsActionTypes.LOAD_INITIAL_DATA),
-    mergeMap(() => this.aho.fetchInitialData()
+    mergeMap((action: LoadInitialData) => this.aho.fetchInitialData(action.payload)
       .pipe(
         map((data: IServerResponse<IAhoRequestsInitialData>) => {
           return {type: AhoRequestsActionTypes.INITIAL_DATA_LOAD_SUCCESS, payload: {data: data.data}};

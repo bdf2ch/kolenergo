@@ -29,11 +29,15 @@ export const selectMode = createSelector(
   (state: IApplicationState) => state.mode
 );
 
+export const selectApplicationInitialized = createSelector(
+  aho,
+  (state: IApplicationState) => state.isApplicationInitialized
+);
+
 export const selectFetchingDataInProgress = createSelector(
   aho,
   (state: IApplicationState) => state.fetchingDataInProgress
 );
-
 
 export const selectFilters = createSelector(
   aho,

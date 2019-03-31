@@ -5,6 +5,7 @@ import { select, Store } from '@ngrx/store';
 
 import { AhoRequest } from '../../models';
 import { IApplicationState, selectSelectedRequest } from '../../../state';
+import { IAhoRequest } from '../../interfaces';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { IApplicationState, selectSelectedRequest } from '../../../state';
   styleUrls: ['./request-details.component.less']
 })
 export class RequestDetailsComponent implements OnInit {
-  public selectedRequest$: Observable<AhoRequest>;
+  public selectedRequest$: Observable<IAhoRequest>;
 
   constructor(private store: Store<IApplicationState>) { }
 

@@ -75,6 +75,19 @@ export function reducer(
         fetchingDataInProgress: false
       };
     }
+    case actions.AhoRequestsActionTypes.LOAD_REQUEST_DETAILS: {
+      return {
+        ...state,
+        fetchingDataInProgress: true
+      };
+    }
+    case actions.AhoRequestsActionTypes.LOAD_REQUEST_DETAILS_SUCCESS: {
+      return {
+        ...state,
+        selectedRequest: new AhoRequest(action.payload),
+        fetchingDataInProgress: false
+      };
+    }
     case actions.AhoRequestsActionTypes.SET_CURRENT_PAGE: {
       return {
         ...state,
@@ -96,6 +109,7 @@ export function reducer(
     case actions.AhoRequestsActionTypes.INITIAL_DATA_LOAD_SUCCESS: {
       return {
         ...state,
+        isApplicationInitialized: true,
         requestTypes: action.payload.data.types.map((item: IAhoRequestType) => {
           return new AhoRequestType(item);
         }),

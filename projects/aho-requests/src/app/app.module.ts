@@ -24,6 +24,7 @@ import { AppComponent } from './app.component';
 import { ApplicationEffects } from './state/application.effects';
 
 import { environment } from '../environments/environment';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 
 
@@ -50,7 +51,8 @@ import { environment } from '../environments/environment';
     ResourceModule.forRoot(),
     StoreModule.forRoot({ aho: reducer }),
     EffectsModule.forRoot([ApplicationEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreRouterConnectingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -63,7 +65,7 @@ export class AppModule {
         console.log(state);
       });
 
-    store.dispatch(new LoadInitialData());
+    // store.dispatch(new LoadInitialData(7));
 
     this.matIconRegistry.registerFontClassAlias('fontawesome', 'fa');
     this.matIconRegistry.registerFontClassAlias('fortawesome', 'fas');

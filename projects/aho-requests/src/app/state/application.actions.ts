@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import { IAhoRequest, IAhoRequestsInitialData } from '../aho-requests/interfaces';
 import { IServerResponse } from '../../../../kolenergo-core/src/lib/interfaces';
-import {AhoRequest, SearchFilter} from '../aho-requests/models';
+import { AhoRequest, SearchFilter } from '../aho-requests/models';
 import { ApplicationModes } from './application.state';
 
 export enum AhoRequestsActionTypes {
@@ -13,6 +13,8 @@ export enum AhoRequestsActionTypes {
   LOAD_EMPLOYEE_REQUESTS_SUCCESS = '[AHO Requests API] Employee requests loaded successfully',
   LOAD_EXPIRED_REQUESTS = '[AHO Requests API] Load expired requests',
   LOAD_EXPIRED_REQUESTS_SUCCESS = '[AHO Requests API] Expired requests loaded successfully',
+  LOAD_REQUEST_DETAILS = '[AHO Requests API] Load request details',
+  LOAD_REQUEST_DETAILS_SUCCESS = '[AHO Requests API] Request details loaded successfully',
   SET_CURRENT_PAGE = '[AHO Requests] Set current page',
   SELECT_REQUESTS_MODE = '[AHO Requests] Requests mode change',
   LOAD_INITIAL_DATA = '[AHO Requests API] Load initial data',
@@ -94,6 +96,24 @@ export class LoadExpiredRequestsSuccess implements Action {
 }
 
 /**
+ * Загрузка информации о заявке
+ */
+export class LoadRequestDetails implements Action {
+  readonly type = AhoRequestsActionTypes.LOAD_REQUEST_DETAILS;
+
+  constructor(public payload: number) {}
+}
+
+/**
+ * Информация о заявке успешно загружена
+ */
+export class LoadRequestDetailsSuccess implements Action {
+  readonly type = AhoRequestsActionTypes.LOAD_REQUEST_DETAILS_SUCCESS;
+
+  constructor(public payload: IAhoRequest) {}
+}
+
+/**
  * Установка текущей страницы
  */
 export class SetCurrentPage implements Action {
@@ -116,6 +136,8 @@ export class SelectRequestsMode implements Action {
  */
 export class LoadInitialData implements Action {
   readonly  type = AhoRequestsActionTypes.LOAD_INITIAL_DATA;
+
+  constructor(public payload: number) {}
 }
 
 /**
@@ -204,7 +226,7 @@ export class ResetFilters implements Action {
 export class SelectRequest implements Action {
   readonly type = AhoRequestsActionTypes.SELECT_REQUEST;
 
-  constructor(public payload: AhoRequest) {}
+  constructor(public payload: IAhoRequest) {}
 }
 
 
@@ -217,8 +239,9 @@ export type AhoRequestsActions =
   LoadEmployeeRequestsSuccess |
   LoadEmployeeRequests |
   LoadExpiredRequestsSuccess |
+  LoadRequestDetails |
+  LoadRequestDetailsSuccess |
   SetCurrentPage |
-  LoadRequestsSuccess |
   SelectRequestsMode |
   LoadInitialData |
   InitialDataLoadSuccess |

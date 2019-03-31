@@ -16,6 +16,7 @@ export interface IApplicationState {
   // session: IAuthenticationState;
   mode: ApplicationModes;
   fetchingDataInProgress: boolean;
+  isApplicationInitialized: boolean;
   requestTypes: IAhoRequestType[];
   requestStatuses: IAhoRequestStatus[];
   requestRejectReasons: IAhoRequestRejectReason[];
@@ -31,7 +32,7 @@ export interface IApplicationState {
   expiredRequestsCount: number;
   isFiltersApplied: boolean;
   filteredRequestsCount: number;
-  selectedRequest: AhoRequest;
+  selectedRequest: IAhoRequest;
   totalPages: number;
   currentPage: number;
   itemsOnPage: number;
@@ -41,6 +42,7 @@ export const initialState: IApplicationState = {
   // session: authenticationInitialState
   mode: ApplicationModes.ALL_REQUESTS_MODE,
   fetchingDataInProgress: false,
+  isApplicationInitialized: false,
   requestTypes: [],
   requestStatuses: [],
   requestRejectReasons: [],

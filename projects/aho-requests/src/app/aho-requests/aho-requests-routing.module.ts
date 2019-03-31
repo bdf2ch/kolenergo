@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AhoRequestsComponent } from './components/aho-requests/aho-requests.component';
 import { RequestDetailsComponent } from './components/request-details/request-details.component';
 import { RequestsListComponent } from './components/requests-list/requests-list.component';
+import { RequestDetailsGuard } from './guards/request-details.guard';
+import { RequestsListGuard } from './guards/requests-list.guard';
 
 const routes: Routes = [
   {
@@ -12,11 +14,13 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: RequestsListComponent
+        component: RequestsListComponent,
+        resolve: [RequestsListGuard]
       },
       {
         path: 'request/:id',
-        component: RequestDetailsComponent
+        component: RequestDetailsComponent,
+        resolve: [RequestDetailsGuard]
       }
     ]
   }

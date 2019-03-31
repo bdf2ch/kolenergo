@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 
 import { IAhoRequest } from '../../interfaces';
 import { FilterManager } from '../../models';
-import { IApplicationState, selectFilters, selectRequests } from '../../../state';
+import { IApplicationState, LoadInitialData, selectFilters, selectRequests } from '../../../state';
 
 @Component({
   selector: 'app-requests-list',
@@ -21,6 +21,7 @@ export class RequestsListComponent implements OnInit {
   ngOnInit() {
     this.requests$ = this.store.pipe(select(selectRequests));
     this.filters$ = this.store.pipe(select(selectFilters));
+    // this.store.dispatch(new LoadInitialData(7));
   }
 
 }
