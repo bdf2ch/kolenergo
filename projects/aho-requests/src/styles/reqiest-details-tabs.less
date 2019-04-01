@@ -1,0 +1,67 @@
+@icon-color: #b0bec5;
+@indicator-width: 20px;
+@indicator-height: 20px;
+@indicator-font-size: 13px;
+@indicator-font-color: black;
+@indicator-background-color: #ffd740;
+
+.request-details-tabs {
+  .mat-tab-header {
+    border-bottom: 1px solid #eceff1;
+
+    .mat-tab-list {
+      .mat-ink-bar {
+        display: none;
+      }
+
+      .mat-tab-labels {
+        .mat-tab-label {
+          border-top-left-radius: 4px;
+          border-top-right-radius: 4px;
+          opacity: 1;
+
+          &:hover {
+            background: #f5f5f5;
+          }
+
+          &.mat-tab-disabled {
+            &:hover {
+              background: transparent;
+            }
+          }
+
+          &.mat-tab-label-active {
+            color: rgba(0, 0, 0, 0.87) !important;
+            background: #eeeeee;
+          }
+
+          .mat-tab-label-content {
+            .mat-icon {
+              width: 20px;
+              height: 20px;
+              font-size: 20px;
+              line-height: 25px;
+              margin-right: 5px;
+              color: @icon-color;
+            }
+
+            .label {
+              font-family: "Segoe UI Light";
+              font-size: 16px;
+              color: rgba(0, 0, 0, 0.87) !important;
+
+              &.request-label {
+                font-family: "Segoe UI";
+                font-size: 18px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .mat-tab-body-wrapper {
+    flex: 1;
+  }
+}

@@ -13,6 +13,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatListModule } from '@angular/material/list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
@@ -68,6 +70,8 @@ export const MY_FORMATS = {
     MatInputModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatTabsModule,
+    MatListModule,
     MatDatepickerModule,
     MatMomentDateModule
   ],

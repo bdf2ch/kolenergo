@@ -1,10 +1,22 @@
 <div class="d-flex flex-column h-100">
-  <mat-progress-bar mode="indeterminate" color="accent" [ngStyle]="{'visibility': !(fetchingDataInProgress$ | async) ? 'hidden' : 'visible'}"></mat-progress-bar>
+
+  <!-- Start: Индикатор загрузки данных с сервера -->
+  <mat-progress-bar mode="indeterminate"
+                    color="accent"
+                    [ngStyle]="{'opacity': !(fetchingDataInProgress$ | async) ? '0' : '1'}">
+  </mat-progress-bar>
+  <!-- End: Индикатор загрузки данных с сервера -->
+
   <mat-sidenav-container hasBackdrop="false" style="flex: 1;">
+
+    <!-- Start: Боковая панель управления -->
     <mat-sidenav mode="over">sidenav</mat-sidenav>
+    <!-- End: Боковая панель управления -->
+
+    <!-- Start: Содержимое текущего раздела приложения -->
     <mat-sidenav-content>
 
-      <div class="container-fluid h-100 p-2 pr-xl-4 pl-xl-4">
+      <div class="container-fluid d-flex flex-column h-100 p-2 pr-xl-4 pl-xl-4">
         <!-- Start: Заголовок, поиск и фильтрация, меню пользователя -->
         <div class="row no-gutters app-header pt-2 pb-3 pt-md-4 pb-md-4">
 
@@ -53,12 +65,8 @@
 
         <router-outlet></router-outlet>
       </div>
-
-
     </mat-sidenav-content>
+    <!-- End: Содержимое текущего раздела приложения -->
+
   </mat-sidenav-container>
 </div>
-
-<button mat-fab color="accent" class="add-request-button" matTooltip="Добавить заявку" matTooltipPosition="left">
-  <mat-icon color="primary">add</mat-icon>
-</button>

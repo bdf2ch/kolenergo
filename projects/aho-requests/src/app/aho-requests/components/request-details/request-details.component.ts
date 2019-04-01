@@ -11,7 +11,8 @@ import { IAhoRequest } from '../../interfaces';
 @Component({
   selector: 'app-request-details',
   templateUrl: './request-details.component.html',
-  styleUrls: ['./request-details.component.less']
+  styleUrls: ['./request-details.component.less'],
+  styles: [':host { display: flex; flex-direction: column; flex: 1; }']
 })
 export class RequestDetailsComponent implements OnInit {
   public selectedRequest$: Observable<IAhoRequest>;

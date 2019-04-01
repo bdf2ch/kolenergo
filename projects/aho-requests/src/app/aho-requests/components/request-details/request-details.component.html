@@ -1,15 +1,110 @@
-<div class="row h-100 d-none d-md-flex mt-3" style="flex: 1;">
-  <!--
-  <div class="col-2">
+  <div class="row no-gutters h-100">
+    <!--
+    <div class="d-none d-md-flex flex-column col-2 h-100 request-type-image"
+         [ngStyle]="{'background': 'url(' + (selectedRequest$ | async)?.type.imageUrl + ')'}"></div>
+         -->
+    <div class="col-12">
 
-    <div class="lead">Заявка #{{(selectedRequest$ | async)?.id}}</div>
-    <div class="">от {{(selectedRequest$ | async)?.dateCreatedD | date:'dd.MM.yyyy, HH:mm'}}</div>
-  </div>
-  -->
-  <div class="col-12 h-100">
-    <app-tabs></app-tabs>
-    <div class="col-10"></div>
-    <div class="col-2 h-100 request-type-image d-flex flex-column" [ngStyle]="{'background': 'url(' + (selectedRequest$ | async)?.type.imageUrl + ')'}"></div>
+      <mat-tab-group
+        class="request-details-tabs h-100"
+        animationDuration="0ms"
+        disableRipple="true"
+        selectedIndex="0">
+        <!--
+        <mat-tab disabled>
+          <ng-template mat-tab-label>
+            <span class="label request-label pr-5">Заявка #{{(selectedRequest$ | async)?.id}}</span>
+          </ng-template>
+        </mat-tab>
+        -->
 
+        <!-- Start: Вкладка с информацией о заявке -->
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">info</mat-icon>
+            <span class="label">Содержание</span>
+          </ng-template>
+          <div class="row no-gutters h-100">
+            <div class="col-12 h-100">
+              <div class="row h-100 no-gutters">
+
+                <div class="col-4 height-100 d-flex flex-column p-3" style="background: rgba(236,239,241, 0.6);">
+
+                  <div class="request-meta-info mb-3"
+                       [ngStyle]="{'background': 'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(' + (selectedRequest$ | async)?.type.imageUrl + ')'}">
+                    <span class="primary">Заявка #{{(selectedRequest$ | async)?.id}}</span>
+                    <span class="secondary">от 10.10.2019, 15:36</span>
+                  </div>
+
+                  <mat-list>
+                    <h3 matSubheader class="">Категория заявки</h3>
+                    <mat-list-item>
+                      <mat-icon matListIcon color="primary" fontSet="fa" fontIcon="{{(selectedRequest$ | async).type.icon}}"></mat-icon>
+                      <h4 matLine>{{(selectedRequest$ | async).type.title}}</h4>
+                    </mat-list-item>
+
+                    <h3 matSubheader class="">Автор</h3>
+                    <mat-list-item>
+                      <img matListAvatar src="/assets/lamps.jpg" alt="...">
+                      <h4 matLine>{{(selectedRequest$ | async).user.firstName + ' ' + (selectedRequest$ | async).user.lastName}}</h4>
+                      <p matLine class="text-muted">Должность</p>
+                    </mat-list-item>
+
+                    <h3 matSubheader class="">Контактный телефон</h3>
+                    <mat-list-item>
+                      <mat-icon matListIcon color="primary">phone</mat-icon>
+                      <h4 matLine>{{(selectedRequest$ | async).phone}}</h4>
+                    </mat-list-item>
+
+                    <h3 matSubheader>Срок исполнения</h3>
+                    <mat-list-item>
+                      <mat-icon matListIcon color="primary">calendar_today</mat-icon>
+                      <h4 matLine>{{(selectedRequest$ | async).dateExpires}}</h4>
+                    </mat-list-item>
+
+                    <h3 matSubheader class="">Исполнитель</h3>
+                    <mat-list-item *ngFor="let employee of (selectedRequest$ | async).employees">
+                      <img matListAvatar src="/assets/lamps.jpg" alt="...">
+                      <h4 matLine>{{employee.firstName + ' ' + employee.lastName}}</h4>
+                      <p matLine class="text-muted">Должность</p>
+                    </mat-list-item>
+
+                  </mat-list>
+
+                </div>
+
+                <div class="col-8 p-3">
+                  <mat-selection-list class="request-details-tasks pt-0">
+                    <mat-list-option *ngFor="let task of (selectedRequest$ | async).tasks">
+                      <span matLine>{{task.content.title}}</span>
+                      <span matLine class="text-muted" *ngIf="task.count">Количество: {{task.count + ' ' + task.content.boxing ? task.content.boxing : 'шт'}}</span>
+                    </mat-list-option>
+                  </mat-selection-list>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        <!-- End: Вкладка с информацией о заявке -->
+
+        <!-- Start: Вкладка с комментариями к заявке -->
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">message</mat-icon>
+            <span class="label">Коммментарии</span>
+          </ng-template>
+          <div class="d-flex flex-column h-100 justify-content-center align-items-center">
+            Комментарии отсутствуют
+          </div>
+        </mat-tab>
+        <!-- End: Вкладка с комментариями к заявке -->
+
+      </mat-tab-group>
+
+    </div>
   </div>
-</div>
+
+
+
+
+

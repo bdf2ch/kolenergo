@@ -11,11 +11,11 @@ const routes: Routes = [
   {
     path: '',
     component: AhoRequestsComponent,
+    resolve: [RequestsListGuard],
     children: [
       {
         path: '',
-        component: RequestsListComponent,
-        resolve: [RequestsListGuard]
+        component: RequestsListComponent
       },
       {
         path: 'request/:id',

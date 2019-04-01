@@ -1,5 +1,39 @@
+.request-details-component {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+
 .request-type-image {
-  height: 100px;
+  background-size: cover !important;
+}
+
+.request-meta-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
   background-size: cover !important;
   border-radius: 4px;
+
+  .primary {
+    font-family: "Segoe UI Light";
+    font-size: 45px;
+    line-height: 45px;
+    color: white;
+  }
+
+  .secondary {
+    font-family: "Segoe UI Light";
+    font-size: 20px;
+    color: white;
+  }
+}
+
+.mat-subheader {
+  height: 25px !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
 }

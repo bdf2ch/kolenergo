@@ -1,15 +1,22 @@
-<!-- Start: Вкладки с режимами отображения заявок -->
-<div class="row no-gutters d-none d-md-flex mt-3">
-  <div class="col-12">
-    <app-tabs></app-tabs>
+<div class="requests-list-component position-relative">
+  <!-- Start: Вкладки с режимами отображения заявок -->
+  <div class="row no-gutters d-none d-md-flex mt-3">
+    <div class="col-12">
+      <app-tabs></app-tabs>
+    </div>
   </div>
-</div>
-<!-- End: Вкладки с режимами отображения заявок -->
+  <!-- End: Вкладки с режимами отображения заявок -->
 
-<!-- Start: Список заявок -->
-<div class="row no-gutters">
-  <div class="col-12">
-    <app-aho-requests-list [requests]="(requests$ | async)"></app-aho-requests-list>
+  <!-- Start: Список заявок -->
+  <div class="row no-gutters">
+    <div class="col-12">
+      <app-aho-requests-list [requests]="(requests$ | async)"></app-aho-requests-list>
+    </div>
   </div>
+  <!-- End: Списсок заявок -->
+
+  <button mat-fab color="accent" class="add-request-button" matTooltip="Добавить заявку" matTooltipPosition="left">
+    <mat-icon color="primary">add</mat-icon>
+  </button>
+
 </div>
-<!-- End: Списсок заявок -->
