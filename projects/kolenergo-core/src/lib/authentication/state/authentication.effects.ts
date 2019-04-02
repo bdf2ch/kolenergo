@@ -18,6 +18,20 @@ export class AuthenticationEffects {
               private snackBar: MatSnackBar) {}
 
   @Effect()
+  checkSession$ = this.actions$.pipe(
+    ofType(auth.actionTypes.AUTHENTICATION_CHECK),
+    mergeMap(() => this.authentication.checkSession('AHO_REQUESTS_APP').pipe(
+      map((result) => {
+        if (result) {
+          return {type: auth.actionTypes.AUTHENTICATION_CHECK_SUCCESS};
+        } else {
+          return {type: auth.actionTypes.AUTHENTICATION_CHECK_FAIL};
+        }
+      })
+    ))
+  );
+
+  @Effect()
     signIn$ = this.actions$
       .pipe(
         ofType(auth.actionTypes.AUTHENTICATION_SIGN_IN),

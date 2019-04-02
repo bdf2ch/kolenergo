@@ -5,7 +5,7 @@ import {
   AhoRequestsActionTypes,
   ApplicationModes,
   IApplicationState,
-  selectCurrentPage, selectFilters,
+  selectCurrentPage, selectFilters, selectIsFiltersApplied,
   SelectRequestsMode, LoadExpiredRequests, selectItemsOnPage, LoadInitialData, LoadRequestDetails
 } from './index';
 import { filter, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
@@ -26,16 +26,26 @@ export class ApplicationEffects {
               private aho: AhoRequestsService) {
   }
 
+
   /*
   @Effect()
   routeNavigation = this.actions$.pipe(
     ofType(ROUTER_NAVIGATION),
     tap((action) => {
-      console.log('ROUTER EFFECT', action.payload.event.state.root.children["0"].firstChild.firstChild.routeConfig.path);
-      return action.payload.event.state.root.children["0"].firstChild.firstChild.routeConfig.path;
+      console.log('ROUTER EFFECT url', action.payload);
+      return action;
     }),
-    switchMap((action) => {
-        return {type: 'hfghf', payload: action.payload.event.state.root.children["0"].firstChild.firstChild.routeConfig.path};
+
+    withLatestFrom(
+      this.store.pipe(select(selectIsFiltersApplied))
+    ),
+    mergeMap(([action, isFiltersApplied]) => {
+      switch (action['payload']['routerState']['url']) {
+        case '/':
+          console.log('LINK /');
+          break;
+      }
+      return of({type: 'hfghf', payload: action.payload.event.state.root.children['0'].firstChild.firstChild.routeConfig.path});
     })
   );
    */

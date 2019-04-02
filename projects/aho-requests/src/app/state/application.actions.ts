@@ -226,7 +226,7 @@ export class ResetFilters implements Action {
 export class SelectRequest implements Action {
   readonly type = AhoRequestsActionTypes.SELECT_REQUEST;
 
-  constructor(public payload: IAhoRequest) {}
+  constructor(public payload: AhoRequest) {}
 }
 
 

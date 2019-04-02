@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { MatDatepickerInputEvent, MatDialogRef, MatSelectChange } from '@angular/material';
 import { select, Store } from '@ngrx/store';
@@ -31,9 +32,11 @@ export class FiltersDialogComponent implements OnInit {
   /**
    * Конструктор
    * @param store - Контейнер состояния приложения
+   * @param router - Роутер
    * @param dialogRef - Диалгоовое окно с фильтрами
    */
   constructor(private store: Store<IApplicationState>,
+              private router: Router,
               private dialogRef: MatDialogRef<FiltersDialogComponent>) {}
 
   ngOnInit() {
@@ -94,6 +97,7 @@ export class FiltersDialogComponent implements OnInit {
   applyFilters() {
     this.store.dispatch(new ApplyFilters(this.manager.getFilters()));
     this.dialogRef.close();
+    this.router.navigate(['/']);
   }
 
   /**
@@ -102,5 +106,6 @@ export class FiltersDialogComponent implements OnInit {
   resetFilters() {
     this.store.dispatch(new ResetFilters());
     this.dialogRef.close();
+    this.router.navigate(['/']);
   }
 }

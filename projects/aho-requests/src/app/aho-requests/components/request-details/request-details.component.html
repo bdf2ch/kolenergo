@@ -24,60 +24,68 @@
             <mat-icon class="example-tab-icon">info</mat-icon>
             <span class="label">Содержание</span>
           </ng-template>
-          <div class="row no-gutters h-100">
+          <div class="row no-gutters h-100" *ngIf="(selectedRequest$ | async) as request">
             <div class="col-12 h-100">
               <div class="row h-100 no-gutters">
 
-                <div class="col-4 height-100 d-flex flex-column p-3" style="background: rgba(236,239,241, 0.6);">
+                <div class="col-4 height-100 d-flex flex-column p-3" style="background: #eeeeee;">
 
                   <div class="request-meta-info mb-3"
-                       [ngStyle]="{'background': 'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(' + (selectedRequest$ | async)?.type.imageUrl + ')'}">
-                    <span class="primary">Заявка #{{(selectedRequest$ | async)?.id}}</span>
-                    <span class="secondary">от 10.10.2019, 15:36</span>
+                       [ngStyle]="{'background': 'linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(' + request.type.imageUrl + ')'}">
+                    <span class="primary">Заявка #{{request.id}}</span>
+                    <span class="secondary">от {{request.dateCreatedD | date:'dd.MM.yyyy в hh:mm'}}</span>
                   </div>
 
                   <mat-list>
                     <h3 matSubheader class="">Категория заявки</h3>
                     <mat-list-item>
-                      <mat-icon matListIcon color="primary" fontSet="fa" fontIcon="{{(selectedRequest$ | async).type.icon}}"></mat-icon>
-                      <h4 matLine>{{(selectedRequest$ | async).type.title}}</h4>
-                    </mat-list-item>
-
-                    <h3 matSubheader class="">Автор</h3>
-                    <mat-list-item>
-                      <img matListAvatar src="/assets/lamps.jpg" alt="...">
-                      <h4 matLine>{{(selectedRequest$ | async).user.firstName + ' ' + (selectedRequest$ | async).user.lastName}}</h4>
-                      <p matLine class="text-muted">Должность</p>
-                    </mat-list-item>
-
-                    <h3 matSubheader class="">Контактный телефон</h3>
-                    <mat-list-item>
-                      <mat-icon matListIcon color="primary">phone</mat-icon>
-                      <h4 matLine>{{(selectedRequest$ | async).phone}}</h4>
+                      <mat-icon matListIcon color="primary" fontSet="fa" fontIcon="{{request.type.icon}}"></mat-icon>
+                      <h4 matLine>{{request.type.title}}</h4>
+                      <p matLine class="text-muted" *ngIf="request.numberOfLoaders">Требуется грузчиков: {{request.numberOfLoaders}}</p>
                     </mat-list-item>
 
                     <h3 matSubheader>Срок исполнения</h3>
                     <mat-list-item>
                       <mat-icon matListIcon color="primary">calendar_today</mat-icon>
-                      <h4 matLine>{{(selectedRequest$ | async).dateExpires}}</h4>
+                      <h4 matLine>{{request.dateExpiresD | date:'dd MMMM yyyy'}}</h4>
+                    </mat-list-item>
+
+                    <h3 matSubheader class="">{{request.initiator ? 'Инициатор / автор' : 'Автор'}}</h3>
+                    <mat-list-item *ngIf="request.initiator">
+                      <img matListAvatar src="/assets/lamps.jpg" alt="...">
+                      <h4 matLine>{{request.initiator}}</h4>
+                      <!-- <p matLine class="text-muted" *ngIf="(selectedRequest$ | async)?.initiator">{{(selectedRequest$ | async)?.initiator}}</p> -->
+                    </mat-list-item>
+                    <mat-list-item>
+                      <img matListAvatar src="/assets/lamps.jpg" alt="...">
+                      <h4 matLine>{{request.user.firstName + ' ' + request.user.lastName}}</h4>
+                      <p matLine class="text-muted" *ngIf="request.user.position">{{request.user.position}}</p>
+                    </mat-list-item>
+
+                    <h3 matSubheader class="">Контактный телефон</h3>
+                    <mat-list-item>
+                      <mat-icon matListIcon color="primary">phone</mat-icon>
+                      <h4 matLine>{{request.phone}}</h4>
                     </mat-list-item>
 
                     <h3 matSubheader class="">Исполнитель</h3>
-                    <mat-list-item *ngFor="let employee of (selectedRequest$ | async).employees">
+                    <mat-list-item *ngFor="let employee of request.employees">
                       <img matListAvatar src="/assets/lamps.jpg" alt="...">
                       <h4 matLine>{{employee.firstName + ' ' + employee.lastName}}</h4>
-                      <p matLine class="text-muted">Должность</p>
+                      <p matLine class="text-muted" *ngIf="employee.position">{{employee.position}}</p>
                     </mat-list-item>
 
                   </mat-list>
 
                 </div>
 
-                <div class="col-8 p-3">
+                <div class="col-8 pl-3 pt-3 pb-3">
                   <mat-selection-list class="request-details-tasks pt-0">
-                    <mat-list-option *ngFor="let task of (selectedRequest$ | async).tasks">
+                    <mat-list-option *ngFor="let task of request.tasks">
                       <span matLine>{{task.content.title}}</span>
-                      <span matLine class="text-muted" *ngIf="task.count">Количество: {{task.count + ' ' + task.content.boxing ? task.content.boxing : 'шт'}}</span>
+                      <span matLine class="text-muted" *ngIf="request.type.isCountable">
+                        Количество: {{task.count + ' ' + task.content.boxing ? task.content.boxing : 'шт'}}
+                      </span>
                     </mat-list-option>
                   </mat-selection-list>
                 </div>

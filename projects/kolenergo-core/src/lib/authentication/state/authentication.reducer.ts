@@ -1,6 +1,6 @@
-import { IAuthenticationState, authenticationInitialState } from './authentication.state';
+import {authenticationInitialState, IAuthenticationState} from './authentication.state';
 import * as authentication from './authentication.actions';
-import {User} from '../../models';
+import { User } from '../../models';
 
 export function reducer(
   state = authenticationInitialState,
@@ -10,6 +10,18 @@ export function reducer(
       return {
         ...state,
         isFetchingData: true
+      };
+    }
+    case authentication.actionTypes.AUTHENTICATION_CHECK_SUCCESS: {
+      return {
+        ...state,
+        user: new User(action.payload)
+      };
+    }
+    case authentication.actionTypes.AUTHENTICATION_CHECK_FAIL: {
+      return  {
+        ...state,
+        user: null
       };
     }
     case authentication.actionTypes.AUTHENTICATION_SIGN_IN: {

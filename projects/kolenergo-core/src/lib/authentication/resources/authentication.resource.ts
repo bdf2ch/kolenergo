@@ -10,7 +10,7 @@ import {
   IResourceMethod
 } from '@ngx-resource/core';
 
-import { IUser } from '../../interfaces';
+import { IUser } from '../../interfaces/user.interface';
 import { IAuthenticationModuleConfig } from '../config.interface';
 import { AuthenticationConfigService } from '../authentication.module';
 

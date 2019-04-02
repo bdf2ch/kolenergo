@@ -1,3 +1,4 @@
-export {User} from './user.model';
-export {Company} from './company.model';
-export {Division} from './division.model';
+export { Backup } from './backup.model';
+export { User } from './user.model';
+export { Company } from './company.model';
+export { Division } from './division.model';

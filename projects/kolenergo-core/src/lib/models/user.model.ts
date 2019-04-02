@@ -1,6 +1,6 @@
-import {ICompany, IDivision, IUser} from '../interfaces';
-import {Company} from './company.model';
-import {Division} from './division.model';
+import { ICompany, IDivision, IUser } from '../interfaces';
+import { Company } from './company.model';
+import { Division } from './division.model';
 
 /**
  * Класс, реализующий интерфейс пользователя
@@ -10,6 +10,7 @@ export class User implements IUser {
   firstName: string;        // Имя
   secondName: string;       // Отчество
   lastName: string;         // Фамилия
+  position: string;         // Должность
   company: ICompany;        // Организация
   division: IDivision;      // Структурное подразделение
 
@@ -22,6 +23,7 @@ export class User implements IUser {
     this.firstName = config ? config.firstName : null;
     this.secondName = config ? config.secondName : null;
     this.lastName = config ? config.lastName : null;
+    this.position = config ? config.position : null;
     this.company = config && config.company ? new Company(config.company) : null;
     this.division = config && config.division ? new Division(config.division) : null;
   }

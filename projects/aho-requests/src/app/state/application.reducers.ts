@@ -2,7 +2,7 @@ import { ApplicationModes, IApplicationState, initialState } from './application
 import * as actions from './application.actions';
 import {AhoRequest, AhoRequestRejectReason, AhoRequestStatus, AhoRequestType, FilterManager, SearchFilter} from '../aho-requests/models';
 import { IAhoRequest, IAhoRequestRejectReason, IAhoRequestStatus, IAhoRequestType } from '../aho-requests/interfaces';
-import { User } from 'kolenergo-core';
+import { Backup, User } from 'kolenergo-core';
 
 export function reducer(
   state: IApplicationState = initialState,
@@ -121,7 +121,9 @@ export function reducer(
         }),
         employees: [...action.payload.data.employees.map((item) => new User(item))],
         requests: action.payload.data.requests.map((item: IAhoRequest) => {
-          return new AhoRequest(item);
+          const request = new AhoRequest(item);
+          Backup.makeBackupable(request, ['status', 'tasks', 'dateExpiresD', 'numberOfLoaders', 'employees']);
+          return request;
         }),
         employeeRequestsCount: action.payload.data.employeeRequests_.totalRequestsCount,
         employeeUncompletedRequestsCount: action.payload.data.employeeRequests_.uncompletedRequestsCount,

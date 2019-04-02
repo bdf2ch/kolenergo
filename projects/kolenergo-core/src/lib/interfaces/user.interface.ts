@@ -9,6 +9,7 @@ export interface IUser {
   firstName: string;        // Имя
   secondName: string;       // Отчество
   lastName: string;         // Фамилия
+  position: string;         // Должность
   company?: ICompany;       // Организация
   division?: IDivision;     // Структурное подразделение
 }

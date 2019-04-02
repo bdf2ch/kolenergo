@@ -32,7 +32,7 @@ export interface IApplicationState {
   expiredRequestsCount: number;
   isFiltersApplied: boolean;
   filteredRequestsCount: number;
-  selectedRequest: IAhoRequest;
+  selectedRequest: AhoRequest;
   totalPages: number;
   currentPage: number;
   itemsOnPage: number;

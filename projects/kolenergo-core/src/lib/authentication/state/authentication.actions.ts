@@ -3,6 +3,8 @@ import { IUser } from '../../interfaces';
 
 export enum actionTypes {
   AUTHENTICATION_CHECK = '[Auth API] Check session',
+  AUTHENTICATION_CHECK_SUCCESS = '[Auth API] Session found successfully',
+  AUTHENTICATION_CHECK_FAIL = '[Auth API] Session not found',
   AUTHENTICATION_SIGN_IN = '[Auth API] Sign in',
   AUTHENTICATION_SUCCESS = '[Auth API] Authentication succeed',
   AUTHENTICATION_FAIL = '[Auth API] Authentication failed',
@@ -11,6 +13,16 @@ export enum actionTypes {
 
 export class AuthenticationCheck implements Action {
   readonly type = actionTypes.AUTHENTICATION_CHECK;
+}
+
+export class AuthenticationCheckSuccess implements Action {
+  readonly type = actionTypes.AUTHENTICATION_CHECK_SUCCESS;
+
+  constructor(public payload: IUser) {}
+}
+
+export class AuthenticationCheckFail implements Action {
+  readonly type = actionTypes.AUTHENTICATION_CHECK_FAIL;
 }
 
 export class AuthenticationSignIn implements Action {
@@ -37,6 +49,8 @@ export class AuthenticationSignOut implements Action {
 
 export type AuthenticationActions =
   AuthenticationCheck |
+  AuthenticationCheckSuccess |
+  AuthenticationCheckFail |
   AuthenticationSignIn |
   AuthenticationSuccess |
   AuthenticationFail |
