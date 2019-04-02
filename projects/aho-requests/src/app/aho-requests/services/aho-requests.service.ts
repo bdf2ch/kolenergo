@@ -28,6 +28,7 @@ export class AhoRequestsService {
   fetchInitialData(userId: number): Observable<IServerResponse<IAhoRequestsInitialData>> {
     let items = null;
     this.itemsOnPage$.subscribe((itemsOnPageCount: number) => {
+      console.log('ITEMS ON PAGE', items);
       items = itemsOnPageCount;
     });
     return from(this.resource.getInitialData({userId, itemsOnPage: items}))

@@ -15,15 +15,19 @@ export function reducer(
     case authentication.actionTypes.AUTHENTICATION_CHECK_SUCCESS: {
       return {
         ...state,
-        user: new User(action.payload)
+        user: new User(action.payload),
+        isFetchingData: false
       };
     }
     case authentication.actionTypes.AUTHENTICATION_CHECK_FAIL: {
       return  {
         ...state,
-        user: null
+        user: null,
+        isFetchingData: false
       };
     }
+
+
     case authentication.actionTypes.AUTHENTICATION_SIGN_IN: {
       console.log('SIGN IN ACTION');
       return {

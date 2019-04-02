@@ -12,8 +12,7 @@ export enum ApplicationModes {
   EXPIRED_REQUESTS_MODE = 'expired-requests-mode'
 }
 
-export interface IApplicationState {
-  // session: IAuthenticationState;
+export interface IAhoState {
   mode: ApplicationModes;
   fetchingDataInProgress: boolean;
   isApplicationInitialized: boolean;
@@ -38,8 +37,7 @@ export interface IApplicationState {
   itemsOnPage: number;
 }
 
-export const initialState: IApplicationState = {
-  // session: authenticationInitialState
+export const ahoInitialState: IAhoState = {
   mode: ApplicationModes.ALL_REQUESTS_MODE,
   fetchingDataInProgress: false,
   isApplicationInitialized: false,
@@ -68,6 +66,71 @@ export const initialState: IApplicationState = {
   totalPages: 0,
   currentPage: 0,
   itemsOnPage: 20
+};
+
+
+export interface IApplicationState {
+  session: IAuthenticationState;
+  aho: IAhoState;
+  /*
+  mode: ApplicationModes;
+  fetchingDataInProgress: boolean;
+  isApplicationInitialized: boolean;
+  requestTypes: IAhoRequestType[];
+  requestStatuses: IAhoRequestStatus[];
+  requestRejectReasons: IAhoRequestRejectReason[];
+  employees: User[];
+  filters: FilterManager;
+  requests: IAhoRequest[];
+  totalRequestsCount: number;
+  newRequestsCount: number;
+  ownRequestsCount: number;
+  ownUncompletedRequestsCount: number;
+  employeeRequestsCount: number;
+  employeeUncompletedRequestsCount: number;
+  expiredRequestsCount: number;
+  isFiltersApplied: boolean;
+  filteredRequestsCount: number;
+  selectedRequest: AhoRequest;
+  totalPages: number;
+  currentPage: number;
+  itemsOnPage: number;
+   */
+}
+
+export const initialState: IApplicationState = {
+  session: authenticationInitialState,
+  aho: ahoInitialState
+  /*
+  mode: ApplicationModes.ALL_REQUESTS_MODE,
+  fetchingDataInProgress: false,
+  isApplicationInitialized: false,
+  requestTypes: [],
+  requestStatuses: [],
+  requestRejectReasons: [],
+  employees: [],
+  filters: new FilterManager([
+    new SearchFilter<Date>('start-date', 'Начальная дата', null, (value: Date) => `с ${moment(value).format('DD.MM.YYYY')}`),
+    new SearchFilter<Date>('end-date', 'Конечная дата', null, (value: Date) => `по ${moment(value).format('DD.MM.YYYY')}`),
+    new SearchFilter<User>('request-employee', 'Исполнитель', null, (value: User) => `${value.firstName} ${value.lastName}`, null),
+    new SearchFilter<AhoRequestType>('request-type', 'Категория заявки', null, (value: AhoRequestType) => value.title, null),
+    new SearchFilter<AhoRequestStatus>('request-status', 'Статус заявки', null, (value: AhoRequestStatus) => value.title, null)
+  ]),
+  requests: [],
+  totalRequestsCount: 0,
+  newRequestsCount: 0,
+  ownRequestsCount: 0,
+  ownUncompletedRequestsCount: 0,
+  employeeRequestsCount: 0,
+  employeeUncompletedRequestsCount: 0,
+  expiredRequestsCount: 0,
+  filteredRequestsCount: 0,
+  isFiltersApplied: false,
+  selectedRequest:  null,
+  totalPages: 0,
+  currentPage: 0,
+  itemsOnPage: 20
+   */
 };
 
 

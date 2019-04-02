@@ -1,10 +1,8 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { IAhoState, IApplicationState } from './application.state';
-import { IAuthenticationState } from '../../../../kolenergo-core/src/lib/authentication/state/authentication.state';
+import { IAhoState, IApplicationState } from '../application.state';
 
-export const aho = (state: IApplicationState) => state.aho;
-export const session = (state: IApplicationState) => state.session;
+export const aho = createFeatureSelector<IApplicationState, IAhoState>('aho');
 
 export const selectRequestTypes = createSelector(
   aho,
