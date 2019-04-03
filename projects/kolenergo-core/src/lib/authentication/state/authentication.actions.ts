@@ -1,14 +1,19 @@
 import { Action } from '@ngrx/store';
+
+import { User } from '../../models';
 import { IUser } from '../../interfaces';
 
 export enum actionTypes {
   AUTHENTICATION_CHECK = '[Auth API] Check session',
-  AUTHENTICATION_CHECK_SUCCESS = '[Auth API] Session found successfully',
+  AUTHENTICATION_CHECK_SUCCESS = '[Auth API] Session determined successfully',
   AUTHENTICATION_CHECK_FAIL = '[Auth API] Session not found',
   AUTHENTICATION_SIGN_IN = '[Auth API] Sign in',
-  AUTHENTICATION_SUCCESS = '[Auth API] Authentication succeed',
-  AUTHENTICATION_FAIL = '[Auth API] Authentication failed',
-  AUTHENTICATION_SIGN_OUT = '[Auth API] Sign out'
+  AUTHENTICATION_SIGN_IN_SUCCESS = '[Auth API] Sign in completed successfully',
+  AUTHENTICATION_SIGN_IN_FAIL = '[Auth API] Sign in failed',
+  AUTHENTICATION_SIGN_OUT = '[Auth API] Sign out',
+  AUTHENTICATION_SIGN_OUT_SUCCESS = '[Auth API] Signed out successfully',
+  AUTHENTICATION_SIGN_OUT_FAIL = '[Auth API] Sign out failed',
+  AUTHENTICATION_SIGN_IN_BUTTON_PRESSED = '[Sign in dialog] Sign in button pressed'
 }
 
 export class AuthenticationCheck implements Action {
@@ -31,14 +36,14 @@ export class AuthenticationSignIn implements Action {
   constructor(public payload: {account: string, password: string}) {}
 }
 
-export class AuthenticationSuccess implements Action {
-  readonly type = actionTypes.AUTHENTICATION_SUCCESS;
+export class AuthenticationSignInSuccess implements Action {
+  readonly type = actionTypes.AUTHENTICATION_SIGN_IN_SUCCESS;
 
   constructor(public payload: IUser) {}
 }
 
-export class AuthenticationFail implements Action {
-  readonly type = actionTypes.AUTHENTICATION_FAIL;
+export class AuthenticationSignInFail implements Action {
+  readonly type = actionTypes.AUTHENTICATION_SIGN_IN_FAIL;
 
   constructor(public payload: string) {}
 }
@@ -47,11 +52,26 @@ export class AuthenticationSignOut implements Action {
   readonly type = actionTypes.AUTHENTICATION_SIGN_OUT;
 }
 
-export type AuthenticationActions =
+export class AuthenticationSignOutSuccess implements Action {
+  readonly type = actionTypes.AUTHENTICATION_SIGN_OUT_SUCCESS;
+}
+
+export class AuthenticationSignOutFail implements Action {
+  readonly type = actionTypes.AUTHENTICATION_SIGN_OUT_FAIL;
+}
+
+export class AuthenticationSignInButtonPressed implements Action {
+  readonly type = actionTypes.AUTHENTICATION_SIGN_IN_BUTTON_PRESSED;
+}
+
+export type authenticationActionTypes =
   AuthenticationCheck |
   AuthenticationCheckSuccess |
   AuthenticationCheckFail |
   AuthenticationSignIn |
-  AuthenticationSuccess |
-  AuthenticationFail |
-  AuthenticationSignOut;
+  AuthenticationSignInSuccess |
+  AuthenticationSignInFail |
+  AuthenticationSignOut |
+  AuthenticationSignOutSuccess |
+  AuthenticationSignOutFail |
+  AuthenticationSignInButtonPressed;

@@ -4,55 +4,50 @@ import { User } from '../../models';
 
 export function reducer(
   state = authenticationInitialState,
-  action: authentication.AuthenticationActions): IAuthenticationState {
+  action: authentication.authenticationActionTypes): IAuthenticationState {
   switch (action.type) {
     case authentication.actionTypes.AUTHENTICATION_CHECK: {
       return {
         ...state,
-        isFetchingData: true
+        isAuthenticationInProgress: true
       };
     }
     case authentication.actionTypes.AUTHENTICATION_CHECK_SUCCESS: {
       return {
         ...state,
         user: new User(action.payload),
-        isFetchingData: false
+        isAuthenticationInProgress: false
       };
     }
     case authentication.actionTypes.AUTHENTICATION_CHECK_FAIL: {
       return  {
         ...state,
         user: null,
-        isFetchingData: false
+        isAuthenticationInProgress: false
       };
     }
-
-
     case authentication.actionTypes.AUTHENTICATION_SIGN_IN: {
-      console.log('SIGN IN ACTION');
       return {
         ...state,
-        isFetchingData: true
+        isAuthenticationInProgress: true
       };
     }
-    case authentication.actionTypes.AUTHENTICATION_SUCCESS: {
-      console.log('SIGN IN SUCCESS ACTION');
+    case authentication.actionTypes.AUTHENTICATION_SIGN_IN_SUCCESS: {
       return {
         ...state,
         user: new User(action.payload),
-        isFetchingData: false
+        isAuthenticationInProgress: false
       };
     }
-    case authentication.actionTypes.AUTHENTICATION_FAIL: {
-      console.log('SIGN IN FAIL ACTION');
+    case authentication.actionTypes.AUTHENTICATION_SIGN_IN_FAIL: {
       return {
         ...state,
         user: null,
-        isFetchingData: false
+        isAuthenticationInProgress: false
       };
     }
     default: {
-      return authenticationInitialState;
+      return state;
     }
   }
 }

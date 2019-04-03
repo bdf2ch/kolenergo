@@ -3,18 +3,18 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { FilterManager, SearchFilter } from '../../models';
 import {
   IApplicationState,
   selectRequests,
   selectFilters,
-  selectExpiredRequestsCount,
-  ApplicationModes,
-  selectFetchingDataInProgress, ApplyFilters, LoadOwnRequests, ResetFilters, SetCurrentPage
+  selectFetchingDataInProgress, ApplyFilters, ResetFilters, SetCurrentPage, selectCurrentUser
 } from '../../../state';
 import { IAhoRequest } from '../../interfaces';
 import { FiltersDialogComponent } from '../filters-dialog/filters-dialog.component';
+import { User } from 'kolenergo-core';
 
 @Component({
   selector: 'app-aho-requests',
@@ -23,18 +23,27 @@ import { FiltersDialogComponent } from '../filters-dialog/filters-dialog.compone
 })
 export class AhoRequestsComponent implements OnInit {
   public fetchingDataInProgress$: Observable<boolean>;
+  public user$: Observable<User>;
   public requests$: Observable<IAhoRequest[]>;
-  public expiredRequestsCount$: Observable<number>;
   public filters$: Observable<FilterManager>;
-  public applicationModes = ApplicationModes;
 
   constructor(private store: Store<IApplicationState>,
               private dialog: MatDialog) { }
 
   ngOnInit() {
     this.fetchingDataInProgress$ = this.store.pipe(select(selectFetchingDataInProgress));
-    this.requests$ = this.store.pipe(select(selectRequests));
-    this.filters$ = this.store.pipe(select(selectFilters));
+    this.user$ = this.store.pipe(
+      select(selectCurrentUser),
+      take(1)
+    );
+    this.requests$ = this.store.pipe(
+      select(selectRequests),
+      take(1)
+    );
+    this.filters$ = this.store.pipe(
+      select(selectFilters),
+      take(1)
+    );
   }
 
   openFiltersDialog() {

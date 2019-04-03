@@ -8,6 +8,7 @@ import { AuthenticationSignIn } from '../../state/authentication.actions';
 import * as selectors from '../../state/authentication.selectors';
 import { Observable } from 'rxjs';
 import {IUser} from '../../../interfaces';
+import {selectIsAuthenticationInProgress} from '../../state/authentication.selectors';
 
 @Component({
   selector: 'lib-sign-in',
@@ -16,30 +17,16 @@ import {IUser} from '../../../interfaces';
 })
 export class SignInComponent implements OnInit {
   public signInForm: FormGroup;
-  // public isFetchingData$: Observable<boolean> = this.store.pipe(createFeatureSelector());
+  public isAuthenticationInProgress$: Observable<boolean>;
 
   constructor(private builder: FormBuilder,
               private store: Store<IAuthenticationState>) {}
 
   ngOnInit() {
+    this.isAuthenticationInProgress$ = this.store.pipe(select(selectIsAuthenticationInProgress));
     this.signInForm = this.builder.group({
       account: [null, Validators.required],
       password: [null, Validators.required]
-    });
-
-    /*
-    this.isFetchingData$.subscribe((value: boolean) => {
-      console.log('isFetchingData', value);
-    });
-    */
-
-
-    this.store.select(state => state.isFetchingData).subscribe((isFetchingData: boolean) => {
-      console.log('isFetchingData', isFetchingData);
-    });
-
-    this.store.select(state => state.user).subscribe((user: IUser) => {
-      console.log('user', user);
     });
   }
 

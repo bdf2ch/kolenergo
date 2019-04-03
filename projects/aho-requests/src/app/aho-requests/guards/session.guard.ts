@@ -10,7 +10,7 @@ import { of } from 'rxjs/internal/observable/of';
 import { switchMap } from 'rxjs/internal/operators/switchMap';
 import { tap } from 'rxjs/internal/operators/tap';
 import { AuthenticationCheck } from '../../../../../kolenergo-core/src/lib/authentication/state/authentication.actions';
-import { selectIsFetchingData } from '../../state/selectors';
+import { selectIsAuthenticationInProgress } from '../../state/selectors';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +18,12 @@ import { selectIsFetchingData } from '../../state/selectors';
 export class SessionGuard implements CanActivate {
 
   constructor(private readonly store: Store<IApplicationState>,
-              private readonly  router: Router,
+              private readonly router: Router,
               private readonly authentication: AuthenticationService) {}
 
   checkSession(): Observable<boolean> {
     return this.store.pipe(
-      select(selectIsFetchingData),
+      select(selectIsAuthenticationInProgress),
       /*
       tap((user: IUser) => {
         if (!user) {
@@ -48,7 +48,8 @@ export class SessionGuard implements CanActivate {
           } else {
             return of(true);
           }
-        })
+        }),
+        take(1)
       );
   }
 }

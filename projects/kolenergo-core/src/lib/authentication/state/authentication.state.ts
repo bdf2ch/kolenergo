@@ -1,11 +1,11 @@
-import { IUser } from '../../interfaces';
+import { User } from '../../models';
 
 /**
  * Интерфейс, описывающий состояние текущей сессии
  */
 export interface IAuthenticationState {
-  user: IUser;                // Пользователь
-  isFetchingData: boolean;    // Выполняется ли получение данных
+  user: User;                            // Пользователь
+  isAuthenticationInProgress: boolean;   // Выполняется ли авторизация
 }
 
 /**
@@ -13,5 +13,5 @@ export interface IAuthenticationState {
  */
 export const authenticationInitialState: IAuthenticationState = {
   user: null,
-  isFetchingData: false
+  isAuthenticationInProgress: false
 };

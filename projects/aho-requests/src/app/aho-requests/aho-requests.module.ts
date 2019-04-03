@@ -31,6 +31,10 @@ import { FiltersDialogComponent } from './components/filters-dialog/filters-dial
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
 import { RequestDetailsComponent } from './components/request-details/request-details.component';
 import { RequestsListComponent } from './components/requests-list/requests-list.component';
+import {StoreModule} from '@ngrx/store';
+import { reducer } from '../state/application.reducers';
+import {EffectsModule} from '@ngrx/effects';
+import { ApplicationEffects } from '../state/application.effects';
 
 export const MY_FORMATS = {
   parse: {
@@ -59,6 +63,8 @@ export const MY_FORMATS = {
     FormsModule,
     ReactiveFormsModule,
     AhoRequestsRoutingModule,
+    StoreModule.forFeature('aho', reducer),
+    EffectsModule.forFeature([ApplicationEffects]),
     MatSidenavModule,
     MatDialogModule,
     MatProgressBarModule,

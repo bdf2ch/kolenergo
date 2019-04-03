@@ -6,7 +6,7 @@ import {
   ApplicationModes,
   IApplicationState,
   selectCurrentPage, selectFilters, selectIsFiltersApplied,
-  SelectRequestsMode, LoadExpiredRequests, selectItemsOnPage, LoadInitialData, LoadRequestDetails
+  SelectRequestsMode, LoadExpiredRequests, selectItemsOnPage, LoadInitialData, LoadRequestDetails, IAhoState, selectCurrentUser
 } from './index';
 import { filter, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import {combineLatest, EMPTY} from 'rxjs';
@@ -65,11 +65,12 @@ export class ApplicationEffects {
   loadFilteredRequests$ = this.actions$.pipe(
     ofType(AhoRequestsActionTypes.APPLY_FILTERS),
     withLatestFrom(
+      this.store.pipe(select(selectCurrentUser)),
       this.store.pipe(select(selectFilters)),
       this.store.pipe(select(selectCurrentPage)),
       this.store.pipe(select(selectItemsOnPage))
     ),
-    mergeMap(([action, filters, page, itemsOnPage]) =>
+    mergeMap(([action, user, filters, page, itemsOnPage]) =>
       this.aho.fetchRequests(
         filters.getFilterById('start-date').getValue() ? filters.getFilterById('start-date').getValue().getTime() : 0,
         filters.getFilterById('end-date').getValue() ? filters.getFilterById('end-date').getValue().getTime() : 0,
@@ -122,12 +123,16 @@ export class ApplicationEffects {
   @Effect()
   loadOwnRequests$ = this.actions$.pipe(
     ofType(AhoRequestsActionTypes.LOAD_OWN_REQUESTS),
-    withLatestFrom(this.store.pipe(select(selectCurrentPage)), this.store.pipe(select(selectItemsOnPage))),
-    mergeMap(([action, page, itemsOnPage]) =>
+    withLatestFrom(
+      this.store.pipe(select(selectCurrentUser)),
+      this.store.pipe(select(selectCurrentPage)),
+      this.store.pipe(select(selectItemsOnPage))
+    ),
+    mergeMap(([action, user, page, itemsOnPage]) =>
       this.aho.fetchRequests(
         0,
         0,
-        34,
+        user.id,
         0,
         0,
         0,
@@ -144,13 +149,17 @@ export class ApplicationEffects {
   @Effect()
   loadEmployeeRequests$ = this.actions$.pipe(
     ofType(AhoRequestsActionTypes.LOAD_EMPLOYEE_REQUESTS),
-    withLatestFrom(this.store.pipe(select(selectCurrentPage)), this.store.pipe(select(selectItemsOnPage))),
-    mergeMap(([action, page, itemsOnPage]) =>
+    withLatestFrom(
+      this.store.pipe(select(selectCurrentUser)),
+      this.store.pipe(select(selectCurrentPage)),
+      this.store.pipe(select(selectItemsOnPage))
+    ),
+    mergeMap(([action, user, page, itemsOnPage]) =>
       this.aho.fetchRequests(
         0,
         0,
         0,
-        34,
+        user.id,
         0,
         0,
         false,
@@ -188,7 +197,11 @@ export class ApplicationEffects {
   @Effect()
   loadInitialData$ = this.actions$.pipe(
     ofType(state.AhoRequestsActionTypes.LOAD_INITIAL_DATA),
-    mergeMap((action: LoadInitialData) => this.aho.fetchInitialData(action.payload)
+    withLatestFrom(
+      this.store.pipe(select(selectCurrentUser)),
+      this.store.pipe(select(selectItemsOnPage))
+    ),
+    mergeMap(([action, user, itemsOnPage]) => this.aho.fetchInitialData(user.id, itemsOnPage)
       .pipe(
         map((data: IServerResponse<IAhoRequestsInitialData>) => {
           return {type: AhoRequestsActionTypes.INITIAL_DATA_LOAD_SUCCESS, payload: {data: data.data}};

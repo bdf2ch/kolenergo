@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { Store, select } from '@ngrx/store';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AhoRequestsResource } from '../resources/aho-requests.resource';
 import { IAhoRequest, IAhoRequestsInitialData } from '../interfaces';
-import { IApplicationState, selectItemsOnPage } from '../../state';
 import { IServerResponse } from 'kolenergo-core';
 
 
@@ -15,23 +13,14 @@ import { IServerResponse } from 'kolenergo-core';
   providedIn: 'root'
 })
 export class AhoRequestsService {
-  private itemsOnPage$: Observable<number>;
 
-  constructor(private readonly store: Store<IApplicationState>,
-              private readonly resource: AhoRequestsResource) {
-    this.itemsOnPage$ = this.store.pipe(select(selectItemsOnPage));
-  }
+  constructor(private readonly resource: AhoRequestsResource) {}
 
   /**
    * Получение данных для инициали
    */
-  fetchInitialData(userId: number): Observable<IServerResponse<IAhoRequestsInitialData>> {
-    let items = null;
-    this.itemsOnPage$.subscribe((itemsOnPageCount: number) => {
-      console.log('ITEMS ON PAGE', items);
-      items = itemsOnPageCount;
-    });
-    return from(this.resource.getInitialData({userId, itemsOnPage: items}))
+  fetchInitialData(userId: number, itemsOnPage: number): Observable<IServerResponse<IAhoRequestsInitialData>> {
+    return from(this.resource.getInitialData({userId, itemsOnPage}))
       .pipe(
         map((response: IServerResponse<IAhoRequestsInitialData>) => response)
       );

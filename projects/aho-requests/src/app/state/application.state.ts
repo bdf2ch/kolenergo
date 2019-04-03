@@ -1,8 +1,8 @@
-import { IAuthenticationState, authenticationInitialState } from 'kolenergo-core';
-import {AhoRequest, AhoRequestStatus, AhoRequestType, FilterManager, SearchFilter} from '../aho-requests/models';
-import { IAhoRequest, IAhoRequestRejectReason, IAhoRequestStatus, IAhoRequestType} from '../aho-requests/interfaces';
-import { User } from 'kolenergo-core';
 import * as moment from 'moment';
+
+import { IAuthenticationState, authenticationInitialState, User } from 'kolenergo-core';
+import { AhoRequest, AhoRequestStatus, AhoRequestType, FilterManager, SearchFilter } from '../aho-requests/models';
+import { IAhoRequest, IAhoRequestRejectReason, IAhoRequestStatus, IAhoRequestType } from '../aho-requests/interfaces';
 
 export enum ApplicationModes {
   SEARCH_REQUESTS_MODE = 'search-requests-mode',

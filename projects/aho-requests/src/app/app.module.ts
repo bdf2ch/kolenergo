@@ -23,6 +23,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ApplicationEffects } from './state/application.effects';
 import { environment } from '../environments/environment';
+import {AhoRequestsModule} from './aho-requests/aho-requests.module';
 
 
 
@@ -41,17 +42,16 @@ import { environment } from '../environments/environment';
     MatButtonModule,
     MatDialogModule,
     MatProgressBarModule,
-
+    ResourceModule.forRoot(),
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    // StoreRouterConnectingModule,
+    AhoRequestsModule,
     AuthenticationModule.forRoot({
       apiUrl: 'http://10.50.0.153:3000',
       pathPrefix: '/authentication'
-    }),
-
-    ResourceModule.forRoot(),
-    StoreModule.forRoot({ aho: reducer }),
-    EffectsModule.forRoot([ApplicationEffects]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    StoreRouterConnectingModule
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

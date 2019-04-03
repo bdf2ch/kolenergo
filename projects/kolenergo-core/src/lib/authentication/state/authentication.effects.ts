@@ -7,8 +7,7 @@ import { EMPTY, of } from 'rxjs';
 
 import * as auth from './authentication.actions';
 import { AuthenticationService } from '../services/authentication.service';
-import { actionTypes, AuthenticationSignIn, AuthenticationSuccess } from './authentication.actions';
-import { User } from '../../models';
+import { AuthenticationCheckFail, AuthenticationCheckSuccess, AuthenticationSignIn } from './authentication.actions';
 
 @Injectable()
 export class AuthenticationEffects {
@@ -23,13 +22,15 @@ export class AuthenticationEffects {
     mergeMap(() => this.authentication.checkSession('AHO_REQUESTS_APP').pipe(
       map((result) => {
         if (result) {
-          return {type: auth.actionTypes.AUTHENTICATION_CHECK_SUCCESS};
+          return new AuthenticationCheckSuccess(result);
         } else {
-          return {type: auth.actionTypes.AUTHENTICATION_CHECK_FAIL};
+          return new AuthenticationCheckFail();
         }
       })
     ))
   );
+
+
 
   @Effect()
     signIn$ = this.actions$
@@ -42,18 +43,18 @@ export class AuthenticationEffects {
               console.log('SIGN IN RESULT', result);
               if (result) {
                 return {
-                  type: auth.actionTypes.AUTHENTICATION_SUCCESS,
+                  type: auth.actionTypes.AUTHENTICATION_SIGN_IN_SUCCESS,
                   payload: result
                 };
               } else {
                 return {
-                  type: auth.actionTypes.AUTHENTICATION_FAIL
+                  type: auth.actionTypes.AUTHENTICATION_SIGN_IN_FAIL
                 };
               }
             }),
             catchError(() => {
               console.log('fucking error');
-              return of({type: auth.actionTypes.AUTHENTICATION_FAIL});
+              return of({type: auth.actionTypes.AUTHENTICATION_SIGN_IN_FAIL});
             })
           ))
       );

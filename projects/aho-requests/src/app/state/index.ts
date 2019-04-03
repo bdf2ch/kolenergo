@@ -11,10 +11,10 @@ export { reducer } from './application.reducers';
 export * from './application.state';
 export * from './application.actions';
 export * from './selectors';
-// export * from './application.selectors';
+
 /*
 export const reducers: ActionReducerMap<IApplicationState> = {
-  aho: reducer
+  selectAho: reducer
 };
 */
 

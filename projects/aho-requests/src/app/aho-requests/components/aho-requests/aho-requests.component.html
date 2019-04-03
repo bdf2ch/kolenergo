@@ -46,9 +46,9 @@
 
           <!-- Start: Меню текущего пользователя -->
           <div class="d-none d-md-flex col-2 col-md-auto justify-content-end align-items-center pl-md-2 pl-xl-4">
-            <button mat-stroked-button color="primary" class="col-auto col-md-auto" [matMenuTriggerFor]="userMenu">
-              <span class="d-xl-inline d-md-none">Викентий Старовойтов</span>
-              <span class="d-md-inline d-xl-none">Викентий</span>
+            <button mat-stroked-button color="primary" class="col-auto col-md-auto" [matMenuTriggerFor]="userMenu" *ngIf="(user$ | async) as user">
+              <span class="d-xl-inline d-md-none">{{user.firstName + ' ' + user.lastName}}</span>
+              <span class="d-md-inline d-xl-none">{{user.firstName}}</span>
               <mat-icon>arrow_drop_down</mat-icon>
             </button>
             <mat-menu #userMenu="matMenu" [yPosition]="'below'" class="user-menu">

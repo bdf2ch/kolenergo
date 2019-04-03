@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  title = 'aho-requests';
+  title = 'selectAho-requests';
 
   constructor() {}
 }
