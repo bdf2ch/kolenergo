@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { MatDialog } from '@angular/material';
 import { Store, select } from '@ngrx/store';
@@ -15,6 +16,7 @@ import {
 import { IAhoRequest } from '../../interfaces';
 import { FiltersDialogComponent } from '../filters-dialog/filters-dialog.component';
 import { User } from 'kolenergo-core';
+import {AuthenticationSignOut} from '../../../../../../kolenergo-core/src/lib/authentication/state/authentication.actions';
 
 @Component({
   selector: 'app-aho-requests',
@@ -27,8 +29,9 @@ export class AhoRequestsComponent implements OnInit {
   public requests$: Observable<IAhoRequest[]>;
   public filters$: Observable<FilterManager>;
 
-  constructor(private store: Store<IApplicationState>,
-              private dialog: MatDialog) { }
+  constructor(private readonly store: Store<IApplicationState>,
+              private readonly router: Router,
+              private readonly dialog: MatDialog) { }
 
   ngOnInit() {
     this.fetchingDataInProgress$ = this.store.pipe(select(selectFetchingDataInProgress));
@@ -37,12 +40,10 @@ export class AhoRequestsComponent implements OnInit {
       take(1)
     );
     this.requests$ = this.store.pipe(
-      select(selectRequests),
-      take(1)
+      select(selectRequests)
     );
     this.filters$ = this.store.pipe(
-      select(selectFilters),
-      take(1)
+      select(selectFilters)
     );
   }
 
@@ -54,6 +55,10 @@ export class AhoRequestsComponent implements OnInit {
 
   clearSearch() {}
 
+  /**
+   * Изменение фильтров поиска
+   * @param filters - Набор фильтров
+   */
   filtersChange(filters: SearchFilter<any>[]) {
     const manager = new FilterManager(filters);
     if (manager.isFiltersApplied()) {
@@ -62,5 +67,13 @@ export class AhoRequestsComponent implements OnInit {
     } else {
       this.store.dispatch(new ResetFilters());
     }
+    this.router.navigate(['/']);
+  }
+
+  /**
+   * Завершение сессии пользователя и выход из приложения
+   */
+  signOut() {
+    this.store.dispatch(new AuthenticationSignOut());
   }
 }

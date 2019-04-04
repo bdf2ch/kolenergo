@@ -92,28 +92,12 @@
     }
   }
 
-
-  .aho-request {
+  .no-requests-placeholder {
     display: flex;
-    flex-direction: row;
-    padding: 10px 10px;
+    flex-direction: column;
+    flex: 1;
     font-family: "Segoe UI Light";
-    border-bottom: 1px solid @request-border-color;
-
-    border-right: 4px;
-    &:last-of-type {
-      border-bottom: none;
-    }
-
-    &:hover {
-      background: @request-background-color-hover;
-      // border-top: none;
-      // border-bottom: 1px solid transparent;
-      cursor: pointer;
-
-      &:nth-of-type(n-1) {
-        // border-bottom: none !important;
-      }
-    }
+    font-size: 30px;
+    text-align: center;
   }
 }

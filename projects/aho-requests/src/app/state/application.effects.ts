@@ -1,18 +1,29 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as state from './index';
 import {
   AhoRequestsActionTypes,
   ApplicationModes,
   IApplicationState,
-  selectCurrentPage, selectFilters, selectIsFiltersApplied,
-  SelectRequestsMode, LoadExpiredRequests, selectItemsOnPage, LoadInitialData, LoadRequestDetails, IAhoState, selectCurrentUser
+  selectCurrentPage,
+  selectFilters,
+  selectIsFiltersApplied,
+  SelectRequestsMode,
+  LoadExpiredRequests,
+  selectItemsOnPage,
+  LoadInitialData,
+  LoadRequestDetails,
+  IAhoState,
+  selectCurrentUser,
+  LoadAllRequests, LoadOwnRequests
 } from './index';
 import { filter, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import {combineLatest, EMPTY} from 'rxjs';
 import { AhoRequestsService } from '../aho-requests/services/aho-requests.service';
 import { IAhoRequest, IAhoRequestsInitialData } from '../aho-requests/interfaces';
-import { IServerResponse } from '../../../../kolenergo-core/src/lib/interfaces';
+import { IServerResponse, actionTypes } from 'kolenergo-core';
 import { select, Store } from '@ngrx/store';
 import {FilterManager} from '../aho-requests/models';
 import { ROUTER_NAVIGATION } from '@ngrx/router-store';
@@ -23,32 +34,31 @@ export class ApplicationEffects {
 
   constructor(private store: Store<IApplicationState>,
               private actions$: Actions,
+              private readonly router: Router,
               private aho: AhoRequestsService) {
   }
 
-
-  /*
   @Effect()
-  routeNavigation = this.actions$.pipe(
-    ofType(ROUTER_NAVIGATION),
-    tap((action) => {
-      console.log('ROUTER EFFECT url', action.payload);
-      return action;
+  signIn$ = this.actions$.pipe(
+    ofType(actionTypes.AUTHENTICATION_SIGN_IN_SUCCESS),
+    tap(() => {
+      this.router.navigate(['/']);
     }),
-
-    withLatestFrom(
-      this.store.pipe(select(selectIsFiltersApplied))
-    ),
-    mergeMap(([action, isFiltersApplied]) => {
-      switch (action['payload']['routerState']['url']) {
-        case '/':
-          console.log('LINK /');
-          break;
-      }
-      return of({type: 'hfghf', payload: action.payload.event.state.root.children['0'].firstChild.firstChild.routeConfig.path});
+    mergeMap(() => {
+      return EMPTY;
     })
   );
-   */
+
+  @Effect()
+  signOut$ = this.actions$.pipe(
+    ofType(actionTypes.AUTHENTICATION_SIGN_OUT_SUCCESS),
+    tap(() => {
+      this.router.navigate(['/welcome']);
+    }),
+    mergeMap(() => {
+      return EMPTY;
+    })
+  );
 
   @Effect()
   loadRequestDetails$ = this.actions$.pipe(
@@ -74,7 +84,7 @@ export class ApplicationEffects {
       this.aho.fetchRequests(
         filters.getFilterById('start-date').getValue() ? filters.getFilterById('start-date').getValue().getTime() : 0,
         filters.getFilterById('end-date').getValue() ? filters.getFilterById('end-date').getValue().getTime() : 0,
-        0,
+        user.permissions.getRoleByCode('aho_requests_administrator') ? 0 : user.id,
         filters.getFilterById('request-employee').getValue() ? filters.getFilterById('request-employee').getValue().id : 0,
         filters.getFilterById('request-type').getValue() ? filters.getFilterById('request-type').getValue().id : 0,
         filters.getFilterById('request-status').getValue() ? filters.getFilterById('request-status').getValue().id : 0,
@@ -92,8 +102,13 @@ export class ApplicationEffects {
   @Effect()
   resetFilters$ = this.actions$.pipe(
     ofType(AhoRequestsActionTypes.RESET_FILTERS),
-    map(() => {
-      return { type: AhoRequestsActionTypes.LOAD_OWN_REQUESTS };
+    withLatestFrom(
+      this.store.pipe(select(selectCurrentUser))
+    ),
+    mergeMap(([action, user]) => {
+      return user.permissions.getRoleByCode('aho_requests_administrator')
+        ? of({type: AhoRequestsActionTypes.LOAD_ALL_REQUESTS})
+        : of({type: AhoRequestsActionTypes.LOAD_OWN_REQUESTS});
     })
   );
 
@@ -208,6 +223,18 @@ export class ApplicationEffects {
         })
       )
     )
+  );
+
+  @Effect()
+  loadInitialDataSuccess$ = this.actions$.pipe(
+    ofType(state.AhoRequestsActionTypes.INITIAL_DATA_LOAD_SUCCESS),
+    withLatestFrom(
+      this.store.pipe(select(selectCurrentUser))
+    ),
+    mergeMap(([action, user]) => {
+      return user.permissions.getRoleByCode('aho_requests_administrator')
+      ? of({type: AhoRequestsActionTypes.LOAD_ALL_REQUESTS}) : of({type: AhoRequestsActionTypes.LOAD_OWN_REQUESTS});
+    })
   );
 
   @Effect()

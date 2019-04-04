@@ -46,6 +46,25 @@ export function reducer(
         isAuthenticationInProgress: false
       };
     }
+    case authentication.actionTypes.AUTHENTICATION_SIGN_OUT: {
+      return {
+        ...state,
+        isAuthenticationInProgress: true
+      };
+    }
+    case authentication.actionTypes.AUTHENTICATION_SIGN_OUT_SUCCESS: {
+      return  {
+        ...state,
+        user: null,
+        isAuthenticationInProgress: false
+      };
+    }
+    case authentication.actionTypes.AUTHENTICATION_SIGN_OUT_FAIL: {
+      return {
+        ...state,
+        isAuthenticationInProgress: false
+      };
+    }
     default: {
       return state;
     }

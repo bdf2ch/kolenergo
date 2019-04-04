@@ -1,5 +1,7 @@
 <div class="tabs-component">
   <div class="tabs-container">
+
+    <!-- Start: Вкладка с найденными заявками -->
     <div class="tab"
          *ngIf="(isFiltersApplied$ | async)"
          [ngClass]="{'selected': (mode$ | async) === applicationModes.SEARCH_REQUESTS_MODE}"
@@ -14,7 +16,11 @@
         {{(filteredRequestsCount$ | async)}}
       </span>
     </div>
+    <!-- End: Вкладка с найденными заявками -->
+
+    <!-- Start: Вкладка со всеми заявками -->
     <div class="tab"
+         *ngIf="(user$ | async).permissions.getRoleByCode('aho_requests_administrator')"
          [ngClass]="{'selected': (mode$ | async) === applicationModes.ALL_REQUESTS_MODE}"
          (click)="selectTab(applicationModes.ALL_REQUESTS_MODE)" >
       <mat-icon>list</mat-icon>
@@ -27,7 +33,12 @@
             matTooltipPosition="above">{{(newRequestsCount$ | async)}}
       </span>
     </div>
-    <div class="tab" (click)="selectTab(applicationModes.OWN_REQUESTS_MODE)" [ngClass]="{'selected': (mode$ | async) === applicationModes.OWN_REQUESTS_MODE}">
+    <!-- End: Вкладка со всеми заявками -->
+
+    <!-- Start: Вкладка с заявками пользователя -->
+    <div class="tab"
+         (click)="selectTab(applicationModes.OWN_REQUESTS_MODE)"
+         [ngClass]="{'selected': (mode$ | async) === applicationModes.OWN_REQUESTS_MODE}">
       <mat-icon>person</mat-icon>
       <span class="tab-label">
         Ваши заявки
@@ -38,7 +49,13 @@
             matTooltipPosition="above">{{(ownUncompletedRequestsCount$ | async)}}
       </span>
     </div>
-    <div class="tab" (click)="selectTab(applicationModes.EMPLOYEE_REQUESTS_MODE)" [ngClass]="{'selected': (mode$ | async) === applicationModes.EMPLOYEE_REQUESTS_MODE}">
+    <!-- End: Вкладка с заявками -->
+
+    <!-- Start: Вкладка с заявками, где пользователь является исполнителем -->
+    <div class="tab"
+         *ngIf="(employeeRequestsCount$ | async) > 0"
+         (click)="selectTab(applicationModes.EMPLOYEE_REQUESTS_MODE)"
+         [ngClass]="{'selected': (mode$ | async) === applicationModes.EMPLOYEE_REQUESTS_MODE}">
       <mat-icon>play_circle_outline</mat-icon>
       <span class="tab-label">
         Вы исполнитель
@@ -49,19 +66,29 @@
             matTooltipPosition="above">{{(employeeUncompletedRequestsCount$ | async)}}
       </span>
     </div>
-    <div class="tab" (click)="selectTab(applicationModes.EXPIRED_REQUESTS_MODE)" [ngClass]="{'selected': (mode$ | async) === applicationModes.EXPIRED_REQUESTS_MODE}">
+    <!-- End: Вкладка с заявками, где пользователь является исполнителем -->
+
+    <!-- Start: Вкладка с просроченными заявками -->
+    <div class="tab"
+         *ngIf="(expiredRequestsCount$ | async) > 0"
+         (click)="selectTab(applicationModes.EXPIRED_REQUESTS_MODE)"
+         [ngClass]="{'selected': (mode$ | async) === applicationModes.EXPIRED_REQUESTS_MODE}">
       <mat-icon>calendar_today</mat-icon>
       <span class="tab-label">
         Просроченные
       </span>
       <span class="indicator"
             *ngIf="(expiredRequestsCount$ | async) > 0"
-            matTooltip="Просроченных заявок в работе: {{(expiredRequestsCount$ | async)}}"
+            matTooltip="Просроченных заявок: {{(expiredRequestsCount$ | async)}}"
             matTooltipPosition="above">{{(expiredRequestsCount$ | async)}}
       </span>
     </div>
+    <!-- End: Вкладка с просроченными заявками-->
+
   </div>
   <div class="controls-container">
+
+    <!-- Start: Кнопка вызова контекстного меню управлением списком заявок -->
     <button mat-icon-button [matMenuTriggerFor]="requestListMenu">
       <mat-icon>more_vert</mat-icon>
     </button>
@@ -71,5 +98,7 @@
         Экспорт в Excel
       </button>
     </mat-menu>
+    <!-- End: Кнопка вызова контекстного меню управлением списком заявок -->
+
   </div>
 </div>

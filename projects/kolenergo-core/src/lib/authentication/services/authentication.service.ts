@@ -16,6 +16,10 @@ export class AuthenticationService {
               private snackBar: MatSnackBar) {
   }
 
+  /**
+   * Проверка текущей сессии
+   * @param appCode - Код приложения
+   */
   checkSession(appCode: string): Observable<IUser> {
     return from(this.resource.check({appCode}, null, null))
       .pipe(
@@ -23,6 +27,13 @@ export class AuthenticationService {
       );
   }
 
+  /**
+   * Авторизация пользователя
+   * @param account - Учетная запись
+   * @param password - Пароль
+   * @param addIfNotExists - Создать нового пользователся при успешной авторизации
+   * @param appCode - Код приложения
+   */
   signIn(account: string, password: string, addIfNotExists?: boolean, appCode?: string): Observable<any> {
     return from(this.resource.signIn({account, password, addIfNotExists, appCode}));
     /*
@@ -61,5 +72,12 @@ export class AuthenticationService {
 
     );
     */
+  }
+
+  signOut(): Observable<boolean> {
+    return from(this.resource.signOut())
+      .pipe(
+        map(() => true)
+      );
   }
 }

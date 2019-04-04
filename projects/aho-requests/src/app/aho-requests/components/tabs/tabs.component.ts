@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import {
   ApplicationModes, ApplyFilters,
@@ -9,7 +10,7 @@ import {
   LoadAllRequests,
   LoadEmployeeRequests,
   LoadExpiredRequests,
-  LoadOwnRequests,
+  LoadOwnRequests, selectCurrentUser,
   selectEmployeeRequestsCount,
   selectEmployeeUncompletedRequestsCount,
   selectExpiredRequestsCount,
@@ -21,6 +22,7 @@ import {
   SetCurrentPage
 } from '../../../state';
 import { FilterManager } from '../../models';
+import { User } from 'kolenergo-core';
 
 
 @Component({
@@ -30,6 +32,7 @@ import { FilterManager } from '../../models';
 })
 export class TabsComponent implements OnInit {
   public applicationModes = ApplicationModes;
+  public user$: Observable<User>;
   public mode$: Observable<ApplicationModes>;
   public filters$: Observable<FilterManager>;
   public newRequestsCount$: Observable<number>;
@@ -44,6 +47,10 @@ export class TabsComponent implements OnInit {
   constructor(private store: Store<IApplicationState>) { }
 
   ngOnInit() {
+    this.user$ = this.store.pipe(
+      select(selectCurrentUser),
+      take(1)
+    );
     this.mode$ = this.store.pipe(select(selectMode));
     this.filters$ = this.store.pipe(select(selectFilters));
     this.newRequestsCount$ = this.store.pipe(select(selectNewRequestsCount));

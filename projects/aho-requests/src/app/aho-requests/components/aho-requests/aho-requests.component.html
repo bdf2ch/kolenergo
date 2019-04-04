@@ -52,7 +52,7 @@
               <mat-icon>arrow_drop_down</mat-icon>
             </button>
             <mat-menu #userMenu="matMenu" [yPosition]="'below'" class="user-menu">
-              <button mat-menu-item>
+              <button mat-menu-item (click)="signOut()">
                 <mat-icon color="primary">exit_to_app</mat-icon>
                 Выйти  из приложения
               </button>

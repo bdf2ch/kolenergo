@@ -6,9 +6,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: './aho-requests/aho-requests.module#AhoRequestsModule',
-    canActivate: [
-      SessionGuard
-    ]
+    canActivate: [SessionGuard]
   },
   {
     path: 'welcome',

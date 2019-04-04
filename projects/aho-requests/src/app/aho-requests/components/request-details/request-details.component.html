@@ -48,6 +48,7 @@
                     <mat-list-item>
                       <mat-icon matListIcon color="primary">calendar_today</mat-icon>
                       <h4 matLine>{{request.dateExpiresD | date:'dd MMMM yyyy'}}</h4>
+                      <p matLine class="text-danger" *ngIf="request.isExpired">Просрочено</p>
                     </mat-list-item>
 
                     <h3 matSubheader class="">{{request.initiator ? 'Инициатор / автор' : 'Автор'}}</h3>
@@ -73,6 +74,17 @@
                       <img matListAvatar src="/assets/lamps.jpg" alt="...">
                       <h4 matLine>{{employee.firstName + ' ' + employee.lastName}}</h4>
                       <p matLine class="text-muted" *ngIf="employee.position">{{employee.position}}</p>
+                    </mat-list-item>
+
+                    <h3 matSubheader class="">Статус заявки</h3>
+                    <mat-list-item>
+                      <mat-icon matListIcon
+                                fontSet="far"
+                                fontIcon="{{request.status.icon}}"
+                                [ngStyle]="{'color': request.status.iconColor}">
+                      </mat-icon>
+                      <h4 matLine>{{request.status.title}}</h4>
+                      <p matLine class="text-muted" *ngIf="request.rejectReason">Причина: {{request.rejectReason}}</p>
                     </mat-list-item>
 
                   </mat-list>

@@ -125,6 +125,8 @@ export function reducer(
           Backup.makeBackupable(request, ['status', 'tasks', 'dateExpiresD', 'numberOfLoaders', 'employees']);
           return request;
         }),
+        ownRequestsCount: action.payload.data.ownRequests_.totalRequestsCount,
+        ownUncompletedRequestsCount: action.payload.data.ownRequests_.uncompletedRequestsCount,
         employeeRequestsCount: action.payload.data.employeeRequests_.totalRequestsCount,
         employeeUncompletedRequestsCount: action.payload.data.employeeRequests_.uncompletedRequestsCount,
         expiredRequestsCount: action.payload.data.expiredRequests_.totalRequestsCount,

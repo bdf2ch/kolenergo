@@ -108,4 +108,8 @@
       Загрузить еще
     </button>
   </div>
+
+  <div class="no-requests-placeholder" *ngIf="requests.length === 0 && !(fetchingDataInProgress$ | async)">
+    {{(mode$ | async) === applicationModes.OWN_REQUESTS_MODE ? 'Вы еще не подавали заявок' : 'По Вашему запросу заявки не найдены'}}
+  </div>
 </div>

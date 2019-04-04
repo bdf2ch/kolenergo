@@ -30,6 +30,7 @@ export class AhoRequestsListComponent implements OnInit {
   public totalPages$: Observable<number>;
   public currentPage$: Observable<number>;
   public fetchingDataInProgress$: Observable<boolean>;
+  public applicationModes = ApplicationModes;
 
   constructor(private store: Store<IApplicationState>,
               private router: Router) { }
