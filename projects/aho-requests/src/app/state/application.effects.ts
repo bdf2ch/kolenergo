@@ -17,31 +17,35 @@ import {
   LoadRequestDetails,
   IAhoState,
   selectCurrentUser,
-  LoadAllRequests, LoadOwnRequests
+  LoadAllRequests, LoadOwnRequests, ResetRequests
 } from './index';
 import { filter, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import {combineLatest, EMPTY} from 'rxjs';
 import { AhoRequestsService } from '../aho-requests/services/aho-requests.service';
 import { IAhoRequest, IAhoRequestsInitialData } from '../aho-requests/interfaces';
-import { IServerResponse, actionTypes } from 'kolenergo-core';
+import { IServerResponse, actionTypes, SignInComponent } from 'kolenergo-core';
 import { select, Store } from '@ngrx/store';
 import {FilterManager} from '../aho-requests/models';
 import { ROUTER_NAVIGATION } from '@ngrx/router-store';
 import { of } from 'rxjs/internal/observable/of';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import * as auth from '../../../../kolenergo-core/src/lib/authentication/state/authentication.actions';
 
 @Injectable()
 export class ApplicationEffects {
 
-  constructor(private store: Store<IApplicationState>,
-              private actions$: Actions,
+  constructor(private readonly store: Store<IApplicationState>,
+              private readonly actions$: Actions,
               private readonly router: Router,
-              private aho: AhoRequestsService) {
+              private readonly dialog: MatDialog,
+              private readonly aho: AhoRequestsService) {
   }
 
   @Effect()
   signIn$ = this.actions$.pipe(
     ofType(actionTypes.AUTHENTICATION_SIGN_IN_SUCCESS),
     tap(() => {
+      // this.dialogRef.close();
       this.router.navigate(['/']);
     }),
     mergeMap(() => {
@@ -50,13 +54,30 @@ export class ApplicationEffects {
   );
 
   @Effect()
-  signOut$ = this.actions$.pipe(
+  signInSuccess$ = this.actions$.pipe(
+    ofType(auth.actionTypes.AUTHENTICATION_SIGN_IN_SUCCESS),
+    tap(() => {
+      const dialog = this.dialog.getDialogById('sign-in-dialog');
+      if (dialog) {
+        dialog.close();
+      }
+    }),
+    withLatestFrom(
+      this.store.pipe(select(selectCurrentUser))
+    ),
+    mergeMap(([action, user]) => {
+      return of(new LoadInitialData(user.id));
+    })
+  );
+
+  @Effect()
+  signOutSuccess$ = this.actions$.pipe(
     ofType(actionTypes.AUTHENTICATION_SIGN_OUT_SUCCESS),
     tap(() => {
       this.router.navigate(['/welcome']);
     }),
     mergeMap(() => {
-      return EMPTY;
+      return of(new ResetRequests());
     })
   );
 

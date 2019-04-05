@@ -9,6 +9,24 @@ export function reducer(
   action: actions.AhoRequestsActions
 ): IAhoState {
   switch (action.type) {
+    case actions.AhoRequestsActionTypes.RESET_REQUESTS: {
+      return {
+        ...state,
+        requests: [],
+        totalRequestsCount: 0,
+        newRequestsCount: 0,
+        ownRequestsCount: 0,
+        ownUncompletedRequestsCount: 0,
+        employeeRequestsCount: 0,
+        employeeUncompletedRequestsCount: 0,
+        expiredRequestsCount: 0,
+        filteredRequestsCount: 0,
+        isFiltersApplied: false,
+        selectedRequest:  null,
+        totalPages: 0,
+        currentPage: 0
+      };
+    }
     case actions.AhoRequestsActionTypes.LOAD_ALL_REQUESTS: {
       return {
         ...state,

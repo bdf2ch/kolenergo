@@ -1,4 +1,4 @@
-<div class="requests-list-component position-relative">
+<div class="requests-list-component">
   <!-- Start: Вкладки с режимами отображения заявок -->
   <div class="row no-gutters d-none d-md-flex mt-3">
     <div class="col-12">
@@ -8,8 +8,8 @@
   <!-- End: Вкладки с режимами отображения заявок -->
 
   <!-- Start: Список заявок -->
-  <div class="row no-gutters">
-    <div class="col-12">
+  <div class="row no-gutters d-flex flex-column" style="flex: 1;">
+    <div class="col-12 d-flex flex-column" style="flex: 1;">
       <app-aho-requests-list [requests]="(requests$ | async)"></app-aho-requests-list>
     </div>
   </div>

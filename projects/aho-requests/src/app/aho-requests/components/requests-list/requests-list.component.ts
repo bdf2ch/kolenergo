@@ -10,7 +10,8 @@ import {ApplyFilters, IApplicationState, LoadInitialData, selectFilters, selectI
 @Component({
   selector: 'app-requests-list',
   templateUrl: './requests-list.component.html',
-  styleUrls: ['./requests-list.component.less']
+  styleUrls: ['./requests-list.component.less'],
+  styles: [':host { display: flex; flex-direction: column; flex: 1; }']
 })
 export class RequestsListComponent implements OnInit {
   public requests$: Observable<IAhoRequest[]>;

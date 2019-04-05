@@ -17,6 +17,8 @@ export class PermissionManager {
    * @param permissions - Список прав пользователя в приложении
    */
   constructor(roles?: IApplicationRole[], permissions?: IApplicationPermission[]) {
+    this.roles = [];
+    this.permissions = [];
     if (roles) {
       this.roles = roles.map((role: IApplicationRole) => {
         return new ApplicationRole(role);

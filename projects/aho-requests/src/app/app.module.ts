@@ -12,7 +12,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconRegistry } from '@angular/material';
 import { ResourceModule} from '@ngx-resource/handler-ngx-http';
@@ -24,6 +24,7 @@ import { AppComponent } from './app.component';
 import { ApplicationEffects } from './state/application.effects';
 import { environment } from '../environments/environment';
 import {AhoRequestsModule} from './aho-requests/aho-requests.module';
+import { SessionGuard } from './guards/session.guard';
 
 
 
@@ -31,7 +32,7 @@ import {AhoRequestsModule} from './aho-requests/aho-requests.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +54,10 @@ import {AhoRequestsModule} from './aho-requests/aho-requests.module';
       pathPrefix: '/authentication'
     })
   ],
-  providers: [],
+  providers: [
+    {provide: MatDialogRef, useValue: {}},
+    // MatDialogRef,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -6,10 +6,13 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { AuthorizationComponent } from './components/authorization/authorization.component';
 
 @NgModule({
-  declarations: [WelcomeComponent, AuthorizationComponent],
+  declarations: [
+    WelcomeComponent,
+    AuthorizationComponent
+  ],
   imports: [
     CommonModule,
-    AuthorizationRoutingModule
+    AuthorizationRoutingModule,
   ]
 })
 export class AuthorizationModule { }

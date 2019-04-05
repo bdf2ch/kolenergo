@@ -21,7 +21,8 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-aho-requests-list',
   templateUrl: './aho-requests-list.component.html',
-  styleUrls: ['./aho-requests-list.component.less']
+  styleUrls: ['./aho-requests-list.component.less'],
+  styles: [':host { display: flex; flex-direction: column; flex: 1; }']
 })
 export class AhoRequestsListComponent implements OnInit {
   @Input() requests: AhoRequest[];

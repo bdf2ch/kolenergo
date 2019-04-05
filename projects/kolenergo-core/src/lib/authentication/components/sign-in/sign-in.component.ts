@@ -11,7 +11,6 @@ import {IUser} from '../../../interfaces';
 import {selectIsAuthenticationInProgress} from '../../state/authentication.selectors';
 
 @Component({
-  selector: 'lib-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.less']
 })

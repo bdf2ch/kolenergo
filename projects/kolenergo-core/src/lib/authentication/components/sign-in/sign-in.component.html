@@ -1,53 +1,70 @@
-<div matDialogTitle>Авторизация</div>
-<div matDialogContent>
-  <!-- Start: Учетная запись -->
-  <form [formGroup]="signInForm">
-    <mat-form-field
-      class="w-100 mb-1"
-      [hideRequiredMarker]="true">
-      <mat-label>Учетная запись</mat-label>
-      <input matInput
-             formControlName="account"
-             placeholder="Введите учетную запись"
-             required>
-      <mat-error *ngIf="signInForm.controls['account'].invalid">{{getFormErrorMessage('account')}}</mat-error>
-    </mat-form-field>
-    <!-- End: Учетная запись -->
+<!-- Start: Индикатор загрузки данных с сервера -->
+<mat-progress-bar mode="indeterminate"
+                  color="accent">
+</mat-progress-bar>
+<!-- End: Индикатор загрузки данных с сервера -->
+
+<div class="d-flex flex-column" style="box-sizing: border-box">
+  <div matDialogTitle>Авторизация</div>
+  <div matDialogContent>
+    <!-- Start: Учетная запись -->
+    <form [formGroup]="signInForm">
+      <mat-form-field
+        appearance="fill"
+        class="w-100 mb-1"
+        [hideRequiredMarker]="true">
+        <mat-label>Учетная запись</mat-label>
+        <input matInput
+               formControlName="account"
+               placeholder="Введите учетную запись"
+               required>
+        <mat-icon matSuffix color="primary">account_box</mat-icon>
+        <mat-error *ngIf="signInForm.controls['account'].invalid">{{getFormErrorMessage('account')}}</mat-error>
+      </mat-form-field>
+      <!-- End: Учетная запись -->
 
 
-    <!-- Start: Пароль -->
-    <mat-form-field
-      class="w-100 mb-3"
-      [hideRequiredMarker]="true">
-      <input matInput
-             type="password"
-             formControlName="password"
-             placeholder="Пароль"
-             required>
-      <mat-error *ngIf="signInForm.controls['password'].invalid">{{getFormErrorMessage('password')}}</mat-error>
-    </mat-form-field>
-    <!-- End: Пароль -->
+      <!-- Start: Пароль -->
+      <mat-form-field
+        appearance="fill"
+        class="w-100 mb-3"
+        [hideRequiredMarker]="true">
+        <mat-label>Пароль</mat-label>
+        <input matInput
+               type="password"
+               formControlName="password"
+               placeholder="Пароль"
+               required>
+        <mat-icon matSuffix color="primary">visibility_off</mat-icon>
+        <mat-error *ngIf="signInForm.controls['password'].invalid">{{getFormErrorMessage('password')}}</mat-error>
+      </mat-form-field>
+      <!-- End: Пароль -->
 
-    <!-- Start: Кнопка отправки данных для авторизации на сервер -->
-    <button mat-stroked-button
-            type="submit"
-            color="primary"
-            class="w-100"
-            [disabled]="signInForm.invalid"
-            (click)="signIn()">
-      <div class="d-flex justify-content-center align-items-center">
-        <mat-spinner color="primary" diameter="15" class="mr-3" mode="indeterminate"></mat-spinner>
-        <span>Войти</span>
-      </div>
-    </button>
-    <!-- Start: Кнопка отправки данных для авторизации на сервер -->
-  </form>
+      <!-- Start: Кнопка отправки данных для авторизации на сервер -->
+      <button mat-stroked-button
+              type="submit"
+              color="primary"
+              class="w-100"
+              [disabled]="signInForm.invalid || (isAuthenticationInProgress$ | async)"
+              (click)="signIn()">
+        <div class="d-flex justify-content-center align-items-center">
+          <mat-spinner *ngIf="(isAuthenticationInProgress$ | async)"
+                       color="primary"
+                       diameter="15"
+                       class="mr-3"
+                       mode="indeterminate">
+          </mat-spinner>
+          <span>Войти</span>
+        </div>
+      </button>
+      <!-- Start: Кнопка отправки данных для авторизации на сервер -->
+    </form>
+  </div>
+
+  <!-- Start: Напоминание об использовании учетной записи Active Directory -->
+  <div class="reminder text-muted border-top mt-3 pt-2 text-center">
+    <small>Для входа в приложение используйте Вашу учетную запись Active Directory</small>
+  </div>
+  <!-- End: Напоминание об использовании учетной записи Active Directory -->
+
 </div>
-
-
-<!-- Start: Напоминание об использовании учетной записи Active Directory -->
-<div class="reminder text-muted border-top mt-3 pt-2 text-center">
-  <small>Для входа в приложение используйте Вашу учетную запись Active Directory</small>
-</div>
-<!-- End: Напоминание об использовании учетной записи Active Directory -->
-

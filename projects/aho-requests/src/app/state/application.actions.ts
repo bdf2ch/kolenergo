@@ -5,6 +5,7 @@ import { AhoRequest, SearchFilter } from '../aho-requests/models';
 import { ApplicationModes } from './application.state';
 
 export enum AhoRequestsActionTypes {
+  RESET_REQUESTS = '[AHO Requests] Reset requests',
   LOAD_ALL_REQUESTS = '[AHO Requests API] Load all requests',
   LOAD_ALL_REQUESTS_SUCCESS = '[AHO Requests API] All requests loaded successfully',
   LOAD_OWN_REQUESTS = '[AHO Requests API] Load own requests',
@@ -29,6 +30,13 @@ export enum AhoRequestsActionTypes {
   FILTERED_REQUESTS_LOAD_SUCCESS = '[AHO Requests API] Filtered requests loaded successfully',
   RESET_FILTERS = '[Filters] Filters reset',
   SELECT_REQUEST = '[AHO Requests] Request selected'
+}
+
+/**
+ * Очистка всех заявок
+ */
+export class ResetRequests implements Action {
+  readonly type = AhoRequestsActionTypes.RESET_REQUESTS;
 }
 
 /**
@@ -231,6 +239,7 @@ export class SelectRequest implements Action {
 
 
 export type AhoRequestsActions =
+  ResetRequests |
   LoadAllRequests |
   LoadAllRequestsSuccess |
   LoadOwnRequests |

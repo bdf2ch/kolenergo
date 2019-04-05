@@ -3,7 +3,16 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatSnackBarModule, MatProgressSpinnerModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSnackBarModule,
+  MatProgressSpinnerModule,
+  MatProgressBarModule,
+  MatIconModule
+} from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -29,6 +38,8 @@ export const AuthenticationConfigService = new InjectionToken<IAuthenticationMod
     MatFormFieldModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatIconModule,
     ResourceModule.forChild(),
     StoreModule.forFeature('session', reducer),
     EffectsModule.forFeature([AuthenticationEffects]),

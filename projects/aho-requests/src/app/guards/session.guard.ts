@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, Resolve, Router, RouterStateSnapshot} from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { filter, mergeMap, take, withLatestFrom } from 'rxjs/operators';
 import { of } from 'rxjs/internal/observable/of';
 import { select, Store } from '@ngrx/store';
 
-import { AuthenticationCheck } from 'kolenergo-core';
-import { IApplicationState, selectCurrentUser } from '../../state';
-import { selectIsAuthenticationInProgress } from '../../state/selectors';
+import { AuthenticationCheck, User } from 'kolenergo-core';
+import { IApplicationState, selectCurrentUser } from '../state';
+import { selectIsAuthenticationInProgress } from '../state/selectors';
+import {tap} from 'rxjs/internal/operators/tap';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SessionGuard implements CanActivate {
+export class SessionGuard implements Resolve<User> {
 
   constructor(private readonly store: Store<IApplicationState>,
               private readonly router: Router) {}
@@ -21,22 +22,27 @@ export class SessionGuard implements CanActivate {
   checkSession(): Observable<boolean> {
     return this.store.pipe(
       select(selectIsAuthenticationInProgress),
+      tap((value: boolean) => {
+
+      }),
       filter((value: boolean) => value === false),
       take(1)
     );
   }
 
-  canActivate(): Observable<boolean> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User> {
     this.store.dispatch(new AuthenticationCheck());
     return this.checkSession()
       .pipe(
         withLatestFrom(this.store.pipe(select(selectCurrentUser))),
         mergeMap(([fetching, user]) => {
+          console.log('AUTH GUARD IS FETCHING', fetching);
+          console.log('AUTH GUARD USER', user);
           if (!user) {
             this.router.navigate(['/welcome']);
-            return of(false);
+            return of(user);
           } else {
-            return of(true);
+            return of(null);
           }
         }),
         take(1)
