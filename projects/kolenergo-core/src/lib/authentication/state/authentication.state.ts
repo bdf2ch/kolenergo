@@ -11,7 +11,7 @@ export interface IAuthenticationState {
 /**
  * Начальное состояние текущей сессии
  */
-export const authenticationInitialState: IAuthenticationState = {
+export const AuthenticationInitialState: IAuthenticationState = {
   user: null,
   isAuthenticationInProgress: false
 };

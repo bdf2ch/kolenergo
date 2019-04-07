@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import {createFeatureSelector, select, Store} from '@ngrx/store';
-import { AuthenticationService } from '../../services/authentication.service';
-import { IAuthenticationState } from '../../state/authentication.state';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/internal/operators/tap';
+
 import { AuthenticationSignIn } from '../../state/authentication.actions';
 import * as selectors from '../../state/authentication.selectors';
-import { Observable } from 'rxjs';
-import {IUser} from '../../../interfaces';
-import {selectIsAuthenticationInProgress} from '../../state/authentication.selectors';
+import { IApplicationState } from '../../../interfaces';
 
 @Component({
   templateUrl: './sign-in.component.html',
@@ -17,12 +16,25 @@ import {selectIsAuthenticationInProgress} from '../../state/authentication.selec
 export class SignInComponent implements OnInit {
   public signInForm: FormGroup;
   public isAuthenticationInProgress$: Observable<boolean>;
+  public showPassword = false;
 
-  constructor(private builder: FormBuilder,
-              private store: Store<IAuthenticationState>) {}
+  constructor(private readonly builder: FormBuilder,
+              private readonly store: Store<IApplicationState>) {}
 
   ngOnInit() {
-    this.isAuthenticationInProgress$ = this.store.pipe(select(selectIsAuthenticationInProgress));
+    this.isAuthenticationInProgress$ = this.store.pipe(
+      select(selectors.selectIsInProgress),
+      tap((value: boolean) => {
+        console.log('isAuthenticationInProgress', value);
+        if (value) {
+          this.signInForm.get('account').disable();
+          this.signInForm.get('password').disable();
+        } else {
+          this.signInForm.get('account').enable();
+          this.signInForm.get('password').enable();
+        }
+      })
+    );
     this.signInForm = this.builder.group({
       account: [null, Validators.required],
       password: [null, Validators.required]
@@ -37,6 +49,16 @@ export class SignInComponent implements OnInit {
       case 'password':
         return 'Вы не ввели пароль';
         break;
+    }
+  }
+
+  showHidePassword() {
+    let isLoadingInProgress = null;
+    this.isAuthenticationInProgress$.subscribe((value: boolean) => {
+      isLoadingInProgress = value;
+    });
+    if (!isLoadingInProgress) {
+      this.showPassword = ! this.showPassword;
     }
   }
 

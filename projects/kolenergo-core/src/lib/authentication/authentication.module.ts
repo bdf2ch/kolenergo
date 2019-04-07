@@ -10,7 +10,8 @@ import {
   MatSnackBarModule,
   MatProgressSpinnerModule,
   MatProgressBarModule,
-  MatIconModule
+  MatIconModule,
+  MatTooltipModule
 } from '@angular/material';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EffectsModule } from '@ngrx/effects';
@@ -40,6 +41,7 @@ export const AuthenticationConfigService = new InjectionToken<IAuthenticationMod
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatIconModule,
+    MatTooltipModule,
     ResourceModule.forChild(),
     StoreModule.forFeature('session', reducer),
     EffectsModule.forFeature([AuthenticationEffects]),

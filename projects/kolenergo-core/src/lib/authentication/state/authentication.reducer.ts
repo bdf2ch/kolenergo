@@ -1,9 +1,9 @@
-import {authenticationInitialState, IAuthenticationState} from './authentication.state';
+import {AuthenticationInitialState, IAuthenticationState} from './authentication.state';
 import * as authentication from './authentication.actions';
 import { User } from '../../models';
 
 export function reducer(
-  state = authenticationInitialState,
+  state = AuthenticationInitialState,
   action: authentication.authenticationActionTypes): IAuthenticationState {
   switch (action.type) {
     case authentication.actionTypes.AUTHENTICATION_CHECK: {

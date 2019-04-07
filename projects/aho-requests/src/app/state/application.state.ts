@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 
-import { IAuthenticationState, authenticationInitialState, User } from 'kolenergo-core';
+import { IAuthenticationState, AuthenticationInitialState, User } from 'kolenergo-core';
 import { AhoRequest, AhoRequestStatus, AhoRequestType, FilterManager, SearchFilter } from '../aho-requests/models';
 import { IAhoRequest, IAhoRequestRejectReason, IAhoRequestStatus, IAhoRequestType } from '../aho-requests/interfaces';
 
@@ -75,7 +75,7 @@ export interface IApplicationState {
 }
 
 export const initialState: IApplicationState = {
-  session: authenticationInitialState,
+  session: AuthenticationInitialState,
   aho: ahoInitialState
 };
 

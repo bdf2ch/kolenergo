@@ -53,8 +53,21 @@ export class AuthenticationEffects {
             };
           }
         }),
-        catchError(() => {
-          console.log('fucking error');
+        catchError((error) => {
+          console.log('fucking error', error);
+          switch (error.status) {
+            case 401:
+              this.snackBar.open(
+                'Пользователь не найден',
+                'Закрыть',
+                {
+                  duration: 3000
+                });
+              break;
+            case 403:
+              this.snackBar.open('Доступ звпрещен', 'Закрыть');
+              break;
+          }
           return of({type: auth.actionTypes.AUTHENTICATION_SIGN_IN_FAIL});
         })
       ))
