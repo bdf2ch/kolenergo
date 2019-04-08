@@ -24,6 +24,10 @@ import { User } from 'kolenergo-core';
 })
 export class FiltersDialogComponent implements OnInit {
   public filters$: Observable<FilterManager>;
+  public minStartDate: Date;
+  public maxStartDate: Date;
+  public minEndDate: Date;
+  public maxEndDate: Date;
   public requestTypes$: Observable<AhoRequestType[]>;
   public requestStatuses$: Observable<AhoRequestStatus[]>;
   public employees$: Observable<User[]>;
@@ -41,6 +45,10 @@ export class FiltersDialogComponent implements OnInit {
 
   ngOnInit() {
     this.filters$ = this.store.pipe(select(selectFilters));
+    this.minStartDate = null;
+    this.maxStartDate = new Date();
+    this.minEndDate = null;
+    this.maxEndDate = new Date();
     this.requestTypes$ = this.store.pipe(select(selectRequestTypes));
     this.requestStatuses$ = this.store.pipe(select(selectRequestStatuses));
     this.employees$ = this.store.pipe(select(selectEmployees));
@@ -55,6 +63,7 @@ export class FiltersDialogComponent implements OnInit {
    * @param event - Событие выбора начальной даты
    */
   startDateChange(event: MatDatepickerInputEvent<Moment>) {
+    this.minEndDate = event.value.toDate();
     this.manager.getFilterById('start-date').setValue(event.value.toDate());
   }
 
@@ -63,6 +72,7 @@ export class FiltersDialogComponent implements OnInit {
    * @param event - Событие выбора конечной даты
    */
   endDateChange(event: MatDatepickerInputEvent<Moment>) {
+    this.maxStartDate = event.value.toDate();
     this.manager.getFilterById('end-date').setValue(event.value.hours(23).minutes(59).seconds(59).toDate());
   }
 
@@ -106,6 +116,10 @@ export class FiltersDialogComponent implements OnInit {
   resetFilters() {
     this.store.dispatch(new ResetFilters());
     this.dialogRef.close();
+    this.minEndDate = null;
+    this.maxStartDate = new Date();
+    this.minEndDate = null;
+    this.maxEndDate = new Date();
     this.router.navigate(['/']);
   }
 }

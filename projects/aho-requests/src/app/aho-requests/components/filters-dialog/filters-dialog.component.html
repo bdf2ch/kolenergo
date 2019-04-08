@@ -7,6 +7,8 @@
       <input matInput
              [matDatepicker]="startDate"
              [value]="(filters$ | async).getFilterById('start-date').getValue()"
+             [min]="minStartDate"
+             [max]="maxStartDate"
              (dateChange)="startDateChange($event)"
              disabled
              touchUi
@@ -21,6 +23,8 @@
       <input matInput
              [matDatepicker]="endDate"
              [value]="(filters$ | async).getFilterById('end-date').getValue()"
+             [min]="minEndDate"
+             [max]="maxEndDate"
              (dateChange)="endDateChange($event)"
              disabled
              touchUi
