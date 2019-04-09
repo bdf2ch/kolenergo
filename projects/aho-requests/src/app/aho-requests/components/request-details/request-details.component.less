@@ -34,6 +34,95 @@
 
 .mat-subheader {
   height: 25px !important;
-  padding-top: 0px !important;
-  padding-bottom: 0px !important;
+  // padding-top: 0px !important;
+  // padding-bottom: 0px !important;
+
+  .link {
+    font-family: "Segoe UI Light";
+    color: #2196f3;
+    cursor: pointer;
+    &:hover {
+      color: #0d47a1;
+    }
+  }
+}
+
+
+.user-list {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  background: white;
+
+  .user-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+    //height: 40px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #eceff1;
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+
+    .user-details {
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+      flex: 1;
+
+      .user-avatar {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+        font-family: "Segoe UI Light";
+        font-size: 19px;
+        color: #ad1457;
+        background: #eceff1;
+        border-radius: 50%;
+      }
+
+      .user-description {
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        box-sizing: border-box;
+
+        .primary-label {
+          font-family: "Segoe UI";
+          line-height: 1;
+        }
+
+        .secondary-label {
+          overflow: hidden;
+          width: 100%;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          font-family: "Segoe UI Light";
+          font-size: 14px;
+          line-height: 1.5em;
+        }
+      }
+    }
+
+    .user-controls {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-left: 10px;
+    }
+  }
 }

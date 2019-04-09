@@ -1,20 +1,16 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {EMPTY, from, Observable, of} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
+import { from, Observable } from 'rxjs';
+import { map} from 'rxjs/operators';
 
-import {AuthenticationResource} from '../resources/authentication.resource';
-import {User} from '../../models';
-import {IServerResponse, IUser} from '../../interfaces';
-import {MatSnackBar} from '@angular/material';
+import { AuthenticationResource } from '../resources/authentication.resource';
+import { IUser } from '../../interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  constructor(private resource: AuthenticationResource,
-              private snackBar: MatSnackBar) {
-  }
+  constructor(private resource: AuthenticationResource) {}
 
   /**
    * Проверка текущей сессии
@@ -36,44 +32,11 @@ export class AuthenticationService {
    */
   signIn(account: string, password: string, addIfNotExists?: boolean, appCode?: string): Observable<any> {
     return from(this.resource.signIn({account, password, addIfNotExists, appCode}));
-    /*
-    .pipe(
-      map((response: IUser) => {
-        return response ? new User(response) : null;
-      }),
-
-      catchError((error) => {
-        console.error(error);
-        switch (error.status) {
-          case 401:
-            this.snackBar.open('Пользователь не найден', 'Закрыть', {
-              verticalPosition: 'bottom',
-              horizontalPosition: 'center',
-              duration: 5000
-            });
-            break;
-          case 403:
-            this.snackBar.open('Доступ запрещен', 'Закрыть', {
-              verticalPosition: 'bottom',
-              horizontalPosition: 'center',
-              duration: 5000
-            });
-            break;
-          default:
-            this.snackBar.open('Пользователь не найден', 'Закрыть', {
-              verticalPosition: 'bottom',
-              horizontalPosition: 'center',
-              duration: 5000
-            });
-            break;
-        }
-        throw new Error();
-      })
-
-    );
-    */
   }
 
+  /**
+   * Завершение сессии пользователя
+   */
   signOut(): Observable<boolean> {
     return from(this.resource.signOut())
       .pipe(

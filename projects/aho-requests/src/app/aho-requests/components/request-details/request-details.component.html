@@ -37,45 +37,102 @@
                   </div>
 
                   <mat-list>
+
+                    <!-- Start: Категория заявки -->
                     <h3 matSubheader class="">Категория заявки</h3>
                     <mat-list-item>
                       <mat-icon matListIcon color="primary" fontSet="fa" fontIcon="{{request.type.icon}}"></mat-icon>
                       <h4 matLine>{{request.type.title}}</h4>
                       <p matLine class="text-muted" *ngIf="request.numberOfLoaders">Требуется грузчиков: {{request.numberOfLoaders}}</p>
                     </mat-list-item>
+                    <!-- End: Категория заявки -->
 
+                    <!-- Start: Срок исполнения заявки -->
                     <h3 matSubheader>Срок исполнения</h3>
                     <mat-list-item>
                       <mat-icon matListIcon color="primary">calendar_today</mat-icon>
                       <h4 matLine>{{request.dateExpiresD | date:'dd MMMM yyyy'}}</h4>
                       <p matLine class="text-danger" *ngIf="request.isExpired">Просрочено</p>
                     </mat-list-item>
+                    <!-- End: Срок исполнения заявки -->
 
+                    <!-- Start: Инициатор / автор заявки -->
                     <h3 matSubheader class="">{{request.initiator ? 'Инициатор / автор' : 'Автор'}}</h3>
                     <mat-list-item *ngIf="request.initiator">
                       <img matListAvatar src="/assets/lamps.jpg" alt="...">
                       <h4 matLine>{{request.initiator}}</h4>
-                      <!-- <p matLine class="text-muted" *ngIf="(selectedRequest$ | async)?.initiator">{{(selectedRequest$ | async)?.initiator}}</p> -->
                     </mat-list-item>
                     <mat-list-item>
                       <img matListAvatar src="/assets/lamps.jpg" alt="...">
                       <h4 matLine>{{request.user.firstName + ' ' + request.user.lastName}}</h4>
                       <p matLine class="text-muted" *ngIf="request.user.position">{{request.user.position}}</p>
                     </mat-list-item>
+                    <!-- End: Инициатор / автор заявки -->
 
+                    <!-- Start: Контактный телефон -->
                     <h3 matSubheader class="">Контактный телефон</h3>
                     <mat-list-item>
                       <mat-icon matListIcon color="primary">phone</mat-icon>
                       <h4 matLine>{{request.phone}}</h4>
                     </mat-list-item>
+                    <!-- End: Контактный телефон -->
 
-                    <h3 matSubheader class="">Исполнитель</h3>
-                    <mat-list-item *ngFor="let employee of request.employees">
-                      <img matListAvatar src="/assets/lamps.jpg" alt="...">
-                      <h4 matLine>{{employee.firstName + ' ' + employee.lastName}}</h4>
-                      <p matLine class="text-muted" *ngIf="employee.position">{{employee.position}}</p>
+                    <!-- Start: Исполнители -->
+                    <h3 matSubheader class="d-flex flex-row justify-content-between">
+                      <span>{{request.employees.length > 1 ? 'Исполнители' : 'Исполнитель'}}</span>
+                      <span class="link" (click)="addEmployeeMode()">{{inAddEmployeeMode ? 'Отмена' : 'Добавать исполнителя'}}</span>
+                    </h3>
+                    <mat-list-item *ngIf="request.employees.length === 0 && !(user$| async).permissions.getRoleByCode('aho_requests_administrator')">
+                      <h4 matLine class="text-muted">Не назначен</h4>
                     </mat-list-item>
+                    <div *ngIf="!(user$| async).permissions.getRoleByCode('aho_requests_administrator')">
+                      <mat-list-item *ngFor="let employee of request.employees">
+                        <img matListAvatar src="/assets/lamps.jpg" alt="...">
+                        <h4 matLine>{{employee.firstName + ' ' + employee.lastName}}</h4>
+                        <p matLine class="text-muted" *ngIf="employee.position">{{employee.position}}</p>
+                      </mat-list-item>
+                    </div>
 
+                    <div class="user-list border-bottom mb-2">
+                      <div class="user-item" *ngFor="let employee of request.employees">
+                        <!-- Start: Информация о пользователе -->
+                        <div class="user-details">
+                          <div class="user-avatar">
+                            <span *ngIf="!employee.photo">{{employee.firstName[0] + employee.lastName[0]}}</span>
+                          </div>
+                          <div class="user-description">
+                            <div class="primary-label">{{employee.firstName + ' ' + employee.lastName}}</div>
+                            <div class="secondary-label text-muted" *ngIf="employee.position">{{employee.position}}</div>
+                          </div>
+                        </div>
+                        <!-- End: Информация о пользователе -->
+
+                        <!-- Start: Элементы управления -->
+                        <div class="user-controls">
+                          <button mat-icon-button
+                                  matTooltip="Удалить исполнителя"
+                                  matTooltipPosition="above"
+                                  (click)="removeEmployee(employee)">
+                            <mat-icon color="primary">delete</mat-icon>
+                          </button>
+                        </div>
+                        <!-- End: Элементы управления -->
+                      </div>
+                    </div>
+
+                    <div class="border-bottom pl-3 pr-3" style="background: white;" *ngIf="inAddEmployeeMode">
+                      <mat-form-field class="w-100">
+                        <mat-label>Выберите исполнителя</mat-label>
+                        <mat-select (selectionChange)="selectEmployee($event)">
+                          <mat-option *ngFor="let employee of (employees$ | async)" [value]="employee">
+                            {{employee.firstName + ' ' + employee.lastName}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <!-- Start: Исполнители -->
+
+                    <!-- Start: Статус заявки -->
                     <h3 matSubheader class="">Статус заявки</h3>
                     <mat-list-item>
                       <mat-icon matListIcon
@@ -86,6 +143,7 @@
                       <h4 matLine>{{request.status.title}}</h4>
                       <p matLine class="text-muted" *ngIf="request.rejectReason">Причина: {{request.rejectReason}}</p>
                     </mat-list-item>
+                    <!-- End: Статус заявки -->
 
                   </mat-list>
 

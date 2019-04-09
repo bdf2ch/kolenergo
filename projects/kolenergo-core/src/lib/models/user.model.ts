@@ -16,6 +16,7 @@ export class User implements IUser {
   secondName: string;               // Отчество
   lastName: string;                 // Фамилия
   position: string;                 // Должность
+  photo: string;                    // Фотография
   company: ICompany;                // Организация
   department: IDepartment;          // Подразделение организации
   division: IDivision;              // Структурное подразделение
@@ -31,6 +32,7 @@ export class User implements IUser {
     this.secondName = config ? config.secondName : null;
     this.lastName = config ? config.lastName : null;
     this.position = config ? config.position : null;
+    this.photo = config && config.photo ? config.photo : null;
     this.company = config && config.company ? new Company(config.company) : null;
     this.department = config && config.department ? new Department(config.department) : null;
     this.division = config && config.division ? new Division(config.division) : null;

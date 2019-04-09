@@ -23,9 +23,8 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() {
     this.isAuthenticationInProgress$ = this.store.pipe(
-      select(selectors.selectIsInProgress),
+      select(selectors.selectAuthenticationInProgress),
       tap((value: boolean) => {
-        console.log('isAuthenticationInProgress', value);
         if (value) {
           this.signInForm.get('account').disable();
           this.signInForm.get('password').disable();
@@ -41,6 +40,10 @@ export class SignInComponent implements OnInit {
     });
   }
 
+  /**
+   * Получение сообщений об ошибках формы
+   * @param field - Наименование поля формы
+   */
   getFormErrorMessage(field: string) {
     switch (field) {
       case 'account':
@@ -52,6 +55,9 @@ export class SignInComponent implements OnInit {
     }
   }
 
+  /**
+   * Показ / скрытие пароля в поле ввода
+   */
   showHidePassword() {
     let isLoadingInProgress = null;
     this.isAuthenticationInProgress$.subscribe((value: boolean) => {
@@ -62,6 +68,9 @@ export class SignInComponent implements OnInit {
     }
   }
 
+  /**
+   * Отправка данных пользователя для аутентификации
+   */
   signIn() {
     this.store.dispatch(
       new AuthenticationSignIn({
