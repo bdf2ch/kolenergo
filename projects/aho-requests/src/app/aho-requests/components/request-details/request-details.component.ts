@@ -5,8 +5,8 @@ import { MatSelectChange } from '@angular/material';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
-import {AhoRequest, AhoRequestStatus} from '../../models';
-import {IApplicationState, selectCurrentUser, selectEmployees, selectRequestStatuses, selectSelectedRequest} from '../../../state';
+import { AhoRequest, AhoRequestStatus } from '../../models';
+import { IApplicationState, selectCurrentUser, selectEmployees, selectRequestStatuses, selectSelectedRequest } from '../../../state';
 import { IAhoRequest } from '../../interfaces';
 import { IUser, User } from 'kolenergo-core';
 
@@ -23,6 +23,7 @@ export class RequestDetailsComponent implements OnInit {
   public employees$: Observable<User[]>;
   public selectedRequest$: Observable<IAhoRequest>;
   public inAddEmployeeMode: boolean;
+  public isRequestChanged: boolean;
 
   constructor(private store: Store<IApplicationState>) { }
 
@@ -32,6 +33,7 @@ export class RequestDetailsComponent implements OnInit {
     this.employees$ = this.store.pipe(select(selectEmployees));
     this.selectedRequest$ = this.store.pipe(select(selectSelectedRequest));
     this.inAddEmployeeMode = false;
+    this.isRequestChanged = false;
   }
 
   addEmployeeMode() {
@@ -46,6 +48,7 @@ export class RequestDetailsComponent implements OnInit {
     });
     request.employees.push(event.value);
     this.addEmployeeMode();
+    this.isRequestChanged = true;
   }
 
   removeEmployee(employee: IUser) {
@@ -56,5 +59,6 @@ export class RequestDetailsComponent implements OnInit {
     request.employees = request.employees.filter((item: IUser) => {
       return item.id !== employee.id;
     });
+    this.isRequestChanged = true;
   }
 }

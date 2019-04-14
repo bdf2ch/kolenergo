@@ -52,7 +52,7 @@ export class AhoRequest implements IAhoRequest {
     this.dateCreated = config ? config.dateCreated : null;
     this.dateCreatedD = config ? new Date(config.dateCreated) : null;
     this.dateExpires = config ? config.dateExpires : null;
-    this.dateExpiresD = config ? new Date(config.dateExpires) : null;
+    this.dateExpiresD = config && config.dateExpires ? new Date(config.dateExpires) : null;
     this.isExpired = config ? config.isExpired : false;
     this.numberOfLoaders = config ? config.numberOfLoaders : null;
     this.initiator = config ? config.initiator : null;
