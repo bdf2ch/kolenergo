@@ -80,7 +80,11 @@
                     <!-- Start: Исполнители -->
                     <h3 matSubheader class="d-flex flex-row justify-content-between">
                       <span>{{request.employees.length > 1 ? 'Исполнители' : 'Исполнитель'}}</span>
-                      <span class="link" (click)="addEmployeeMode()">{{inAddEmployeeMode ? 'Отмена' : 'Добавать исполнителя'}}</span>
+                      <span class="link"
+                            *ngIf="(user$| async).permissions.getRoleByCode('aho_requests_administrator')"
+                            (click)="addEmployeeMode()">
+                        {{inAddEmployeeMode ? 'Отмена' : 'Добавать исполнителя'}}
+                      </span>
                     </h3>
                     <mat-list-item *ngIf="request.employees.length === 0 && !(user$| async).permissions.getRoleByCode('aho_requests_administrator')">
                       <h4 matLine class="text-muted">Не назначен</h4>
@@ -93,7 +97,7 @@
                       </mat-list-item>
                     </div>
 
-                    <div class="user-list border-bottom mb-2">
+                    <div class="user-list border-bottom mb-2" *ngIf="(user$| async).permissions.getRoleByCode('aho_requests_administrator')">
                       <div class="user-item" *ngFor="let employee of request.employees">
                         <!-- Start: Информация о пользователе -->
                         <div class="user-details">
