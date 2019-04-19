@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSelectChange } from '@angular/material';
+import {MatSelectChange, MatSelectionListChange} from '@angular/material';
 
 
 import { Observable } from 'rxjs';
@@ -41,7 +41,6 @@ export class RequestDetailsComponent implements OnInit {
   }
 
   selectEmployee(event: MatSelectChange) {
-    console.log(event);
     let request: AhoRequest = null;
     this.selectedRequest$.subscribe((selectedRequest: AhoRequest) => {
       request = selectedRequest;
@@ -59,6 +58,10 @@ export class RequestDetailsComponent implements OnInit {
     request.employees = request.employees.filter((item: IUser) => {
       return item.id !== employee.id;
     });
+    this.isRequestChanged = true;
+  }
+
+  checkTask(event: MatSelectionListChange) {
     this.isRequestChanged = true;
   }
 }

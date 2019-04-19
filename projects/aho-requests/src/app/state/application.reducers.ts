@@ -4,6 +4,7 @@ import {AhoRequest, AhoRequestRejectReason, AhoRequestStatus, AhoRequestType, Fi
 import {IAhoRequest, IAhoRequestRejectReason, IAhoRequestStatus, IAhoRequestType} from '../aho-requests/interfaces';
 import {Backup, User} from 'kolenergo-core';
 
+
 export function reducer(
   state: IAhoState = ahoInitialState,
   action: actions.AhoRequestsActions
@@ -201,7 +202,7 @@ export function reducer(
     case actions.AhoRequestsActionTypes.SELECT_REQUEST: {
       return {
         ...state,
-        selectedRequest: action.payload
+        selectedRequest: Backup.makeBackupable(action.payload, ['tasks', 'employees', 'status'])
       };
     }
     default: {

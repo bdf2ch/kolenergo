@@ -50,6 +50,15 @@
                     </mat-list-item>
                     <!-- End: Номер заявки и дата подачи -->
 
+                    <!-- Start: Подразделение организации -->
+                    <h3 matSubheader class="">Производственное отделение</h3>
+                    <mat-list-item>
+                      <mat-icon matListIcon color="primary"></mat-icon>
+                      <h4 matLine>{{request.type.title}}</h4>
+                      <p matLine class="text-muted" *ngIf="request.numberOfLoaders">Требуется грузчиков: {{request.numberOfLoaders}}</p>
+                    </mat-list-item>
+                    <!-- End: Подразделение организации -->
+
                     <!-- Start: Категория заявки -->
                     <h3 matSubheader class="">Категория заявки</h3>
                     <mat-list-item>
@@ -172,14 +181,20 @@
                   </mat-list>
 
                   <div class="mt-3 p-3 border-top">
-                    <button mat-stroked-button *ngIf="isRequestChanged">Сохранить</button>
-                    <button mat-stroked-button color="warn" *ngIf="isRequestChanged">Отмена</button>
+                    <div class="row pl-0 pr-0">
+                      <div class="col-6">
+                        <button mat-flat-button color="primary" *ngIf="isRequestChanged" class="w-100">Сохранить изменения</button>
+                      </div>
+                      <div class="col-6">
+                        <button mat-flat-button color="warn" *ngIf="isRequestChanged" class="w-100">Отменить изменения</button>
+                      </div>
+                    </div>
                   </div>
 
                 </div>
 
                 <div class="col-md-7 col-xl-8 pl-3 pt-3 pb-3">
-                  <mat-selection-list class="request-details-tasks pt-0">
+                  <mat-selection-list class="request-details-tasks pt-0" (selectionChange)="checkTask($event)">
                     <mat-list-option *ngFor="let task of request.tasks">
                       <span matLine>{{task.content.title}}</span>
                       <span matLine class="text-muted" *ngIf="request.type.isCountable">

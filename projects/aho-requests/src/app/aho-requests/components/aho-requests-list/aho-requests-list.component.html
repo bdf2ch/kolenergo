@@ -1,5 +1,16 @@
 <div class="aho-requests-list">
   <table class="w-100">
+    <thead *ngIf="requests.length > 0">
+    <tr class="d-none d-md-table-row w-100">
+      <th class="request-meta-details text-muted"># / дата подачи</th>
+      <th class="request-author-initiator text-muted">Инициатор / автор</th>
+      <th class="text-muted">Кабинет</th>
+      <th class="request-content-task text-muted">Содержание</th>
+      <th class="request-date-expires text-muted">Срок исполнения</th>
+      <th class="request-employees text-muted">Исполнитель</th>
+      <th class="request-status text-muted">Статус</th>
+    </tr>
+    </thead>
     <tbody>
     <tr *ngFor="let request of requests" (click)="showRequestDetails(request)">
 
@@ -40,7 +51,7 @@
             <div class="request-task-content">
               <span>{{task.content.title}}</span>
               <span *ngIf="request.type.isCountable" class="text-muted">
-                -
+                - &nbsp;
                 <span>{{task.count}}</span>
                 <span>{{task.content.boxing ? task.content.boxing : ' шт'}}</span>
               </span>
@@ -65,7 +76,7 @@
 
       <td class="request-date-expires">
         <div class="d-flex flex-column">
-          <div *ngIf="!request.dateExpires" class="text-muted">Не задана</div>
+          <div *ngIf="!request.dateExpires" class="text-muted">Не задан</div>
           <div *ngIf="request.dateExpires">{{request.dateExpiresD | date:'dd.MM.yyyy'}}</div>
           <div *ngIf="request.isExpired">
             <span class="expired-label">

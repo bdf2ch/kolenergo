@@ -6,68 +6,36 @@
   flex-direction: column;
   flex: 1;
 
-  table tbody {
-    font-family: "Segoe UI";
-    font-size: 14px;
-    background: white;
+  table {
 
-    tr {
-      border-bottom: 1px solid @request-border-color;
-      cursor: pointer;
+    thead {
+      font-family: "Segoe UI";
+      font-size: 12px;
+      line-height: 15px;
+      background: white;
 
-      &:hover {
-        background: #fffde7;
-      }
-
-      td {
+      th {
         padding: 10px;
         vertical-align: top;
+        font-weight: normal !important;
+        border-top: 1px dotted @request-border-color;
+        border-bottom: 1px dotted @request-border-color;
+
         &.request-meta-details {
           min-width: 120px;
-          .mat-icon {
-            &.fa {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              width: 18px;
-              height: 18px;
-            }
-          }
         }
 
         &.request-author-initiator {
           min-width: 180px;
         }
 
-        &.request-location {
-
-        }
-
-        &.request-content {
-          .request-tasks-expander {
-            .expander-content {
-              display: inline-flex;
-              flex-direction: row;
-              justify-content: flex-start;
-              align-items: center;
-
-              &:hover {
-                text-decoration: underline #6c757d;
-              }
-
-              .mat-icon {
-                width: 13px;
-                height: 13px;
-                font-size: 13px;
-                line-height: 17px;
-                color: #6c757d;
-              }
-            }
-          }
+        &.request-date-expires {
+          min-width: 85px;
         }
 
         &.request-date-expires {
           min-width: 85px;
+
           .expired-label {
             color: #e53935;
           }
@@ -77,15 +45,93 @@
           min-width: 180px;
         }
 
-        &.request-status {
-          .mat-icon {
-            width: 20px;
-            height: 20px;
-            font-size: 20px;
-            &.far {
-              width: 21px;
-              height: 22px;
-              font-size: 22px;
+        &.request-status {}
+      }
+    }
+
+    tbody {
+      font-family: "Segoe UI";
+      font-size: 14px;
+      background: white;
+
+      tr {
+        border-bottom: 1px solid @request-border-color;
+        cursor: pointer;
+
+        &:hover {
+          background: #fffde7;
+        }
+
+        td {
+          padding: 10px;
+          vertical-align: top;
+          &.request-meta-details {
+            min-width: 120px;
+            .mat-icon {
+              &.fa {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 18px;
+                height: 18px;
+              }
+            }
+          }
+
+          &.request-author-initiator {
+            min-width: 180px;
+          }
+
+          &.request-location {
+
+          }
+
+          &.request-content {
+            .request-tasks-expander {
+              .expander-content {
+                display: inline-flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+
+                &:hover {
+                  text-decoration: underline #6c757d;
+                }
+
+                .mat-icon {
+                  width: 13px;
+                  height: 13px;
+                  font-size: 13px;
+                  line-height: 17px;
+                  color: #6c757d;
+                }
+              }
+            }
+          }
+
+          &.request-date-expires {
+            min-width: 85px;
+
+            .expired-label {
+              color: #e53935;
+            }
+          }
+
+          &.request-employees {
+            min-width: 180px;
+          }
+
+          &.request-status {
+            .mat-icon {
+              width: 20px;
+              height: 20px;
+              font-size: 20px;
+
+              &.far {
+                width: 21px;
+                height: 22px;
+                font-size: 22px;
+              }
             }
           }
         }

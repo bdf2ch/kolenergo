@@ -5,7 +5,7 @@ export class Backup {
    * @param source - Источник данных
    * @param fields - Поля, значения которых требуется зарезервировать
    */
-  static makeBackupable(source: any, fields: string[]) {
+  static makeBackupable(source: any, fields: string[]): any {
     Object.defineProperty(source, 'backup', {
       enumerable: false,
       configurable: true,
@@ -85,6 +85,8 @@ export class Backup {
         });
       }
     });
+
+    return source;
   }
 
   static restore(source: any, fields?: string[]) {
