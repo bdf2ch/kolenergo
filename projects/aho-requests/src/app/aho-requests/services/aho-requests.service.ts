@@ -4,7 +4,7 @@ import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { AhoRequestsResource } from '../resources/aho-requests.resource';
-import { IAhoRequest, IAhoRequestsInitialData } from '../interfaces';
+import { IAhoRequest, IAhoRequestsInitialData2 } from '../interfaces';
 import { IServerResponse } from 'kolenergo-core';
 
 
@@ -19,10 +19,10 @@ export class AhoRequestsService {
   /**
    * Получение данных для инициали
    */
-  fetchInitialData(userId: number, itemsOnPage: number): Observable<IServerResponse<IAhoRequestsInitialData>> {
+  fetchInitialData(userId: number, itemsOnPage: number): Observable<IServerResponse<IAhoRequestsInitialData2>> {
     return from(this.resource.getInitialData({userId, itemsOnPage}))
       .pipe(
-        map((response: IServerResponse<IAhoRequestsInitialData>) => response)
+        map((response: IServerResponse<IAhoRequestsInitialData2>) => response)
       );
   }
 
@@ -40,6 +40,7 @@ export class AhoRequestsService {
    * @param search - Строка поиска
    */
   fetchRequests(
+    departmentId: number[],
     start: number,
     end: number,
     userId: number,
@@ -53,7 +54,7 @@ export class AhoRequestsService {
   ): Observable<IServerResponse<{requests: IAhoRequest[], totalRequests: number}>> {
     return from(this.resource.getRequests(
       null,
-      { start, end, userId, employeeId, requestTypeId, requestStatusId, onlyExpired, page, itemsOnPage},
+      { departmentId, start, end, userId, employeeId, requestTypeId, requestStatusId, onlyExpired, page, itemsOnPage},
       null
     ))
       .pipe(

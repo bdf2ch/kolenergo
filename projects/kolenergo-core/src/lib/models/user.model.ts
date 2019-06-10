@@ -5,7 +5,7 @@ import { IUser } from '../interfaces/user.interface';
 import { Company } from './company.model';
 import { Department } from './department.model';
 import { Division } from './division.model';
-import {PermissionManager} from './permission-manager.model';
+import { PermissionManager } from './permission-manager.model';
 
 /**
  * Класс, реализующий интерфейс пользователя
@@ -20,7 +20,7 @@ export class User implements IUser {
   company: ICompany;                // Организация
   department: IDepartment;          // Подразделение организации
   division: IDivision;              // Структурное подразделение
-  permissions: PermissionManager;   // Менеджер ролей и прав пользователя в приложении
+  permissions?: PermissionManager;  // Менеджер ролей и прав пользователя в приложении
 
   /**
    * Конструктор

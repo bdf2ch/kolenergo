@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
-import { IAhoRequest, IAhoRequestsInitialData } from '../aho-requests/interfaces';
-import { IServerResponse } from '../../../../kolenergo-core/src/lib/interfaces';
+import { IAhoRequest, IAhoRequestsInitialData2 } from '../aho-requests/interfaces';
+import { IServerResponse, User } from 'kolenergo-core';
 import { AhoRequest, SearchFilter } from '../aho-requests/models';
 import { ApplicationModes } from './application.state';
 
@@ -154,7 +154,7 @@ export class LoadInitialData implements Action {
 export class InitialDataLoadSuccess implements Action {
   readonly  type = AhoRequestsActionTypes.INITIAL_DATA_LOAD_SUCCESS;
 
-  constructor(public payload: IServerResponse<IAhoRequestsInitialData>) {}
+  constructor(public payload: {user: User, initialData: IServerResponse<IAhoRequestsInitialData2>}) {}
 }
 
 /**

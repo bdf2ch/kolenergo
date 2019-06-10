@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 
-import { IAuthenticationState, AuthenticationInitialState, User } from 'kolenergo-core';
+import { IAuthenticationState, AuthenticationInitialState, User, Department } from 'kolenergo-core';
 import { AhoRequest, AhoRequestStatus, AhoRequestType, FilterManager, SearchFilter } from '../aho-requests/models';
 import { IAhoRequest, IAhoRequestRejectReason, IAhoRequestStatus, IAhoRequestType } from '../aho-requests/interfaces';
 
@@ -16,6 +16,7 @@ export interface IAhoState {
   mode: ApplicationModes;
   fetchingDataInProgress: boolean;
   isApplicationInitialized: boolean;
+  departments: Department[];
   requestTypes: IAhoRequestType[];
   requestStatuses: IAhoRequestStatus[];
   requestRejectReasons: IAhoRequestRejectReason[];
@@ -41,6 +42,7 @@ export const ahoInitialState: IAhoState = {
   mode: ApplicationModes.ALL_REQUESTS_MODE,
   fetchingDataInProgress: false,
   isApplicationInitialized: false,
+  departments: [],
   requestTypes: [],
   requestStatuses: [],
   requestRejectReasons: [],

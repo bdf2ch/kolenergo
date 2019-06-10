@@ -22,7 +22,7 @@ import {
 import { filter, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import {combineLatest, EMPTY} from 'rxjs';
 import { AhoRequestsService } from '../aho-requests/services/aho-requests.service';
-import { IAhoRequest, IAhoRequestsInitialData } from '../aho-requests/interfaces';
+import { IAhoRequest, IAhoRequestsInitialData2 } from '../aho-requests/interfaces';
 import { IServerResponse, actionTypes, SignInComponent } from 'kolenergo-core';
 import { select, Store } from '@ngrx/store';
 import {FilterManager} from '../aho-requests/models';
@@ -103,6 +103,7 @@ export class ApplicationEffects {
     ),
     mergeMap(([action, user, filters, page, itemsOnPage]) =>
       this.aho.fetchRequests(
+        [user.department.id],
         filters.getFilterById('start-date').getValue() ? filters.getFilterById('start-date').getValue().getTime() : 0,
         filters.getFilterById('end-date').getValue() ? filters.getFilterById('end-date').getValue().getTime() : 0,
         user.permissions.getRoleByCode('aho_requests_administrator') ? 0 : user.id,
@@ -136,9 +137,14 @@ export class ApplicationEffects {
   @Effect()
   loadAllRequests$ = this.actions$.pipe(
     ofType(AhoRequestsActionTypes.LOAD_ALL_REQUESTS),
-    withLatestFrom(this.store.pipe(select(selectCurrentPage)), this.store.pipe(select(selectItemsOnPage))),
-    mergeMap(([action, page, itemsOnPage]) =>
+    withLatestFrom(
+      this.store.pipe(select(selectCurrentPage)),
+      this.store.pipe(select(selectItemsOnPage)),
+      this.store.pipe(select(selectCurrentUser)),
+    ),
+    mergeMap(([action, page, itemsOnPage, user]) =>
       this.aho.fetchRequests(
+        [user.department.id],
         0,
         0,
         0,
@@ -166,6 +172,7 @@ export class ApplicationEffects {
     ),
     mergeMap(([action, user, page, itemsOnPage]) =>
       this.aho.fetchRequests(
+        [user.department.id],
         0,
         0,
         user.id,
@@ -192,6 +199,7 @@ export class ApplicationEffects {
     ),
     mergeMap(([action, user, page, itemsOnPage]) =>
       this.aho.fetchRequests(
+        [user.department.id],
         0,
         0,
         0,
@@ -211,9 +219,14 @@ export class ApplicationEffects {
   @Effect()
   loadExpiredRequests$ = this.actions$.pipe(
     ofType(AhoRequestsActionTypes.LOAD_EXPIRED_REQUESTS),
-    withLatestFrom(this.store.pipe(select(selectCurrentPage)), this.store.pipe(select(selectFilters))),
-    mergeMap(([action, page, filters]) =>
+    withLatestFrom(
+      this.store.pipe(select(selectCurrentPage)),
+      this.store.pipe(select(selectFilters)),
+      this.store.pipe(select(selectCurrentUser))
+    ),
+    mergeMap(([action, page, filters, user]) =>
        this.aho.fetchRequests(
+         [user.department.id],
         0,
         0,
         0,
@@ -239,13 +252,14 @@ export class ApplicationEffects {
     ),
     mergeMap(([action, user, itemsOnPage]) => this.aho.fetchInitialData(user.id, itemsOnPage)
       .pipe(
-        map((data: IServerResponse<IAhoRequestsInitialData>) => {
-          return {type: AhoRequestsActionTypes.INITIAL_DATA_LOAD_SUCCESS, payload: {data: data.data}};
+        map((data: IServerResponse<IAhoRequestsInitialData2>) => {
+          return {type: AhoRequestsActionTypes.INITIAL_DATA_LOAD_SUCCESS, payload: {user, initialData: data}};
         })
       )
     )
   );
 
+  /*
   @Effect()
   loadInitialDataSuccess$ = this.actions$.pipe(
     ofType(state.AhoRequestsActionTypes.INITIAL_DATA_LOAD_SUCCESS),
@@ -257,12 +271,16 @@ export class ApplicationEffects {
       ? of({type: AhoRequestsActionTypes.LOAD_ALL_REQUESTS}) : of({type: AhoRequestsActionTypes.LOAD_OWN_REQUESTS});
     })
   );
+  */
 
   @Effect()
   loadRequests$ = this.actions$.pipe(
     ofType(state.AhoRequestsActionTypes.LOAD_REQUESTS),
-    withLatestFrom(this.store.pipe(select(selectCurrentPage))),
-    switchMap(([action, page]) => this.aho.fetchRequests(0, 0, 0, 0, 0, 0, false, (page + 1), 20, null)
+    withLatestFrom(
+      this.store.pipe(select(selectCurrentPage)),
+      this.store.pipe(select(selectCurrentUser))
+    ),
+    switchMap(([action, page, user]) => this.aho.fetchRequests([user.department.id], 0, 0, 0, 0, 0, 0, false, (page + 1), 20, null)
       .pipe(
         map((response: IServerResponse<{requests: IAhoRequest[], totalRequests: number}>) => {
           return {type: AhoRequestsActionTypes.LOAD_REQUESTS_SUCCESS, payload: {data: {...response.data, page: page + 1}}};

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 import {
   IResourceMethod,
@@ -7,18 +7,19 @@ import {
   ResourceAction,
   ResourceHandler,
   ResourceParams,
+  ResourceQueryMappingMethod,
   ResourceRequestMethod
 } from '@ngx-resource/core';
 
-import { IServerResponse } from 'kolenergo-core';
-import {IAhoRequest, IAhoRequestsInitialData} from '../interfaces';
-import { environment } from '../../../environments/environment';
+import {IServerResponse} from 'kolenergo-core';
+import {IAhoRequest, IAhoRequestsInitialData2} from '../interfaces';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 @ResourceParams({
-  pathPrefix: environment.apiUrl + 'aho',
+  pathPrefix: environment.apiUrl + 'aho2',
   withCredentials: true
 })
 export class AhoRequestsResource extends Resource {
@@ -28,20 +29,22 @@ export class AhoRequestsResource extends Resource {
   }
 
   @ResourceAction({
-    path: '/init',
+    path: '/',
     method: ResourceRequestMethod.Get,
     withCredentials: true
   })
-  getInitialData: IResourceMethod<{userId: number, itemsOnPage: number}, IServerResponse<IAhoRequestsInitialData>>;
+  getInitialData: IResourceMethod<{userId: number, itemsOnPage: number}, IServerResponse<IAhoRequestsInitialData2>>;
 
   @ResourceAction({
     path: '/requests',
     method: ResourceRequestMethod.Get,
-    withCredentials: true
+    withCredentials: true,
+    queryMappingMethod: ResourceQueryMappingMethod.Plain
   })
   getRequests: IResourceMethodStrict<
     void,
     {
+      departmentId: number[],
       start: number,
       end: number,
       userId: number,

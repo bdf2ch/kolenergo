@@ -171,6 +171,138 @@
           }
         }
       }
+    },
+    "event-sheduler": {
+      "root": "projects/event-sheduler/",
+      "sourceRoot": "projects/event-sheduler/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "less"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/event-sheduler",
+            "index": "projects/event-sheduler/src/index.html",
+            "main": "projects/event-sheduler/src/main.ts",
+            "polyfills": "projects/event-sheduler/src/polyfills.ts",
+            "tsConfig": "projects/event-sheduler/tsconfig.app.json",
+            "assets": [
+              "projects/event-sheduler/src/favicon.ico",
+              "projects/event-sheduler/src/assets"
+            ],
+            "styles": [
+              "projects/event-sheduler/src/styles.less"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/event-sheduler/src/environments/environment.ts",
+                  "with": "projects/event-sheduler/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "event-sheduler:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "event-sheduler:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "event-sheduler:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/event-sheduler/src/test.ts",
+            "polyfills": "projects/event-sheduler/src/polyfills.ts",
+            "tsConfig": "projects/event-sheduler/tsconfig.spec.json",
+            "karmaConfig": "projects/event-sheduler/karma.conf.js",
+            "styles": [
+              "projects/event-sheduler/src/styles.less"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/event-sheduler/src/favicon.ico",
+              "projects/event-sheduler/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/event-sheduler/tsconfig.app.json",
+              "projects/event-sheduler/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "event-sheduler-e2e": {
+      "root": "projects/event-sheduler-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/event-sheduler-e2e/protractor.conf.js",
+            "devServerTarget": "event-sheduler:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "event-sheduler:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/event-sheduler-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "kolenergo-core"

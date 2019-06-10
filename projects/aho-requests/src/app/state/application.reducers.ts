@@ -1,8 +1,8 @@
-import {ahoInitialState, ApplicationModes, IAhoState, IApplicationState, initialState} from './application.state';
+import {ahoInitialState, ApplicationModes, IAhoState} from './application.state';
 import * as actions from './application.actions';
 import {AhoRequest, AhoRequestRejectReason, AhoRequestStatus, AhoRequestType, FilterManager, SearchFilter} from '../aho-requests/models';
 import {IAhoRequest, IAhoRequestRejectReason, IAhoRequestStatus, IAhoRequestType} from '../aho-requests/interfaces';
-import {Backup, User} from 'kolenergo-core';
+import { Backup, User, IDepartment, Department} from 'kolenergo-core';
 
 
 export function reducer(
@@ -129,27 +129,32 @@ export function reducer(
       return {
         ...state,
         isApplicationInitialized: true,
-        requestTypes: action.payload.data.types.map((item: IAhoRequestType) => {
+        mode: action.payload.user.permissions.getRoleByCode('aho_requests_administrator')
+          ? ApplicationModes.ALL_REQUESTS_MODE
+          : ApplicationModes.OWN_REQUESTS_MODE,
+        departments: action.payload.initialData.data.departments.map((item: IDepartment) => {
+          return new Department(item);
+        }),
+        requestTypes: action.payload.initialData.data.types.map((item: IAhoRequestType) => {
           return new AhoRequestType(item);
         }),
-        requestStatuses: action.payload.data.statuses.map((item: IAhoRequestStatus) => {
+        requestStatuses: action.payload.initialData.data.statuses.map((item: IAhoRequestStatus) => {
           return new AhoRequestStatus(item);
         }),
-        requestRejectReasons: action.payload.data.rejectReasons.map((item: IAhoRequestRejectReason) => {
+        requestRejectReasons: action.payload.initialData.data.rejectReasons.map((item: IAhoRequestRejectReason) => {
           return new AhoRequestRejectReason(item);
         }),
-        employees: [...action.payload.data.employees.map((item) => new User(item))],
-        requests: action.payload.data.requests.map((item: IAhoRequest) => {
-          const request = new AhoRequest(item);
-          Backup.makeBackupable(request, ['status', 'tasks', 'dateExpiresD', 'numberOfLoaders', 'employees']);
-          return request;
+        employees: [...action.payload.initialData.data.employees.map((item) => new User(item))],
+        requests: action.payload.initialData.data.requests.map((item: IAhoRequest) => {
+          return new AhoRequest(item);
         }),
-        ownRequestsCount: action.payload.data.ownRequests_.totalRequestsCount,
-        ownUncompletedRequestsCount: action.payload.data.ownRequests_.uncompletedRequestsCount,
-        employeeRequestsCount: action.payload.data.employeeRequests_.totalRequestsCount,
-        employeeUncompletedRequestsCount: action.payload.data.employeeRequests_.uncompletedRequestsCount,
-        expiredRequestsCount: action.payload.data.expiredRequests_.totalRequestsCount,
-        totalPages: Math.round(action.payload.data.allRequests.totalRequestsCount / state.itemsOnPage),
+        newRequestsCount: action.payload.initialData.data.allRequests.fresh,
+        ownRequestsCount: action.payload.initialData.data.ownRequests.total,
+        ownUncompletedRequestsCount: action.payload.initialData.data.ownRequests.uncompleted,
+        employeeRequestsCount: action.payload.initialData.data.employeeRequests.total,
+        employeeUncompletedRequestsCount: action.payload.initialData.data.employeeRequests.uncompleted,
+        expiredRequestsCount: action.payload.initialData.data.expiredRequests.total,
+        totalPages: Math.round(action.payload.initialData.data.allRequests.total / state.itemsOnPage),
         fetchingDataInProgress: false
       };
     }
