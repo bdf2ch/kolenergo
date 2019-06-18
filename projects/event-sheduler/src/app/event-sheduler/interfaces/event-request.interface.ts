@@ -1,4 +1,4 @@
-import { IUser, ICompany } from 'kolenergo-core';
+import { IUser, ICompany, IDepartment } from 'kolenergo-core';
 import { IEventType, IEventInterval, IEventRequestStatus } from './';
 
 /**
@@ -10,7 +10,9 @@ export interface IEventRequest {
   interval: IEventInterval;         // Периодичность повторения мероприятия
   status: IEventRequestStatus;      // Статус заявки на мероприятия
   user: IUser;                      // Пользователь подавший заявку
+  host: IUser | string;             // Пользователь / сотрудник, организующий мероприятие
   companies: ICompany[];            // Организации - участники мероприятия
+  departments: IDepartment[];       // Подразделения организаций, участвующите в меропряитии
   subject: string;                  // Тематика мероприятия
   description: string;              // Детали мероприятия
   date: number;                     // Дата проведения мероприятия в формате Unix
