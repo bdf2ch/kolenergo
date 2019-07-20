@@ -1,6 +1,10 @@
-import { User, Company, IUser, ICompany } from 'kolenergo-core';
+import { User, Company, IUser, ICompany } from '@kolenergo/core';
 import { IRegularEvent } from '../interfaces';
-import { EventType, EventInterval, EventLocation, EventRequest } from './';
+import { EventType } from './event-type.model';
+import { EventInterval } from './event-interval.model';
+import { EventLocation } from './event-location.model';
+import { EventRequest } from './event-request.model';
+import * as moment from 'moment';
 
 /**
  * Класс, реализующий интерфейс повторяющегося мероприятия
@@ -16,10 +20,12 @@ export class RegularEvent implements IRegularEvent {
   companies: Company[];               // Организации, участвующие в мероприятии
   subject: string;                    // Тематика мероприятия
   description: string;                // Детали мероприятия
+  startDate: string;                  // Дата начала проведения регулярного мероприятия в виде строки
+  startDateD: Date;                   // Дата начала проведения мероприятия
   weekDay: number;                    // День недели, в который проходит мероприятие (от 0 до 6)
-  startTime: string;                  // Время начала мероприятия
-  endTime: string;                    // Время окончания мероприятия
-  checkTime: string;                  // Время проверки перед мероприятием
+  startTime: number;                  // Время начала мероприятия в формате Unix
+  endTime: number;                    // Время окончания мероприятия в формате unix
+  checkTime: number;                  // Время проверки перед мероприятием в формате Unix
   participants: (User | string)[];    // Участники мероприятия
   dateCreated: number;                // Дата и время создания меропряития в формате Unix
   dateCreatedD: Date;                 // Дата и время создания мероприятия
@@ -41,6 +47,8 @@ export class RegularEvent implements IRegularEvent {
     this.companies = [];
     this.subject = config ? config.subject : null;
     this.description = config ? config.description : null;
+    this.startDate = config ? config.startDate : null;
+    this.startDateD = config ? moment(config.startDate, 'DD.MM.YYYY').toDate() : new Date();
     this.weekDay = config ? config.weekDay : null;
     this.startTime = config ? config.startTime : null;
     this.endTime = config ? config.endTime : null;

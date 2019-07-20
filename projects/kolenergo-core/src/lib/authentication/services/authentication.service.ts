@@ -4,7 +4,7 @@ import { from, Observable } from 'rxjs';
 import { map} from 'rxjs/operators';
 
 import { AuthenticationResource } from '../resources/authentication.resource';
-import { IUser } from '../../interfaces';
+import { IServerResponse, IUser } from '../../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +16,10 @@ export class AuthenticationService {
    * Проверка текущей сессии
    * @param appCode - Код приложения
    */
-  checkSession(appCode: string): Observable<IUser> {
+  checkSession(appCode: string): Observable<IServerResponse<IUser>> {
     return from(this.resource.check({appCode}, null, null))
       .pipe(
-        map((response: IUser) => response)
+        map((response: IServerResponse<IUser>) => response)
       );
   }
 

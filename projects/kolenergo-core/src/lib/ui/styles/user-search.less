@@ -1,0 +1,93 @@
+@user-item-height: 60px;
+@user-avatar-width: 40px;
+@user-avatar-height: 40px;
+@user-avatar-initials-background-color: #c5cae9;
+@user-avatar-initials-text-color: #1a237e;
+
+.mat-option {
+  &.user-search {
+    height: @user-item-height;
+
+    .mat-option-text {
+      height: @user-item-height;
+
+      .user-item {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        height: @user-item-height;
+        font-family: "Segoe UI Light";
+
+        .user-avatar {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: @user-avatar-width;
+          height: @user-avatar-height;
+          background-size: cover;
+
+          .initials {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: nowrap;
+            width: @user-avatar-width;
+            height: @user-avatar-height;
+            font-size: 18px;
+            color: @user-avatar-initials-text-color;
+            background: @user-avatar-initials-background-color;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+          }
+        }
+
+        .user-details {
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          height: @user-avatar-height;
+          padding-left: 15px;
+
+          .name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            height: 50%;
+            font-size: 16px;
+            // line-height: 17px;
+          }
+
+          .additional-info {
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            align-content: flex-start;
+            flex-grow: 0;
+            height: 50%;
+            font-size: 14px;
+
+            .position {
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+
+            .company {
+              color: #01579b;
+            }
+          }
+        }
+      }
+    }
+  }
+}

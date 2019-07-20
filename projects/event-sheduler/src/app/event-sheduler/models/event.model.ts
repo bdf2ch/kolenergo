@@ -1,6 +1,11 @@
-import { User, Company, IUser } from 'kolenergo-core';
+import { User, Company, IUser } from '@kolenergo/core';
 import { IEvent } from '../interfaces';
-import { EventInterval, EventLocation, EventRequest, EventStatus, EventType, RegularEvent } from './';
+import { EventType } from './event-type.model';
+import { EventInterval } from './event-interval.model';
+import { EventLocation } from './event-location.model';
+import { EventRequest } from './event-request.model';
+import { EventStatus } from './event-status.model';
+import { RegularEvent } from './regular-event.model';
 
 /**
  * Класс, реализующий интерфейс мероприятия
@@ -18,10 +23,11 @@ export class Event implements IEvent {
   companies: Company[];                 // Организации, принимающие участие в мероприятии
   subject: string;                      // Тематика мероприятия
   description: string;                  // Детали мероприятия
-  date: Date;                           // Дата проведения меропряития
-  startTime: string;                    // Время начала мероприятия
-  endTime: string;                      // Время окончания мероприятия
-  checkTime?: string;                   // Время проверки перед мероприятием
+  date: string;                         // Дата проведения мероприятия в виде строки
+  dateD: Date;                          // Дата проведения мероприятия
+  startTime: number;                    // Время начала мероприятия в формате Unix
+  endTime: number;                      // Время окончания мероприятия в формате Unix
+  checkTime?: number;                   // Время проверки перед мероприятием в формате Unix
   participants: (User | string)[];      // Участниик мероприятия
   rejectReason?: string;                // Причина отмены мероприятия
   dateCreated: number;                  // Дата и время создания мероприятия в формате Unix
@@ -44,7 +50,8 @@ export class Event implements IEvent {
     this.companies = [];
     this.subject = config ? config.subject : null;
     this.description = config ? config.description : null;
-    this.date = config ? new Date(config.date) : new Date();
+    this.date = config ? config.date : null;
+    this.dateD = config ? new Date(config.date) : new Date();
     this.startTime = config ? config.startTime : null;
     this.endTime = config ? config.endTime : null;
     this.checkTime = config && config.checkTime ? config.checkTime : null;

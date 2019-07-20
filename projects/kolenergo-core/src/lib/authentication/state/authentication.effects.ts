@@ -7,8 +7,9 @@ import { EMPTY, of } from 'rxjs';
 
 import * as auth from './authentication.actions';
 import { AuthenticationService } from '../services/authentication.service';
-import { AuthenticationCheckFail, AuthenticationCheckSuccess, AuthenticationSignIn } from './authentication.actions';
+import {AuthenticationCheck, AuthenticationCheckFail, AuthenticationCheckSuccess, AuthenticationSignIn} from './authentication.actions';
 import { IUser } from '../../interfaces/user.interface';
+import { IServerResponse } from '../../interfaces/server-response.interface';
 
 @Injectable()
 export class AuthenticationEffects {
@@ -20,10 +21,10 @@ export class AuthenticationEffects {
   @Effect()
   checkSession$ = this.actions$.pipe(
     ofType(auth.actionTypes.AUTHENTICATION_CHECK),
-    mergeMap(() => this.authentication.checkSession('AHO_REQUESTS_APP').pipe(
-      map((result: IUser) => {
-        if (result) {
-          return new AuthenticationCheckSuccess(result);
+    mergeMap((action: AuthenticationCheck) => this.authentication.checkSession(action.payload).pipe(
+      map((result: IServerResponse<IUser>) => {
+        if (result.data) {
+          return new AuthenticationCheckSuccess(result.data);
         } else {
           return new AuthenticationCheckFail();
         }
@@ -65,7 +66,7 @@ export class AuthenticationEffects {
                 });
               break;
             case 403:
-              this.snackBar.open('Доступ звпрещен', 'Закрыть');
+              this.snackBar.open('Доступ запрещен', 'Закрыть');
               break;
           }
           return of({type: auth.actionTypes.AUTHENTICATION_SIGN_IN_FAIL});

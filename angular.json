@@ -193,9 +193,15 @@
             "tsConfig": "projects/event-sheduler/tsconfig.app.json",
             "assets": [
               "projects/event-sheduler/src/favicon.ico",
-              "projects/event-sheduler/src/assets"
+              "projects/event-sheduler/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
+              "projects/event-sheduler/src/custom-theme.scss",
               "projects/event-sheduler/src/styles.less"
             ],
             "scripts": [],

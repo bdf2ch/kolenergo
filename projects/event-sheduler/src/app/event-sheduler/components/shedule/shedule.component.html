@@ -1,0 +1,7 @@
+<div class="pt-3 h-100">
+  <app-calendar [mode]="mode$ | async" [date]="date$ | async"></app-calendar>
+</div>
+
+<button mat-fab color="accent" class="add-request-button" matTooltip="Подать заявку" matTooltipPosition="left" (click)="openAddDialog()">
+  <mat-icon color="primary">add</mat-icon>
+</button>

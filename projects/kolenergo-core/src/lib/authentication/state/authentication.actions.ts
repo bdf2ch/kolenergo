@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { User } from '../../models';
-import { IUser } from '../../interfaces';
+import {IServerResponse, IUser} from '../../interfaces';
 
 export enum actionTypes {
   AUTHENTICATION_CHECK = '[Auth API] Check session',
@@ -16,46 +15,75 @@ export enum actionTypes {
   AUTHENTICATION_SIGN_IN_BUTTON_PRESSED = '[Sign in dialog] Sign in button pressed'
 }
 
+/**
+ * Проверка сессии пользователя
+ */
 export class AuthenticationCheck implements Action {
   readonly type = actionTypes.AUTHENTICATION_CHECK;
+
+  constructor(public payload: string) {}
 }
 
+/**
+ * Успешное окончание проверки сессии пользователя
+ */
 export class AuthenticationCheckSuccess implements Action {
   readonly type = actionTypes.AUTHENTICATION_CHECK_SUCCESS;
 
   constructor(public payload: IUser) {}
 }
 
+/**
+ * Ошибка проверки сессии пользователя
+ */
 export class AuthenticationCheckFail implements Action {
   readonly type = actionTypes.AUTHENTICATION_CHECK_FAIL;
 }
 
+/**
+ * Авторизация пользователя
+ */
 export class AuthenticationSignIn implements Action {
   readonly type = actionTypes.AUTHENTICATION_SIGN_IN;
 
   constructor(public payload: {account: string, password: string}) {}
 }
 
+/**
+ * Успешная авторизация пользователя
+ */
 export class AuthenticationSignInSuccess implements Action {
   readonly type = actionTypes.AUTHENTICATION_SIGN_IN_SUCCESS;
 
   constructor(public payload: IUser) {}
 }
 
+/**
+ * Ошибка авторизации пользователя
+ */
 export class AuthenticationSignInFail implements Action {
   readonly type = actionTypes.AUTHENTICATION_SIGN_IN_FAIL;
 
   constructor(public payload: string) {}
 }
 
+/**
+ * Завершение сессии пользователя
+ */
 export class AuthenticationSignOut implements Action {
   readonly type = actionTypes.AUTHENTICATION_SIGN_OUT;
 }
 
+/**
+ * Успешное завершение сессии пользователя
+ */
 export class AuthenticationSignOutSuccess implements Action {
   readonly type = actionTypes.AUTHENTICATION_SIGN_OUT_SUCCESS;
 }
 
+/**
+ * Ошибка завершения сессии пользователя
+ */
 export class AuthenticationSignOutFail implements Action {
   readonly type = actionTypes.AUTHENTICATION_SIGN_OUT_FAIL;
 }

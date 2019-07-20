@@ -1,0 +1,101 @@
+@week-mode-header-height: 50px;
+
+.calendar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex: 1;
+
+  .controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .date-controls {
+      .mat-button {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+      .mat-mini-fab {
+        box-shadow: none;
+        background: #eceff1;
+      }
+      .period-label {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-family: "Segoe UI Light";
+        font-size: 20px;
+      }
+    }
+  }
+
+  .week-mode-view {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex: 1;
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+    .hours {
+      display: flex;
+      flex-direction: column;
+      width: 40px;
+      margin-top: @week-mode-header-height;
+      background: #eceff1;
+
+      .hour {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+        height: 60px;
+      }
+    }
+
+    .day {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      height: 100%;
+      border-right: 1px solid rgba(0, 0, 0, 0.05);
+
+      .day-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: @week-mode-header-height;
+        font-family: "Segoe UI Light";
+        background: #eceff1;
+
+        .date {
+          font-size: 15px;
+          line-height: 16px;
+        }
+
+        .weekday {
+          font-size: 13px;
+          line-height: 14px;
+          color: #90a4ae;
+        }
+      }
+
+      .day-content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        background: white;
+      }
+    }
+  }
+}

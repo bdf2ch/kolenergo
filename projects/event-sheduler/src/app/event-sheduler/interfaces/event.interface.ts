@@ -1,4 +1,4 @@
-import { IUser, ICompany } from 'kolenergo-core';
+import { IUser, ICompany } from '@kolenergo/core';
 import { IEventType, IEventInterval, IEventLocation, IEventRequest, IEventStatus, IRegularEvent } from './';
 
 /**
@@ -17,10 +17,10 @@ export interface IEvent {
   companies: ICompany[];                // Организации, принимающие участие в мероприятии
   subject: string;                      // Тематика мероприятия
   description: string;                  // Детали мероприятия
-  date: Date;                           // Дата проведения меропряития
-  startTime: string;                    // Время начала мероприятия
-  endTime: string;                      // Время окончания мероприятия
-  checkTime?: string;                   // Время проверки перед мероприятием
+  date: string;                         // Дата проведения меропряития
+  startTime: number;                    // Время начала мероприятия в формате Unix
+  endTime: number;                      // Время окончания мероприятия в формате Unix
+  checkTime?: number;                   // Время проверки перед мероприятием в формате Unix
   participants: (IUser | string)[];     // Участниик мероприятия
   rejectReason?: string;                // Причина отмены мероприятия
   dateCreated: number;                  // Дата и время создания мероприятия в формате Unix

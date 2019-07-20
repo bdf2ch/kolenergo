@@ -1,4 +1,4 @@
-import { ICompany, IDepartment } from 'kolenergo-core';
+import { ICompany, IDepartment } from '@kolenergo/core';
 
 /**
  * Интерфейс, описывающий помещения для проведения мероприятия

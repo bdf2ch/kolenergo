@@ -1,0 +1,42 @@
+<div class="company-select-component">
+  <div class="company-selector">
+    <mat-form-field class="w-100" appearance="{{appearance}}">
+      <!-- Start: Надпись элемента формы -->
+      <mat-label *ngIf="formLabel">{{formLabel}}</mat-label>
+      <!-- End: Надпись элемента формы -->
+
+      <mat-select [formControl]="companiesControl" [placeholder]="formPlaceholder" multiple [ngSwitch]="chooseDepartments" (selectionChange)="selectionChanged($event)">
+        <!-- Start: Список подразделений организаций сгрупированный по организациям -->
+        <div *ngSwitchCase="true">
+          <mat-optgroup *ngFor="let company of companyList" [label]="companyShortTitle ? company.shortTitle : company.title">
+            <mat-option *ngFor="let department of company.departments" [value]="department">
+              {{department.title}}
+            </mat-option>
+          </mat-optgroup>
+        </div>
+        <!-- End: Список подразделений организаций сгрупированный по организациям -->
+
+        <!-- Start: Список организаций -->
+        <div *ngSwitchCase="false">
+          <mat-option class="company-select" *ngFor="let company of companyList" [value]="company">
+            <div class="company-item">
+              <div class="title">{{company.shortTitle}}</div>
+              <span class="full-title text-muted">{{company.title}}</span>
+            </div>
+          </mat-option>
+        </div>
+        <!-- End: Список организаций -->
+
+        <!-- Start: Содержимое поля формы -->
+        <mat-select-trigger>{{triggerLabel}}</mat-select-trigger>
+        <!-- End: Содержимое поля формы -->
+      </mat-select>
+
+      <!-- Start: Переключатель режима показа подразделений -->
+      <mat-hint align="end" *ngIf="withDepartments">
+        <mat-checkbox [(ngModel)]="chooseDepartments" (change)="changeMode()">Показать подразделения</mat-checkbox>
+      </mat-hint>
+      <!-- End: Переключатель режима показа подразделений -->
+    </mat-form-field>
+  </div>
+</div>

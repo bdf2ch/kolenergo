@@ -1,0 +1,37 @@
+<div class="user-search" [formGroup]="userSearchForm">
+  <mat-form-field class="w-100" appearance="{{formFieldAppearance}}" floatLabel="always">
+    <mat-label *ngIf="inputLabel">{{inputLabel}}</mat-label>
+    <input #user
+           matInput
+           placeholder="{{placeholder}}"
+           aria-label="Введите имя пользователя"
+           formControlName="query"
+           [matAutocomplete]="users"
+           (keyup.enter)="enterUser(user.value)">
+    <button mat-icon-button
+            matSuffix
+            *ngIf="(users$ | async)?.length > 0"
+            [attr.title]="'Очистить поиск'"
+            [attr.aria-label]="'Очистить поиск'"
+            (click)="clearSearch()">
+      <mat-icon color="primary">clear</mat-icon>
+    </button>
+    <mat-autocomplete #users="matAutocomplete" (optionSelected)="selectUser($event)" [displayWith]="displaySelectedUser">
+      <mat-option class="user-search" *ngFor="let user of users$ | async" [value]="user">
+        <div class="user-item">
+          <div class="user-avatar" [ngStyle]="{'background': user.photo ? 'url(' + user.photo + ')' : 'none'}">
+            <div class="initials" *ngIf="!user.photo">{{user.firstName[0] + user.lastName[0]}}</div>
+          </div>
+          <div class="user-details">
+            <div class="name">{{user.lastName + ' ' + user.firstName + ' ' + (user.secondName ? user.secondName : '')}}</div>
+            <div class="additional-info">
+              <span class="position text-muted">{{user.position}}</span>
+              <span *ngIf="user.position && user.company && showCompanyLabel">, &nbsp;</span>
+              <span class="company" *ngIf="showCompanyLabel && user.company">{{user.company.shortTitle}}</span>
+            </div>
+          </div>
+        </div>
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>

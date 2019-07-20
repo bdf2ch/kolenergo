@@ -1,4 +1,4 @@
-import { Company, Department } from 'kolenergo-core';
+import { Company, Department } from '@kolenergo/core';
 import { IEventLocation } from '../interfaces';
 
 /**

@@ -1,4 +1,4 @@
-import { IUser, ICompany, IDepartment } from 'kolenergo-core';
+import { IUser, ICompany, IDepartment } from '@kolenergo/core';
 import { IEventType, IEventInterval, IEventRequestStatus } from './';
 
 /**
@@ -11,16 +11,15 @@ export interface IEventRequest {
   status: IEventRequestStatus;      // Статус заявки на мероприятия
   user: IUser;                      // Пользователь подавший заявку
   host: IUser | string;             // Пользователь / сотрудник, организующий мероприятие
-  companies: ICompany[];            // Организации - участники мероприятия
-  departments: IDepartment[];       // Подразделения организаций, участвующите в меропряитии
+  companies?: ICompany[];           // Организации - участники мероприятия
+  departments?: IDepartment[];      // Подразделения организаций, участвующите в меропряитии
   subject: string;                  // Тематика мероприятия
   description: string;              // Детали мероприятия
-  date: number;                     // Дата проведения мероприятия в формате Unix
-  startTime: string;                // Время начала мероприятия
-  endTime: string;                  // Время окончания мероприятия
+  date: string;                     // Дата проведения мероприятия в виде строки
+  startTime: number;                // Время начала мероприятия в формате Unix
+  endTime: number;                  // Время окончания мероприятия в формате Unix
   needProjector: boolean;           // Требуется ли проектор для проведения мероприятия
   needBoard: boolean;               // Требуется ли доска для проведения мероприятия
-  needVideo: boolean;               // Требуется ли оборудование для ВКС при проведении мероприятия
   numberOfParticipants: number;     // Число участников
   participants: (IUser | string)[]; // Участники мероприятия
   dateCreated: number;              // Дата и время создания заявки в формате Unix

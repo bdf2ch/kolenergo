@@ -1,0 +1,264 @@
+<div class="add-request-dialog" matDialogContent>
+
+  <!-- Start: Блок выбора типа мероприяития -->
+  <div class="request-type-section">
+
+    <div class="form-caption-steps">
+      <div class="form-caption">Заявка на мероприятие</div>
+
+      <div class="form-steps">
+        <div class="form-step"
+             [ngClass]="{'active': step.isActive}"
+             *ngFor="let step of formWithSteps.steps; let i = index"
+             (click)="formWithSteps.selectStep(i)">
+          <div class="step-icon">
+            <mat-icon>{{step.icon}}</mat-icon>
+            <mat-icon class="indicator valid" *ngIf="step.isValid">done</mat-icon>
+            <mat-icon class="indicator invalid" *ngIf="step.isInvalid">priority_high</mat-icon>
+          </div>
+          <div class="step-caption">
+            <div class="caption">{{step.caption}}</div>
+            <div class="description">{{step.description}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-controls">
+        <button
+          class="p-3"
+          mat-raised-button
+          color="primary"
+          [disabled]="addRequestFormCommon.invalid || addRequestFormDuration.invalid || host.length === 0 || (request.companies.length === 0 && request.departments.length === 0)">
+          Подать заявку
+        </button>
+    </div>
+
+    <!--
+    <div class="section-caption">Выберите тип мероприятия</div>
+    <div class="request-type"
+         *ngFor="let type of types$ | async"
+         [ngClass]="{'selected': type === request.type}"
+         (click)="request.type = type">
+      <div class="corner" *ngIf="type === request.type">
+        <mat-icon>done</mat-icon>
+      </div>
+      <div class="icon">
+        <mat-icon [style.color]="type.color" [style.opacity]="type === request.type ? '1' : '0.7'" >{{type.icon}}</mat-icon>
+      </div>
+      <div class="title">{{type.title}}</div>
+      <div class="description">{{type.description}}</div>
+    </div>
+      -->
+  </div>
+  <!-- End: Блок выбора мероприятия -->
+
+  <!-- Start: Область ввода параметров заявки -->
+  <div class="request-steps-section" [ngSwitch]="formWithSteps.getSelectedStep()">
+
+    <div *ngSwitchCase="formWithSteps.steps[0]">
+      <form [formGroup]="addRequestFormCommon">
+        <!-- Start: Тематика мероприятия -->
+        <mat-form-field class="w-100 mt-4" appearance="standard">
+          <mat-label>Тема мероприятия</mat-label>
+          <input matInput formControlName="subject" placeholder="Укажите тему мероприятия" required>
+          <mat-icon matPrefix class="prefix" color="primary">subject</mat-icon>
+          <mat-icon class="valid-field" matSuffix *ngIf="addRequestFormCommon.get('subject').touched && addRequestFormCommon.get('subject').valid">done</mat-icon>
+          <mat-error *ngIf="!request.subject">Вы не указали тему мероприятия</mat-error>
+        </mat-form-field>
+        <!-- End: Тематика меропряития -->
+
+        <!-- Start: Количество участников -->
+        <mat-form-field class="w-100 mt-2" appearance="fill">
+          <mat-label>Число участников</mat-label>
+          <input type="number" matInput formControlName="numberOfParticipants" min="1" placeholder="Укажите число участников" required>
+          <mat-icon matPrefix class="prefix" color="primary">supervisor_account</mat-icon>
+          <mat-icon class="valid-field" matSuffix *ngIf="addRequestFormCommon.get('numberOfParticipants').valid" color="primary">done</mat-icon>
+          <mat-error *ngIf="!request.subject">Вы не указали число участников мероприятия</mat-error>
+        </mat-form-field>
+        <!-- End: Количество участников -->
+
+        <!-- Start: Описание мероприятия -->
+        <mat-form-field class="description w-100 mt-2" appearance="fill">
+          <mat-label>Подробности о мероприятии (необязательно)</mat-label>
+          <textarea matInput
+                    formControlName="description"
+                    placeholder="Расскажите немного о мероприятии (необязательно)">
+            </textarea>
+          <mat-icon matPrefix color="primary" class="prefix textarea">description</mat-icon>
+        </mat-form-field>
+        <!-- End: Описание мероприятия -->
+
+        <div class="mt-1 pl-3 pt-3 pb-2 pr-3 border rounded">
+          <!-- Start: Необходимость использования проектора -->
+          <mat-checkbox class="mt-2" formControlName="needProjector">Требуется наличие проектора</mat-checkbox>
+          <!-- End: Необходимость использования проектора -->
+
+          <!-- Start: Необходимость использования доски -->
+          <mat-checkbox class="mt-2" formControlName="needBoard">Требуется наличие доски для записей</mat-checkbox>
+          <!-- End: Необходимость использования доски -->
+        </div>
+
+      </form>
+    </div>
+
+    <div *ngSwitchCase="formWithSteps.steps[1]">
+      <form [formGroup]="addRequestFormDuration">
+        <!-- Start: Дата проведения мероприятия -->
+        <mat-form-field class="mt-4 w-100" appearance="fill">
+          <mat-label>Дата проведения мероприятия</mat-label>
+          <input matInput
+                 formControlName="date"
+                 [matDatepicker]="date"
+                 [min]="minDate"
+                 (focus)="date.open()"
+                 autocomplete="off"
+                 class="ml-2"
+                 placeholder="Укажите дату проведения мероприятия"
+                 required>
+          <mat-icon matPrefix class="prefix" color="primary">calendar_today</mat-icon>
+          <mat-icon matSuffix class="valid-field" *ngIf="addRequestFormDuration.get('date').valid">done</mat-icon>
+          <!--<mat-datepicker-toggle matPrefix [for]="date"></mat-datepicker-toggle>-->
+          <mat-datepicker #date></mat-datepicker>
+          <mat-error *ngIf="!request.date">Вы не указали дату проведения мероприятия</mat-error>
+        </mat-form-field>
+        <!-- End: Дата проведения мероприятия -->
+
+        <div class="d-flex flex-row row no-gutters mt-2">
+          <div class="col-5">
+            <!-- Start: Время начала мероприятия -->
+            <mat-form-field class="w-100 time" appearance="fill">
+              <mat-label class="text-center">Время начала</mat-label>
+              <input matInput
+                     type="time"
+                     formControlName="startTime"
+                     class="text-center"
+                     placeholder="Время начала мероприятия"
+                     required>
+              <mat-icon matPrefix class="prefix" color="primary">access_time</mat-icon>
+              <mat-icon matSuffix class="valid-field" *ngIf="addRequestFormDuration.get('startTime').valid">done</mat-icon>
+              <mat-error *ngIf="!request.startTime">Вы не указали время начала</mat-error>
+            </mat-form-field>
+            <!-- End: Время начала мероприятия -->
+          </div>
+          <div class="col-2 d-flex flex-row justify-content-center align-items-center">&mdash;</div>
+          <div class="col-5">
+            <!-- Start: Время окончания мероприятия -->
+            <mat-form-field class="time w-100" appearance="fill">
+              <mat-label>Время окончания</mat-label>
+              <input matInput
+                     type="time"
+                     formControlName="endTime"
+                     class="text-center"
+                     placeholder="Время окончания мероприятия"
+                     required>
+              <mat-icon matPrefix class="prefix" color="primary">access_time</mat-icon>
+              <mat-icon matSuffix class="valid-field" *ngIf="addRequestFormDuration.get('endTime').valid">done</mat-icon>
+              <mat-error *ngIf="addRequestFormDuration.get('endTime').errors">
+                {{addRequestFormDuration.get('endTime').hasError('required') ? 'Вы не указали время окончания' : 'Время задано некорректно'}}
+              </mat-error>
+            </mat-form-field>
+            <!-- End: Время окончания мероприятия -->
+          </div>
+        </div>
+
+        <!-- Start: Проводится ли мероприятие на регулярной основе -->
+        <div class="d-flex flex-column mt-2 p-3 border rounded">
+          <mat-slide-toggle formControlName="isRegular">Мероприятие будет проводиться регулярно</mat-slide-toggle>
+          <!-- Start: Периодичность проведения мероприятия -->
+          <mat-form-field *ngIf="addRequestFormDuration.get('isRegular').value === true" class="time w-100 mt-4" appearance="fill">
+            <mat-label>Периодичность повторения мероприятия</mat-label>
+            <mat-select formControlName="interval" (selectionChange)="intervalChange($event)">
+              <mat-option *ngFor="let interval of intervals$ | async" [value]="interval">
+                {{interval.title}}
+              </mat-option>
+            </mat-select>
+            <mat-hint align="end">{{addRequestFormDuration.get('interval').value.description}}</mat-hint>
+          </mat-form-field>
+          <!-- End: Периодичность проведения мероприятия-->
+        </div>
+        <!-- End: Проводится ли мероприятие на регулярной основе -->
+
+      </form>
+    </div>
+
+    <div *ngSwitchCase="formWithSteps.steps[2]">
+      <!-- Start: Организации, участвующие в мероприятии -->
+      <div class="w-100 mt-3">
+        <lib-kolenergo-company-select
+          [companies]="companies$ | async"
+          label="Организации, участвующие в мероприятии *"
+          placeholder="Выберите организации"
+          formAppearance="fill"
+          [showCompanyShortTitle]="true"
+          [allowChooseDepartments]="true"
+          (companySelected)="selectCompany($event)">
+        </lib-kolenergo-company-select>
+      </div>
+      <!-- End: Организации, участвующие в мероприятии -->
+
+      <!-- Start: Поиск организатора мероприятия -->
+      <div class="w-100 mt-4">
+        <lib-kolenergo-user-search
+          *ngIf="host.length === 0"
+          [withCompanyDetails]="true"
+          [showCompany]="true"
+          label="Организатор мероприятия *"
+          placeholder="Введите ФИО сотрудника"
+          formAppearance="fill"
+          [clearOnSelect]="true"
+          (userSelected)="selectHost($event)"
+          (userEntered)="selectHost($event)">
+        </lib-kolenergo-user-search>
+      </div>
+      <!-- End: Поиск организатора мероприятия -->
+
+      <!-- Start: Организатор мероприятия -->
+      <div class="w-100 mt-4" *ngIf="host.length > 0">
+        <lib-kolenergo-user-list
+          [users]="host"
+          [caption]="'Организатор мероприятия'"
+          [allowRemove]="true"
+          (userRemoved)="removeHost()"
+          [showCompany]="true">
+        </lib-kolenergo-user-list>
+      </div>
+      <!-- End: Организатор мероприятия -->
+
+      <!-- Start: Поиск сотрудников, участвующих в мероприятии -->
+      <div class="w-100 mt-4">
+        <lib-kolenergo-user-search
+          [withCompanyDetails]="true"
+          [showCompany]="true"
+          [formAppearance]="'fill'"
+          label="Участники мероприятия"
+          placeholder="Введите ФИО сотрудника"
+          [clearOnSelect]="true"
+          (userSelected)="selectParticipant($event)"
+          (userEntered)="selectParticipant($event)">
+        </lib-kolenergo-user-search>
+      </div>
+      <!-- End: Поиск сотрудников, участвующих в мероприятии -->
+
+      <!-- Start: Список сотрудников, участвующих в мероприятии -->
+      <div class="w-100">
+        <lib-kolenergo-user-list
+          [users]="request.participants"
+          [groupByCompany]="true"
+          [allowRemove]="true"
+          (userRemoved)="removeParticipant($event)">
+        </lib-kolenergo-user-list>
+      </div>
+      <!-- End: Список сотрудников, участвующих в мероприятии -->
+    </div>
+
+
+  </div>
+  <!-- End: Область ввода параметров заявки -->
+
+  <div class="close-modal-section">
+    <mat-icon>close</mat-icon>
+  </div>
+
+</div>

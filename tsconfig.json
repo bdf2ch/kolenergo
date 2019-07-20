@@ -24,6 +24,12 @@
       ],
       "kolenergo-core/*": [
         "dist/kolenergo-core/*"
+      ],
+      "@kolenergo/core": [
+        "dist/kolenergo-core"
+      ],
+      "@kolenergo/core/*": [
+        "dist/kolenergo-core/*"
       ]
     }
   }

@@ -1,0 +1,120 @@
+<div class="user-list">
+
+  <!-- Start: Заголовок списка пользователей -->
+  <div class="user-list-caption" *ngIf="(userListCaption !== null) || userListActions.length > 0">
+    <!-- Start: Заголовок  и иконка списка пользователей -->
+    <div class="icon-caption-container">
+      <!-- <mat-icon *ngIf="showUserListCaptionIcon">supervisor_account</mat-icon> -->
+      <span *ngIf="caption">{{caption}}</span>
+    </div>
+    <!-- End: Заголовок и иконка списка пользователей -->
+
+    <!-- Start: Кнопки управления списком -->
+    <div class="controls" *ngIf="userListActions.length > 0">
+      <div *ngFor="let action of userListActions">
+        <button
+          mat-icon-button
+          *ngIf="action.isVisible"
+          (click)="action.action()"
+          matTooltip="{{action.title}}"
+          matTooltipPosition="above">
+          <mat-icon>{{action.icon}}</mat-icon>
+        </button>
+      </div>
+    </div>
+    <!-- End: Кнопки управления списком -->
+  </div>
+  <!-- End: Заголовок списка пользователей -->
+
+  <!-- Start: Список пользователей -->
+  <div *ngIf="!groupUsersByCompany">
+    <div class="user-item" *ngFor="let user of userList; let i = index">
+      <!-- Start: Аватар пользователя -->
+      <div class="user-avatar" *ngIf="showUserAvatar">
+        <div class="initials" *ngIf="!user.photo">{{user.lastName[0].toUpperCase() + user.firstName[0].toUpperCase()}}</div>
+      </div>
+      <!-- End: Аватар пользователя -->
+
+      <!-- Start: Информация о пользователе -->
+      <div class="user-details">
+        <!-- Start: ФИО пользователя -->
+        <div class="name">
+          {{user.lastName + ' ' + user.firstName + ' ' + (user.secondName ? ' ' + user.secondName : '')}}
+        </div>
+        <!-- End: ФИО пользователя -->
+
+        <!-- Start: Должность и организация пользователя -->
+        <div class="position-and-company">
+          <div class="position text-muted" *ngIf="user.position">{{user.position}}</div>
+          <div class="company" *ngIf="showUserCompany && user.company">{{user.company.shortTitle}}</div>
+        </div>
+        <!-- End: Должность и организация пользователя -->
+      </div>
+      <!-- End: Информация о пользователе -->
+
+      <!-- Start: Кнопки управления элементом списка -->
+      <div class="user-controls">
+        <button
+          *ngIf="allowRemove"
+          mat-icon-button
+          (click)="removeUser(user, i)"
+          matTooltip="Удалить"
+          matTooltipPosition="above">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <!-- End: Кнопки управления элемпентом списка -->
+    </div>
+  </div>
+  <!-- End: Список пользователей -->
+
+  <!-- Start: Список пользователей, сгрупированных по организациям -->
+  <div class="users-grouped-by-company" *ngIf="groupUsersByCompany">
+    <div class="group" *ngFor="let group of groups">
+      <div class="company-title" *ngIf="group.users.length > 0">{{group.title}}</div>
+      <div class="user-item" *ngFor="let user of group.users; let i = index">
+        <!-- Start: Аватар пользователя -->
+        <div class="user-avatar" *ngIf="showUserAvatar">
+          <div class="initials" *ngIf="!user.photo">{{user.lastName[0].toUpperCase() + user.firstName[0].toUpperCase()}}</div>
+        </div>
+        <!-- End: Аватар пользователя -->
+
+        <!-- Start: Информация о пользователе -->
+        <div class="user-details">
+          <!-- Start: ФИО пользователя -->
+          <div class="name">
+            {{user.lastName + ' ' + user.firstName + (user.secondName ? ' ' + user.secondName : '')}}
+          </div>
+          <!-- End: ФИО пользователя -->
+
+          <!-- Start: Должность и организация пользователя -->
+          <div class="position-and-company">
+            <div class="position text-muted" *ngIf="user.position">{{user.position}}</div>
+          </div>
+          <!-- End: Должность и организация пользователя -->
+        </div>
+        <!-- End: Информация о пользователе -->
+
+        <!-- Start: Кнопки управления элементом списка -->
+        <div class="user-controls" *ngIf="allowRemoveUser">
+          <button
+            mat-icon-button
+            (click)="removeUser(user, i)"
+            matTooltip="Удалить"
+            matTooltipPosition="above">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+        <!-- End: Кнопки управления элементом списка -->
+      </div>
+    </div>
+  </div>
+  <!-- End: Список пользователей, сгруппированных по организациям -->
+
+  <!-- Start: Заглушка, отображаемая при отсутствии пользователей в списке -->
+  <div class="no-users-placeholder text-muted" *ngIf="userList.length === 0 && emptyUserListPlaceholder">
+    {{emptyUserListPlaceholder}}
+  </div>
+  <!-- End: Заглушка, отображаемая при отсутствии пользователей в списке -->
+
+</div>

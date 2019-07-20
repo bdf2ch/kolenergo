@@ -6,3 +6,5 @@ export { Division } from './division.model';
 export { ApplicationPermission } from './application-permission.model';
 export { ApplicationRole } from './application-role.model';
 export { PermissionManager } from './permission-manager.model';
+export { SearchFilter } from './search-filter.model';
+export { FilterManager } from './filter-manager.model';

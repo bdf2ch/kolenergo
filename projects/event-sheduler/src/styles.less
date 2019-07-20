@@ -1,1 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.css';
+// @import "~ng-zorro-antd/style/entry.less"; /* Import basic styles */
+// @import "~ng-zorro-antd/input/style/entry.less"; /* Import styles of the component */
+// @import '~ng-zorro-antd/style/index.min.css'; /* Import basic styles */
+// @import '~ng-zorro-antd/button/style/index.min.css'; /* Import styles of the component */
+// @import '~ng-zorro-antd/input/style/index.min.css';
+@import './styles/sign-in-dialog';
+@import './styles/add-request-dialog';
+@import './styles/add-request-stepper';
+@import '../../kolenergo-core/src/lib/ui/styles';
+// @import '../../kolenergo-core/src/lib/ui/styles/user-search';
+//@import './styles/reqiest-details-tabs';
+//@import './styles/request-details-list';
+
+@application-background-color: #f5f5f5;
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: @application-background-color;
+}
+
+* {
+  outline: none !important;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

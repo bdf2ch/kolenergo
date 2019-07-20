@@ -1,0 +1,173 @@
+@user-list-item-height: 60px;
+@user-list-item-avatar-width: 40px;
+@user-list-item-avatar-height: 40px;
+@user-list-item-avatar-initials-font-size: 16px;
+@user-list-item-avatar-initials-font-color: #303f9f;
+@user-list-item-avatar-background-color: #e8eaf6;
+@user-list-item-details-company-font-color: #0277bd;
+
+.user-list {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1;
+  font-family: "Segoe UI Light";
+
+  .user-list-caption {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    font-size: 14px;
+    border-bottom: 1px dotted #eceff1;
+
+    .icon-caption-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+
+      .mat-icon {
+        margin-right: 10px;
+        color: #b0bec5;
+      }
+    }
+
+    .controls {
+      padding-right: 5px;
+
+      .mat-icon-button {
+        width: 30px;
+        height: 30px;
+        line-height: 20px;
+        .mat-icon {
+          font-size: 20px;
+          color: #b0bec5;
+        }
+      }
+    }
+  }
+
+  .user-item {
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: @user-list-item-height;
+    border-bottom: 1px solid #eceff1;
+
+    .user-avatar {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-right: 15px;
+      width: @user-list-item-avatar-width;
+      height: @user-list-item-avatar-height;
+
+      .initials {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        width: @user-list-item-avatar-width;
+        height: @user-list-item-avatar-height;
+        font-size: @user-list-item-avatar-initials-font-size;
+        color: @user-list-item-avatar-initials-font-color;
+        background: @user-list-item-avatar-background-color;
+        border-radius: 50%;
+      }
+    }
+
+    .user-details {
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex: 1;
+
+      .name {
+        overflow: hidden;
+        width: 100%;
+        height: 50%;
+        font-size: 15px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      .position-and-company {
+        overflow: hidden;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        flex-grow: 0;
+        height: 50%;
+        font-size: 14px;
+
+        .position {
+          overflow: hidden;
+          margin-right: 10px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .company {
+          height: 50%;
+          color: @user-list-item-details-company-font-color;
+        }
+      }
+    }
+
+    .user-controls {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      margin-left: 5px;
+      padding-left: 5px;
+      // border-left: 1px solid #eceff1;
+
+      .mat-icon-button {
+        .mat-icon {
+          color: #b0bec5;
+        }
+      }
+    }
+  }
+
+  .users-grouped-by-company {
+    .group {
+      display: flex;
+      flex-direction: column;
+
+      .company-title {
+        margin-bottom: 5px;
+        text-align: left;
+        font-size: 14px;
+        color: @user-list-item-details-company-font-color;
+      }
+
+      .user-item:last-of-type {
+        margin-bottom: 5px;
+        border-bottom: none;
+      }
+    }
+  }
+
+  .no-users-placeholder {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-size: 15px;
+  }
+}

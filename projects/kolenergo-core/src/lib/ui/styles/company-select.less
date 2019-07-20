@@ -1,0 +1,51 @@
+@company-item-height: 60px;
+
+.mat-option {
+  height: @company-item-height !important;
+
+  &.company-select {
+    height: @company-item-height;
+
+    .mat-option-text {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      height: @company-item-height;
+      font-family: "Segoe UI Light";
+
+      .company-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: @company-item-height;
+        padding-left: 15px;
+
+        .title {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+          height: 40%;
+          font-size: 16px;
+        }
+
+        .full-title {
+          overflow: hidden;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+          align-content: flex-start;
+          flex-grow: 0;
+          height: 40%;
+          font-size: 14px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+}

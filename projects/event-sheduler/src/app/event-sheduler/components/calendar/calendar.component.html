@@ -1,0 +1,84 @@
+<div class="calendar">
+
+  <div class="controls">
+    <div>
+      <button mat-stroked-button color="primary" class="col-auto col-md-auto" [matMenuTriggerFor]="calendarModes">
+        <span>{{mode}}</span>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <mat-menu #calendarModes="matMenu" [yPosition]="'below'" class="calendar-modes-menu">
+        <button mat-menu-item (click)="changeMode(modes.DAY_MODE)" *ngIf="mode !== modes.DAY_MODE">
+          <mat-icon color="accent">view_day</mat-icon>
+          {{modes.DAY_MODE}}
+        </button>
+        <button mat-menu-item (click)="changeMode(modes.WEEK_MODE)" *ngIf="mode !== modes.WEEK_MODE">
+          <mat-icon color="accent">view_week</mat-icon>
+          {{modes.WEEK_MODE}}
+        </button>
+        <button mat-menu-item (click)="changeMode(modes.MONTH_MODE)" *ngIf="mode !== modes.MONTH_MODE">
+          <mat-icon color="accent">view_comfy</mat-icon>
+          {{modes.MONTH_MODE}}
+        </button>
+      </mat-menu>
+    </div>
+
+
+    <div class="date-controls d-flex flex-row">
+      <button mat-mini-fab (click)="prevPeriod()">
+        <mat-icon color="primary">chevron_left</mat-icon>
+      </button>
+      <span class="period-label" *ngIf="mode === modes.DAY_MODE">{{periodDay | date:'dd MMMM yyyy'}}</span>
+      <span class="period-label" *ngIf="mode === modes.WEEK_MODE">{{periodStart | date:'dd MMMM yyyy'}} &mdash; {{periodEnd | date:'dd MMMM yyyy'}}</span>
+      <span class="period-label" *ngIf="mode === modes.MONTH_MODE">{{periodStart | date:'LLLL yyyy'}}</span>
+      <button mat-mini-fab (click)="nextPeriod()">
+        <mat-icon color="primary">chevron_right</mat-icon>
+      </button>
+    </div>
+
+    <button mat-icon-button>
+      <mat-icon color="primary">print</mat-icon>
+    </button>
+
+  </div>
+
+  <div class="day-mode-view" *ngIf="mode === modes.DAY_MODE">
+    day mode
+  </div>
+
+  <div class="week-mode-view" *ngIf="mode === modes.WEEK_MODE">
+    <div class="hours">
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+      <div class="hour"></div>
+    </div>
+    <div class="day" *ngFor="let day of days">
+      <div class="day-header">
+        <span class="date" [ngClass]="{'today': day === date}">{{day | date:'dd MMMM'}}</span>
+        <span class="weekday">{{day | date:'EEEE'}}</span>
+      </div>
+      <div class="day-content"></div>
+    </div>
+  </div>
+
+</div>

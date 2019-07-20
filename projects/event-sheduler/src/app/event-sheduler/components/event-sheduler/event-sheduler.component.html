@@ -1,0 +1,71 @@
+<div class="d-flex flex-column h-100">
+
+  <!-- Start: Индикатор загрузки данных с сервера -->
+  <mat-progress-bar mode="indeterminate"
+                    color="accent"
+                    [ngStyle]="{'opacity': !(fetchingDataInProgress$ | async) ? '0' : '1'}">
+  </mat-progress-bar>
+  <!-- End: Индикатор загрузки данных с сервера -->
+
+  <mat-sidenav-container hasBackdrop="false" style="flex: 1;">
+
+    <!-- Start: Боковая панель управления -->
+    <mat-sidenav mode="over">sidenav</mat-sidenav>
+    <!-- End: Боковая панель управления -->
+
+    <!-- Start: Содержимое текущего раздела приложения -->
+    <mat-sidenav-content>
+      <div class="container-fluid d-flex flex-column h-100 p-2 pr-xl-4 pl-xl-4">
+        <!-- Start: Заголовок, поиск и фильтрация, меню пользователя -->
+        <div class="row no-gutters app-header pt-2 pb-3 pt-md-4 pb-md-4">
+
+          <!-- Start: Заголовок приложения -->
+          <div class="header-title d-none d-md-flex col-auto justify-content-start align-items-center pr-0 pr-md-2 pr-xl-4">
+            <a routerLink="/" class="header-title-label">
+              <mat-icon class="title-icon">access_time</mat-icon>
+              <span class="title-label d-none d-xl-flex">Расписание мероприятий</span>
+            </a>
+          </div>
+          <!-- End: Заголовок приложения -->
+
+          <!-- Start: Поиск и фильтрация заявок -->
+          <div class="col-12 col-md d-flex justify-content-center align-items-center">
+            <button mat-icon-button class="d-md-none mr-2" color="primary">
+              <mat-icon>menu</mat-icon>
+            </button>
+            <lib-search-with-filters
+              [filters]="(filters$ | async).getFilters()"
+              (clearSearch)="clearSearch()"
+              (openFilters)="openFiltersDialog()"
+              (changeFilters)="filtersChange($event)"
+              class="w-100">
+            </lib-search-with-filters>
+          </div>
+          <!-- End: Поиск и фильтрация заявок -->
+
+          <!-- Start: Меню текущего пользователя -->
+          <div class="d-none d-md-flex col-2 col-md-auto justify-content-end align-items-center pl-md-2 pl-xl-4">
+            <button mat-stroked-button color="primary" class="col-auto col-md-auto" [matMenuTriggerFor]="userMenu" *ngIf="(user$ | async) as user">
+              <span class="d-xl-inline d-md-none">{{user.firstName + ' ' + user.lastName}}</span>
+              <span class="d-md-inline d-xl-none">{{user.firstName}}</span>
+              <mat-icon>arrow_drop_down</mat-icon>
+            </button>
+            <mat-menu #userMenu="matMenu" [yPosition]="'below'" class="user-menu">
+              <button mat-menu-item (click)="signOut()">
+                <mat-icon color="accent">exit_to_app</mat-icon>
+                Выйти  из приложения
+              </button>
+            </mat-menu>
+          </div>
+          <!-- End: Меню текущего пользователя -->
+
+        </div>
+        <!-- End: Заголовок, поиск и фильтрация, меню пользователя -->
+
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+    <!-- End: Содержимое текущего раздела приложения -->
+
+  </mat-sidenav-container>
+</div>
