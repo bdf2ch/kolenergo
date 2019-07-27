@@ -1,0 +1,108 @@
+@app-header-height: 200px;
+@app-content-width: 80%;
+
+#app {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+}
+
+#app-header {
+  z-index: 2;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: flex-start;
+  width: 120%;
+  height: @app-header-height;
+  border-bottom: 5px solid #eeeeee;
+  margin-left: -10%;
+  border-bottom-left-radius: 80%;
+  border-bottom-right-radius: 80%;
+  // transform-origin: 0px 0px;
+  // transform: skewY(-1.5deg);
+
+  .background {
+    content:"";
+    width:150%;
+    height:100%;
+    // position:absolute;
+    // top:0;
+    // left:0;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0) scale(1.0, 1.0);
+    transform: translateZ(0);
+    background:#1B2030 url("/assets/header-bg-1.jpg") center no-repeat;
+    background-size:cover;
+    background-attachment:fixed;
+    animation: grow 30s linear 10ms infinite;
+    transition:all 0.2s ease-in-out;
+    z-index: -2;
+  }
+
+  .gradient {
+    content:"";
+    width:100%;
+    height:100%;
+    position:absolute;
+    bottom:0;
+    left:0;
+    z-index:-1;
+    background: linear-gradient(to top, rgba(0,0,0,0.1) 50%,rgba(27,32,48,0.8) 100%);
+
+    .header-content {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-top: 30px;
+      width: 70%;
+      margin-left: 15%;
+
+      .logo {
+        width: 80px;
+        height: 90px;
+        background-size: contain !important;
+        background-repeat: no-repeat !important;
+        background: url('/assets/rosnet_logo.png');
+      }
+
+      .mat-stroked-button {
+        color: whitesmoke;
+        border-color: whitesmoke;
+        outline: none;
+      }
+    }
+  }
+
+  .opacity-layout {
+    z-index: 1;
+    position: absolute;
+    //width: 90%;
+    height: 100%;
+    background: #f9f9f9;
+    opacity: 0.95;
+    margin: 0px auto;
+    // border-radius: 8px;
+  }
+
+  .content-wrapper {
+    z-index: 2;
+    position: absolute;
+    //width: 90%;
+    height: 80%;
+    margin: 0px auto;
+  }
+}
+
+
+
+@keyframes grow{
+  0% { transform:scale(1)}
+  50% { transform:scale(1.2)}
+}

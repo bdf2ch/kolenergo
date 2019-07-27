@@ -309,6 +309,158 @@
           }
         }
       }
+    },
+    "portal": {
+      "root": "projects/portal/",
+      "sourceRoot": "projects/portal/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "less",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/portal",
+            "index": "projects/portal/src/index.html",
+            "main": "projects/portal/src/main.ts",
+            "polyfills": "projects/portal/src/polyfills.ts",
+            "tsConfig": "projects/portal/tsconfig.app.json",
+            "assets": [
+              "projects/portal/src/favicon.ico",
+              "projects/portal/src/assets"
+            ],
+            "styles": [
+              "projects/portal/src/custom-theme.scss",
+              "projects/portal/src/styles.less"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/portal/src/environments/environment.ts",
+                  "with": "projects/portal/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "portal:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "portal:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "portal:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/portal/src/test.ts",
+            "polyfills": "projects/portal/src/polyfills.ts",
+            "tsConfig": "projects/portal/tsconfig.spec.json",
+            "karmaConfig": "projects/portal/karma.conf.js",
+            "styles": [
+              "projects/portal/src/styles.less"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/portal/src/favicon.ico",
+              "projects/portal/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/portal/tsconfig.app.json",
+              "projects/portal/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "portal-e2e": {
+      "root": "projects/portal-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/portal-e2e/protractor.conf.js",
+            "devServerTarget": "portal:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "portal:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/portal-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "kolenergo-core"

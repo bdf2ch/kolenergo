@@ -1,0 +1,115 @@
+<div id="app-content" class="col-10">
+
+  <div class="row">
+    <div class="col-12 col-lg-7">
+      <div class="section">
+        <div class="section-caption">Объявления</div>
+        <div class="section-content">
+          <mat-grid-list cols="4" rowHeight="170px" gutterSize="10px">
+            <mat-grid-tile
+              class="advert"
+              colspan="2"
+              rowspan="2"
+              [style.background]="'url(/assets/header-bg-2.jpg)'">
+              <div class="advert-mask">
+                <div class="advert-date">25 июля 2019</div>
+                <div class="advert-caption">Очень важное объявление</div>
+                <div class="advert-preview">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Accusantium aperiam eaque facere fugiat harum, ipsam iste laboriosam, laborum libero,
+                  magni necessitatibus placeat qui quibusdam reiciendis similique tenetur velit veritatis voluptate!
+                </div>
+              </div>
+            </mat-grid-tile>
+
+            <mat-grid-tile
+              class="advert small"
+              colspan="2"
+              rowspan="1"
+              [style.background]="'url(/assets/header-bg-7.jpg)'">
+              <div class="advert-mask">
+                <div class="advert-date">24 июля 2019</div>
+                <div class="advert-caption">Еще одно объявление</div>
+              </div>
+            </mat-grid-tile>
+
+            <mat-grid-tile
+              class="advert small"
+              colspan="2"
+              rowspan="1"
+              [style.background]="'url(/assets/header-bg-5.jpg)'">
+              <div class="advert-mask">
+                <div class="advert-date">23 июля 2019</div>
+                <div class="advert-caption">Специальное издание газеты "Энергетика" для пользователей системы "Техэксперт"</div>
+              </div>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-5">
+      <div class="section">
+        <div class="section-caption">Сервисы и полезные ресурсы</div>
+        <div class="section-content highlighted flex-column">
+
+          <!-- Start: Поиск абонентов в телефонном справочнике -->
+          <div id="phone-book-search">
+            <div class="prefix">
+              <mat-icon>search</mat-icon>
+            </div>
+            <input type="text" placeholder="Поиск абонентов в телефонном справочнике">
+          </div>
+          <!-- End: Поиск абонентов в телефонном справочнике -->
+
+          <!-- Start: Сервисы -->
+          <div class="services">
+
+            <div class="service ukitasu">
+              <div class="service-icon">
+                <mat-icon>print</mat-icon>
+              </div>
+              <div class="service-caption">Заявки УКиТАСУ</div>
+            </div>
+
+            <div class="service auto">
+              <div class="service-caption">Заявки на транспорт</div>
+              <div class="service-icon">
+                <!--<mat-icon>directions_car</mat-icon>-->
+                <img src="/assets/car.png" alt="">
+              </div>
+
+            </div>
+
+            <div class="service aho">
+              <div class="service-icon">
+                <!-- <mat-icon>directions_car</mat-icon> -->
+                <img src="/assets/bulb.png" alt="">
+              </div>
+              <div class="service-caption">Заявки АХО</div>
+            </div>
+
+            <div class="service phone-book">
+              <div class="service-icon">
+                <mat-icon>phone</mat-icon>
+              </div>
+              <div class="service-caption">Телефонный справочник</div>
+            </div>
+
+            <div class="service">
+              <div class="service-icon">
+                <mat-icon>attach_money</mat-icon>
+              </div>
+              <div class="service-caption">Расчетные листки</div>
+            </div>
+
+          </div>
+          <!-- End: Сервисы -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
