@@ -216,7 +216,7 @@
           flex-direction: row;
           justify-content: space-between;
           align-items: center;
-          width: 250px;
+          // width: 250px;
           height: 100px;
           margin-top: 10px;
           padding: 10px;
@@ -235,35 +235,30 @@
 
           &.ukitasu {
             border-color: #90caf9;
+            background: linear-gradient(to right, rgba(51, 166, 198, 1) 10%, rgba(201, 225, 237, 1) 90%);
             .service-icon {
-              .mat-icon {
-                color: #90caf9;
+              img {
+                width: 65px;
+                height: 65px;
               }
-            }
-            .service-caption {
-              color: #90caf9;
+
             }
           }
 
           &.auto {
-            background: linear-gradient(to right, rgba(0, 137, 123, 0.9) 10%, rgba(128, 203, 196, 0.4) 90%);
+            background: linear-gradient(to right, rgba(111, 170, 167, 1) 10%, rgba(210, 224, 224, 1) 90%);
             border-color: #81c784;
             .service-icon {
-
               img {
                 width: 75px;
                 height: 55px;
-              }
-
-              .mat-icon {
-                color: #81c784;
               }
             }
           }
 
 
           &.aho {
-            background: linear-gradient(to bottom right, rgba(255, 179, 0, 0.7) 15%, rgba(255, 213, 79, 0.5) 85%);
+            background: linear-gradient(to right, rgba(205, 165, 132, 1) 10%, rgba(232, 201, 134, 1) 90%);
             border-color: #ffd54f;
 
             img {
@@ -289,6 +284,7 @@
 
           .service-icon {
             margin-bottom: 5px;
+            margin-left: 10px;
 
             .mat-icon {
               align-self: center;
