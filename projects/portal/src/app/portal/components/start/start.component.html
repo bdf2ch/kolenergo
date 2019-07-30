@@ -1,15 +1,17 @@
-<div id="app-content" class="col-10">
+<div id="app-content" class="col-12 col-md-12 col-lg-10">
 
-  <div class="row">
+  <!-- Start: Объявления и сервисы -->
+  <div class="row pb-md-4">
+    <!-- Start: Объявления -->
     <div class="col-12 col-lg-7">
       <div class="section">
         <div class="section-caption">Объявления</div>
         <div class="section-content">
-          <mat-grid-list cols="4" rowHeight="170px" gutterSize="10px">
+          <mat-grid-list cols="4" rowHeight="170px" gutterSize="5px">
             <mat-grid-tile
               class="advert"
               colspan="2"
-              rowspan="2"
+              rowspan="1"
               [style.background]="'url(/assets/header-bg-2.jpg)'">
               <div class="advert-mask">
                 <div class="advert-date">25 июля 2019</div>
@@ -43,15 +45,29 @@
                 <div class="advert-caption">Специальное издание газеты "Энергетика" для пользователей системы "Техэксперт"</div>
               </div>
             </mat-grid-tile>
+
+            <mat-grid-tile
+              class="advert small"
+              colspan="2"
+              rowspan="1"
+              [style.background]="'url(/assets/header-bg-5.jpg)'">
+              <div class="advert-mask">
+                <div class="advert-date">23 июля 2019</div>
+                <div class="advert-caption">Специальное издание газеты "Энергетика" для пользователей системы "Техэксперт"</div>
+              </div>
+            </mat-grid-tile>
           </mat-grid-list>
+          <!--<a href="#" class="section-more-link mt-4">Смотреть все объявления</a>-->
         </div>
       </div>
     </div>
+    <!-- End: Объявления -->
 
+    <!-- Start: Сервисы и полезные ресурсы -->
     <div class="col-12 col-lg-5">
       <div class="section">
         <div class="section-caption">Сервисы и полезные ресурсы</div>
-        <div class="section-content highlighted flex-column">
+        <div class="section-content highlighted p-4 flex-column">
 
           <!-- Start: Поиск абонентов в телефонном справочнике -->
           <div id="phone-book-search">
@@ -66,57 +82,346 @@
           <div class="services">
 
             <div class="row">
-              <div class="col-12 col-md-4 col-lg-6">
-                <div class="service ukitasu">
+              <!-- Start: Ссылка на заявки УКиТАСУ -->
+              <div class="col-6 col-md-3 col-lg-6 col-xl-4 pl-1 pr-1">
+                <a href="#" class="service ukitasu">
                   <div class="service-caption">Заявки УКиТАСУ</div>
                   <div class="service-icon">
                     <img src="/assets/printer.png">
                   </div>
-                </div>
+                </a>
               </div>
+              <!-- End: Ссылка на заявки УКиТАСУ -->
 
-              <div class="col-12 col-md-4 col-lg-6">
-                <div class="service auto">
+              <!-- Start: Ссылка на заявки на автотранспорт -->
+              <div class="col-6 col-md-3 col-lg-6 col-xl-4 pl-1 pr-1">
+                <a href="#" class="service auto">
                   <div class="service-caption">Заявки на транспорт</div>
                   <div class="service-icon">
                     <img src="/assets/car.png" alt="">
                   </div>
-                </div>
+                </a>
               </div>
+              <!-- End: Ссылка на заявки на автотранспорт -->
 
-              <div class="col-12 col-md-4 col-lg-6">
-                <div class="service aho">
-                  <div class="service-caption">Заявки на транспорт</div>
+              <!-- Start: Ссылка на заявки АХО -->
+              <div class="col-6 col-md-3 col-lg-6 col-xl-4 pl-1 pr-1">
+                <a href="#" class="service aho">
+                  <div class="service-caption">Заявки АХО</div>
                   <div class="service-icon">
-                    <img src="/assets/bulb.png">
+                    <img src="/assets/toolbox.png">
                   </div>
-                </div>
+                </a>
               </div>
+              <!-- End: Ссылка на заявки АХО -->
 
-              <div class="col-12 col-md-4 col-lg-6">
-                <div class="service phone-book">
+              <!-- Start: Ссылка на расчетные листки -->
+              <div class="col-6 col-md-3 col-lg-6 col-xl-4 pl-1 pr-1">
+                <a href="#" class="service billing-lists">
+                  <div class="service-caption">Расчетные листки</div>
+                  <div class="service-icon">
+                    <img src="/assets/folders.png">
+                  </div>
+                </a>
+              </div>
+              <!-- End: Ссылка на расчетные листки -->
+
+              <!-- Start: Ссылка на телефонный справочник -->
+              <div class="col-6 col-md-3 col-lg-6 col-xl-4 pl-1 pr-1">
+                <a href="#" class="service phone-book">
                   <div class="service-caption">Телефонный справочник</div>
                   <div class="service-icon">
-                    <img src="/assets/bulb.png">
+                    <img src="/assets/phone.png">
                   </div>
-                </div>
+                </a>
               </div>
-
-              <div class="col-12 col-md-4 col-lg-6">
-                <div class="service">
-                  <div class="service-icon">
-                    <mat-icon>attach_money</mat-icon>
-                  </div>
-                  <div class="service-caption">Расчетные листки</div>
-                </div>
-              </div>
+              <!-- End: Ссылка на телефонный справочник -->
             </div>
 
           </div>
           <!-- End: Сервисы -->
+
+          <!--
+          <div class="links mt-3">
+            <div class="row">
+              <div class="col-6 col-md-3 col-lg-6 col-xl-4 pl-1 pr-1">
+                <a href="#" class="link mrsk-site">
+                  <div class="link-caption">Сайт "МРСК С-З"</div>
+                </a>
+              </div>
+
+              <div class="col-6 col-md-3 col-lg-6 col-xl-4 pl-1 pr-1">
+                <a href="#" class="link mrsk-portal">
+                  <div class="link-caption">Портал "МРСК С-З"</div>
+                </a>
+              </div>
+
+              <div class="col-6 col-md-3 col-lg-6 col-xl-4 pl-1 pr-1">
+                <a href="#" class="link asud">
+                  <div class="link-caption">АСУД</div>
+                </a>
+              </div>
+
+              <div class="col-6 col-md-3 col-lg-6 col-xl-4 pl-1 pr-1">
+                <a href="#" class="link gis-profi">
+                  <div class="link-caption">ГИС-Профи</div>
+                </a>
+              </div>
+
+            </div>
+
+          </div>
+          -->
         </div>
       </div>
     </div>
+    <!-- End: Сервисы и полезные ресурсы -->
+  </div>
+  <!-- End: Объявления и сервисы -->
+
+
+
+
+  <div class="row people mt-4">
+
+    <div class="col-12 col-lg-5">
+
+      <div class="section">
+        <div class="section-caption">Дни рождения и отпуска</div>
+        <div class="section-content highlighted p-0">
+
+          <div class="switcher">
+            <div class="variants">
+              <span class="variant active">В отпуске</span>
+              <span class="variant">Дни рождения</span>
+            </div>
+            <div class="content">
+              <div class="employee-list p-3">
+
+                <div class="employee">
+                  <div class="avatar"></div>
+                  <div class="details">
+                    <div class="name">Пупков Василий Федорович</div>
+                    <div class="description">с 15 июля до 3 августа</div>
+                  </div>
+                </div>
+
+                <div class="employee">
+                  <div class="avatar"></div>
+                  <div class="details">
+                    <div class="name">Константинов Виктор Сергеевич</div>
+                    <div class="description">с 19 июля до 29 июля</div>
+                  </div>
+                </div>
+
+                <div class="employee">
+                  <div class="avatar"></div>
+                  <div class="details">
+                    <div class="name">Трофимов Илья Степанович</div>
+                    <div class="description">с 4 июля до 6 августа</div>
+                  </div>
+                </div>
+
+                <div class="employee">
+                  <div class="avatar"></div>
+                  <div class="details">
+                    <div class="name">Константинов Виктор Сергеевич</div>
+                    <div class="description">с 19 июля до 29 июля</div>
+                  </div>
+                </div>
+
+                <div class="employee">
+                  <div class="avatar"></div>
+                  <div class="details">
+                    <div class="name">Трофимов Илья Степанович</div>
+                    <div class="description">с 4 июля до 6 августа</div>
+                  </div>
+                </div>
+
+                <div class="employee">
+                  <div class="avatar"></div>
+                  <div class="details">
+                    <div class="name">Константинов Виктор Сергеевич</div>
+                    <div class="description">с 19 июля до 29 июля</div>
+                  </div>
+                </div>
+
+                <div class="employee">
+                  <div class="avatar"></div>
+                  <div class="details">
+                    <div class="name">Трофимов Илья Степанович</div>
+                    <div class="description">с 4 июля до 6 августа</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!--<a href="#" class="section-more-link mt-4">Смотреть все статьи</a>-->
+        </div>
+      </div>
+
+      <!--
+      <div class="row">
+
+        <div class="col-5">
+          <div class="section">
+            <div class="section-caption">Отсутствуют сегодня</div>
+            <div class="section-content">
+              <div class="employee-list">
+
+                <div class="employee">
+                  <div class="avatar"></div>
+                  <div class="details">
+                    <div class="name">Пупков Василий Федорович</div>
+                    <div class="description">с 15 июля до 3 августа</div>
+                  </div>
+                </div>
+
+                <div class="employee">
+                  <div class="avatar"></div>
+                  <div class="details">
+                    <div class="name">Константинов Виктор Сергеевич</div>
+                    <div class="description">с 19 июля до 29 июля</div>
+                  </div>
+                </div>
+
+                <div class="employee">
+                  <div class="avatar"></div>
+                  <div class="details">
+                    <div class="name">Трофимов Илья Степанович</div>
+                    <div class="description">с 4 июля до 6 августа</div>
+                  </div>
+                </div>
+
+                <div class="employee">
+                  <div class="avatar"></div>
+                  <div class="details">
+                    <div class="name">Константинов Виктор Сергеевич</div>
+                    <div class="description">с 19 июля до 29 июля</div>
+                  </div>
+                </div>
+
+                <div class="employee">
+                  <div class="avatar"></div>
+                  <div class="details">
+                    <div class="name">Трофимов Илья Степанович</div>
+                    <div class="description">с 4 июля до 6 августа</div>
+                  </div>
+                </div>
+
+              </div>
+              <a href="#" class="section-more-link mt-4">Смотреть все статьи</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-7">
+          <div class="section">
+            <div class="section-caption">Дни рождения</div>
+            <div class="section-content highlighted">
+              <div class="employee-list">
+
+                <div class="employee">
+                  <div class="avatar"></div>
+                  <div class="details">
+                    <div class="name">Пупков Василий Федорович</div>
+                    <div class="description">с 15 июля до 3 августа</div>
+                  </div>
+                </div>
+
+                <div class="employee">
+                  <div class="avatar"></div>
+                  <div class="details">
+                    <div class="name">Константинов Виктор Сергеевич</div>
+                    <div class="description">с 19 июля до 29 июля</div>
+                  </div>
+                </div>
+
+                <div class="employee">
+                  <div class="avatar"></div>
+                  <div class="details">
+                    <div class="name">Трофимов Илья Степанович</div>
+                    <div class="description">с 4 июля до 6 августа</div>
+                  </div>
+                </div>
+
+                <div class="employee">
+                  <div class="avatar"></div>
+                  <div class="details">
+                    <div class="name">Константинов Виктор Сергеевич</div>
+                    <div class="description">с 19 июля до 29 июля</div>
+                  </div>
+                </div>
+
+                <div class="employee">
+                  <div class="avatar"></div>
+                  <div class="details">
+                    <div class="name">Трофимов Илья Степанович</div>
+                    <div class="description">с 4 июля до 6 августа</div>
+                  </div>
+                </div>
+
+              </div>
+
+              <a href="#" class="section-more-link mt-4">Смотреть все статьи</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      -->
+
+    </div>
+
+
+    <div class="col-12 col-lg-7">
+      <div class="section">
+        <div class="section-caption">Наши люди</div>
+        <div class="section-content">
+          <mat-grid-list cols="4" rowHeight="170px" gutterSize="5px">
+            <mat-grid-tile
+              class="advert"
+              colspan="2"
+              rowspan="2"
+              [style.background]="'url(http://www.kolen.elektra.ru/newspicture/image/%D0%97%D0%B0%D0%B1%D0%BE%D1%80%D1%89%D0%B8%D0%BA%D0%BE%D0%B2%D0%B0%20%D0%95.jpg)'">
+              <div class="advert-mask">
+                <div class="advert-caption">Очень важное объявление</div>
+                <div class="advert-preview">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Accusantium aperiam eaque facere fugiat harum, ipsam iste laboriosam, laborum libero,
+                  magni necessitatibus placeat qui quibusdam reiciendis similique tenetur velit veritatis voluptate!
+                </div>
+              </div>
+            </mat-grid-tile>
+
+            <mat-grid-tile
+              class="advert small"
+              colspan="2"
+              rowspan="1"
+              [style.background]="'url(http://www.kolen.elektra.ru/newspicture/%D0%93_%D0%92_%D0%A1%D0%BE%D1%80%D0%BE%D0%BA%D0%B8%D0%BD1%20(2).jpg)'">
+              <div class="advert-mask">
+                <div class="advert-caption">Еще одно объявление</div>
+              </div>
+            </mat-grid-tile>
+
+
+            <mat-grid-tile
+              class="advert small"
+              colspan="2"
+              rowspan="1"
+              [style.background]="'url(http://www.kolen.elektra.ru/newspicture/news_190409.jpg)'">
+              <div class="advert-mask">
+                <div class="advert-caption">Специальное издание газеты "Энергетика" для пользователей системы "Техэксперт"</div>
+              </div>
+            </mat-grid-tile>
+          </mat-grid-list>
+          <!--<a href="#" class="section-more-link mt-4">Посмотреть всех отсутсвующих</a>-->
+        </div>
+      </div>
+    </div>
+
 
   </div>
 
