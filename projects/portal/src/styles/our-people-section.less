@@ -1,0 +1,50 @@
+@our-people-person-height: 370px;
+
+.our-people {
+  display: flex;
+  flex-direction: row;
+  // justify-content: space-between;
+  align-items: flex-end;
+
+  .person {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    height: @our-people-person-height;
+    background-size: cover !important;
+    background-position: top center !important;
+    border-radius: 4px;
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      width: 100%;
+      padding: 20px;
+      background: linear-gradient(to top, rgba(27,32,48,0.5) 5%, rgba(0,0,0,0.01) 100%);
+      // border-bottom-left-radius: 8px;
+      // border-bottom-right-radius: 8px;
+
+      .caption {
+        font-family: 'Comfortaa', cursive;
+        font-size: 15px;
+        line-height: 17px;
+        font-weight: 500;
+        text-transform: uppercase;
+        color: white;
+      }
+
+
+      .description {
+        margin-top: 20px;
+        font-family: 'Comfortaa', cursive;
+        font-size: 13px;
+        line-height: 14px;
+        font-weight: 300;
+        color: white;
+      }
+    }
+  }
+}
