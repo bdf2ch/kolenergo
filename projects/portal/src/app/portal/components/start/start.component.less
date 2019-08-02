@@ -1,3 +1,25 @@
+.border-squircle(@radius-x; @radius-y) {
+  .loop(@radius-x; @radius-y; 359; 100% 0);
+}
+.loop(@radius-x; @radius-y; @counter; @list) when (@counter >= 0) {
+  @cos-x: cos(unit(@counter, deg));
+  @x: pow(abs(@cos-x), unit(@radius-x) / 100) * 50 * abs(@cos-x + 0.0000000001) / (@cos-x + 0.0000000001) + 50;
+
+  @sin-y: sin(unit(@counter, deg));
+  @y: pow(abs(@sin-y), unit(@radius-y) / 100) * 50 * abs(@sin-y + 0.0000000001) / (@sin-y + 0.0000000001) + 50;
+
+  @percent-x: percentage(round(@x, 1) / 100);
+  @percent-y: percentage(round(@y, 1) / 100);
+
+  @new-list: @percent-x @percent-y, @list;
+  .loop(@radius-x; @radius-y; (@counter - 1); @new-list);
+}
+.loop(@radius-x; @radius-y; @counter; @list) when (@counter < 0) {
+  clip-path: polygon(@list);
+}
+
+
+
 #app-content {
   z-index: 5;
   position: relative;
@@ -25,6 +47,7 @@
       }
     }
   }
+
 
 
   #phone-book-search {
@@ -141,10 +164,31 @@
         &.advert {
           background-size: cover !important;
           background-position: center !important;
+          // background: url('/assets/pylon-2.png'), linear-gradient(to bottom right, #80cbc4 45%, #e0f2f1 100%);
+
+
+          &:nth-child(1) {
+            // background: url('/assets/pylon-1.png'), linear-gradient(to bottom right, #80cbc4 45%, #e0f2f1 100%);
+            background: url('/assets/pylon-1.png'), linear-gradient(to bottom, rgba(51, 166, 198, 1) 50%, rgba(201, 225, 237, 1) 100%);
+          }
+
+          &:nth-child(2) {
+            // background: url('/assets/pylon-5.png'), linear-gradient(to bottom right, #9fa8da 45%, #ede7f6 100%);
+            background: url('/assets/pylon-5.png'), linear-gradient(to bottom, rgba(111, 170, 167, 1) 50%, rgba(210, 224, 224, 1) 100%);
+          }
+
+          &:nth-child(3) {
+            background: url('/assets/pylon-2.png'), linear-gradient(to bottom, rgba(205, 165, 132, 1) 50%, rgba(232, 201, 134, 1) 100%);
+            // background: url('/assets/pylon-6.png'), linear-gradient(to bottom right, #a5d6a7 45%, #e8f5e9 100%);
+            background-position: bottom left !important;
+            background-size: contain !important;
+            background-repeat: no-repeat;
+          }
 
           &.small {
             .advert-mask {
-              background: linear-gradient(to top, rgba(0,0,0,0.05) 20%,rgba(27,32,48,0.5) 60%);
+              // background: linear-gradient(to top, rgba(0,0,0,0.05) 20%,rgba(27,32,48,0.5) 60%);
+              // background: linear-gradient(to top, rgba(0, 0, 0, 0) 14%, rgba(27, 32, 48, 0.54) 70%);
             }
           }
 
@@ -155,17 +199,18 @@
             top: 0px;
             left: 0px;
             height: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.05) 20%,rgba(27,32,48,0.5) 100%);
+            // background: linear-gradient(to top, rgba(0,0,0,0.05) 20%,rgba(27,32,48,0.5) 100%);
           }
 
           .advert-date {
             display: inline-flex;
-            padding: 8px;
+            padding: 10px;
             font-family: 'Comfortaa', cursive;
             font-size: 13px;
             font-weight: 600;
+            text-transform: uppercase;
             color: white;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
           }
 
           .advert-caption {
@@ -255,8 +300,8 @@
           justify-content: space-between;
           align-items: center;
           // flex-wrap: wrap;
-          //width: 100%;
-          height: 110px;
+          width: 95px;
+          height: 95px;
           margin-top: 10px;
           padding: 10px;
           box-sizing: border-box;
@@ -265,22 +310,30 @@
           // background: #eeeeee;
           // border: 2px solid #eceff1;
           // border: 1px solid transparent;
-          // border-radius: 4px;
-          border-radius: 15px/30px;
+          border-radius: 4px;
+          // border-radius: 15px/30px;
+          .border-squircle(50%; 50%);
 
-          box-shadow: 0 1rem 5rem -2rem rgba(0, 0, 0, 0.3);
+          transition: all linear 0.1s;
 
 
 
           &:hover {
             // border: 4px solid #eceff1;
             // box-shadow: inset 0px 0px 10px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.2);
+
           }
 
           &.ukitasu {
             background: linear-gradient(to bottom, rgba(51, 166, 198, 1) 10%, rgba(201, 225, 237, 1) 90%);
+            box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.2) !important;
+
+            .border-squircle(50%; 50%);
 
             &:hover {
+              box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.2) !important;
+
               .service-icon {
                 img {
                   //transform: scale(0.7);
