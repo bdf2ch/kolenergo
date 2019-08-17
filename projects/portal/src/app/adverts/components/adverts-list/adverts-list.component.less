@@ -1,0 +1,65 @@
+@advert-height: 300px;
+@advert-margin-bottom: 15px;
+
+.advert {
+
+  height: @advert-height;
+  margin-bottom: @advert-margin-bottom;
+  border-radius: 4px;
+  // background: linear-gradient(to bottom, rgba(51, 166, 198, 1) 50%, rgba(201, 225, 237, 1) 100%);
+  box-shadow: 0 2px 16px rgba(0,0,0,.12);
+  cursor: pointer;
+  transition: all linear 0.1s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:nth-of-type(n+1) {
+    background: linear-gradient(to bottom, rgba(51, 166, 198, 1) 50%, rgba(201, 225, 237, 1) 100%) !important;
+  }
+
+  &:nth-of-type(n+2) {
+    background: linear-gradient(to bottom, rgba(111, 170, 167, 1) 50%, rgba(210, 224, 224, 1) 100%) !important;
+  }
+
+  &:nth-of-type(3) {
+    background: linear-gradient(to bottom, rgba(205, 165, 132, 1) 50%, rgba(232, 201, 134, 1) 100%) !important;
+  }
+
+  .advert-date {
+    position: relative;
+    display: inline-flex;
+    padding: 10px;
+    font-family: 'Comfortaa', cursive;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .advert-caption {
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-family: 'Comfortaa', cursive;
+    font-size: 15px;
+    line-height: 17px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: white;
+  }
+
+  .advert-preview {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-family: 'Comfortaa', cursive;
+    font-size: 13px;
+    line-height: 14px;
+    font-weight: 300;
+    color: white;
+  }
+
+}

@@ -12,6 +12,10 @@ const routes: Routes = [
       {
         path: '',
         component: StartComponent
+      },
+      {
+        path: 'adverts',
+        loadChildren: '../adverts/adverts.module#AdvertsModule'
       }
     ]
   }

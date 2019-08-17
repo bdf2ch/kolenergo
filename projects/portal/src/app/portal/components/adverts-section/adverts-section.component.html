@@ -1,0 +1,58 @@
+<div class="caption-and-controls">
+  <div class="section-caption"><a routerLink="/adverts">Объявления</a></div>
+  <div class="controls">
+    <div class="control previous"
+         [ngClass]="{'disabled': step === 1 || isFetching === true}"
+         (click)="previous()"
+         matTooltip="Следующие объявления"
+         matTooltipPosition="above">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </div>
+    <div class="control next"
+         [ngClass]="{'disabled': step === totalSteps || isFetching === true}"
+         (click)="next()"
+         matTooltip="Предыдущие объявления"
+         matTooltipPosition="above">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </div>
+  </div>
+</div>
+
+<mat-grid-list cols="4" rowHeight="170px" gutterSize="5px">
+  <mat-grid-tile
+    *ngFor="let advert of currentAdverts; let i = index"
+    class="advert"
+    colspan="2"
+    rowspan="{{i === 0 ? '2' : '1'}}">
+    <a href="#" class="advert-mask" [routerLink]="['adverts', advert.id]">
+      <div class="advert-date">{{advert.dateCreatedD | date:'d MMMM'}}</div>
+      <div class="advert-caption">{{advert.title}}</div>
+      <div class="advert-preview" *ngIf="i === 0">{{advert.preview}}</div>
+    </a>
+  </mat-grid-tile>
+
+
+  <!--
+  <mat-grid-tile
+    class="advert small"
+    colspan="2"
+    rowspan="1">
+    <div class="advert-mask">
+      <div class="advert-date">24 июля</div>
+      <div class="advert-caption">Еще одно объявление</div>
+    </div>
+  </mat-grid-tile>
+
+  <mat-grid-tile
+    class="advert small"
+    colspan="2"
+    rowspan="1">
+    <div class="advert-mask">
+      <div class="advert-date">23 июля</div>
+      <div class="advert-caption">Специальное издание газеты "Энергетика" для пользователей системы
+        "Техэксперт"
+      </div>
+    </div>
+  </mat-grid-tile>
+  -->
+</mat-grid-list>

@@ -1,16 +1,16 @@
-<div id="app-content" class="col-12 col-md-12 col-lg-10 col-xl-10 mb-5">
+<div id="app-content" class="">
 
 
-  <div class="row pt-4 pb-4">
+  <div class="row">
 
     <!-- Start: Сервисы и полезные ресурсы -->
     <div class="col-md-6 col-lg-6 col-xl-5">
       <div class="section">
-        <div class="section-caption">Наши сервисы</div>
+        <div class="section-caption">Сервисы и полезные ресурсы</div>
         <div class="section-content highlighted p-4 flex-column">
 
           <!-- Start: Поиск абонентов в телефонном справочнике -->
-          <div id="phone-book-search">
+          <div class="search-bar">
             <div class="prefix">
               <mat-icon>search</mat-icon>
             </div>
@@ -22,7 +22,7 @@
           <div class="services">
             <div class="row">
               <!-- Start: Ссылка на заявки УКиТАСУ -->
-              <div class="col-6 col-md-4 col-lg-4 col-xl-3 pl-1 pr-1">
+              <div class="col-3 col-lg-4 col-xl-3 pl-1 pr-1 d-flex flex-row justify-content-start">
                 <a href="#" class=" service ukitasu">
                   <div class="service-caption">Заявки УКиТАСУ</div>
                   <div class="service-icon">
@@ -33,7 +33,7 @@
               <!-- End: Ссылка на заявки УКиТАСУ -->
 
               <!-- Start: Ссылка на заявки на автотранспорт -->
-              <div class="col-6 col-md-4 col-lg-4 col-xl-3 pl-1 pr-1">
+              <div class="col-3 col-lg-4 col-xl-3 pl-1 pr-1 d-flex flex-row justify-content-center">
                 <a href="#" class="service auto">
                   <div class="service-caption">Заявки на транспорт</div>
                   <div class="service-icon">
@@ -44,7 +44,7 @@
               <!-- End: Ссылка на заявки на автотранспорт -->
 
               <!-- Start: Ссылка на заявки АХО -->
-              <div class="col-6 col-md-4 col-lg-4 col-xl-3 pl-1 pr-1">
+              <div class="col-3 col-lg-4 col-xl-3 pl-1 pr-1 d-flex flex-row justify-content-center justify-content-md-end justify-content-xl-end">
                 <a href="#" class="service aho">
                   <div class="service-caption">Заявки АХО</div>
                   <div class="service-icon">
@@ -55,7 +55,7 @@
               <!-- End: Ссылка на заявки АХО -->
 
               <!-- Start: Ссылка на расчетные листки -->
-              <div class="col-6 col-md-4 col-lg-4 col-xl-3 pl-1 pr-1">
+              <div class="col-3 col-lg-4 col-xl-3 pl-1 pr-1 d-flex flex-row justify-content-end justify-content-xl-end">
                 <a href="#" class="service billing-lists">
                   <div class="service-caption">Расчетные листки</div>
                   <div class="service-icon">
@@ -66,7 +66,7 @@
               <!-- End: Ссылка на расчетные листки -->
 
               <!-- Start: Ссылка на телефонный справочник -->
-              <div class="col-6 col-md-4 col-lg-4 col-xl-3 pl-1 pr-1">
+              <div class="col-3 col-lg-4 col-xl-3 pl-1 pr-1">
                 <a href="#" class="service phone-book">
                   <div class="service-caption">Телефонный справочник</div>
                   <div class="service-icon">
@@ -119,49 +119,16 @@
 
 
     <!-- Start: Объявления -->
-    <div class="col-5 col-md-6 col-xl-7">
+    <div class="col-12 col-md-5 col-md-6 col-xl-7">
       <div class="section">
-        <div class="section-caption">Объявления</div>
         <div class="section-content">
-          <mat-grid-list cols="4" rowHeight="170px" gutterSize="5px">
-            <mat-grid-tile
-              class="advert"
-              colspan="2"
-              rowspan="2">
-              <div class="advert-mask">
-                <div class="advert-date">25 июля</div>
-                <div class="advert-caption">Очень важное объявление</div>
-                <div class="advert-preview">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Accusantium aperiam eaque facere fugiat harum, ipsam iste laboriosam, laborum libero,
-                  magni necessitatibus placeat qui quibusdam reiciendis similique tenetur velit veritatis voluptate!
-                </div>
-              </div>
-            </mat-grid-tile>
-
-            <mat-grid-tile
-              class="advert small"
-              colspan="2"
-              rowspan="1">
-              <div class="advert-mask">
-                <div class="advert-date">24 июля</div>
-                <div class="advert-caption">Еще одно объявление</div>
-              </div>
-            </mat-grid-tile>
-
-            <mat-grid-tile
-              class="advert small"
-              colspan="2"
-              rowspan="1">
-              <div class="advert-mask">
-                <div class="advert-date">23 июля</div>
-                <div class="advert-caption">Специальное издание газеты "Энергетика" для пользователей системы
-                  "Техэксперт"
-                </div>
-              </div>
-            </mat-grid-tile>
-          </mat-grid-list>
-          <!--<a href="#" class="section-more-link mt-4">Смотреть все объявления</a>-->
+          <app-adverts-section
+            [adverts]="adverts$ | async"
+            [totalAdvertsCount]="totalAdverts"
+            [fetchingInProgress]="advertsIsFetching$ | async"
+            (previousAdverts)="loadAdvertsPreviousPage($event)"
+            (nextAdverts)="loadAdvertsNextPage($event)">
+          </app-adverts-section>
         </div>
       </div>
     </div>
@@ -175,7 +142,7 @@
 
 
   <!-- Start: Разделитель -->
-  <div class="row separator pt-4 mb-4 justify-content-center">
+  <div class="row separator mt-4 pt-3 mb-2 pb-2 justify-content-center">
     <div class="col-12 col-md-12 col-lg-10 col-xl-10 d-flex flex-row justify-content-center align-content-center">
       <mat-icon>offline_bolt</mat-icon>
     </div>

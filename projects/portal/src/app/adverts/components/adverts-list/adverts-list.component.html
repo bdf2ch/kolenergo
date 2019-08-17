@@ -1,0 +1,45 @@
+<div class="row mt-md-3 align-items-start">
+  <div class="col-12 col-md-auto col-lg-3 justify-content-s">
+    <div class="section-caption">
+      <a routerLink="/">Главная</a>
+      <span class="ml-2 mr-2">/</span>
+      <span>Объявления</span>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <app-attachments-list [caption]="'Прикрепленные файлы'" [allowUpload]="true" [uploadingInProgress]="true"></app-attachments-list>
+  </div>
+
+  <div class="col-12 col-md-6 d-flex flex-row justify-content-end align-self-md-center">
+    <div class="search-bar w-100">
+      <div class="prefix">
+        <mat-icon>search</mat-icon>
+      </div>
+      <input type="text" placeholder="Поиск в объявлениях">
+    </div>
+  </div>
+
+  <div class="col d-flex flex-row justify-content-end align-items-start">
+    <button mat-stroked-button color="primary" class="pt-1 pb-1 pl-3 pr-3" (click)="openAddAdvertDialog()">
+      <mat-icon class="mr-2">add</mat-icon>
+      Добавить
+    </button>
+  </div>
+</div>
+
+<div class="row mt-2 mt-md-5">
+  <div class="col-6 col-md-4 col-lg-4 col-xl-3" *ngFor="let advert of adverts$ | async">
+    <div class="advert" [routerLink]="['/adverts', advert.id]">
+      <div class="advert-date">{{ advert.dateCreatedD | date: 'dd MMMM' }}</div>
+      <div class="advert-caption">{{advert.title}}</div>
+      <div class="advert-preview">{{advert.preview}}</div>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-6">
+    <button class="control w-100">more</button>
+  </div>
+</div>

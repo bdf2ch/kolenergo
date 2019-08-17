@@ -1,5 +1,7 @@
 @app-header-height: 200px;
 @app-content-width: 80%;
+@app-footer-height: 200px;
+@app-background-color: #fafafa;
 
 #app {
   overflow: hidden;
@@ -9,7 +11,7 @@
   height: auto;
 }
 
-#app-header {
+header {
   z-index: 2;
   position:relative;
   overflow:hidden;
@@ -22,6 +24,7 @@
   height: @app-header-height;
   border-bottom: 5px solid #eeeeee;
   margin-left: -10%;
+  background: @app-background-color;
   border-bottom-left-radius: 80%;
   border-bottom-right-radius: 80%;
   // transform-origin: 0px 0px;
@@ -97,6 +100,58 @@
     //width: 90%;
     height: 80%;
     margin: 0px auto;
+  }
+}
+
+footer {
+  overflow: hidden;
+  position: relative;
+  width: 120%;
+  height: @app-footer-height;
+  margin-left: -10%;
+  border-top: 5px solid #eeeeee;
+  border-top-left-radius: 80%;
+  border-top-right-radius: 80%;
+
+  .background {
+    content:"";
+    z-index: 1;
+    position: relative;
+    width:150%;
+    height:100%;
+    // position:absolute;
+    // top:0;
+    // left:0;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0) scale(1.0, 1.0);
+    transform: translateZ(0);
+    background:#1B2030 url("/assets/header-bg-1.jpg") center no-repeat;
+    background-size:cover;
+    background-attachment:fixed;
+    animation: grow 30s linear 10ms infinite;
+    transition:all 0.2s ease-in-out;
+    z-index: -2;
+  }
+
+  .gradient {
+    content:"";
+    width:100%;
+    height:100%;
+    position:absolute;
+    bottom:0;
+    left:0;
+    z-index:-1;
+    background: linear-gradient(to bottom, rgba(27,32,48,0.4) 70%, rgba(0,0,0,0.1) 100%);
+
+    .header-content {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-top: 30px;
+      width: 70%;
+      margin-left: 15%;
+    }
   }
 }
 

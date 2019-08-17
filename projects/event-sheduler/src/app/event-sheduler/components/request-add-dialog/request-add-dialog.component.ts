@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {EventInterval, EventRequest, EventType} from '../../models';
 import {IApplicationState, selectDate, selectEventTypes, selectIntervals, selectCompanies} from '../../../ngrx';
 import {select, Store} from '@ngrx/store';
-import {FormBuilder, FormControl, FormGroup, ValidationErrors, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators, ValidatorFn } from '@angular/forms';
 import {take} from 'rxjs/operators';
 import {MatSelectChange} from '@angular/material';
 import {User, Company, Department} from '@kolenergo/core';

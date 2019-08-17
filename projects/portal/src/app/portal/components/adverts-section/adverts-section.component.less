@@ -1,0 +1,167 @@
+@control-width: 35px;
+@control-height: 35px;
+@control-color: #e0e0e0;
+@control-color-disabled: #eeeeee;
+@control-color-hover: #bdbdbd;
+@advert-height: 185px;
+
+.caption-and-controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .control {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      width: @control-width;
+      height: @control-height;
+      border: 1px solid @control-color;
+      cursor: pointer;
+
+      &:hover {
+        border-color: @control-color-hover;
+        .mat-icon {
+          color: @control-color-hover;
+        }
+      }
+
+      &.previous {}
+
+      &.next {
+        margin-left: 3px;
+      }
+
+      &.disabled {
+        cursor: default;
+        border-color: @control-color-disabled;
+        .mat-icon {
+          color: @control-color-disabled;
+        }
+      }
+
+      .mat-icon {
+        color: @control-color;
+      }
+    }
+  }
+}
+
+
+
+.mat-grid-tile {
+  &.advert {
+    z-index: 1;
+    background-size: cover !important;
+    background-position: center !important;
+    box-shadow: 0 2px 16px rgba(0,0,0,.12);
+    border-radius: 4px;
+    transition: all linear 0.1s;
+
+    &:hover {
+      z-index: 2;
+      transform: scale(1.08);
+    }
+    // background: url('/assets/pylon-2.png'), linear-gradient(to bottom right, #80cbc4 45%, #e0f2f1 100%);
+
+
+    &:nth-child(1) {
+      // background: url('/assets/pylon-1.png'), linear-gradient(to bottom right, #80cbc4 45%, #e0f2f1 100%);
+      // background: url('/assets/pylon-1.png'), linear-gradient(to bottom, rgba(51, 166, 198, 1) 50%, rgba(201, 225, 237, 1) 100%);
+      background: linear-gradient(to bottom, rgba(51, 166, 198, 1) 50%, rgba(201, 225, 237, 1) 100%);
+    }
+
+    &:nth-child(2) {
+      // background: url('/assets/pylon-5.png'), linear-gradient(to bottom right, #9fa8da 45%, #ede7f6 100%);
+      // background: url('/assets/pylon-5.png'), linear-gradient(to bottom, rgba(111, 170, 167, 1) 50%, rgba(210, 224, 224, 1) 100%);
+      background: linear-gradient(to bottom, rgba(111, 170, 167, 1) 50%, rgba(210, 224, 224, 1) 100%);
+
+    }
+
+    &:nth-child(3) {
+      // background: url('/assets/pylon-2.png'), linear-gradient(to bottom, rgba(205, 165, 132, 1) 50%, rgba(232, 201, 134, 1) 100%);
+      background: linear-gradient(to bottom, rgba(205, 165, 132, 1) 50%, rgba(232, 201, 134, 1) 100%);
+      // background: url('/assets/pylon-6.png'), linear-gradient(to bottom right, #a5d6a7 45%, #e8f5e9 100%);
+      background-position: bottom left !important;
+      background-size: contain !important;
+      background-repeat: no-repeat;
+    }
+
+    &.small {
+      .advert-mask {
+        // background: linear-gradient(to top, rgba(0,0,0,0.05) 20%,rgba(27,32,48,0.5) 60%);
+        // background: linear-gradient(to top, rgba(0, 0, 0, 0) 14%, rgba(27, 32, 48, 0.54) 70%);
+      }
+    }
+
+    .advert-mask {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      top: 0px;
+      left: 0px;
+      text-decoration: none !important;
+      // background: linear-gradient(to top, rgba(0,0,0,0.05) 20%,rgba(27,32,48,0.5) 100%);
+    }
+
+    .advert-date {
+      display: inline-flex;
+      padding: 10px;
+      font-family: 'Comfortaa', cursive;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: white;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .advert-caption {
+      margin-top: 30px;
+      margin-left: 20px;
+      margin-right: 20px;
+      font-family: 'Comfortaa', cursive;
+      font-size: 15px;
+      line-height: 17px;
+      font-weight: 500;
+      text-transform: uppercase;
+      color: white;
+    }
+
+    .advert-preview {
+      margin-top: 20px;
+      margin-left: 20px;
+      margin-right: 20px;
+      font-family: 'Comfortaa', cursive;
+      font-size: 13px;
+      line-height: 14px;
+      font-weight: 300;
+      color: white;
+    }
+  }
+}
+
+
+.adverts {
+  display: flex;
+
+  .advert {
+    display: flex;
+    flex-direction: column;
+    height: @advert-height;
+
+    .advert-date {}
+
+    .advert-caption {}
+
+    .advert-preview {}
+  }
+}
