@@ -20,14 +20,14 @@ import { selectAddingInProgress } from '../../ngrx';
   styleUrls: ['./report-add-dialog.component.less']
 })
 export class ReportAddDialogComponent implements OnInit {
-  private user$: Observable<User>;
-  private companies$: Observable<Company[]>;
-  private date$: Observable<Date>;
-  private user: User;
-  private companies: Company[];
-  private date: Date;
-  private reportForm: FormGroup;
-  private readonly reports: PressReport[];
+  public companies$: Observable<Company[]>;
+  public date$: Observable<Date>;
+  public user: User;
+  public user$: Observable<User>;
+  public companies: Company[];
+  public date: Date;
+  public reportForm: FormGroup;
+  public readonly reports: PressReport[];
 
   constructor(private readonly builder: FormBuilder,
               private readonly dialogRef: MatDialogRef<ReportAddDialogComponent>,
