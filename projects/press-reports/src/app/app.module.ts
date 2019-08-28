@@ -41,7 +41,7 @@ export const MY_FORMATS = {
     BrowserAnimationsModule,
     AppRoutingModule,
     AuthenticationModule.forRoot({
-      apiUrl: 'http://127.0.0.1:3000',
+      apiUrl: 'http://10.50.0.153:3000',
       pathPrefix: '/authentication'
     }),
     StoreModule.forRoot({}),
