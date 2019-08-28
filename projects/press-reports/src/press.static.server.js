@@ -35,10 +35,10 @@ app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Credentials', true);
     next();
   })
-  .use(express.static('../../dist/press-reports'))
+  .use(express.static('../../../dist/press-reports'))
   .use(parser.json())
   .get('*', (req, res) => {
-    res.sendFile(path.resolve('../../dist/press-reports/index.html'));
+    res.sendFile(path.resolve('../../../dist/press-reports/index.html'));
   })
   .listen(9999, function () {
     console.log('Server started at 8888');
