@@ -14,13 +14,13 @@ import { IApplicationState } from '../../../ngrx';
   styleUrls: ['./report-dates.component.less']
 })
 export class ReportDatesComponent implements OnInit, OnChanges {
-  private periodStart: Date = null;
-  private periodEnd: Date = null;
-  private days: Date[];
-  private weekIndex: number;
-  private selectedDate: Date;
-  private currentDate$: Observable<Date>;
-  private currentDate: Date;
+  public periodStart: Date = null;
+  public periodEnd: Date = null;
+  public days: Date[];
+  public weekIndex: number;
+  public selectedDate: Date;
+  public currentDate$: Observable<Date>;
+  public currentDate: Date;
   @Input() date: Date;
   @Output() select: EventEmitter<Date>;
 

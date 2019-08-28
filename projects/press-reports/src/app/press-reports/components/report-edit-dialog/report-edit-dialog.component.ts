@@ -17,15 +17,15 @@ import {AddReports, EditReport, selectCompanies, selectReports, selectSelectedDa
   styleUrls: ['./report-edit-dialog.component.less']
 })
 export class ReportEditDialogComponent implements OnInit {
-  private user$: Observable<User>;
-  private companies$: Observable<Company[]>;
-  private reports$: Observable<PressReport[]>;
-  private date$: Observable<Date>;
-  private user: User;
-  private companies: Company[];
-  private date: Date;
-  private reportForm: FormGroup;
-  private reports: PressReport[];
+  public user$: Observable<User>;
+  public companies$: Observable<Company[]>;
+  public reports$: Observable<PressReport[]>;
+  public date$: Observable<Date>;
+  public user: User;
+  public companies: Company[];
+  public date: Date;
+  public reportForm: FormGroup;
+  public reports: PressReport[];
 
   constructor(private readonly builder: FormBuilder,
               private readonly dialogRef: MatDialogRef<ReportEditDialogComponent>,
