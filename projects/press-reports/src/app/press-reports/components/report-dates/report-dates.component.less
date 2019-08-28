@@ -1,0 +1,74 @@
+.report-dates {
+  display: flex;
+  flex-direction: column;
+  // padding-top: 29px;
+
+  .day {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+    font-family: 'Comfortaa', cursive;
+    border: 2px solid transparent;
+    border-right: 2px solid #e8eaf6;
+    cursor: pointer;
+
+    &:hover {
+      border: 2px solid #e8eaf6;
+    }
+
+    &.selected {
+      background: #e8eaf6;
+    }
+
+    .mday {
+      font-family: 'Comfortaa', cursive;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 18px;
+      color: #607d8b;
+    }
+
+    .month {
+      font-family: 'Comfortaa', cursive;
+      font-size: 12px;
+      font-weight: 400;
+      text-transform: lowercase;
+      color: #90a4ae;
+    }
+  }
+
+  .date-control {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 29px;
+    cursor: pointer;
+
+    &:hover {
+      .mat-icon {
+        color: #78909c;
+      }
+    }
+
+    &.disabled {
+      cursor: default;
+      .mat-icon {
+        color: #cfd8dc;
+        &:hover {
+          color: #cfd8dc !important;
+        }
+      }
+    }
+
+    .mat-icon {
+      width: 18px;
+      height: 18px;
+      font-size: 18px;
+      color: #b0bec5;
+    }
+  }
+}

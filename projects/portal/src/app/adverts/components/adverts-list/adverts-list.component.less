@@ -7,6 +7,9 @@
   margin-bottom: @advert-margin-bottom;
   border-radius: 4px;
   // background: linear-gradient(to bottom, rgba(51, 166, 198, 1) 50%, rgba(201, 225, 237, 1) 100%);
+  background: url('/assets/mrsk-portal.jpg');
+  background-size: cover;
+  background-position: top center;
   box-shadow: 0 2px 16px rgba(0,0,0,.12);
   cursor: pointer;
   transition: all linear 0.1s;
@@ -16,11 +19,12 @@
   }
 
   &:nth-of-type(n+1) {
-    background: linear-gradient(to bottom, rgba(51, 166, 198, 1) 50%, rgba(201, 225, 237, 1) 100%) !important;
+
+    //background: linear-gradient(to bottom, rgba(51, 166, 198, 1) 50%, rgba(201, 225, 237, 1) 100%) !important;
   }
 
   &:nth-of-type(n+2) {
-    background: linear-gradient(to bottom, rgba(111, 170, 167, 1) 50%, rgba(210, 224, 224, 1) 100%) !important;
+    //background: linear-gradient(to bottom, rgba(111, 170, 167, 1) 50%, rgba(210, 224, 224, 1) 100%) !important;
   }
 
   &:nth-of-type(3) {
@@ -30,13 +34,22 @@
   .advert-date {
     position: relative;
     display: inline-flex;
-    padding: 10px;
+    padding: 7px 12px;
     font-family: 'Comfortaa', cursive;
     font-size: 13px;
     font-weight: 600;
     text-transform: uppercase;
     color: white;
-    background: rgba(255, 255, 255, 0.1);
+    //background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 79 ,140, 0.6);
+
+    .mat-icon {
+      margin-left: 20px;
+      width: 15px;
+      height: 15px;
+      font-size: 15px;
+      color: white;
+    }
   }
 
   .advert-caption {
@@ -62,4 +75,15 @@
     color: white;
   }
 
+}
+
+.no-adverts-placeholder {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Comfortaa', cursive;
+  font-size: 16px;
+  font-weight: 400;
+  color: #b0bec5;
 }

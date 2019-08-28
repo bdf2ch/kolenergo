@@ -2,11 +2,12 @@ import {select, Store} from '@ngrx/store';
 
 import { AdvertsService } from '../../services/adverts.service';
 import { Advert } from '../../models';
-import {IAdvertsState, selectNewAdvert, UploadImageToNewAdvert, UploadImageToNewAdvertSuccess} from '../../ngrx';
+import {IAdvertsState, selectNewAdvert, AdvertsUploadImageToNewAdvert, AdvertsUploadImageToNewAdvertSuccess} from '../../ngrx';
 import { IApplicationState } from '../../../ngrx';
 import {IServerResponse} from '@kolenergo/core';
 import {IAdvert} from '../../interfaces';
 import {Observable} from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 
 export class AdvertImageUploadAdapter {
@@ -30,14 +31,14 @@ export class AdvertImageUploadAdapter {
       .then(file => new Promise((resolve, reject) => {
         if (this.newAdvert && this.newAdvert.id) {
           this.adverts.uploadImage(file, this.newAdvert.id).then((result: IServerResponse<string>) => {
-            resolve({default: result.data});
+            resolve({default: `${environment.staticUrl}\\${result.data}`});
           });
         } else if (this.newAdvert && !this.newAdvert.id) {
           this.adverts.uploadImage(file).then((result: IServerResponse<{url: string, advert: IAdvert}>) => {
-            this.store.dispatch(new UploadImageToNewAdvertSuccess(result));
-            resolve({default: result.data.url});
+            this.store.dispatch(new AdvertsUploadImageToNewAdvertSuccess(result));
+            resolve({default: `${environment.staticUrl}\\${result.data.url}`});
           });
-          this.store.dispatch(new UploadImageToNewAdvert());
+          this.store.dispatch(new AdvertsUploadImageToNewAdvert());
         }
       }));
   }

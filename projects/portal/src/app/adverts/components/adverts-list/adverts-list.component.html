@@ -7,21 +7,12 @@
     </div>
   </div>
 
-  <div class="col-12">
-    <app-attachments-list [caption]="'Прикрепленные файлы'" [allowUpload]="true" [uploadingInProgress]="true"></app-attachments-list>
-  </div>
-
   <div class="col-12 col-md-6 d-flex flex-row justify-content-end align-self-md-center">
-    <div class="search-bar w-100">
-      <div class="prefix">
-        <mat-icon>search</mat-icon>
-      </div>
-      <input type="text" placeholder="Поиск в объявлениях">
-    </div>
+    <app-adverts-search></app-adverts-search>
   </div>
 
   <div class="col d-flex flex-row justify-content-end align-items-start">
-    <button mat-stroked-button color="primary" class="pt-1 pb-1 pl-3 pr-3" (click)="openAddAdvertDialog()">
+    <button class="kol-button" (click)="openAddAdvertDialog()">
       <mat-icon class="mr-2">add</mat-icon>
       Добавить
     </button>
@@ -31,15 +22,32 @@
 <div class="row mt-2 mt-md-5">
   <div class="col-6 col-md-4 col-lg-4 col-xl-3" *ngFor="let advert of adverts$ | async">
     <div class="advert" [routerLink]="['/adverts', advert.id]">
-      <div class="advert-date">{{ advert.dateCreatedD | date: 'dd MMMM' }}</div>
+      <div class="advert-date">
+        {{ advert.dateCreatedD | date: 'dd MMMM' }}
+        <div class="d-flex flex-row justify-content-center" *ngIf="advert.attachments.length > 0">
+          <mat-icon>attach_file</mat-icon>
+          {{advert.attachments.length}}
+        </div>
+      </div>
       <div class="advert-caption">{{advert.title}}</div>
       <div class="advert-preview">{{advert.preview}}</div>
     </div>
   </div>
 </div>
 
-<div class="row justify-content-center">
-  <div class="col-12 col-lg-6">
-    <button class="control w-100">more</button>
+<div class="row">
+  <div class="no-adverts-placeholder col-12"
+       *ngIf="!(searchingInProgress$ | async) && (adverts$ | async).length === 0 && (searchQuery$ | async)">
+    Объявления по Вашему запросу не найдены
+  </div>
+</div>
+
+<div class="row justify-content-center pb-5 mb-5" *ngIf="(page$ | async) < (totalPages$ | async) && !(searchQuery$ | async)">
+  <div class="col-12 col-lg-6 mt-5 mb-5">
+    <button class="kol-button w-100" [disabled]="fetchingInProgress$ | async" (click)="loadAdvertsNextPAge()">
+      <mat-progress-spinner class="mr-2" diameter="20" mode="indeterminate" *ngIf="fetchingInProgress$ | async"></mat-progress-spinner>
+      <mat-icon *ngIf="!(fetchingInProgress$ | async)">refresh</mat-icon>
+      Загрузить еще
+    </button>
   </div>
 </div>

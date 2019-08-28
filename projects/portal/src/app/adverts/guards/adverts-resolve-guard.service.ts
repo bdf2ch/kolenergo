@@ -6,7 +6,7 @@ import { filter, switchMap, take } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 
 import { IApplicationState } from '../../ngrx';
-import { LoadAdverts, selectFetchingInProgress } from '../ngrx';
+import { AdvertsLoadAdverts, selectFetchingInProgress } from '../ngrx';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class AdvertsResolveGuard implements Resolve<boolean> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    this.store.dispatch(new LoadAdverts());
+    this.store.dispatch(new AdvertsLoadAdverts());
     return this.waitForDataToLoad()
       .pipe(
         switchMap(isFetching => of(isFetching)),

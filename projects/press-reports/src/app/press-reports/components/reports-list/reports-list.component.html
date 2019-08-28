@@ -1,0 +1,79 @@
+<div class="container-fluid">
+  <!-- Start: Элементы управления -->
+  <div class="row">
+    <div class="col-12"></div>
+  </div>
+  <!-- End: Элементы управления -->
+
+  <!-- Start: Отчеты о публикациях в СМИ-->
+  <div class="row justify-content-between">
+    <div class="col-auto">
+      <app-report-dates [date]="selectedDate$ | async" (select)="onSelectDate($event)"></app-report-dates>
+    </div>
+
+
+    <div class="col-10">
+
+      <div class="no-reports-placeholder" *ngIf="(reports$ | async).length === 0 && !(fetchingInProgress$ | async)">
+        Отчет за {{selectedDate| date:'dd MMMM'}} отсутствует<br>
+        <button class="mt-3"
+                mat-stroked-button
+                color="primary"
+                matTooltip="Добавить отчет"
+                matTooltipPosition="above"
+                *ngIf="reports.length === 0"
+                (click)="openAddReportDialog()">
+          <mat-icon>add</mat-icon> Добавить отчет
+        </button>
+      </div>
+
+      <table class="reports" *ngIf="(reports$ | async).length != 0 && !(fetchingInProgress$ | async)">
+        <thead>
+        <tr class="p-3">
+          <th>Филиал</th>
+          <th>Всего публикаций</th>
+          <th>Негативных публикаций</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="p-3" *ngFor="let company of companies$ | async">
+          <td class="report-company">
+            <div>
+              <span class="primary">{{company.shortTitle}}</span>
+              <span class="secondary">{{company.title}}</span>
+            </div>
+          </td>
+          <td class="report-total">
+            <span class="value" *ngIf="getReportByCompanyId(company.id) as report">{{report.publicationsTotal}}</span>
+          </td>
+          <td class="report-negative">
+            <span class="value" *ngIf="getReportByCompanyId(company.id) as report">{{report.publicationsNegative}}</span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-auto controls pl-3">
+      <button class="mb-2"
+              mat-stroked-button
+              color="primary"
+              matTooltip="Редактировать отчет"
+              matTooltipPosition="above"
+              [hidden]="!reports.length > 0"
+              (click)="openEditReportDialog()">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button mat-stroked-button
+              color="accent"
+              matTooltip="Удалить отчет"
+              matTooltipPosition="above"
+              *ngIf="reports.length > 0"
+              (click)="openDeleteReportDialog()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+  <!-- End: отчеты о публикациях в СМИ -->
+</div>

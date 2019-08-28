@@ -30,7 +30,7 @@
         class="p-3"
         mat-raised-button
         color="primary"
-        [disabled]="advertForm.invalid || !advert.content"
+        [disabled]="advertForm.invalid || !content"
         (click)="addAdvert()">
         Добавить объявление
       </button>
@@ -66,7 +66,7 @@
              <ckeditor
                [editor]="Editor"
                [config]="editorConfig"
-               [(ngModel)]="advert.content"
+               [(ngModel)]="content"
                (change)="newAdvertContentChanged($event)">
              </ckeditor>
             </div>
@@ -76,7 +76,7 @@
     </div>
 
     <div class="h-100" *ngSwitchCase="formWithSteps.steps[1]">
-      <div class="h-100 d-flex flex-column justify-content-start" *ngIf="advert.attachments.length === 0">
+      <div class="h-100 d-flex flex-column justify-content-start">
         <!--
         <span>Вложений нет</span><br>
         <button mat-stroked-button (click)="dialog.click()">
@@ -84,7 +84,11 @@
           <input type="file" name="" id="" style="visibility: hidden; width: 0px;" #dialog (change)="attachmentSelected($event)">
         </button>
         -->
-        <app-attachments-list [allowUpload]="true"></app-attachments-list>
+        <app-attachments-list
+          [attachments]="(advert$ | async).attachments"
+          [allowUpload]="true"
+          (select)="attachmentSelected($event)">
+        </app-attachments-list>
       </div>
     </div>
   </div>

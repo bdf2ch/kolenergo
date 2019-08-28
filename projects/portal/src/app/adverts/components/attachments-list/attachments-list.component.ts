@@ -21,18 +21,27 @@ export class AttachmentsListComponent implements OnInit, OnChanges {
   @Output() remove: EventEmitter<Attachment>;
   public attachmentsList: Attachment[];
 
-  constructor(private readonly store: Store<IApplicationState>) { }
+  constructor(private readonly store: Store<IApplicationState>) {
+    this.select = new EventEmitter<FileList>();
+    this.remove = new EventEmitter<Attachment>();
+  }
 
   ngOnInit() {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.hasOwnProperty('attachments') && changes.attachments.currentValue) {
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
+    if (changes.hasOwnProperty('attachments')) {
+      console.log(changes.attachments);
       this.attachmentsList = changes.attachments.currentValue;
+      console.log('attachments list', this.attachmentsList);
     }
   }
 
   onSelectFile(files: FileList) {
     console.log(files);
+    if (files && files.length > 0) {
+      this.select.emit(files);
+    }
   }
 
   onRemoveAttachment(attachment: Attachment) {}

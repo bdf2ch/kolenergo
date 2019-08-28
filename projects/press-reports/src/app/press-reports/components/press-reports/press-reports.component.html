@@ -1,0 +1,43 @@
+<mat-progress-bar mode="indeterminate" *ngIf="isFetchingInProgress$ | async"></mat-progress-bar>
+
+<header class="p-4">
+  <div class="container-fluid">
+    <div class="row justify-content-between">
+      <div class="col-auto app-caption">
+        Мониторинг публикаций в СМИ
+      </div>
+
+      <div class="d-flex flex-row align-content-between">
+        <div class="col-auto date-menu" style="overflow: visible;">
+          <mat-form-field style="width: 0px; height: 0px;">
+            <input matInput [matDatepicker]="dp3" placeholder="Input disabled" disabled [value]="selectedDate$ | async" [max]="currentDate$ | async" (dateChange)="dateChanged($event)">
+            <!--<mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>-->
+            <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+          </mat-form-field>
+          <button mat-button (click)="dp3.open()">
+            {{(selectedDate$ | async) | date: 'dd.MM.yyyy'}}
+            <mat-icon>arrow_drop_down</mat-icon>
+          </button>
+        </div>
+
+        <div class="col-auto user-menu">
+          <button mat-stroked-button [matMenuTriggerFor]="userMenu">
+            <span class="mr-2">{{user?.firstName + ' ' + user?.lastName}}</span>
+            <mat-icon>arrow_drop_down</mat-icon>
+          </button>
+          <mat-menu #userMenu="matMenu" [yPosition]="'below'" class="user-menu">
+            <button mat-menu-item (click)="signOut()" >
+              <mat-icon color="accent">exit_to_app</mat-icon>
+              Выйти  из приложения
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<main class="p-4">
+  <router-outlet></router-outlet>
+</main>

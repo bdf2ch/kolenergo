@@ -3,13 +3,25 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
-import { EMPTY } from 'rxjs';
+import {EMPTY, of} from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
 import { IServerResponse } from '@kolenergo/core';
-import {AddAdvert, AddAdvertSuccess, AdvertsActionTypes, EditAdvertSuccess, LoadAdvertsSuccess} from './adverts.actions';
-import { selectAdvertsOnPage, selectPage } from './adverts.selectors';
+import {
+  AdvertsAddAdvert,
+  AdvertsAddAdvertSuccess,
+  AdvertsActionTypes,
+  AdvertsEditAdvertSuccess,
+  AdvertsLoadAdvertsSuccess,
+  AdvertsUploadAttachmentToAdvert,
+  AdvertsUploadAttachmentToAdvertSuccess,
+  AdvertsUploadAttachmentToNewAdvert,
+  AdvertsUploadAttachmentToNewAdvertSuccess,
+  AdvertsLoadAdvertsNextPageSuccess,
+  AdvertsSearchAdverts, AdvertsSearchAdvertsSuccess, AdvertsLoadAdverts
+} from './adverts.actions';
+import {selectAdvertsOnPage, selectNewAdvert, selectPage, selectTotalPages} from './adverts.selectors';
 import { IAdvert } from '../interfaces';
 import { AdvertsService } from '../services/adverts.service';
 import { IApplicationState } from '../../ngrx/application.state';
@@ -25,7 +37,7 @@ export class AdvertsEffects {
 
   @Effect()
   loadAdverts$ = this.actions$.pipe(
-    ofType(AdvertsActionTypes.LOAD_ADVERTS),
+    ofType(AdvertsActionTypes.ADVERTS_LOAD_ADVERTS),
     withLatestFrom(
       this.store.pipe(select(selectPage)),
       this.store.pipe(select(selectAdvertsOnPage))
@@ -33,16 +45,37 @@ export class AdvertsEffects {
     switchMap(([action, page, advertsOnPage]) => this.adverts.getAdvertsPage(page, advertsOnPage)
       .pipe(
         map((response: IServerResponse<IAdvert[]>) => {
-          return new LoadAdvertsSuccess(response);
+          return new AdvertsLoadAdvertsSuccess(response);
         })
       )
     )
   );
 
   @Effect()
+  loadAdvertsNextPage$ = this.actions$.pipe(
+    ofType(AdvertsActionTypes.ADVERTS_LOAD_ADVERTS_NEXT_PAGE),
+    withLatestFrom(
+      this.store.pipe(select(selectPage)),
+      this.store.pipe(select(selectTotalPages)),
+      this.store.pipe(select(selectAdvertsOnPage))
+    ),
+    switchMap(([action, page, totalPages, advertsOnPage]) => {
+      if (page < totalPages) {
+        return this.adverts.getAdvertsPage(page + 1, advertsOnPage).pipe(
+          map((response: IServerResponse<IAdvert[]>) => {
+            return new AdvertsLoadAdvertsNextPageSuccess(response);
+          })
+        );
+      } else {
+        return EMPTY;
+      }
+    })
+  );
+
+  @Effect()
   addAdvert$ = this.actions$.pipe(
-    ofType(AdvertsActionTypes.ADD_AVERT),
-    switchMap((action: AddAdvert) => this.adverts.addAdvert(action.payload)
+    ofType(AdvertsActionTypes.ADVERTS_ADD_AVERT),
+    switchMap((action: AdvertsAddAdvert) => this.adverts.addAdvert(action.payload)
       .pipe(
         map((response: IServerResponse<IAdvert>) => {
           this.snackBar.open('Объявление добавлено', 'Закрыть', {
@@ -50,7 +83,7 @@ export class AdvertsEffects {
             horizontalPosition: 'center',
             duration: 3000
           });
-          return new AddAdvertSuccess(response);
+          return new AdvertsAddAdvertSuccess(response);
         }),
         catchError((error: any) => {
           console.error('error occurred: ', error);
@@ -67,11 +100,11 @@ export class AdvertsEffects {
 
   @Effect()
   editAdvert$ = this.actions$.pipe(
-    ofType(AdvertsActionTypes.EDIT_ADVERT),
-    switchMap((action: AddAdvert) => this.adverts.editAdvert(action.payload)
+    ofType(AdvertsActionTypes.ADVERTS_EDIT_ADVERT),
+    switchMap((action: AdvertsAddAdvert) => this.adverts.editAdvert(action.payload)
       .pipe(
         map((response: IServerResponse<IAdvert>) => {
-          return new EditAdvertSuccess(response);
+          return new AdvertsEditAdvertSuccess(response);
         }),
         catchError((error: any) => {
           console.error('error occurred: ', error);
@@ -83,5 +116,78 @@ export class AdvertsEffects {
           return EMPTY;
         })
       ))
+  );
+
+  @Effect()
+  searchAdverts$ = this.actions$.pipe(
+    ofType(AdvertsActionTypes.ADVERTS_SEARCH_ADVERTS),
+    switchMap((action: AdvertsSearchAdverts) => this.adverts.searchAdverts(action.payload)
+      .pipe(
+        map((response: IServerResponse<IAdvert[]>) => {
+          return new AdvertsSearchAdvertsSuccess(response);
+        },
+          catchError((error: any) => {
+            console.error('error occurred: ', error);
+            this.snackBar.open('При поиске объявлений произошла ошибка', 'Закрыть', {
+              verticalPosition: 'bottom',
+              horizontalPosition: 'center',
+              duration: 3000
+            });
+            return EMPTY;
+          })
+      ))
+  ));
+
+  @Effect()
+  clearSearch$ = this.actions$.pipe(
+    ofType(AdvertsActionTypes.ADVERTS_CLEAR_SEARCH),
+    switchMap(() => {
+      return of(new AdvertsLoadAdverts());
+    })
+  );
+
+  @Effect()
+  uploadAttachmentToNewAdvert$ = this.actions$.pipe(
+    ofType(AdvertsActionTypes.ADVERTS_UPLOAD_ATTACHMENT_TO_NEW_ADVERT),
+    switchMap((action: AdvertsUploadAttachmentToNewAdvert) => this.adverts.uploadAttachment(action.payload[0])
+      .pipe(
+        map((response: IServerResponse<IAdvert>) => {
+          return new AdvertsUploadAttachmentToNewAdvertSuccess(response);
+        }),
+        catchError((error: any) => {
+          console.error('error occurred: ', error);
+          this.snackBar.open('При загрузке вложения произошла ошибка', 'Закрыть', {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
+          return EMPTY;
+        })
+      )
+    )
+  );
+
+  @Effect()
+  uploadAttachmentToAdvert$ = this.actions$.pipe(
+    ofType(AdvertsActionTypes.ADVERTS_UPLOAD_ATTACHMENT_TO_ADVERT),
+    withLatestFrom(
+      this.store.pipe(select(selectNewAdvert))
+    ),
+    switchMap(([action, advert]) => this.adverts.uploadAttachment((action as AdvertsUploadAttachmentToAdvert).payload[0], advert.id)
+      .pipe(
+        map((response: IServerResponse<IAdvert>) => {
+          return new AdvertsUploadAttachmentToAdvertSuccess(response);
+        }),
+        catchError((error: any) => {
+          console.error('error occurred: ', error);
+          this.snackBar.open('При загрузке вложения произошла ошибка', 'Закрыть', {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
+          return EMPTY;
+        })
+      )
+    )
   );
 }

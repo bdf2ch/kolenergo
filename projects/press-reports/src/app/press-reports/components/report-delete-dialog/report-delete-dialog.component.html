@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12" matDialogTitle>Удаление отчета</div>
+  </div>
+  <div class="row" matDialogContent>
+    <div class="col-12">
+      Удалить отчет о за {{(selectedDate$ | async) | date: 'dd MMMM'}}?
+    </div>
+  </div>
+  <div class="row" matDialogActions>
+    <div class="col-12 d-flex flex-row justify-content-center pt-3">
+      <div class="col-6">
+        <button class="w-100" mat-raised-button color="warn" (click)="deleteReports()">Удалить</button>
+      </div>
+      <div class="col-6">
+        <button class="w-100" mat-raised-button color="primary" mat-dialog-close>Отмена</button>
+      </div>
+    </div>
+  </div>
+</div>
