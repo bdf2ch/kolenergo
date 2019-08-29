@@ -4,4 +4,5 @@
 export interface IAuthenticationModuleConfig {
   apiUrl: string;
   pathPrefix: string;
+  appCode?: string;
 }

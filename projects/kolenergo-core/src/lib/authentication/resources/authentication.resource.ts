@@ -22,10 +22,13 @@ import { IServerResponse } from '../../interfaces/server-response.interface';
   withCredentials: true
 })
 export class AuthenticationResource extends Resource {
+  appCode: string;
+
   constructor(@Inject(AuthenticationConfigService) private readonly config: IAuthenticationModuleConfig,
               private handler: ResourceHandler) {
     super(handler);
     this.$setPathPrefix(this.config.apiUrl + this.config.pathPrefix);
+    this.appCode = this.config.appCode ? this.config.appCode : null;
   }
 
   @ResourceAction({
@@ -33,7 +36,7 @@ export class AuthenticationResource extends Resource {
     method: ResourceRequestMethod.Get,
     withCredentials: true,
   })
-  check: IResourceMethodStrict<{appCode: string | null}, void, void, IServerResponse<IUser>>;
+  check: IResourceMethodStrict<{appCode: string|null}, void, void, IServerResponse<IUser>>;
 
   @ResourceAction({
     path: '/login',

@@ -14,10 +14,9 @@ export class AuthenticationService {
 
   /**
    * Проверка текущей сессии
-   * @param appCode - Код приложения
    */
-  checkSession(appCode: string): Observable<IServerResponse<IUser>> {
-    return from(this.resource.check({appCode}, null, null))
+  checkSession(): Observable<IServerResponse<IUser>> {
+    return from(this.resource.check({appCode: this.resource.appCode ? this.resource.appCode: null}, null, null))
       .pipe(
         map((response: IServerResponse<IUser>) => response)
       );
@@ -28,10 +27,9 @@ export class AuthenticationService {
    * @param account - Учетная запись
    * @param password - Пароль
    * @param addIfNotExists - Создать нового пользователся при успешной авторизации
-   * @param appCode - Код приложения
    */
-  signIn(account: string, password: string, addIfNotExists?: boolean, appCode?: string): Observable<any> {
-    return from(this.resource.signIn({account, password, addIfNotExists, appCode}));
+  signIn(account: string, password: string, addIfNotExists?: boolean): Observable<any> {
+    return from(this.resource.signIn({account, password, addIfNotExists, appCode: this.resource.appCode ? this.resource.appCode : null}));
   }
 
   /**
