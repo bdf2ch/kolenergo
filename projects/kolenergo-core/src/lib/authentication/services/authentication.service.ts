@@ -16,7 +16,7 @@ export class AuthenticationService {
    * Проверка текущей сессии
    */
   checkSession(): Observable<IServerResponse<IUser>> {
-    return from(this.resource.check({appCode: this.resource.appCode ? this.resource.appCode: null}, null, null))
+    return from(this.resource.check({appCode: this.resource.appCode ? this.resource.appCode : null}, null, null))
       .pipe(
         map((response: IServerResponse<IUser>) => response)
       );

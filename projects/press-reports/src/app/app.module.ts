@@ -14,11 +14,11 @@ import { SessionGuard } from './guards/session-guard.service';
 import { ApplicationService } from './services/application.service';
 import { ApplicationEffects } from './ngrx/application.effects';
 import { ApplicationResource } from './resources/application.resource';
-import {registerLocaleData} from "@angular/common";
-import localeRu from "@angular/common/locales/ru";
-import localeRuExtra from "@angular/common/locales/extra/ru";
-import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS} from "@angular/material-moment-adapter";
-import {MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material";
+import {registerLocaleData} from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+import localeRuExtra from '@angular/common/locales/extra/ru';
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS} from '@angular/material-moment-adapter';
+import {MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
 
 export const MY_FORMATS = {
   parse: {
@@ -42,7 +42,8 @@ export const MY_FORMATS = {
     AppRoutingModule,
     AuthenticationModule.forRoot({
       apiUrl: 'http://10.50.0.153:3000',
-      pathPrefix: '/authentication'
+      pathPrefix: '/authentication',
+      appCode: 'PRESS_REPORTS_APP'
     }),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([ApplicationEffects]),

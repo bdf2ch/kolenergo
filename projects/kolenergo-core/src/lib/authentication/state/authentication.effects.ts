@@ -21,7 +21,7 @@ export class AuthenticationEffects {
   @Effect()
   checkSession$ = this.actions$.pipe(
     ofType(auth.actionTypes.AUTHENTICATION_CHECK),
-    mergeMap((action: AuthenticationCheck) => this.authentication.checkSession(action.payload).pipe(
+    mergeMap((action: AuthenticationCheck) => this.authentication.checkSession().pipe(
       map((result: IServerResponse<IUser>) => {
         if (result.data) {
           return new AuthenticationCheckSuccess(result.data);
