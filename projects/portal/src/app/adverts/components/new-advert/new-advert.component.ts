@@ -13,9 +13,16 @@ import { FormStepManager } from '../../../../../../event-sheduler/src/app/event-
 import { FormStep } from '../../../../../../event-sheduler/src/app/event-sheduler/models/form-step.model';
 import { Advert } from '../../models';
 import { IApplicationState } from '../../../ngrx';
-import { AddAdvert, EditAdvert, selectNewAdvert } from '../../ngrx';
+import {
+  AdvertsAddAdvert,
+  AdvertsEditAdvert,
+  selectNewAdvert,
+  AdvertsUploadAttachmentToAdvert,
+  AdvertsUploadAttachmentToNewAdvert
+} from '../../ngrx';
 import { AdvertImageUploadAdapter } from './image-upload-adapter.class';
 import { AdvertsService } from '../../services/adverts.service';
+import {Attachment} from "../../../portal/models";
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -32,6 +39,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class NewAdvertComponent implements OnInit {
   public advert$: Observable<Advert>;
   public advert: Advert;
+  // public attachments: Attachment[];
+  public content: string;
   public Editor = ClassicEditor;
   public formWithSteps: FormStepManager;
   public advertForm: FormGroup;
@@ -49,10 +58,11 @@ export class NewAdvertComponent implements OnInit {
               private readonly store: Store<IApplicationState>,
               private readonly dialog: MatDialogRef<NewAdvertComponent>,
               private readonly adverts: AdvertsService) {
-
     this.formWithSteps = new FormStepManager();
     this.formWithSteps.addStep(new FormStep('Содержание', 'Содержание объявления', 'info'));
     this.formWithSteps.addStep(new FormStep('Вложения', 'Прикрепленные файлы', 'attach_file'));
+    // this.attachments = [];
+    this.content = '';
   }
 
   ngOnInit() {
@@ -62,7 +72,9 @@ export class NewAdvertComponent implements OnInit {
       preview: new FormControl(null, Validators.required)
     });
     this.advert$.subscribe((advert: Advert) => {
+      console.log('advert', advert);
       this.advert = advert;
+      // this.attachments = new Array(...advert.attachments);
       this.advertForm.get('title').setValue(this.advert.title);
       this.advertForm.get('preview').setValue(this.advert.preview);
     });
@@ -70,8 +82,8 @@ export class NewAdvertComponent implements OnInit {
     this.advertForm.valueChanges.subscribe((value: any) => {
       this.advert.title = this.advertForm.get('title').value;
       this.advert.preview = this.advertForm.get('preview').value;
-      this.formWithSteps.steps[0].isValid = (this.advertForm.valid && this.advertForm.dirty) && this.advert.content ? true : false;
-      this.formWithSteps.steps[0].isInvalid = (this.advertForm.invalid && this.advertForm.dirty) || !this.advert.content ? true : false;
+      this.formWithSteps.steps[0].isValid = (this.advertForm.valid && this.advertForm.dirty) && this.content ? true : false;
+      this.formWithSteps.steps[0].isInvalid = (this.advertForm.invalid && this.advertForm.dirty) || !this.content ? true : false;
       console.log(value);
       console.log(this.advert);
     });
@@ -82,12 +94,16 @@ export class NewAdvertComponent implements OnInit {
    * @param value - Содержимое редактора
    */
   newAdvertContentChanged(value: any) {
-    this.formWithSteps.steps[0].isValid = this.advertForm.valid && this.advert.content ? true : false;
-    this.formWithSteps.steps[0].isInvalid = this.advertForm.invalid || !this.advert.content ? true : false;
+    this.formWithSteps.steps[0].isValid = this.advertForm.valid && this.content ? true : false;
+    this.formWithSteps.steps[0].isInvalid = this.advertForm.invalid || !this.content ? true : false;
   }
 
   attachmentSelected(files: FileList) {
-
+    if (this.advert.id) {
+      this.store.dispatch(new AdvertsUploadAttachmentToAdvert(files));
+    } else {
+      this.store.dispatch(new AdvertsUploadAttachmentToNewAdvert(files));
+    }
   }
 
   /**
@@ -95,12 +111,13 @@ export class NewAdvertComponent implements OnInit {
    */
   addAdvert() {
     console.log(this.advert);
+    this.advert.content = this.content;
     this.advert.user = new User();
     this.advert.user.id = 7;
     if (!this.advert.id) {
-      this.store.dispatch(new AddAdvert(this.advert));
+      this.store.dispatch(new AdvertsAddAdvert(this.advert));
     } else {
-      this.store.dispatch(new EditAdvert(this.advert));
+      this.store.dispatch(new AdvertsEditAdvert(this.advert));
     }
     this.dialog.close();
   }

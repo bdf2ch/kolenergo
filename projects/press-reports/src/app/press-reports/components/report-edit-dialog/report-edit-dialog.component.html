@@ -1,0 +1,48 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12" matDialogTitle>Отчет за {{(date$ | async) | date:'dd MMMM'}}</div>
+  </div>
+  <div class="row">
+    <div class="col-12" matDialogContent>
+      <div class="container-fluid" [formGroup]="reportForm">
+        <div class="row report" *ngFor="let report of reports">
+          <div class="col-6 company">
+            <span class="primary">{{report.company.shortTitle}}</span>
+            <span class="secondary">{{report.company.title}}</span>
+          </div>
+          <div class="col-3 total" [formGroup]="reportForm.get('company' + report.company.id.toString())">
+            <mat-form-field appearance="fill">
+              <mat-label>Всего публикаций</mat-label>
+              <input matInput
+                     type="number"
+                     min="0"
+                     step="1"
+                     formControlName="total"
+                     placeholder="Всего публикакций">
+              <mat-error *ngIf="reportForm.get('company' + report.company.id.toString()).get('total').invalid">Введите значение</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-3 negative" [formGroup]="reportForm.get('company' + report.company.id.toString())">
+            <mat-form-field class="w-100" appearance="fill">
+              <mat-label>Негативных публикаций</mat-label>
+              <input matInput
+                     type="number"
+                     min="0"
+                     [max]="reportForm.get('company' + report.company.id.toString()).get('total').value"
+                     step="1"
+                     formControlName="negative"
+                     placeholder="Негативных публикакций">
+              <mat-error *ngIf="reportForm.get('company' + report.company.id.toString()).get('negative').invalid">Введите значение</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 d-flex flex-row justify-content-end align-items-center" matDialogActions>
+      <button mat-raised-button color="primary" [disabled]="reportForm.pristine || reportForm.invalid" (click)="editReport()">Сохранить</button>
+      <button mat-raised-button color="warn" matDialogClose>Отмена</button>
+    </div>
+  </div>
+</div>

@@ -19,9 +19,10 @@ import { AdvertsService } from './services/adverts.service';
 import { AdvertsEffects, reducer } from './ngrx';
 import { environment } from '../../environments/environment';
 import { AttachmentsListComponent } from './components/attachments-list/attachments-list.component';
+import { AdvertsSearchComponent } from './components/adverts-search/adverts-search.component';
 
 @NgModule({
-  declarations: [AdvertsComponent, AdvertsListComponent, NewAdvertComponent, AdvertDetailsComponent, AttachmentsListComponent],
+  declarations: [AdvertsComponent, AdvertsListComponent, NewAdvertComponent, AdvertDetailsComponent, AttachmentsListComponent, AdvertsSearchComponent],
   imports: [
     CommonModule,
     FormsModule,

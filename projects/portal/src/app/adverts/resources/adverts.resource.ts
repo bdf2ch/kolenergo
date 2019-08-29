@@ -32,7 +32,7 @@ export class AdvertsResource extends Resource {
     method: ResourceRequestMethod.Get,
     withCredentials: true
   })
-  getAdvertsPage: IResourceMethod<{page: number, advertsOnPage: number}, IServerResponse<IAdvert[]>>;
+  getAdverts: IResourceMethodStrict<void, {page?: number, advertsOnPage?: number, search?: string}, void, IServerResponse<IAdvert[]>>;
 
   @ResourceAction({
     path: '/adverts',
@@ -67,14 +67,14 @@ export class AdvertsResource extends Resource {
     method: ResourceRequestMethod.Post,
     withCredentials: true
   })
-  uploadAttachmentToNewAdvert: IResourceMethodStrict<FormData, {userId: number}, void, IServerResponse<{attachment: IAttachment, advert: IAdvert}>>;
+  uploadAttachmentToNewAdvert: IResourceMethodStrict<FormData, {userId: number}, void, IServerResponse<IAdvert>>;
 
   @ResourceAction({
     path: '/adverts/{!id}/attachment',
     method: ResourceRequestMethod.Post,
     withCredentials: true
   })
-  uploadAttachmentToAdvert: IResourceMethodStrict<FormData, void, {id: number}, IServerResponse<IAttachment>>;
+  uploadAttachmentToAdvert: IResourceMethodStrict<FormData, {userId: number}, {id: number}, IServerResponse<IAdvert>>;
 
   /*
   @ResourceAction({

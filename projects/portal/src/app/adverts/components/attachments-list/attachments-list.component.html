@@ -4,19 +4,19 @@
   <div class="caption" *ngIf="caption">{{caption}}</div>
   <!-- End: Заголовок блока -->
 
-  <div class="attachment">
+  <div class="attachment" *ngFor="let attachment of attachmentsList">
     <div class="file-type-icon">
       <mat-icon>attach_file</mat-icon>
-      <span class="extension">PDF</span>
+      <span class="extension">{{attachment.extension}}</span>
     </div>
     <div class="details">
       <div class="file-name">
-        <a href="">Выпуск журнала "Бездна анального угнетения" за май 2019.pdf</a>
+        <a href="{{attachment.url}}">{{attachment.fileName}}</a>
       </div>
-      <div class="properties">225 Кб</div>
+      <div class="properties">{{attachment.size}}</div>
     </div>
     <div class="controls">
-      <a href="#"
+      <a href="{{attachment.url}}"
          class="control small"
          matTooltip="Скачать файл"
          matTooltipPosition="above">
@@ -31,51 +31,11 @@
       </button>
     </div>
   </div>
-  <div class="attachment">
-    <div class="file-type-icon">
-      <mat-icon>attach_file</mat-icon>
-      <span class="extension">PDF</span>
-    </div>
-    <div class="details">
-      <div class="file-name">
-        <a href="">Выпуск журнала "Бездна анального угнетения" за май 2019.pdf</a>
-      </div>
-      <div class="properties">225 Кб</div>
-    </div>
-    <div class="controls">
-      <a href="#" class="control small" matTooltip="Скачать файл" matTooltipPosition="above">
-        <mat-icon>arrow_downward</mat-icon>
-      </a>
-      <button class="control small" matTooltip="Удалить файл" matTooltipPosition="above">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </div>
-  </div>
-  <div class="attachment">
-    <div class="file-type-icon">
-      <mat-icon>attach_file</mat-icon>
-      <span class="extension">PDF</span>
-    </div>
-    <div class="details">
-      <div class="file-name">
-        <a href="">Выпуск журнала "Бездна анального угнетения" за май 2019.pdf</a>
-      </div>
-      <div class="properties">225 Кб</div>
-    </div>
-    <div class="controls">
-      <a href="#" class="control small" matTooltip="Скачать файл" matTooltipPosition="above">
-        <mat-icon>arrow_downward</mat-icon>
-      </a>
-      <button class="control small" matTooltip="Удалить файл" matTooltipPosition="above">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </div>
-  </div>
 
 
   <!-- Start: Элементы управления списка вложений -->
   <div class="list-controls" *ngIf="allowUpload">
-    <button class="control" (click)="dialog.click()" [disabled]="removingInProgress || uploadingInProgress">
+    <button class="kol-button" (click)="dialog.click()" [disabled]="removingInProgress || uploadingInProgress">
       <mat-icon *ngIf="!uploadingInProgress && !removingInProgress">cloud_upload</mat-icon>
       <mat-progress-spinner *ngIf="uploadingInProgress" diameter="20" mode="indeterminate"></mat-progress-spinner>
       <span>Загрузить файл</span>

@@ -1,0 +1,21 @@
+<div class="report-dates">
+  <div class="date-control"
+       [ngClass]="{'disabled': periodStart?.getTime() >= currentDate?.getTime()}"
+       (click)="nextWeek()"
+       matTooltip="{{periodStart?.getTime() < currentDate?.getTime() ? 'Следующая неделя' : null}}"
+       matTooltipPosition="above">
+    <mat-icon>keyboard_arrow_up</mat-icon>
+  </div>
+
+  <div class="day" [ngClass]="{'selected': day.getTime() === selectedDate?.getTime()}" *ngFor="let day of days; let i = index" (click)="selectDate(day)">
+    <span class="mday">{{day | date:'dd'}}</span>
+    <span class="month">{{day | date: 'MMMM'}}</span>
+  </div>
+
+  <div class="date-control"
+       (click)="previousWeek()"
+       matTooltip="Предыдущая неделя"
+       matTooltipPosition="below">
+    <mat-icon>keyboard_arrow_down</mat-icon>
+  </div>
+</div>

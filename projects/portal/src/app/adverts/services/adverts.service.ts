@@ -24,7 +24,7 @@ export class AdvertsService {
    * @param itemsOnPage - Количество объявлений на старнице
    */
   getAdvertsPage(page: number, advertsOnPage: number): Observable<IServerResponse<IAdvert[]>> {
-    return from(this.resource.getAdvertsPage({page, advertsOnPage})).pipe(
+    return from(this.resource.getAdverts(null, {page, advertsOnPage}, null)).pipe(
       map((response: IServerResponse<IAdvert[]>) => response)
     );
   }
@@ -51,6 +51,16 @@ export class AdvertsService {
     );
   }
 
+  /**
+   * Поиск объявлений
+   * @param query - Условие поиска
+   */
+  searchAdverts(query: string): Observable<IServerResponse<IAdvert[]>> {
+    return from(this.resource.getAdverts(null, {search: query}, null)).pipe(
+      map((response: IServerResponse<IAdvert[]>) => response)
+    );
+  }
+
   uploadImage(image: File, advertId?: number): Promise<IServerResponse<{url: string, advert: IAdvert}|string>> {
     const data = new FormData();
     data.append('image', image);
@@ -61,13 +71,17 @@ export class AdvertsService {
     }
   }
 
-  uploadAttachment(file: File, advertId?: number): Promise<IServerResponse<{attachment: IAttachment, advert: IAdvert}|IAttachment>> {
+  uploadAttachment(file: File, advertId?: number): Observable<IServerResponse<IAdvert>> {
     const data = new FormData();
     data.append('file', file);
-    if (advertId) {
-      return this.resource.uploadAttachmentToAdvert(data, null, {id: advertId});
-    } else {
-      return this.resource.uploadAttachmentToNewAdvert(data, {userId: 7});
-    }
+    return advertId ?
+      from(this.resource.uploadAttachmentToAdvert(data, {userId: 7}, {id: advertId}))
+        .pipe(
+          map((response: IServerResponse<IAdvert>) => response)
+        )
+      : from(this.resource.uploadAttachmentToNewAdvert(data, {userId: 7}))
+        .pipe(
+          map((response: IServerResponse<IAdvert>) => response)
+        );
   }
 }
