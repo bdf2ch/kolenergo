@@ -2,6 +2,7 @@ import { IAdvert } from '../interfaces';
 import { IUser, User } from '@kolenergo/core';
 import { Attachment } from '../../portal/models';
 import { IAttachment } from '../../portal/interfaces';
+import { environment } from '../../../environments/environment';
 
 /**
  * Класс, реализующий интерфейс объявления
@@ -11,6 +12,7 @@ export class Advert implements IAdvert {
   title: string;                // Заголовок
   preview: string;              // Краткое содержание
   content: string;              // Содержание
+  image: string;                // URL изображения объявления
   user: IUser;                  // Пользователь, разместивший объявление
   attachments: Attachment[];    // Вложения
   dateCreated: number;          // Дата публикайии в формате Unix
@@ -27,6 +29,7 @@ export class Advert implements IAdvert {
     this.title = config ? config.title : null;
     this.preview = config && config.preview ? config.preview : null;
     this.content = config ? config.content : null;
+    this.image = config && config.image ? `${environment.staticUrl}/${config.image.replace(/\\/g, '/')}` : null;
     this.user = config ? new User(config.user) : null;
     this.attachments = [];
     this.dateCreated = config ? config.dateCreated : null;

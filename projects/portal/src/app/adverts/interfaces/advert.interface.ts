@@ -9,6 +9,7 @@ export interface IAdvert {
   user: IUser;                  // Пользователь, разместивший объявление
   title: string;                // Заголовок
   preview: string;              // Краткое содержание
+  image: string;                // URL изображения объявления
   content: string;              // Содержание
   dateCreated: number;          // Дата публикации в формате Unix
   dateChanged: number;          // Дата изменения в формате Unix

@@ -21,7 +21,7 @@
 
 <div class="row mt-2 mt-md-5">
   <div class="col-6 col-md-4 col-lg-4 col-xl-3" *ngFor="let advert of adverts$ | async">
-    <div class="advert" [routerLink]="['/adverts', advert.id]">
+    <div class="advert" [routerLink]="['/adverts', advert.id]" [ngStyle]="{'background': advert.image ? 'url(' + advert.image + ')' : ''}">
       <div class="advert-date">
         {{ advert.dateCreatedD | date: 'dd MMMM' }}
         <div class="d-flex flex-row justify-content-center" *ngIf="advert.attachments.length > 0">
@@ -32,6 +32,13 @@
       <div class="advert-caption">{{advert.title}}</div>
       <div class="advert-preview">{{advert.preview}}</div>
     </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="no-adverts-placeholder col-12"
+       *ngIf="!(searchingInProgress$ | async) && (adverts$ | async).length === 0 && !(searchQuery$ | async)">
+    Объявления отсутствуют
   </div>
 </div>
 

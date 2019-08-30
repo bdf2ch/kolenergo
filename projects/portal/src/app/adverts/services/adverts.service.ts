@@ -61,13 +61,13 @@ export class AdvertsService {
     );
   }
 
-  uploadImage(image: File, advertId?: number): Promise<IServerResponse<{url: string, advert: IAdvert}|string>> {
+  uploadImage(image: File, advertId: number, header: boolean): Promise<IServerResponse<{url: string, advert: IAdvert}|string>> {
     const data = new FormData();
     data.append('image', image);
-    if (advertId) {
-      return this.resource.uploadImageToAdvert(data, null, {id: advertId});
+    if (advertId && advertId !== 0) {
+      return this.resource.uploadImageToAdvert(data, {header}, {id: advertId});
     } else {
-      return this.resource.uploadImageToNewAdvert(data);
+      return this.resource.uploadImageToNewAdvert(data, {header}, null);
     }
   }
 

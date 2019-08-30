@@ -41,11 +41,10 @@
   <!-- Start: Область ввода параметров заявки -->
   <div class="request-steps-section" [ngSwitch]="formWithSteps.getSelectedStep()">
 
-    <div *ngSwitchCase="formWithSteps.steps[0]">
+    <div class="d-flex flex-column h-100" *ngSwitchCase="formWithSteps.steps[0]">
       <div class="row pl-2 pr-2">
         <div class="col-12">
           <form [formGroup]="advertForm">
-
             <mat-form-field appearance="fill" class="w-100 mt-2">
               <mat-label>Заголовок объявления</mat-label>
               <input matInput placeholder="Введите заголовок объявления" [errorStateMatcher]="matcher" formControlName="title" required>
@@ -60,22 +59,38 @@
               <mat-error *ngIf="advertForm.get('preview').invalid">Вы не указали краткое содержание объявления</mat-error>
             </mat-form-field>
           </form>
+        </div>
+      </div>
 
-          <div class="row mt-4">
-            <div class="col-12">
-             <ckeditor
-               [editor]="Editor"
-               [config]="editorConfig"
-               [(ngModel)]="content"
-               (change)="newAdvertContentChanged($event)">
-             </ckeditor>
-            </div>
-          </div>
+      <div class="row mt-4 pl-2 pr-2 d-flex" style="flex: 1;">
+        <div class="col-8">
+          <div class="advert-image" [ngStyle]="{'background': advert.image ? 'url(' + advert.image + ')' : 'url(assets/no-image.jpg)'}"></div>
+        </div>
+        <div class="col-4">
+          <button class="kol-button" [disabled]="uploadingImageInProgress$ | async" (click)="dialog.click()">
+            <mat-icon *ngIf="!(uploadingImageInProgress$ | async)">cloud_upload</mat-icon>
+            <mat-progress-spinner *ngIf="uploadingImageInProgress$ | async" diameter="20" mode="indeterminate"></mat-progress-spinner>
+            <span>Загрузить</span>
+            <input type="file" #dialog (change)="imageSelected($event.target.files)">
+          </button>
         </div>
       </div>
     </div>
 
     <div class="h-100" *ngSwitchCase="formWithSteps.steps[1]">
+      <div class="row h-100">
+        <div class="col-12 h-100">
+          <ckeditor
+            [editor]="Editor"
+            [config]="editorConfig"
+            [(ngModel)]="content"
+            (change)="newAdvertContentChanged($event)">
+          </ckeditor>
+        </div>
+      </div>
+    </div>
+
+    <div class="h-100" *ngSwitchCase="formWithSteps.steps[2]">
       <div class="h-100 d-flex flex-column justify-content-start">
         <!--
         <span>Вложений нет</span><br>

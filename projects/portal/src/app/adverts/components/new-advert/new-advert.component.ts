@@ -18,11 +18,11 @@ import {
   AdvertsEditAdvert,
   selectNewAdvert,
   AdvertsUploadAttachmentToAdvert,
-  AdvertsUploadAttachmentToNewAdvert
+  AdvertsUploadAttachmentToNewAdvert, AdvertsUploadImageToNewAdvert, AdvertsUploadImageToAdvert, selectUploadingImageInProgress
 } from '../../ngrx';
 import { AdvertImageUploadAdapter } from './image-upload-adapter.class';
 import { AdvertsService } from '../../services/adverts.service';
-import {Attachment} from "../../../portal/models";
+import { environment } from '../../../../environments/environment';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -38,6 +38,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class NewAdvertComponent implements OnInit {
   public advert$: Observable<Advert>;
+  public uploadingImageInProgress$: Observable<boolean>;
   public advert: Advert;
   // public attachments: Attachment[];
   public content: string;
@@ -53,13 +54,15 @@ export class NewAdvertComponent implements OnInit {
       };
     }]
   };
+  public env = environment;
 
   constructor(private readonly builder: FormBuilder,
               private readonly store: Store<IApplicationState>,
               private readonly dialog: MatDialogRef<NewAdvertComponent>,
               private readonly adverts: AdvertsService) {
     this.formWithSteps = new FormStepManager();
-    this.formWithSteps.addStep(new FormStep('Содержание', 'Содержание объявления', 'info'));
+    this.formWithSteps.addStep(new FormStep('Атрибуты', 'Заголовок и прочее', 'info'));
+    this.formWithSteps.addStep(new FormStep('Содержание', 'Содержание объявления', 'notes'));
     this.formWithSteps.addStep(new FormStep('Вложения', 'Прикрепленные файлы', 'attach_file'));
     // this.attachments = [];
     this.content = '';
@@ -67,6 +70,7 @@ export class NewAdvertComponent implements OnInit {
 
   ngOnInit() {
     this.advert$ = this.store.pipe(select(selectNewAdvert));
+    this.uploadingImageInProgress$ = this.store.pipe(select(selectUploadingImageInProgress));
     this.advertForm = this.builder.group({
       title: new FormControl(null, Validators.required),
       preview: new FormControl(null, Validators.required)
@@ -82,8 +86,8 @@ export class NewAdvertComponent implements OnInit {
     this.advertForm.valueChanges.subscribe((value: any) => {
       this.advert.title = this.advertForm.get('title').value;
       this.advert.preview = this.advertForm.get('preview').value;
-      this.formWithSteps.steps[0].isValid = (this.advertForm.valid && this.advertForm.dirty) && this.content ? true : false;
-      this.formWithSteps.steps[0].isInvalid = (this.advertForm.invalid && this.advertForm.dirty) || !this.content ? true : false;
+      this.formWithSteps.steps[0].isValid = this.advertForm.valid && this.advertForm.dirty ? true : false;
+      this.formWithSteps.steps[0].isInvalid = this.advertForm.invalid && this.advertForm.dirty ? true : false;
       console.log(value);
       console.log(this.advert);
     });
@@ -94,8 +98,19 @@ export class NewAdvertComponent implements OnInit {
    * @param value - Содержимое редактора
    */
   newAdvertContentChanged(value: any) {
-    this.formWithSteps.steps[0].isValid = this.advertForm.valid && this.content ? true : false;
-    this.formWithSteps.steps[0].isInvalid = this.advertForm.invalid || !this.content ? true : false;
+    this.formWithSteps.steps[0].isValid = this.advertForm.valid;
+    this.formWithSteps.steps[0].isInvalid = this.advertForm.invalid;
+    this.formWithSteps.steps[1].isInvalid = !this.content;
+    this.formWithSteps.steps[1].isValid = this.content ? true : false;
+  }
+
+  imageSelected(files: FileList) {
+    console.log(files);
+    if (!this.advert.id) {
+      this.store.dispatch(new AdvertsUploadImageToNewAdvert({file: files[0], header: true}));
+    } else {
+      this.store.dispatch(new AdvertsUploadImageToAdvert({file: files[0], header: true}));
+    }
   }
 
   attachmentSelected(files: FileList) {
@@ -114,6 +129,9 @@ export class NewAdvertComponent implements OnInit {
     this.advert.content = this.content;
     this.advert.user = new User();
     this.advert.user.id = 7;
+    this.advert.image = this.advert.image ?
+      this.advert.image.indexOf('127.0.0.1') !== -1 ? this.advert.image.substring(22) : this.advert.image
+      : null;
     if (!this.advert.id) {
       this.store.dispatch(new AdvertsAddAdvert(this.advert));
     } else {

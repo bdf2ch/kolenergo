@@ -40,6 +40,13 @@ export const selectSearchingInProgress = createSelector(
   (state: IAdvertsState) => state.searchingInProgress
 );
 
+/**
+ * Селектор состояния загрузки изображения на сервер
+ */
+export const selectUploadingImageInProgress = createSelector(
+  adverts,
+  (state: IAdvertsState) => state.uploadingImageInProgress
+);
 
 /**
  * Селектор состояния загрузки вложения на сервер

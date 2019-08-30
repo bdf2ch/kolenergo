@@ -63,10 +63,17 @@ export function reducer(
         addingInProgress: false
       };
     }
+    case AdvertsActionTypes.ADVERTS_UPLOAD_IMAGE_TO_NEW_ADVERT: {
+      return  {
+        ...state,
+        uploadingImageInProgress: true
+      };
+    }
     case AdvertsActionTypes.ADVERTS_UPLOAD_IMAGE_TO_NEW_ADVERT_SUCCESS: {
       return {
         ...state,
-        newAdvert: new Advert(action.payload.data.advert)
+        newAdvert: new Advert(action.payload.data.advert),
+        uploadingImageInProgress: false
       };
     }
     case AdvertsActionTypes.ADVERTS_UPLOAD_ATTACHMENT_TO_NEW_ADVERT: {

@@ -80,6 +80,7 @@ export class AdvertsAddAdvertSuccess implements Action {
  */
 export class AdvertsUploadImageToNewAdvert implements Action {
   readonly type = AdvertsActionTypes.ADVERTS_UPLOAD_IMAGE_TO_NEW_ADVERT;
+  constructor(public payload: {file: File, header: boolean}) {}
 }
 
 /**
@@ -91,11 +92,12 @@ export class AdvertsUploadImageToNewAdvertSuccess implements Action {
 }
 
 export class AdvertsUploadImageToAdvert implements Action {
-  readonly type = AdvertsActionTypes.ADVERTS_UPLOAD_ATTACHMENT_TO_ADVERT;
+  readonly type = AdvertsActionTypes.ADVERTS_UPLOAD_IMAGE_TO_ADVERT;
+  constructor(public payload: {file: File, header: boolean}) {}
 }
 
 export class AdvertsUploadImageToAdvertSuccess implements Action {
-  readonly type = AdvertsActionTypes.ADVERTS_UPLOAD_ATTACHMENT_TO_ADVERT_SUCCESS;
+  readonly type = AdvertsActionTypes.ADVERTS_UPLOAD_IMAGE_TO_ADVERT_SUCCESS;
   constructor(public payload: IServerResponse<IAdvert>) {}
 }
 
@@ -179,6 +181,8 @@ export type advertsActions =
   AdvertsAddAdvertSuccess |
   AdvertsUploadImageToNewAdvert |
   AdvertsUploadImageToNewAdvertSuccess |
+  AdvertsUploadImageToAdvert |
+  AdvertsUploadAttachmentToAdvertSuccess |
   AdvertsUploadAttachmentToNewAdvert |
   AdvertsUploadAttachmentToNewAdvertSuccess |
   AdvertsUploadAttachmentToAdvert |

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import {
-  IResourceMethod, IResourceMethodStrict,
+  IResourceMethod,
+  IResourceMethodStrict,
   Resource,
   ResourceAction,
   ResourceHandler,
@@ -11,8 +12,7 @@ import {
 import { IServerResponse } from '@kolenergo/core';
 import { IAdvert } from '../interfaces';
 import { environment } from '../../../environments/environment';
-import {Advert} from '../models';
-import {IAttachment} from '../../portal/interfaces';
+import { Advert } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -50,28 +50,28 @@ export class AdvertsResource extends Resource {
 
   @ResourceAction({
     path: '/adverts/image',
-    method: ResourceRequestMethod.Post,
+    method: ResourceRequestMethod.Put,
     withCredentials: true
   })
-  uploadImageToNewAdvert: IResourceMethodStrict<FormData, void, void, IServerResponse<{url: string, advert: IAdvert}>>;
+  uploadImageToNewAdvert: IResourceMethodStrict<FormData, {header: boolean}, void, IServerResponse<{url: string, advert: IAdvert}>>;
 
   @ResourceAction({
     path: '/adverts/{!id}/image',
-    method: ResourceRequestMethod.Post,
+    method: ResourceRequestMethod.Put,
     withCredentials: true
   })
-  uploadImageToAdvert: IResourceMethodStrict<FormData, void, {id: number}, IServerResponse<string>>;
+  uploadImageToAdvert: IResourceMethodStrict<FormData, {header: boolean}, {id: number}, IServerResponse<string>>;
 
   @ResourceAction({
     path: '/adverts/attachment',
-    method: ResourceRequestMethod.Post,
+    method: ResourceRequestMethod.Put,
     withCredentials: true
   })
   uploadAttachmentToNewAdvert: IResourceMethodStrict<FormData, {userId: number}, void, IServerResponse<IAdvert>>;
 
   @ResourceAction({
     path: '/adverts/{!id}/attachment',
-    method: ResourceRequestMethod.Post,
+    method: ResourceRequestMethod.Put,
     withCredentials: true
   })
   uploadAttachmentToAdvert: IResourceMethodStrict<FormData, {userId: number}, {id: number}, IServerResponse<IAdvert>>;

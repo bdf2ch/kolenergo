@@ -30,15 +30,15 @@ export class AdvertImageUploadAdapter {
     return this.loader.file
       .then(file => new Promise((resolve, reject) => {
         if (this.newAdvert && this.newAdvert.id) {
-          this.adverts.uploadImage(file, this.newAdvert.id).then((result: IServerResponse<string>) => {
+          this.adverts.uploadImage(file, this.newAdvert.id, false).then((result: IServerResponse<string>) => {
             resolve({default: `${environment.staticUrl}\\${result.data}`});
           });
         } else if (this.newAdvert && !this.newAdvert.id) {
-          this.adverts.uploadImage(file).then((result: IServerResponse<{url: string, advert: IAdvert}>) => {
+          this.adverts.uploadImage(file, 0, false).then((result: IServerResponse<{url: string, advert: IAdvert}>) => {
             this.store.dispatch(new AdvertsUploadImageToNewAdvertSuccess(result));
             resolve({default: `${environment.staticUrl}\\${result.data.url}`});
           });
-          this.store.dispatch(new AdvertsUploadImageToNewAdvert());
+          this.store.dispatch(new AdvertsUploadImageToNewAdvert({file, header: false}));
         }
       }));
   }

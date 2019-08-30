@@ -15,6 +15,7 @@ export interface IAdvertsState {
   addingInProgress: boolean;                // Выполняется ли добавление объявления
   editingInProgress: boolean;               // Выполняется ли сохранение измененного объявления
   searchingInProgress: boolean;             // Выполняется ли поиск объявлений
+  uploadingImageInProgress: boolean;        // Выполняется ли загрузка изображений на сервер
   uploadingAttachmentInProgress: boolean;   // Выполняется ли загрузка вложения на сервер
 }
 
@@ -33,5 +34,6 @@ export const advertsInitialState: IAdvertsState = {
   addingInProgress: false,
   editingInProgress: false,
   searchingInProgress: false,
+  uploadingImageInProgress: false,
   uploadingAttachmentInProgress: false
 };

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
-import {EMPTY, of} from 'rxjs';
+import {EMPTY, from, of} from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
@@ -19,7 +19,7 @@ import {
   AdvertsUploadAttachmentToNewAdvert,
   AdvertsUploadAttachmentToNewAdvertSuccess,
   AdvertsLoadAdvertsNextPageSuccess,
-  AdvertsSearchAdverts, AdvertsSearchAdvertsSuccess, AdvertsLoadAdverts
+  AdvertsSearchAdverts, AdvertsSearchAdvertsSuccess, AdvertsLoadAdverts, AdvertsUploadImageToNewAdvertSuccess, AdvertsUploadImageToNewAdvert
 } from './adverts.actions';
 import {selectAdvertsOnPage, selectNewAdvert, selectPage, selectTotalPages} from './adverts.selectors';
 import { IAdvert } from '../interfaces';
@@ -144,6 +144,27 @@ export class AdvertsEffects {
     switchMap(() => {
       return of(new AdvertsLoadAdverts());
     })
+  );
+
+  @Effect()
+  uploadImageToNewAdvert$ = this.actions$.pipe(
+    ofType(AdvertsActionTypes.ADVERTS_UPLOAD_IMAGE_TO_NEW_ADVERT),
+    switchMap((action: AdvertsUploadImageToNewAdvert) => from(this.adverts.uploadImage(action.payload.file, 0, action.payload.header))
+      .pipe(
+        map((response: IServerResponse<{url: string, advert: IAdvert}>) => {
+          return new AdvertsUploadImageToNewAdvertSuccess(response);
+        }),
+        catchError((error: any) => {
+          console.error('error occurred: ', error);
+          this.snackBar.open('При загрузке изображения произошла ошибка', 'Закрыть', {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
+          return EMPTY;
+        })
+      )
+    )
   );
 
   @Effect()
