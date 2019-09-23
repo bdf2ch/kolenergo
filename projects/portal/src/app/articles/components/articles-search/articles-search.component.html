@@ -1,0 +1,9 @@
+<div class="search-bar w-100">
+  <div class="prefix">
+    <mat-icon>search</mat-icon>
+  </div>
+  <input #search matInput [(ngModel)]="query" (keyup)="queryChange(search.value)" type="text" placeholder="Поиск в статьях">
+  <div class="postfix" *ngIf="search.value.length > 0">
+    <mat-icon (click)="clearSearch()">close</mat-icon>
+  </div>
+</div>

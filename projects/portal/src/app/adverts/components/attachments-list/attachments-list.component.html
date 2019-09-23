@@ -4,6 +4,17 @@
   <div class="caption" *ngIf="caption">{{caption}}</div>
   <!-- End: Заголовок блока -->
 
+  <div class="no-attachments-placeholder" *ngIf="attachmentsList.length === 0">
+    <span>Вложения отсутствуют</span>
+
+    <button class="kol-button mt-3" (click)="dialog.click()" [disabled]="removingInProgress || uploadingInProgress">
+      <mat-icon *ngIf="!uploadingInProgress && !removingInProgress">cloud_upload</mat-icon>
+      <mat-progress-spinner *ngIf="uploadingInProgress" diameter="20" mode="indeterminate"></mat-progress-spinner>
+      <span>Загрузить файл</span>
+      <input type="file" #dialog (change)="onSelectFile($event.target.files)">
+    </button>
+  </div>
+
   <div class="attachment" *ngFor="let attachment of attachmentsList">
     <div class="file-type-icon">
       <mat-icon>attach_file</mat-icon>
@@ -26,7 +37,8 @@
         class="control small"
         *ngIf="allowDelete"
         matTooltip="Удалить файл"
-        matTooltipPosition="above">
+        matTooltipPosition="above"
+        (click)="onRemoveAttachment(attachment)">
         <mat-icon>delete</mat-icon>
       </button>
     </div>
@@ -34,7 +46,7 @@
 
 
   <!-- Start: Элементы управления списка вложений -->
-  <div class="list-controls" *ngIf="allowUpload">
+  <div class="list-controls" *ngIf="attachmentsList.length > 0 && allowUpload">
     <button class="kol-button" (click)="dialog.click()" [disabled]="removingInProgress || uploadingInProgress">
       <mat-icon *ngIf="!uploadingInProgress && !removingInProgress">cloud_upload</mat-icon>
       <mat-progress-spinner *ngIf="uploadingInProgress" diameter="20" mode="indeterminate"></mat-progress-spinner>

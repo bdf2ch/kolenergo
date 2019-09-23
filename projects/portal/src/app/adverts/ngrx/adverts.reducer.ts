@@ -3,6 +3,7 @@ import {advertsActions, AdvertsActionTypes} from './adverts.actions';
 import {IAdvert} from '../interfaces';
 import {Advert} from '../models';
 import {portalActions, PortalActionTypes} from '../../ngrx';
+import {Attachment} from '../../portal/models';
 
 export function reducer(
   state: IAdvertsState = advertsInitialState,
@@ -19,6 +20,7 @@ export function reducer(
     case AdvertsActionTypes.ADVERTS_LOAD_ADVERTS: {
       return  {
         ...state,
+        selectedAdvert: null,
         page: 0,
         searchQuery: null,
         fetchingInProgress: true
@@ -30,6 +32,20 @@ export function reducer(
         adverts: action.payload.data.map((item: IAdvert) => {
           return new Advert(item);
         }),
+        fetchingInProgress: false
+      };
+    }
+    case AdvertsActionTypes.ADVERTS_LOAD_ADVERT: {
+      return {
+        ...state,
+        selectedAdvert: null,
+        fetchingInProgress: true
+      };
+    }
+    case AdvertsActionTypes.ADVERTS_LOAD_ADVERT_SUCCESS: {
+      return {
+        ...state,
+        selectedAdvert: new Advert(action.payload.data),
         fetchingInProgress: false
       };
     }
@@ -76,6 +92,19 @@ export function reducer(
         uploadingImageInProgress: false
       };
     }
+    case AdvertsActionTypes.ADVERTS_UPLOAD_IMAGE_TO_ADVERT: {
+      return {
+        ...state,
+        uploadingImageInProgress: true
+      };
+    }
+    case AdvertsActionTypes.ADVERTS_UPLOAD_IMAGE_TO_ADVERT_SUCCESS: {
+      return {
+        ...state,
+        newAdvert: state.newAdvert.changeImage(action.payload.data),
+        uploadingImageInProgress: false
+      };
+    }
     case AdvertsActionTypes.ADVERTS_UPLOAD_ATTACHMENT_TO_NEW_ADVERT: {
       return {
         ...state,
@@ -102,6 +131,36 @@ export function reducer(
         uploadingAttachmentInProgress: false
       };
     }
+    case AdvertsActionTypes.ADVERTS_DELETE_ATTACHMENT: {
+      return {
+        ...state,
+        deletingAttachmentInProgress: true
+      };
+    }
+    case AdvertsActionTypes.ADVERTS_DELETE_ATTACHMENT_SUCCESS: {
+      return {
+        ...state,
+        selectedAdvert: state.selectedAdvert.changeAttachments(state.selectedAdvert.attachments.filter((item: Attachment) => {
+          return item.id !== action.payload.id ? true : false;
+        })),
+        deletingAttachmentInProgress: false
+      };
+    }
+    case AdvertsActionTypes.ADVERTS_DELETE_ATTACHMENT_FROM_NEW_ADVERT_SUCCESS : {
+      return {
+        ...state,
+        newAdvert: state.newAdvert.changeAttachments(state.newAdvert.attachments.filter((item: Attachment) => {
+          return item.id !== action.payload.id ? true : false;
+        })),
+        deletingAttachmentInProgress: false
+      };
+    }
+    case AdvertsActionTypes.ADVERTS_RESET_NEW_ADVERT: {
+      return {
+        ...state,
+        newAdvert: new Advert()
+      };
+    }
     case AdvertsActionTypes.ADVERTS_EDIT_ADVERT_SUCCESS: {
       return {
         ...state,
@@ -109,6 +168,21 @@ export function reducer(
           return item.id === action.payload.data.id ? new Advert(item) : item;
         }),
         newAdvert: new Advert()
+      };
+    }
+    case AdvertsActionTypes.ADVERTS_DELETE_ADVERT: {
+      return {
+        ...state,
+        deletingInProgress: true
+      };
+    }
+    case AdvertsActionTypes.ADVERTS_DELETE_ADVERT_SUCCESS: {
+      return {
+        ...state,
+        adverts: [...state.adverts.filter((advert: Advert) => {
+          return advert.id !== action.payload.id ? true : false;
+        })],
+        deletingInProgress: false
       };
     }
     case AdvertsActionTypes.ADVERTS_SEARCH_ADVERTS: {

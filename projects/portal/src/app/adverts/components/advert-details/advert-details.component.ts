@@ -1,4 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
+import { AdvertDeleteDialogComponent } from '../advert-delete-dialog/advert-delete-dialog.component';
+import { Advert } from '../../models';
+import { selectSelectedAdvert } from '../../ngrx';
+import { IApplicationState } from '../../../ngrx';
+import { AdvertEditDialogComponent } from '../advert-edit-dialog/advert-edit-dialog.component';
 
 @Component({
   selector: 'app-advert-details',
@@ -6,10 +16,34 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./advert-details.component.less']
 })
 export class AdvertDetailsComponent implements OnInit {
+  public selectedAdvert$: Observable<Advert>;
 
-  constructor() { }
+  constructor(private readonly store: Store<IApplicationState>,
+              private readonly dialog: MatDialog) {}
 
   ngOnInit() {
+    this.selectedAdvert$ = this.store.pipe(select(selectSelectedAdvert));
+  }
+
+  /**
+   * Открытие диалогового окна редактирования объявления
+   */
+  openEditAdvertDialog() {
+    this.dialog.open(AdvertEditDialogComponent, {
+      width: '900px',
+      minHeight: '650px',
+      panelClass: 'add-advert-dialog'
+    });
+  }
+
+  /**
+   * Открытие диалогового окна удалени объявления
+   */
+  openRemoveAdvertDialog() {
+    this.dialog.open(AdvertDeleteDialogComponent, {
+      id: 'advert-delete-dialog',
+      width: '350px'
+    });
   }
 
 }

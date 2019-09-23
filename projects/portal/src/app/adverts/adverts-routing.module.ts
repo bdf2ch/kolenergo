@@ -3,9 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AdvertsComponent } from './components/adverts/adverts.component';
 import { AdvertsListComponent } from './components/adverts-list/adverts-list.component';
-import { NewAdvertComponent } from './components/new-advert/new-advert.component';
 import { AdvertDetailsComponent } from './components/advert-details/advert-details.component';
 import { AdvertsResolveGuard } from './guards/adverts-resolve-guard.service';
+import { AdvertResolveGuard } from './guards/advert-resolve-guard.service';
 
 const routes: Routes = [{
   path: '',
@@ -17,12 +17,9 @@ const routes: Routes = [{
       resolve: [AdvertsResolveGuard]
     },
     {
-      path: 'new',
-      component: NewAdvertComponent
-    },
-    {
       path: ':id',
-      component: AdvertDetailsComponent
+      component: AdvertDetailsComponent,
+      resolve: [AdvertResolveGuard]
     },
   ]
 }];

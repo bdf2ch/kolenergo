@@ -5,7 +5,7 @@ import {Store} from '@ngrx/store';
 
 import {PortalService} from '../../services/portal.service';
 import {IApplicationState, LoadInitialData} from '../../../ngrx';
-import {NewAdvertComponent} from '../../../adverts/components/new-advert/new-advert.component';
+import {AdvertAddDialogComponent} from '../../../adverts/components/advert-add-dialog/advert-add-dialog.component';
 
 @Component({
   selector: 'app-portal',
@@ -24,7 +24,7 @@ export class PortalComponent implements OnInit {
   }
 
   openAddAdvertDialog() {
-    this.dialog.open(NewAdvertComponent, {
+    this.dialog.open(AdvertAddDialogComponent, {
       height: '700px'
     });
   }

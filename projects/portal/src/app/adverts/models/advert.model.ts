@@ -43,4 +43,42 @@ export class Advert implements IAdvert {
       });
     }
   }
+
+  /**
+   * Инициализация модели из другой модели
+   * @param advert - Исходная модель
+   */
+  fromAnother(advert: Advert): Advert {
+    const result = new Advert();
+    result.id = advert.id;
+    result.title = advert.title;
+    result.preview = advert.preview;
+    result.content = advert.content;
+    result.image = `${environment.staticUrl}/${advert.image.replace(/\\/g, '/')}`;
+    result.user = advert.user;
+    result.dateCreated = advert.dateCreated;
+    result.dateCreatedD = advert.dateCreatedD;
+    result.dateChanged = advert.dateChanged;
+    result.dateChangedD = advert.dateChangedD;
+    result.attachments = [...advert.attachments];
+    return result;
+  }
+
+  /**
+   * Модель с новым изображением
+   * @param url - URL изображения
+   */
+  changeImage(url: string): Advert {
+    this.image = url;
+    return this.fromAnother(this);
+  }
+
+  /**
+   * Модель с новыми вложениями
+   * @param attachments - Вложения
+   */
+  changeAttachments(attachments: Attachment[]): Advert {
+    this.attachments = [...attachments];
+    return this.fromAnother(this);
+  }
 }

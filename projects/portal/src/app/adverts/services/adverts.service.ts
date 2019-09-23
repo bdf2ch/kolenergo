@@ -30,6 +30,16 @@ export class AdvertsService {
   }
 
   /**
+   * Загрузка объявления с сервера
+   * @param advertId - Идентификатор объявления
+   */
+  getAdvert(advertId: number): Observable<IServerResponse<IAdvert>> {
+    return from(this.resource.getAdvert(null, null, {id: advertId})).pipe(
+      map((response: IServerResponse<IAdvert>) => response)
+    );
+  }
+
+  /**
    * Добавление объявления
    * @param advert - Добавляемое объявление
    */
@@ -52,6 +62,17 @@ export class AdvertsService {
   }
 
   /**
+   * Удаление объявления
+   * @param advert - Удаляемое объявление
+   */
+  removeAdvert(advert: Advert): Observable<IServerResponse<boolean>> {
+    return from(this.resource.deleteAdvert(null, null, {id: advert.id}))
+      .pipe(
+        map((response: IServerResponse<boolean>) => response)
+      );
+  }
+
+  /**
    * Поиск объявлений
    * @param query - Условие поиска
    */
@@ -61,6 +82,12 @@ export class AdvertsService {
     );
   }
 
+  /**
+   * Загрузка изображения на сервер
+   * @param image - Загружаемое изображение
+   * @param advertId - Идентификатор объявления
+   * @param header - Загружается ли изображение в тело объявления либо в шапку
+   */
   uploadImage(image: File, advertId: number, header: boolean): Promise<IServerResponse<{url: string, advert: IAdvert}|string>> {
     const data = new FormData();
     data.append('image', image);
@@ -71,6 +98,11 @@ export class AdvertsService {
     }
   }
 
+  /**
+   * Загрузка вложения на сервер
+   * @param file - Загружаемое вложение
+   * @param advertId - Идентфиикатор объявления
+   */
   uploadAttachment(file: File, advertId?: number): Observable<IServerResponse<IAdvert>> {
     const data = new FormData();
     data.append('file', file);
@@ -83,5 +115,16 @@ export class AdvertsService {
         .pipe(
           map((response: IServerResponse<IAdvert>) => response)
         );
+  }
+
+  /**
+   * Удаление вложения
+   * @param attachmentId - Идентификатор удаляемого вложения
+   */
+  removeAttachment(attachmentId: number): Observable<IServerResponse<boolean>> {
+    return from(this.resource.removeAttachment(null, null, {id: attachmentId}))
+      .pipe(
+        map((response: IServerResponse<boolean>) => response)
+      );
   }
 }

@@ -8,7 +8,8 @@ import { IApplicationState } from '../../../ngrx';
 @Component({
   selector: 'app-attachments-list',
   templateUrl: './attachments-list.component.html',
-  styleUrls: ['./attachments-list.component.less']
+  styleUrls: ['./attachments-list.component.less'],
+  styles: [':host { display: flex; flex-direction: column; flex: 1; }']
 })
 export class AttachmentsListComponent implements OnInit, OnChanges {
   @Input() attachments: Attachment[];
@@ -37,6 +38,10 @@ export class AttachmentsListComponent implements OnInit, OnChanges {
     }
   }
 
+  /**
+   * Выбор файла для загрузки
+   * @param files - Список файлов
+   */
   onSelectFile(files: FileList) {
     console.log(files);
     if (files && files.length > 0) {
@@ -44,6 +49,12 @@ export class AttachmentsListComponent implements OnInit, OnChanges {
     }
   }
 
-  onRemoveAttachment(attachment: Attachment) {}
+  /**
+   * Удаление вложения
+   * @param attachment - Удаляемое вложение
+   */
+  onRemoveAttachment(attachment: Attachment) {
+    this.remove.emit(attachment);
+  }
 
 }

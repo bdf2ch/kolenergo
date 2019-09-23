@@ -16,6 +16,10 @@ const routes: Routes = [
       {
         path: 'adverts',
         loadChildren: '../adverts/adverts.module#AdvertsModule'
+      },
+      {
+        path: 'articles',
+        loadChildren: './articles/articles.module#ArticlesModule'
       }
     ]
   }

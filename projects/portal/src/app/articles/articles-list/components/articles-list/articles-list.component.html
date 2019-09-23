@@ -1,0 +1,20 @@
+<div class="row mt-md-3 align-items-start">
+  <div class="col-12 col-md-auto col-lg-3 justify-content-s">
+    <div class="section-caption">
+      <a routerLink="/">Главная</a>
+      <span class="ml-2 mr-2">/</span>
+      <span>Объявления</span>
+    </div>
+  </div>
+
+  <div class="col-12 col-md-6 d-flex flex-row justify-content-end align-self-md-center">
+    <app-adverts-search></app-adverts-search>
+  </div>
+
+  <div class="col d-flex flex-row justify-content-end align-items-start">
+    <button class="kol-button" (click)="openAddAdvertDialog()">
+      <mat-icon class="mr-2">add</mat-icon>
+      Добавить
+    </button>
+  </div>
+</div>

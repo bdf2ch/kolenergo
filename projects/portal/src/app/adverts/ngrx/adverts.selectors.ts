@@ -33,6 +33,14 @@ export const selectEditingInProgress = createSelector(
 );
 
 /**
+ * Селектор состояния удаления объявления
+ */
+export const selectDeletingInProgress = createSelector(
+  adverts,
+  (state: IAdvertsState) => state.deletingInProgress
+);
+
+/**
  * Селектор состояния поиска объявлений
  */
 export const selectSearchingInProgress = createSelector(
@@ -49,11 +57,27 @@ export const selectUploadingImageInProgress = createSelector(
 );
 
 /**
+ * Селектор состояния удаления изображения на сервере
+ */
+export const selectDeletingImageInProgress = createSelector(
+  adverts,
+  (state: IAdvertsState) => state.deletingImageInProgress
+);
+
+/**
  * Селектор состояния загрузки вложения на сервер
  */
 export const selectUploadingAttachmentInProgress = createSelector(
   adverts,
   (state: IAdvertsState) => state.uploadingAttachmentInProgress
+);
+
+/**
+ * Селектор состояния удаления вложения
+ */
+export const selectDeletingAttachmentInProgress = createSelector(
+  adverts,
+  (state: IAdvertsState) => state.deletingAttachmentInProgress
 );
 
 
@@ -87,6 +111,14 @@ export const selectPage = createSelector(
 export const selectTotalPages = createSelector(
   adverts,
   (state: IAdvertsState) => state.totalPages
+);
+
+/**
+ * Селектор текущего объявления
+ */
+export const selectSelectedAdvert = createSelector(
+  adverts,
+  (state: IAdvertsState) => state.selectedAdvert
 );
 
 /**

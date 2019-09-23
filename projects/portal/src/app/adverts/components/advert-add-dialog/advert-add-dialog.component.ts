@@ -18,11 +18,20 @@ import {
   AdvertsEditAdvert,
   selectNewAdvert,
   AdvertsUploadAttachmentToAdvert,
-  AdvertsUploadAttachmentToNewAdvert, AdvertsUploadImageToNewAdvert, AdvertsUploadImageToAdvert, selectUploadingImageInProgress
+  AdvertsUploadAttachmentToNewAdvert,
+  AdvertsUploadImageToNewAdvert,
+  AdvertsUploadImageToAdvert,
+  selectUploadingImageInProgress,
+  selectDeletingImageInProgress,
+  AdvertsResetNewAdvert,
+  AdvertsDeleteAdvert,
+  AdvertsDeleteAttachment,
+  selectUploadingAttachmentInProgress, selectDeletingAttachmentInProgress
 } from '../../ngrx';
 import { AdvertImageUploadAdapter } from './image-upload-adapter.class';
 import { AdvertsService } from '../../services/adverts.service';
 import { environment } from '../../../../environments/environment';
+import {Attachment} from "../../../portal/models";
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -33,12 +42,15 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
 @Component({
   selector: 'app-new-advert',
-  templateUrl: './new-advert.component.html',
-  styleUrls: ['./new-advert.component.less']
+  templateUrl: './advert-add-dialog.component.html',
+  styleUrls: ['./advert-add-dialog.component.less']
 })
-export class NewAdvertComponent implements OnInit {
+export class AdvertAddDialogComponent implements OnInit {
   public advert$: Observable<Advert>;
   public uploadingImageInProgress$: Observable<boolean>;
+  public uploadingAttachmentInProgress$: Observable<boolean>;
+  public deletingImageInProgress$: Observable<boolean>;
+  public deletingAttachmentInProgress$: Observable<boolean>;
   public advert: Advert;
   // public attachments: Attachment[];
   public content: string;
@@ -58,7 +70,7 @@ export class NewAdvertComponent implements OnInit {
 
   constructor(private readonly builder: FormBuilder,
               private readonly store: Store<IApplicationState>,
-              private readonly dialog: MatDialogRef<NewAdvertComponent>,
+              private readonly dialog: MatDialogRef<AdvertAddDialogComponent>,
               private readonly adverts: AdvertsService) {
     this.formWithSteps = new FormStepManager();
     this.formWithSteps.addStep(new FormStep('Атрибуты', 'Заголовок и прочее', 'info'));
@@ -71,6 +83,9 @@ export class NewAdvertComponent implements OnInit {
   ngOnInit() {
     this.advert$ = this.store.pipe(select(selectNewAdvert));
     this.uploadingImageInProgress$ = this.store.pipe(select(selectUploadingImageInProgress));
+    this.uploadingAttachmentInProgress$ = this.store.pipe(select(selectUploadingAttachmentInProgress));
+    this.deletingImageInProgress$ = this.store.pipe(select(selectDeletingImageInProgress));
+    this.deletingAttachmentInProgress$ = this.store.pipe(select(selectDeletingAttachmentInProgress));
     this.advertForm = this.builder.group({
       title: new FormControl(null, Validators.required),
       preview: new FormControl(null, Validators.required)
@@ -91,6 +106,14 @@ export class NewAdvertComponent implements OnInit {
       console.log(value);
       console.log(this.advert);
     });
+
+    this.dialog.afterClosed().subscribe(() => {
+      console.log('new advert dialog closed', this.advert);
+      if(this.advert.id) {
+        this.store.dispatch(new AdvertsDeleteAdvert());
+      }
+      this.store.dispatch(new AdvertsResetNewAdvert());
+    });
   }
 
   /**
@@ -102,6 +125,7 @@ export class NewAdvertComponent implements OnInit {
     this.formWithSteps.steps[0].isInvalid = this.advertForm.invalid;
     this.formWithSteps.steps[1].isInvalid = !this.content;
     this.formWithSteps.steps[1].isValid = this.content ? true : false;
+    console.log('CONTENT', this.content);
   }
 
   imageSelected(files: FileList) {
@@ -119,6 +143,18 @@ export class NewAdvertComponent implements OnInit {
     } else {
       this.store.dispatch(new AdvertsUploadAttachmentToNewAdvert(files));
     }
+  }
+
+  /**
+   * Удаление вложения
+   * @param attachment - Удаляемое вложение
+   */
+  attachmentRemoved(attachment: Attachment) {
+    this.store.dispatch(new AdvertsDeleteAttachment(attachment));
+  }
+
+  deleteImage() {
+    console.log('delete image');
   }
 
   /**

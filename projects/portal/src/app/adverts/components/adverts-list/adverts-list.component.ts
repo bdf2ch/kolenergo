@@ -10,10 +10,10 @@ import {
   selectTotalAdverts,
   selectTotalPages,
   selectFetchingInProgress,
-  selectSearchQuery, selectSearchingInProgress
+  selectSearchQuery, selectSearchingInProgress, AdvertsResetNewAdvert
 } from '../../ngrx';
-import {MatDialog} from '@angular/material';
-import {NewAdvertComponent} from '../new-advert/new-advert.component';
+import { MatDialog } from '@angular/material';
+import {AdvertAddDialogComponent} from '../advert-add-dialog/advert-add-dialog.component';
 
 @Component({
   selector: 'app-adverts-list',
@@ -55,7 +55,7 @@ export class AdvertsListComponent implements OnInit {
   }
 
   openAddAdvertDialog() {
-    this.dialog.open(NewAdvertComponent, {
+    this.dialog.open(AdvertAddDialogComponent, {
       width: '900px',
       minHeight: '650px',
       panelClass: 'add-advert-dialog'

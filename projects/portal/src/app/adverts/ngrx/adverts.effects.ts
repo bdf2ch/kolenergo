@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
-import {EMPTY, from, of} from 'rxjs';
+import { EMPTY, from, of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
@@ -19,10 +19,30 @@ import {
   AdvertsUploadAttachmentToNewAdvert,
   AdvertsUploadAttachmentToNewAdvertSuccess,
   AdvertsLoadAdvertsNextPageSuccess,
-  AdvertsSearchAdverts, AdvertsSearchAdvertsSuccess, AdvertsLoadAdverts, AdvertsUploadImageToNewAdvertSuccess, AdvertsUploadImageToNewAdvert
+  AdvertsSearchAdverts,
+  AdvertsSearchAdvertsSuccess,
+  AdvertsLoadAdverts,
+  AdvertsUploadImageToNewAdvertSuccess,
+  AdvertsUploadImageToNewAdvert,
+  AdvertsUploadImageToAdvertSuccess,
+  AdvertsUploadImageToAdvert,
+  AdvertsDeleteAdvert,
+  AdvertsDeleteAdvertSuccess,
+  AdvertsDeleteAttachment,
+  AdvertsDeleteAttachmentSuccess,
+  AdvertsDeleteAttachmentFromNewAdvertSuccess,
+  AdvertsLoadAdvert,
+  AdvertsLoadAdvertSuccess
 } from './adverts.actions';
-import {selectAdvertsOnPage, selectNewAdvert, selectPage, selectTotalPages} from './adverts.selectors';
+import {
+  selectAdvertsOnPage,
+  selectNewAdvert,
+  selectPage,
+  selectSelectedAdvert,
+  selectTotalPages
+} from './adverts.selectors';
 import { IAdvert } from '../interfaces';
+import { Advert } from '../models';
 import { AdvertsService } from '../services/adverts.service';
 import { IApplicationState } from '../../ngrx/application.state';
 
@@ -46,6 +66,18 @@ export class AdvertsEffects {
       .pipe(
         map((response: IServerResponse<IAdvert[]>) => {
           return new AdvertsLoadAdvertsSuccess(response);
+        })
+      )
+    )
+  );
+
+  @Effect()
+  loadAdvert$ = this.actions$.pipe(
+    ofType(AdvertsActionTypes.ADVERTS_LOAD_ADVERT),
+    switchMap((action: AdvertsLoadAdvert) => this.adverts.getAdvert(action.payload)
+      .pipe(
+        map((response: IServerResponse<IAdvert>) => {
+          return new AdvertsLoadAdvertSuccess(response);
         })
       )
     )
@@ -119,6 +151,29 @@ export class AdvertsEffects {
   );
 
   @Effect()
+  deleteAdvert$ = this.actions$.pipe(
+    ofType(AdvertsActionTypes.ADVERTS_DELETE_ADVERT),
+    withLatestFrom(
+      this.store.pipe(select(selectSelectedAdvert))
+    ),
+    switchMap(([action, selectedAdvert]) => this.adverts.removeAdvert(selectedAdvert as Advert)
+      .pipe(
+        map((response: IServerResponse<boolean>) => {
+          return new AdvertsDeleteAdvertSuccess(selectedAdvert);
+        }),
+        catchError((error: any) => {
+          console.error('error occurred: ', error);
+          this.snackBar.open('При удалении объявления произошла ошибка', 'Закрыть', {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
+          return EMPTY;
+        })
+      ))
+  );
+
+  @Effect()
   searchAdverts$ = this.actions$.pipe(
     ofType(AdvertsActionTypes.ADVERTS_SEARCH_ADVERTS),
     switchMap((action: AdvertsSearchAdverts) => this.adverts.searchAdverts(action.payload)
@@ -153,6 +208,34 @@ export class AdvertsEffects {
       .pipe(
         map((response: IServerResponse<{url: string, advert: IAdvert}>) => {
           return new AdvertsUploadImageToNewAdvertSuccess(response);
+        }),
+        catchError((error: any) => {
+          console.error('error occurred: ', error);
+          this.snackBar.open('При загрузке изображения произошла ошибка', 'Закрыть', {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
+          return EMPTY;
+        })
+      )
+    )
+  );
+
+  @Effect()
+  uploadImageToAdvert$ = this.actions$.pipe(
+    ofType(AdvertsActionTypes.ADVERTS_UPLOAD_IMAGE_TO_ADVERT),
+    withLatestFrom(
+      this.store.pipe(select(selectNewAdvert))
+    ),
+    switchMap(([action, advert]) =>
+      from(this.adverts.uploadImage(
+        (action as AdvertsUploadImageToAdvert).payload.file,
+        (advert as Advert).id, (action as AdvertsUploadImageToAdvert).payload.header)
+      )
+      .pipe(
+        map((response: IServerResponse<string>) => {
+          return new AdvertsUploadImageToAdvertSuccess(response);
         }),
         catchError((error: any) => {
           console.error('error occurred: ', error);
@@ -210,5 +293,33 @@ export class AdvertsEffects {
         })
       )
     )
+  );
+
+  @Effect()
+  deleteAttachment$ = this.actions$.pipe(
+    ofType(AdvertsActionTypes.ADVERTS_DELETE_ATTACHMENT),
+    withLatestFrom(this.store.pipe(select(selectSelectedAdvert))),
+    switchMap(([action, selectedAdvert]) => this.adverts.removeAttachment((action as AdvertsDeleteAttachment).payload.id)
+      .pipe(
+        map((response: IServerResponse<boolean>) => {
+          this.snackBar.open('Вложение удалено', 'Закрыть', {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
+          return selectedAdvert ?
+            new AdvertsDeleteAttachmentSuccess((action as AdvertsDeleteAttachment).payload) :
+            new AdvertsDeleteAttachmentFromNewAdvertSuccess((action as AdvertsDeleteAttachment).payload);
+        }),
+        catchError((error: any) => {
+          console.error('error occurred: ', error);
+          this.snackBar.open('При удалении вложения произошла ошибка', 'Закрыть', {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
+          return EMPTY;
+        })
+      ))
   );
 }

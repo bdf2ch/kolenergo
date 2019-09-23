@@ -67,11 +67,19 @@
           <div class="advert-image" [ngStyle]="{'background': advert.image ? 'url(' + advert.image + ')' : 'url(assets/no-image.jpg)'}"></div>
         </div>
         <div class="col-4">
-          <button class="kol-button" [disabled]="uploadingImageInProgress$ | async" (click)="dialog.click()">
+          <div class="action-helper text-center">Изображение (необязательно)</div>
+
+          <button class="kol-button w-100 mt-3" [disabled]="uploadingImageInProgress$ | async" (click)="dialog.click()">
             <mat-icon *ngIf="!(uploadingImageInProgress$ | async)">cloud_upload</mat-icon>
             <mat-progress-spinner *ngIf="uploadingImageInProgress$ | async" diameter="20" mode="indeterminate"></mat-progress-spinner>
             <span>Загрузить</span>
             <input type="file" #dialog (change)="imageSelected($event.target.files)">
+          </button>
+
+          <button class="kol-button w-100 mt-2" *ngIf="(advert$ | async).image" [disabled]="uploadingImageInProgress$ | async" (click)="deleteImage()">
+            <mat-icon *ngIf="!(deletingImageInProgress$ | async)">delete</mat-icon>
+            <mat-progress-spinner *ngIf="deletingImageInProgress$ | async" diameter="20" mode="indeterminate"></mat-progress-spinner>
+            <span>Удалить</span>
           </button>
         </div>
       </div>
@@ -102,7 +110,10 @@
         <app-attachments-list
           [attachments]="(advert$ | async).attachments"
           [allowUpload]="true"
-          (select)="attachmentSelected($event)">
+          [allowDelete]="true"
+          [uploadingInProgress]="uploadingAttachmentInProgress$ | async"
+          (select)="attachmentSelected($event)"
+          (remove)="attachmentRemoved($event)">
         </app-attachments-list>
       </div>
     </div>
