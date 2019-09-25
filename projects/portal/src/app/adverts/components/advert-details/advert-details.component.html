@@ -1,4 +1,19 @@
-<p>
-  advert-details works!
-</p>
-<div [innerHtml]="content"></div>
+<div class="row mt-md-3 align-items-start">
+  <div class="col-12">
+    <div class="section-caption small pb-0">
+      <a routerLink="/adverts">Объявления</a>
+      <span class="ml-2 mr-2">/</span>
+      <span>{{(selectedAdvert$ | async)?.title}}</span>
+    </div>
+  </div>
+</div>
+
+<div class="row align-items-start">
+  <div class="col-12">
+    <div class="section-caption small">
+      <span class="attribute">{{(selectedAdvert$ | async)?.dateCreatedD | date:'dd MMMM yyyy'}}</span>
+    </div>
+  </div>
+</div>
+
+<div class="mt-3" [innerHtml]="content"></div>

@@ -102,6 +102,7 @@ export class AdvertAddDialogComponent implements OnInit {
       // this.attachments = new Array(...advert.attachments);
       this.advertForm.get('title').setValue(this.advert.title);
       this.advertForm.get('preview').setValue(this.advert.preview);
+      this.content = advert.content;
     });
     this.addingInProgress$.subscribe((value: boolean) => {
       this.addingInProgress = value;

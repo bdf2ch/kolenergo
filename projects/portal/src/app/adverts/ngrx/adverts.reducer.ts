@@ -97,7 +97,7 @@ export function reducer(
     case AdvertsActionTypes.ADVERTS_UPLOAD_IMAGE_TO_NEW_ADVERT_SUCCESS: {
       return {
         ...state,
-        newAdvert: new Advert(action.payload.data.advert),
+        newAdvert: new Advert(action.payload.data.advert).changeImage(action.payload.data.url),
         uploadingImageInProgress: false
       };
     }
