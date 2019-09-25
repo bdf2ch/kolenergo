@@ -13,6 +13,7 @@ export interface IArticle {
   preview: string;              // Краткое содержание
   image: string;                // Изображение
   content: string;              // Содержание
+  columns: number;              // Кличество колонок, занимаемое статьей в списке
   dateCreated: number;          // Дата создания статьи в формате Unix
   dateChanged: number;          // Дата изменения статьи в формате Unix
   attachments: IAttachment[];   // Вложения

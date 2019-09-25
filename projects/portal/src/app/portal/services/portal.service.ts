@@ -22,7 +22,7 @@ export class PortalService {
    * Загрузка данных для инициализации приложения
    */
   getInitialData(): Observable<IServerResponse<IPortalInitialData>> {
-    return from(this.resource.getInitialData({advertsOnPage: environment.advertsOnPage})).pipe(
+    return from(this.resource.getInitialData({advertsOnPage: environment.advertsOnPage, articlesOnPage: environment.articlesOnPage})).pipe(
       map((response: IServerResponse<IPortalInitialData>) => response)
     );
   }

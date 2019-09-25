@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from 'rxjs';
-import {Advert} from '../../models';
-import {select, Store} from '@ngrx/store';
-import {IApplicationState, selectAdvertsOnStartPage, selectAdvertsOnStartPageCount, selectTotalAdvertsCount} from '../../../ngrx';
+import { MatDialog } from '@angular/material';
+
+import { Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+
+import { Advert } from '../../models';
+import {IApplicationState, selectAdvertsOnStartPageCount, selectTotalAdvertsCount} from '../../../ngrx';
 import {
   AdvertsLoadAdvertsNextPage,
   selectAdverts,
@@ -10,10 +13,9 @@ import {
   selectTotalAdverts,
   selectTotalPages,
   selectFetchingInProgress,
-  selectSearchQuery, selectSearchingInProgress, AdvertsResetNewAdvert
+  selectSearchQuery, selectSearchingInProgress,
 } from '../../ngrx';
-import { MatDialog } from '@angular/material';
-import {AdvertAddDialogComponent} from '../advert-add-dialog/advert-add-dialog.component';
+import { AdvertAddDialogComponent } from '../advert-add-dialog/advert-add-dialog.component';
 
 @Component({
   selector: 'app-adverts-list',
@@ -56,6 +58,7 @@ export class AdvertsListComponent implements OnInit {
 
   openAddAdvertDialog() {
     this.dialog.open(AdvertAddDialogComponent, {
+      id: 'add-advert-dialog',
       width: '900px',
       minHeight: '650px',
       panelClass: 'add-advert-dialog'

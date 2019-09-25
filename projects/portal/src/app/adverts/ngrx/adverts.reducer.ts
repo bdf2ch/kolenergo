@@ -13,8 +13,8 @@ export function reducer(
     case PortalActionTypes.LOAD_INITIAL_DATA_SUCCESS: {
       return {
         ...state,
-        totalAdverts: action.payload.data.totalAdvertsCount,
-        totalPages: Math.round((action.payload.data.totalAdvertsCount / state.advertsOnPage) - 1)
+        totalAdverts: action.payload.data.adverts.total,
+        totalPages: Math.round((action.payload.data.adverts.total / state.advertsOnPage) - 1)
       };
     }
     case AdvertsActionTypes.ADVERTS_LOAD_ADVERTS: {
@@ -77,6 +77,15 @@ export function reducer(
         adverts: [new Advert(action.payload.data), ...state.adverts],
         newAdvert: new Advert(),
         addingInProgress: false
+      };
+    }
+    case AdvertsActionTypes.ADVERTS_EDIT_ADVERT_SUCCESS: {
+      return {
+        ...state,
+        adverts: state.newAdvert.id ? [new Advert(action.payload.data), ...state.adverts] : state.adverts.map((item: Advert) => {
+          return item.id === action.payload.data.id ? new Advert(item) : item;
+        }),
+        newAdvert: new Advert()
       };
     }
     case AdvertsActionTypes.ADVERTS_UPLOAD_IMAGE_TO_NEW_ADVERT: {
@@ -158,15 +167,6 @@ export function reducer(
     case AdvertsActionTypes.ADVERTS_RESET_NEW_ADVERT: {
       return {
         ...state,
-        newAdvert: new Advert()
-      };
-    }
-    case AdvertsActionTypes.ADVERTS_EDIT_ADVERT_SUCCESS: {
-      return {
-        ...state,
-        adverts: state.newAdvert.id ? [new Advert(action.payload.data), ...state.adverts] : state.adverts.map((item: Advert) => {
-          return item.id === action.payload.data.id ? new Advert(item) : item;
-        }),
         newAdvert: new Advert()
       };
     }

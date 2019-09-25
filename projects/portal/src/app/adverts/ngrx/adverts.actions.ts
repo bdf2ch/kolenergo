@@ -226,7 +226,7 @@ export class AdvertsEditAdvertSuccess implements Action {
  */
 export class AdvertsDeleteAdvert implements Action {
   readonly type = AdvertsActionTypes.ADVERTS_DELETE_ADVERT;
-  constructor() {}
+  constructor(public payload: Advert) {}
 }
 
 /**

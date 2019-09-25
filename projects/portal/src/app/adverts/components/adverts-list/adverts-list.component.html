@@ -21,17 +21,24 @@
 
 <div class="row mt-2 mt-md-5">
   <div class="col-6 col-md-4 col-lg-4 col-xl-3" *ngFor="let advert of adverts$ | async">
-    <div class="advert" [routerLink]="['/adverts', advert.id]" [ngStyle]="{'background': advert.image ? 'url(' + advert.image + ')' : ''}">
+
+    <a class="advert"
+         [ngClass]="{'no-image': !advert.image}"
+         [routerLink]="['/adverts', advert.id]"
+         [ngStyle]="{'background': advert.image ? 'url(' + advert.image + ')' : ''}">
       <div class="advert-date">
-        {{ advert.dateCreatedD | date: 'dd MMMM' }}
+        <span class="date">{{ advert.dateCreatedD | date: 'dd MMMM' }}</span>
         <div class="d-flex flex-row justify-content-center" *ngIf="advert.attachments.length > 0">
           <mat-icon>attach_file</mat-icon>
           {{advert.attachments.length}}
         </div>
       </div>
-      <div class="advert-caption">{{advert.title}}</div>
-      <div class="advert-preview">{{advert.preview}}</div>
-    </div>
+
+      <div class="advert-caption-and-preview">
+        <div class="advert-caption">{{advert.title}}</div>
+        <div class="advert-preview" *ngIf="advert.preview">{{advert.preview}}</div>
+      </div>
+    </a>
   </div>
 </div>
 

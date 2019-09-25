@@ -32,7 +32,7 @@ export class PortalResource extends Resource {
     method: ResourceRequestMethod.Get,
     withCredentials: true
   })
-  getInitialData: IResourceMethod<{advertsOnPage: number}, IServerResponse<IPortalInitialData>>;
+  getInitialData: IResourceMethod<{advertsOnPage: number, articlesOnPage: number}, IServerResponse<IPortalInitialData>>;
 
   @ResourceAction({
     path: '/adverts',

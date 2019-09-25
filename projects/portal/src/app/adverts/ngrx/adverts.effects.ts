@@ -45,6 +45,7 @@ import { IAdvert } from '../interfaces';
 import { Advert } from '../models';
 import { AdvertsService } from '../services/adverts.service';
 import { IApplicationState } from '../../ngrx/application.state';
+import {MatDialog} from '@angular/material';
 
 @Injectable()
 export class AdvertsEffects {
@@ -52,6 +53,7 @@ export class AdvertsEffects {
               private readonly store: Store<IApplicationState>,
               private readonly actions$: Actions,
               private readonly snackBar: MatSnackBar,
+              private readonly dialog: MatDialog,
               private readonly adverts: AdvertsService) {}
 
 
@@ -131,6 +133,16 @@ export class AdvertsEffects {
   );
 
   @Effect()
+  addAdvertSuccess$ = this.actions$.pipe(
+    ofType(AdvertsActionTypes.ADVERTS_ADD_ADVERT_SUCCESS),
+    switchMap((action: AdvertsAddAdvertSuccess) => {
+      console.log('add advert success effect');
+      this.dialog.getDialogById('add-advert-dialog').close(true);
+      return EMPTY;
+    })
+  );
+
+  @Effect()
   editAdvert$ = this.actions$.pipe(
     ofType(AdvertsActionTypes.ADVERTS_EDIT_ADVERT),
     switchMap((action: AdvertsAddAdvert) => this.adverts.editAdvert(action.payload)
@@ -151,15 +163,22 @@ export class AdvertsEffects {
   );
 
   @Effect()
+  editAdvertSuccess$ = this.actions$.pipe(
+    ofType(AdvertsActionTypes.ADVERTS_EDIT_ADVERT_SUCCESS),
+    switchMap(() => {
+      console.log('edit advert success effect');
+      this.dialog.getDialogById('add-advert-dialog').close(true);
+      return EMPTY;
+    })
+  );
+
+  @Effect()
   deleteAdvert$ = this.actions$.pipe(
     ofType(AdvertsActionTypes.ADVERTS_DELETE_ADVERT),
-    withLatestFrom(
-      this.store.pipe(select(selectSelectedAdvert))
-    ),
-    switchMap(([action, selectedAdvert]) => this.adverts.removeAdvert(selectedAdvert as Advert)
+    switchMap((action: AdvertsDeleteAdvert) => this.adverts.removeAdvert(action.payload)
       .pipe(
         map((response: IServerResponse<boolean>) => {
-          return new AdvertsDeleteAdvertSuccess(selectedAdvert);
+          return new AdvertsDeleteAdvertSuccess(action.payload);
         }),
         catchError((error: any) => {
           console.error('error occurred: ', error);

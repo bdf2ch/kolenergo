@@ -54,8 +54,8 @@
 
             <mat-form-field appearance="fill" class="w-100 mt-4">
               <mat-label>Краткое содержание объявления</mat-label>
-              <input matInput placeholder="Введите краткое содержание объявления" [errorStateMatcher]="matcher" formControlName="preview" required>
-              <mat-icon class="valid-icon" matSuffix *ngIf="advertForm.get('preview').valid">done</mat-icon>
+              <input matInput placeholder="Введите краткое содержание объявления" [errorStateMatcher]="matcher" formControlName="preview">
+              <mat-icon class="valid-icon" matSuffix *ngIf="advertForm.get('preview').valid && advertForm.get('preview').value">done</mat-icon>
               <mat-error *ngIf="advertForm.get('preview').invalid">Вы не указали краткое содержание объявления</mat-error>
             </mat-form-field>
           </form>

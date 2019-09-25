@@ -15,11 +15,12 @@ export class Article implements IArticle {
   preview: string;                // Краткое содержание статьи
   image: string;                  // Изображение
   content: string;                // Содержание
+  columns: number;                // Количество колонок, занимаемое статьей в списке
+  attachments: IAttachment[];     // Вложения
   dateCreated: number;            // Дата публикации статьи в формате Unix
   dateCreatedD: Date;             // Дата публикации статьи
   dateChanged: number;            // Дата изменения статьи в формате Unix
   dateChangedD: Date;             // Дата изменения статьи
-  attachments: IAttachment[];     // Вложения
 
   /**
    * Конструктор
@@ -33,6 +34,7 @@ export class Article implements IArticle {
     this.preview = config ? config.preview : null;
     this.image = config && config.image ? config.image : null;
     this.content = config ? config.content : null;
+    this.columns = config ? config.columns : 1;
     this.dateCreated = config ? config.dateCreated : null;
     this.dateCreatedD = config ? new Date(config.dateCreated) : null;
     this.dateChanged = config ? config.dateChanged : null;

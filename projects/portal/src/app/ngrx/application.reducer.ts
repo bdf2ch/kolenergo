@@ -10,10 +10,10 @@ export function reducer(
     case PortalActionTypes.LOAD_INITIAL_DATA_SUCCESS: {
       return {
         ...state,
-        advertsOnStartPage: action.payload.data.adverts.map((item: IAdvert) => {
+        advertsOnStartPage: action.payload.data.adverts.adverts.map((item: IAdvert) => {
           return new Advert(item);
         }),
-        totalAdvertsCount: action.payload.data.totalAdvertsCount
+        totalAdvertsCount: action.payload.data.adverts.total
       };
     }
     case PortalActionTypes.LOAD_ADVERTS_PREVIOUS_PAGE: {

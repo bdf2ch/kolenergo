@@ -12,15 +12,11 @@ import { AdvertsLoadAdvert, selectFetchingInProgress } from '../ngrx';
   providedIn: 'root'
 })
 export class AdvertResolveGuard implements Resolve<boolean> {
-  private advertId = null;
+  private readonly advertId = null;
 
   constructor(private readonly store: Store<IApplicationState>,
               private readonly route: ActivatedRoute) {
-    this.route.params.subscribe((params: Params) => {
-      if (params.hasOwnProperty('id')) {
-        this.advertId = parseInt(params.id, null);
-      }
-    });
+    console.log('advert resolve guard');
   }
 
   waitForDataToLoad(): Observable<boolean> {
@@ -31,7 +27,8 @@ export class AdvertResolveGuard implements Resolve<boolean> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    this.store.dispatch(new AdvertsLoadAdvert(this.advertId));
+    console.log('params', route.params);
+    this.store.dispatch(new AdvertsLoadAdvert(parseInt(route.params.id, null)));
     return this.waitForDataToLoad()
       .pipe(
         switchMap(isFetching => of(isFetching)),

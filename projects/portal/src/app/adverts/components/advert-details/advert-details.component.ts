@@ -9,6 +9,7 @@ import { Advert } from '../../models';
 import { selectSelectedAdvert } from '../../ngrx';
 import { IApplicationState } from '../../../ngrx';
 import { AdvertEditDialogComponent } from '../advert-edit-dialog/advert-edit-dialog.component';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-advert-details',
@@ -17,12 +18,21 @@ import { AdvertEditDialogComponent } from '../advert-edit-dialog/advert-edit-dia
 })
 export class AdvertDetailsComponent implements OnInit {
   public selectedAdvert$: Observable<Advert>;
+  public selectedAdvert: Advert;
+  public content: any;
 
   constructor(private readonly store: Store<IApplicationState>,
+              private readonly sanitizer: DomSanitizer,
               private readonly dialog: MatDialog) {}
 
   ngOnInit() {
     this.selectedAdvert$ = this.store.pipe(select(selectSelectedAdvert));
+    this.selectedAdvert$.subscribe((value: Advert) => {
+      if (value) {
+        this.selectedAdvert = value;
+        this.content = this.sanitizer.bypassSecurityTrustHtml(value.content);
+      }
+    });
   }
 
   /**

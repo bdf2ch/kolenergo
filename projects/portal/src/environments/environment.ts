@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   apiUrl: 'http://10.50.4.7:3000',
   staticUrl: 'http://10.50.4.7:3000',
-  advertsOnPage: 3
+  advertsOnPage: 3,
+  articlesOnPage: 3
 };
 
 /*
