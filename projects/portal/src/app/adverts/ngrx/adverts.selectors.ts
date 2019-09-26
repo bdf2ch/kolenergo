@@ -145,3 +145,11 @@ export const selectAdverts = createSelector(
   adverts,
   (state: IAdvertsState) => state.adverts
 );
+
+/**
+ * Селектор шаблонных объявлений
+ */
+export const selectTemplates = createSelector(
+  adverts,
+  (state: IAdvertsState) => state.templates
+);

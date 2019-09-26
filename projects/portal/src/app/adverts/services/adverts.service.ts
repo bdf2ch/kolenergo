@@ -42,10 +42,16 @@ export class AdvertsService {
   /**
    * Добавление объявления
    * @param advert - Добавляемое объявление
+   * @param currentPage - Текущая страница объявлений
+   * @param advertsOnPage - Количество объявлений на странице
    */
-  addAdvert(advert: Advert): Observable<IServerResponse<IAdvert>> {
-    return from(this.resource.addAdvert(advert)).pipe(
-      map((response: IServerResponse<IAdvert>) => response)
+  addAdvert(
+    advert: Advert,
+    currentPage: number,
+    advertsOnPage: number
+  ): Observable<IServerResponse<{adverts: IAdvert[], advert: IAdvert}>> {
+    return from(this.resource.addAdvert(advert, {page: currentPage, advertsOnPage})).pipe(
+      map((response: IServerResponse<{adverts: IAdvert[], advert: IAdvert}>) => response)
     );
   }
 

@@ -5,11 +5,15 @@ import {
   MatButtonModule,
   MatFormFieldModule,
   MatInputModule,
+  MatSelectModule,
+  MatCheckboxModule,
   MatIconModule,
   MatGridListModule,
   MatSnackBarModule,
   MatTooltipModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from '@angular/material';
 
 import { StoreModule } from '@ngrx/store';
@@ -31,6 +35,7 @@ import { AdvertsSearchComponent } from './components/adverts-search/adverts-sear
 import { AdvertDeleteDialogComponent } from './components/advert-delete-dialog/advert-delete-dialog.component';
 import { AdvertEditDialogComponent } from './components/advert-edit-dialog/advert-edit-dialog.component';
 import { environment } from '../../environments/environment';
+import { FileSizePipe } from './pipes/file-size.pipe';
 
 @NgModule({
   declarations: [
@@ -41,7 +46,8 @@ import { environment } from '../../environments/environment';
     AttachmentsListComponent,
     AdvertsSearchComponent,
     AdvertDeleteDialogComponent,
-    AdvertEditDialogComponent
+    AdvertEditDialogComponent,
+    FileSizePipe
   ],
   imports: [
     CommonModule,
@@ -53,6 +59,8 @@ import { environment } from '../../environments/environment';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
+    MatCheckboxModule,
     MatIconModule,
     CKEditorModule,
     AdvertsRoutingModule,
@@ -60,6 +68,8 @@ import { environment } from '../../environments/environment';
     MatSnackBarModule,
     MatTooltipModule,
     MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     PortalModule
   ],
   providers: [

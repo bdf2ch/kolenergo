@@ -17,3 +17,16 @@
 </div>
 
 <div class="mt-3" [innerHtml]="content"></div>
+
+<!-- Start: Вложения в объявлении -->
+<div class="row mt-md-5">
+  <div class="col-12">
+    <app-attachments-list
+      [attachments]="(selectedAdvert$ | async)?.attachments"
+      [caption]="'Вложения'"
+      [showCaptionIfNoAttachments]="false"
+      [showNoAttachmentsPlaceholder]="false">
+    </app-attachments-list>
+  </div>
+</div>
+<!-- End: Вложения в объявлении -->

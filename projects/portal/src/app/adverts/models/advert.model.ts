@@ -19,6 +19,8 @@ export class Advert implements IAdvert {
   dateCreatedD: Date;           // Дата публикации
   dateChanged: number;          // Дата изменения в формате Unix
   dateChangedD: Date;           // Дата изменения
+  isTemplate: boolean;          // Является ли объявление шаблоном
+  template: Advert;             // Шаблонное обхявление, на основе которого создано объявление
 
   /**
    * Конструктор
@@ -36,6 +38,8 @@ export class Advert implements IAdvert {
     this.dateCreatedD = config ? new Date(config.dateCreated) : null;
     this.dateChanged = config ? config.dateChanged : null;
     this.dateChangedD = config ? new Date(config.dateChanged) : null;
+    this.isTemplate = config ? config.isTemplate : false;
+    this.template = null;
 
     if (config && config.attachments) {
       this.attachments = config.attachments.map((item: IAttachment) => {
@@ -70,7 +74,10 @@ export class Advert implements IAdvert {
    */
   changeImage(url: string): Advert {
     this.image = url;
-    this.content = `<figure class="image image-style-side"><img src="${environment.staticUrl}/${url.replace(/\\\\/g, '/')}"></figure>`;
+    this.content = `
+        <figure class="image image-style-side">
+            <img src="${environment.staticUrl}/${url.replace(/\\\\/g, '/')}">
+        </figure>`;
     return this.fromAnother(this);
   }
 

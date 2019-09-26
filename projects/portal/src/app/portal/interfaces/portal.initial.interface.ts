@@ -6,6 +6,7 @@ import { IArticleSection } from '../../articles/interfaces';
  */
 export interface IPortalInitialData {
   adverts: {
+    templates: IAdvert[];         // Шаблоннные объявления
     adverts: IAdvert[],           // Объявления на главной старнице
     total: number                 // Общее количество объявлений
   };

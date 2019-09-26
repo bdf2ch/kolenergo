@@ -5,6 +5,7 @@ import { Advert } from '../models';
  */
 export interface IAdvertsState {
   adverts: Advert[];                        // Объявления
+  templates: Advert[];                      // Шаблонные объявления
   selectedAdvert: Advert;                   // Текущее объявление
   newAdvert: Advert;                        // Новое объявление
   advertsOnPage: number;                    // Количество объявлений на странице
@@ -28,6 +29,7 @@ export interface IAdvertsState {
  */
 export const advertsInitialState: IAdvertsState = {
   adverts: [],
+  templates: [],
   selectedAdvert: null,
   newAdvert: new Advert(),
   advertsOnPage: 12,

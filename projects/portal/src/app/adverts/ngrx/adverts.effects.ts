@@ -109,9 +109,13 @@ export class AdvertsEffects {
   @Effect()
   addAdvert$ = this.actions$.pipe(
     ofType(AdvertsActionTypes.ADVERTS_ADD_AVERT),
-    switchMap((action: AdvertsAddAdvert) => this.adverts.addAdvert(action.payload)
+    withLatestFrom(
+      this.store.pipe(select(selectPage)),
+      this.store.pipe(select(selectAdvertsOnPage))
+    ),
+    switchMap(([action, page, advertsOnPage]) => this.adverts.addAdvert((action as AdvertsAddAdvert).payload, page, advertsOnPage)
       .pipe(
-        map((response: IServerResponse<IAdvert>) => {
+        map((response: IServerResponse<{adverts: IAdvert[], advert: IAdvert}>) => {
           this.snackBar.open('Объявление добавлено', 'Закрыть', {
             verticalPosition: 'bottom',
             horizontalPosition: 'center',

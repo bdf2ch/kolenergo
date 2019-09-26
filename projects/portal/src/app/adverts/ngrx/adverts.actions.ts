@@ -98,7 +98,7 @@ export class AdvertsAddAdvert implements Action {
  */
 export class AdvertsAddAdvertSuccess implements Action {
   readonly type = AdvertsActionTypes.ADVERTS_ADD_ADVERT_SUCCESS;
-  constructor(public payload: IServerResponse<IAdvert>) {}
+  constructor(public payload: IServerResponse<{adverts: IAdvert[], advert: IAdvert}>) {}
 }
 
 /**

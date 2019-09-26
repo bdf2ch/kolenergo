@@ -1,10 +1,10 @@
 <div class="attachments-list">
 
   <!-- Start: Заголовок блока -->
-  <div class="caption" *ngIf="caption">{{caption}}</div>
+  <div class="caption" *ngIf="caption && attachmentsList.length > 0">{{caption}}</div>
   <!-- End: Заголовок блока -->
 
-  <div class="no-attachments-placeholder" *ngIf="attachmentsList.length === 0">
+  <div class="no-attachments-placeholder" *ngIf="attachmentsList.length === 0 && showNoAttachmentsPlaceholder">
     <span>Вложения отсутствуют</span>
 
     <button class="kol-button mt-3" (click)="dialog.click()" [disabled]="removingInProgress || uploadingInProgress">
@@ -24,7 +24,7 @@
       <div class="file-name">
         <a href="{{attachment.url}}">{{attachment.fileName}}</a>
       </div>
-      <div class="properties">{{attachment.size}}</div>
+      <div class="properties">{{attachment.size | fileSize}}</div>
     </div>
     <div class="controls">
       <a href="{{attachment.url}}"

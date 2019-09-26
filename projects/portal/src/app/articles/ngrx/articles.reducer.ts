@@ -1,4 +1,5 @@
-import {articlesActions, ArticlesActionTypes, articlesInitialState, IArticlesState} from './';
+import { articlesActions, ArticlesActionTypes } from './articles.actions';
+import { IArticlesState, articlesInitialState } from './articles.state';
 
 export function reducer(
   state: IArticlesState = articlesInitialState,

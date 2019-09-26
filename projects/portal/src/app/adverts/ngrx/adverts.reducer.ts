@@ -13,6 +13,7 @@ export function reducer(
     case PortalActionTypes.LOAD_INITIAL_DATA_SUCCESS: {
       return {
         ...state,
+        templates: action.payload.data.adverts.templates.map((item: IAdvert) => new Advert(item)),
         totalAdverts: action.payload.data.adverts.total,
         totalPages: Math.round((action.payload.data.adverts.total / state.advertsOnPage) - 1)
       };
@@ -74,7 +75,12 @@ export function reducer(
     case AdvertsActionTypes.ADVERTS_ADD_ADVERT_SUCCESS: {
       return  {
         ...state,
-        adverts: [new Advert(action.payload.data), ...state.adverts],
+        templates: action.payload.data.advert.isTemplate
+          ? [...state.templates, new Advert(action.payload.data.advert)]
+          : [...state.templates],
+        adverts: action.payload.data.adverts.map((item: IAdvert) => {
+          return new Advert(item);
+        }),
         newAdvert: new Advert(),
         addingInProgress: false
       };
@@ -82,7 +88,10 @@ export function reducer(
     case AdvertsActionTypes.ADVERTS_EDIT_ADVERT_SUCCESS: {
       return {
         ...state,
-        adverts: state.newAdvert.id ? [new Advert(action.payload.data), ...state.adverts] : state.adverts.map((item: Advert) => {
+        templates: action.payload.data.isTemplate ? [...state.templates, new Advert(action.payload.data)] : [...state.templates],
+        adverts: state.newAdvert.id ? [new Advert(action.payload.data), ...state.adverts].sort((a: Advert, b: Advert) => {
+          return a.dateCreated < b.dateCreated ? 1 : -1;
+        }) : state.adverts.map((item: Advert) => {
           return item.id === action.payload.data.id ? new Advert(item) : item;
         }),
         newAdvert: new Advert()

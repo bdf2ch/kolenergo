@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 
 import {
-  IResourceMethod,
   IResourceMethodStrict,
   Resource,
   ResourceAction,
@@ -9,10 +8,11 @@ import {
   ResourceParams,
   ResourceRequestMethod
 } from '@ngx-resource/core';
+
 import { IServerResponse } from '@kolenergo/core';
 import { IAdvert } from '../interfaces';
-import { environment } from '../../../environments/environment';
 import { Advert } from '../models';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -35,18 +35,19 @@ export class AdvertsResource extends Resource {
   getAdverts: IResourceMethodStrict<void, {page?: number, advertsOnPage?: number, search?: string}, void, IServerResponse<IAdvert[]>>;
 
   @ResourceAction({
-    path: '/adverts',
-    method: ResourceRequestMethod.Post,
-    withCredentials: true
-  })
-  addAdvert: IResourceMethodStrict<Advert, void, void, IServerResponse<IAdvert>>;
-
-  @ResourceAction({
     path: '/adverts/{!id}',
     method: ResourceRequestMethod.Get,
     withCredentials: true
   })
   getAdvert: IResourceMethodStrict<void, void, {id: number}, IServerResponse<IAdvert>>;
+
+  @ResourceAction({
+    path: '/adverts',
+    method: ResourceRequestMethod.Post,
+    withCredentials: true
+  })
+  addAdvert:
+    IResourceMethodStrict<Advert, {page: number, advertsOnPage: number}, void, IServerResponse<{adverts: IAdvert[], advert: IAdvert}>>;
 
   @ResourceAction({
     path: '/adverts/{!id}',

@@ -1,9 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
-import { Store } from '@ngrx/store';
-
 import { Attachment } from '../../../portal/models';
-import { IApplicationState } from '../../../ngrx';
 
 @Component({
   selector: 'app-attachments-list',
@@ -16,25 +13,25 @@ export class AttachmentsListComponent implements OnInit, OnChanges {
   @Input() allowUpload: boolean;
   @Input() allowDelete: boolean;
   @Input() caption: string;
+  @Input() showCaptionIfNoAttachments: boolean;
+  @Input() showNoAttachmentsPlaceholder: boolean;
   @Input() uploadingInProgress: boolean;
   @Input() removingInProgress: boolean;
   @Output() select: EventEmitter<FileList>;
   @Output() remove: EventEmitter<Attachment>;
   public attachmentsList: Attachment[];
 
-  constructor(private readonly store: Store<IApplicationState>) {
+  constructor() {
     this.select = new EventEmitter<FileList>();
     this.remove = new EventEmitter<Attachment>();
+    this.attachmentsList = [];
   }
 
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
     if (changes.hasOwnProperty('attachments')) {
-      console.log(changes.attachments);
-      this.attachmentsList = changes.attachments.currentValue;
-      console.log('attachments list', this.attachmentsList);
+      this.attachmentsList = changes.attachments.currentValue ? changes.attachments.currentValue : [];
     }
   }
 
@@ -43,7 +40,6 @@ export class AttachmentsListComponent implements OnInit, OnChanges {
    * @param files - Список файлов
    */
   onSelectFile(files: FileList) {
-    console.log(files);
     if (files && files.length > 0) {
       this.select.emit(files);
     }
@@ -56,5 +52,4 @@ export class AttachmentsListComponent implements OnInit, OnChanges {
   onRemoveAttachment(attachment: Attachment) {
     this.remove.emit(attachment);
   }
-
 }
