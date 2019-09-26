@@ -30,7 +30,7 @@
         <span class="date">{{ advert.dateCreatedD | date: 'dd MMMM' }}</span>
         <div class="attachments" *ngIf="advert.attachments.length > 0">
           <mat-icon>attach_file</mat-icon>
-          {{advert.attachments.length}}
+          <span class="attachments-count">{{advert.attachments.length}}</span>
         </div>
       </div>
 

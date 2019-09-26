@@ -58,12 +58,23 @@
     }
 
     .attachments {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
       padding: 7px 12px;
       background: rgba(0, 79 ,140, 0.6);
+
+      .attachments-count {
+        font-family: 'Comfortaa', cursive;
+        font-size: 13px;
+        line-height: 13px;
+        font-weight: 600;
+      }
 
       .mat-icon {
         width: 15px;
         height: 15px;
+        margin-top: -3px;
         font-size: 15px;
         color: white;
       }
