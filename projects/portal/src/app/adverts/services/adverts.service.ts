@@ -23,7 +23,7 @@ export class AdvertsService {
    * @param page - Порядковый номер страницы
    * @param itemsOnPage - Количество объявлений на старнице
    */
-  getAdvertsPage(page: number, advertsOnPage: number): Observable<IServerResponse<IAdvert[]>> {
+  getAdvertsPage(page: number, advertsOnPage: number, includePrevious: boolean): Observable<IServerResponse<IAdvert[]>> {
     return from(this.resource.getAdverts(null, {page, advertsOnPage}, null)).pipe(
       map((response: IServerResponse<IAdvert[]>) => response)
     );

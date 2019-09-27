@@ -15,7 +15,7 @@ export function reducer(
         ...state,
         templates: action.payload.data.adverts.templates.map((item: IAdvert) => new Advert(item)),
         totalAdverts: action.payload.data.adverts.total,
-        totalPages: Math.round((action.payload.data.adverts.total / state.advertsOnPage) - 1)
+        totalPages: Math.ceil((action.payload.data.adverts.total / state.advertsOnPage)) - 1
       };
     }
     case AdvertsActionTypes.ADVERTS_LOAD_ADVERTS: {
@@ -81,6 +81,8 @@ export function reducer(
         adverts: action.payload.data.adverts.map((item: IAdvert) => {
           return new Advert(item);
         }),
+        totalAdverts: action.payload.data.total,
+        totalPages: Math.ceil((action.payload.data.total / state.advertsOnPage)) - 1,
         newAdvert: new Advert(),
         addingInProgress: false
       };

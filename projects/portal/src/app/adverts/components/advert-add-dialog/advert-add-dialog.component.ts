@@ -5,7 +5,7 @@ import { ErrorStateMatcher, MatDialogRef } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
-import '@ckeditor/ckeditor5-build-classic/build/translations/ru';
+import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/ru';
 
 import { User } from '@kolenergo/core';
 import { FormStepManager } from '../../../../../../event-sheduler/src/app/event-sheduler/models/form-manager.model';
@@ -52,9 +52,7 @@ export class AdvertAddDialogComponent implements OnInit {
   public advert: Advert;
   public templates$: Observable<Advert[]>;
   public addingInProgress$: Observable<boolean>;
-  public addingInProgress: boolean;
   public editingInProgress$: Observable<boolean>;
-  public editingInProgress: boolean;
   public uploadingImageInProgress$: Observable<boolean>;
   public uploadingAttachmentInProgress$: Observable<boolean>;
   public deletingImageInProgress$: Observable<boolean>;
@@ -78,6 +76,7 @@ export class AdvertAddDialogComponent implements OnInit {
               private readonly store: Store<IApplicationState>,
               private readonly dialog: MatDialogRef<AdvertAddDialogComponent>,
               private readonly adverts: AdvertsService) {
+    this.advert = new Advert();
     this.formWithSteps = new FormStepManager();
     this.formWithSteps.addStep(new FormStep('Атрибуты', 'Заголовок и прочее', 'info'));
     this.formWithSteps.addStep(new FormStep('Изображение', 'Загрузка изображения', 'insert_photo'));
@@ -98,18 +97,17 @@ export class AdvertAddDialogComponent implements OnInit {
     this.deletingAttachmentInProgress$ = this.store.pipe(select(selectDeletingAttachmentInProgress));
     this.advertForm = this.builder.group({
       template: new FormControl(null),
-      title: new FormControl(null, Validators.required),
-      preview: new FormControl(null),
+      title: new FormControl(this.advert.title, Validators.required),
+      preview: new FormControl(this.advert.preview),
       date: new FormControl(null),
       isTemplate: new FormControl(false)
     });
     this.advert$.subscribe((advert: Advert) => {
       this.advert = advert;
-      /*
-      this.advertForm.get('title').setValue(this.advert.title);
-      this.advertForm.get('preview').setValue(this.advert.preview);
-      this.content = advert.content;
-       */
+      this.advertForm.get('title').setValue(advert.title);
+      this.advertForm.get('preview').setValue(advert.preview);
+      console.log('advert changes', advert);
+      console.log(this.advertForm.getRawValue());
     });
     this.templates$.subscribe((value: Advert[]) => {
       if (value.length === 0) {
@@ -118,23 +116,30 @@ export class AdvertAddDialogComponent implements OnInit {
         this.advertForm.get('template').enable();
       }
     });
-    this.addingInProgress$.subscribe((value: boolean) => {
-      this.addingInProgress = value;
-    });
-    this.editingInProgress$.subscribe((value: boolean) => {
-      this.editingInProgress = value;
-    });
 
     this.advertForm.valueChanges.subscribe((value: any) => {
       this.advert.template = value.template;
-      this.advert.title = value.title;
-      this.advert.preview = value.preview;
+      this.advert.title = value.template && this.advertForm.get('template').untouched ? value.template.title : value.title;
+      this.advert.preview = value.template ? value.template.preview : value.preview;
+      this.advert.attachments = value.template ? value.template.attachments : [];
       this.advert.dateCreated = value.date ? (value.date as Date).getTime() : 0;
       this.advert.isTemplate = value.isTemplate;
-      this.formWithSteps.steps[0].isValid = this.advertForm.valid && this.advertForm.dirty ? true : false;
-      this.formWithSteps.steps[0].isInvalid = this.advertForm.invalid && this.advertForm.dirty ? true : false;
-      console.log('form', value);
-      console.log('advert', this.advert);
+      this.content = value.template ? value.template.content : this.content;
+      if (value.template && value.template.image) {
+        this.advert.changeImage(value.template.image);
+      }
+      this.formWithSteps.steps[0].isValid =
+        !value.template && this.advertForm.valid && this.advertForm.dirty
+          ? true : value.template && this.advertForm.valid
+            ? true : false;
+      this.formWithSteps.steps[0].isInvalid = this.advertForm.invalid;
+      this.advertForm.reset({
+        template: this.advert.template,
+        title: this.advert.title,
+        preview: this.advert.preview
+      }, {emitEvent: false});
+      this.advertForm.get('template').markAsUntouched();
+      console.log('form state', this.advertForm.status);
     });
 
     this.dialog.afterClosed().subscribe((value: boolean) => {
@@ -158,7 +163,12 @@ export class AdvertAddDialogComponent implements OnInit {
    * @param value - Содержимое редактора
    */
   newAdvertContentChanged(value: any) {
-    this.formWithSteps.steps[0].isValid = this.advertForm.valid;
+    // this.formWithSteps.steps[0].isValid = this.advertForm.valid;
+    // this.formWithSteps.steps[0].isInvalid = this.advertForm.invalid;
+    this.formWithSteps.steps[0].isValid =
+      !this.advert.template && this.advertForm.valid && this.advertForm.dirty
+        ? true : this.advert.template && this.advertForm.valid
+        ? true : false;
     this.formWithSteps.steps[0].isInvalid = this.advertForm.invalid;
     this.formWithSteps.steps[1].isInvalid = !this.content;
     this.formWithSteps.steps[1].isValid = this.content ? true : false;
@@ -215,6 +225,5 @@ export class AdvertAddDialogComponent implements OnInit {
     } else {
       this.store.dispatch(new AdvertsEditAdvert(this.advert));
     }
-    // this.dialog.close();
   }
 }

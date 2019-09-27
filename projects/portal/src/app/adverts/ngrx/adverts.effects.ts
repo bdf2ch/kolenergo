@@ -64,7 +64,7 @@ export class AdvertsEffects {
       this.store.pipe(select(selectPage)),
       this.store.pipe(select(selectAdvertsOnPage))
     ),
-    switchMap(([action, page, advertsOnPage]) => this.adverts.getAdvertsPage(page, advertsOnPage)
+    switchMap(([action, page, advertsOnPage]) => this.adverts.getAdvertsPage(page, advertsOnPage, false)
       .pipe(
         map((response: IServerResponse<IAdvert[]>) => {
           return new AdvertsLoadAdvertsSuccess(response);
@@ -95,7 +95,7 @@ export class AdvertsEffects {
     ),
     switchMap(([action, page, totalPages, advertsOnPage]) => {
       if (page < totalPages) {
-        return this.adverts.getAdvertsPage(page + 1, advertsOnPage).pipe(
+        return this.adverts.getAdvertsPage(page + 1, advertsOnPage, false).pipe(
           map((response: IServerResponse<IAdvert[]>) => {
             return new AdvertsLoadAdvertsNextPageSuccess(response);
           })
@@ -115,7 +115,7 @@ export class AdvertsEffects {
     ),
     switchMap(([action, page, advertsOnPage]) => this.adverts.addAdvert((action as AdvertsAddAdvert).payload, page, advertsOnPage)
       .pipe(
-        map((response: IServerResponse<{adverts: IAdvert[], advert: IAdvert}>) => {
+        map((response: IServerResponse<{adverts: IAdvert[], advert: IAdvert, total: number}>) => {
           this.snackBar.open('Объявление добавлено', 'Закрыть', {
             verticalPosition: 'bottom',
             horizontalPosition: 'center',
@@ -140,7 +140,6 @@ export class AdvertsEffects {
   addAdvertSuccess$ = this.actions$.pipe(
     ofType(AdvertsActionTypes.ADVERTS_ADD_ADVERT_SUCCESS),
     switchMap((action: AdvertsAddAdvertSuccess) => {
-      console.log('add advert success effect');
       this.dialog.getDialogById('add-advert-dialog').close(true);
       return EMPTY;
     })
