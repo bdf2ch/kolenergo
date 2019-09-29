@@ -10,7 +10,7 @@ export interface IAdvert {
   title: string;                // Заголовок
   preview: string;              // Краткое содержание
   image: string;                // URL изображения объявления
-  content: string;              // Содержание
+  markup: string;               // Содержание объявления с разметкой
   attachments?: IAttachment[];  // Вложения
   dateCreated: number;          // Дата публикации в формате Unix
   dateChanged: number;          // Дата изменения в формате Unix

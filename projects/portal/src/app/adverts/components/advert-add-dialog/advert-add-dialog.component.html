@@ -48,7 +48,7 @@
             <!-- Start: Шаблон, на основе которого создается объявление -->
             <mat-form-field appearance="fill" class="w-100 mt-2">
               <mat-label>На основе шаблона</mat-label>
-              <mat-select formControlName="template">
+              <mat-select formControlName="template" (selectionChange)="advertTemplateSelect($event)">
                 <mat-option *ngFor="let template of templates$ | async" [value]="template">
                   {{template.title}}
                 </mat-option>
@@ -147,7 +147,7 @@
             [config]="editorConfig"
             [(ngModel)]="content"
             (ready)="onReady($event)"
-            (change)="newAdvertContentChanged($event)">
+            (change)="advertContentChanged($event)">
           </ckeditor>
         </div>
       </div>

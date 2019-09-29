@@ -19,7 +19,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class AdvertDetailsComponent implements OnInit {
   public selectedAdvert$: Observable<Advert>;
   public selectedAdvert: Advert;
-  public content: any;
+  public markup: any;
 
   constructor(private readonly store: Store<IApplicationState>,
               private readonly sanitizer: DomSanitizer,
@@ -30,7 +30,7 @@ export class AdvertDetailsComponent implements OnInit {
     this.selectedAdvert$.subscribe((value: Advert) => {
       if (value) {
         this.selectedAdvert = value;
-        this.content = this.sanitizer.bypassSecurityTrustHtml(value.content);
+        this.markup = this.sanitizer.bypassSecurityTrustHtml(value.markup);
       }
     });
   }

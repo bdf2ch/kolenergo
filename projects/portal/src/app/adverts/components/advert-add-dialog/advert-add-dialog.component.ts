@@ -34,6 +34,7 @@ import { Attachment } from '../../../portal/models';
 import { AdvertImageUploadAdapter } from './image-upload-adapter.class';
 import { AdvertsService } from '../../services/adverts.service';
 import { environment } from '../../../../environments/environment';
+import {MatSelectChange} from "@angular/material/select";
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -117,17 +118,15 @@ export class AdvertAddDialogComponent implements OnInit {
       }
     });
 
+    /**
+     * Событие изменения значений полей формы добавления нового объявления
+     */
     this.advertForm.valueChanges.subscribe((value: any) => {
-      this.advert.template = value.template;
-      this.advert.title = value.template && this.advertForm.get('template').untouched ? value.template.title : value.title;
-      this.advert.preview = value.template ? value.template.preview : value.preview;
-      this.advert.attachments = value.template ? value.template.attachments : [];
+      this.advert.title = value.title;
+      this.advert.preview = value.preview;
       this.advert.dateCreated = value.date ? (value.date as Date).getTime() : 0;
       this.advert.isTemplate = value.isTemplate;
-      this.content = value.template ? value.template.content : this.content;
-      if (value.template && value.template.image) {
-        this.advert.changeImage(value.template.image);
-      }
+
       this.formWithSteps.steps[0].isValid =
         !value.template && this.advertForm.valid && this.advertForm.dirty
           ? true : value.template && this.advertForm.valid
@@ -138,10 +137,12 @@ export class AdvertAddDialogComponent implements OnInit {
         title: this.advert.title,
         preview: this.advert.preview
       }, {emitEvent: false});
-      this.advertForm.get('template').markAsUntouched();
       console.log('form state', this.advertForm.status);
     });
 
+    /**
+     * Событие закрытия диалогового окна добавления нового объявления
+     */
     this.dialog.afterClosed().subscribe((value: boolean) => {
       if (this.advert.id && !value) {
         this.store.dispatch(new AdvertsDeleteAdvert(this.advert));
@@ -159,10 +160,28 @@ export class AdvertAddDialogComponent implements OnInit {
   }
 
   /**
+   * Собыьие выбора шаблона объявления
+   * @param event - Событие выбора
+   */
+  advertTemplateSelect(event: MatSelectChange) {
+    this.advert.template = event.value;
+    this.advert.title = (event.value as Advert).title;
+    this.advert.preview = (event.value as Advert).preview;
+    this.advert.markup = (event.value as Advert).markup;
+    this.content = (event.value as Advert).markup;
+    this.advert.attachments = (event.value as Advert).attachments;
+    if ((event.value as Advert).image) {
+      this.advert.changeImage((event.value as Advert).image);
+    }
+    this.advertForm.get('title').setValue(this.advert.title);
+    this.advertForm.get('preview').setValue(this.advert.preview);
+  }
+
+  /**
    * Событие изменения содержимого WYSIWYG редакторп
    * @param value - Содержимое редактора
    */
-  newAdvertContentChanged(value: any) {
+  advertContentChanged(value: any) {
     // this.formWithSteps.steps[0].isValid = this.advertForm.valid;
     // this.formWithSteps.steps[0].isInvalid = this.advertForm.invalid;
     this.formWithSteps.steps[0].isValid =
@@ -212,7 +231,7 @@ export class AdvertAddDialogComponent implements OnInit {
    */
   addAdvert() {
     console.log(this.advert);
-    this.advert.content = this.content;
+    this.advert.markup = this.content;
     this.advert.user = new User();
     this.advert.user.id = 7;
     this.advert.image = this.advert.image ?

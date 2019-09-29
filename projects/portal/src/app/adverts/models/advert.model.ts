@@ -11,7 +11,7 @@ export class Advert implements IAdvert {
   id: number;                   // Идентификатор
   title: string;                // Заголовок
   preview: string;              // Краткое содержание
-  content: string;              // Содержание
+  markup: string;               // Содержание объявления с разметкой
   image: string;                // URL изображения объявления
   user: IUser;                  // Пользователь, разместивший объявление
   attachments: Attachment[];    // Вложения
@@ -30,7 +30,7 @@ export class Advert implements IAdvert {
     this.id = config ? config.id : null;
     this.title = config ? config.title : null;
     this.preview = config && config.preview ? config.preview : null;
-    this.content = config ? config.content : null;
+    this.markup = config ? config.markup : null;
     this.image = config && config.image ? `${environment.staticUrl}/${config.image.replace(/\\/g, '/')}` : null;
     this.user = config ? new User(config.user) : null;
     this.attachments = [];
@@ -57,7 +57,7 @@ export class Advert implements IAdvert {
     result.id = advert.id;
     result.title = advert.title;
     result.preview = advert.preview;
-    result.content = advert.content;
+    result.markup = advert.markup;
     result.image = `${environment.staticUrl}/${advert.image.replace(/\\/g, '/')}`;
     result.user = advert.user;
     result.dateCreated = advert.dateCreated;
@@ -74,9 +74,9 @@ export class Advert implements IAdvert {
    */
   changeImage(url: string): Advert {
     this.image = url;
-    this.content = `
+    this.markup = `
         <figure class="image image-style-side">
-            <img src="${environment.staticUrl}/${url.replace(/\\\\/g, '/')}">
+            <img alt="" src="${environment.staticUrl}/${url.replace(/\\\\/g, '/')}">
         </figure>`;
     return this.fromAnother(this);
   }
