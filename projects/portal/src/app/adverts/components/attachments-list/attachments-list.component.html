@@ -1,12 +1,12 @@
 <div class="attachments-list">
 
-  <!-- Start: Заголовок блока -->
+  <!-- Start: Заголовок -->
   <div class="caption" *ngIf="caption && attachmentsList.length > 0">{{caption}}</div>
-  <!-- End: Заголовок блока -->
+  <!-- End: Заголовок -->
 
+  <!-- Start: Заглушка, отображающаяся при отсутствии вложений -->
   <div class="no-attachments-placeholder" *ngIf="attachmentsList.length === 0 && showNoAttachmentsPlaceholder">
     <span>Вложения отсутствуют</span>
-
     <button class="kol-button mt-3" (click)="dialog.click()" [disabled]="removingInProgress || uploadingInProgress">
       <mat-icon *ngIf="!uploadingInProgress && !removingInProgress">cloud_upload</mat-icon>
       <mat-progress-spinner *ngIf="uploadingInProgress" diameter="20" mode="indeterminate"></mat-progress-spinner>
@@ -14,7 +14,9 @@
       <input type="file" #dialog (change)="onSelectFile($event.target.files)">
     </button>
   </div>
+  <!-- End: Заглушка, отображающаяся при отсутствии вложений -->
 
+  <!-- Start: Перечень загруженный файлов -->
   <div class="attachment" *ngFor="let attachment of attachmentsList">
     <div class="file-type-icon">
       <mat-icon>attach_file</mat-icon>
@@ -25,24 +27,23 @@
         <a href="{{attachment.url}}">{{attachment.fileName}}</a>
       </div>
       <div class="properties">{{attachment.size | fileSize}}</div>
+      <div class="controls">
+        <a href="{{attachment.url}}"
+           class="kol-button small">
+          Загрузить
+        </a>
+        <button
+          class="kol-button small"
+          *ngIf="allowDelete"
+          [disabled]="removingInProgress"
+          (click)="onRemoveAttachment(attachment)">
+          Удалить
+        </button>
+      </div>
     </div>
-    <div class="controls">
-      <a href="{{attachment.url}}"
-         class="control small"
-         matTooltip="Скачать файл"
-         matTooltipPosition="above">
-        <mat-icon>arrow_downward</mat-icon>
-      </a>
-      <button
-        class="control small"
-        *ngIf="allowDelete"
-        matTooltip="Удалить файл"
-        matTooltipPosition="above"
-        (click)="onRemoveAttachment(attachment)">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </div>
+
   </div>
+  <!-- End: Перечень загруженных файлов -->
 
 
   <!-- Start: Элементы управления списка вложений -->

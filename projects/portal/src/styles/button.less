@@ -10,25 +10,23 @@
   font-size: 13px;
   line-height: 20px;
   font-weight: 700;
-  text-decoration: none;
-  //color: #7986cb;
+  text-decoration: none !important;
   color: #5186B0;
   background: transparent;
   cursor: pointer;
-  // border: 1.5px solid #7986cb;
   border: 1.5px solid #5186B0;
   border-radius: 4px;
   outline: none !important;
   transition: all linear 0.1s;
 
   &[disabled] {
-    //color: #c5cae9;
-    color: rgba(0, 79 ,140, 0.5);
+    color: #c5cae9;
     border-color: #c5cae9;
     cursor: default;
 
     &:hover {
       color: #c5cae9;
+      border-color: #c5cae9;
       background: transparent;
 
       .mat-icon {
@@ -38,19 +36,22 @@
   }
 
   &.small {
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 30px;
-    height: 30px;
-    padding: 5px;
+    // width: 30px;
+    height: 25px;
+    padding: 5px 15px;
     box-sizing: border-box;
+    font-size: 11px;
+    line-height: 13px;
+    border: 1px solid #5186B0;
 
     .mat-icon {
-      width: 20px;
-      height: 20px;
-      margin-right: 0px;
-      font-size: 20px;
+      width: 15px;
+      height: 15px;
+      margin-right: 5px;
+      font-size: 15px;
     }
   }
 

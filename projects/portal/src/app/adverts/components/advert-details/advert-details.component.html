@@ -25,7 +25,8 @@
       [attachments]="(selectedAdvert$ | async)?.attachments"
       [caption]="'Вложения'"
       [showCaptionIfNoAttachments]="false"
-      [showNoAttachmentsPlaceholder]="false">
+      [showNoAttachmentsPlaceholder]="false"
+      [allowDelete]="true">
     </app-attachments-list>
   </div>
 </div>

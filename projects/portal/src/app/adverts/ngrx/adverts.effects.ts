@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 
-import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { EMPTY, from, of } from 'rxjs';
+import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
@@ -45,7 +45,6 @@ import { IAdvert } from '../interfaces';
 import { Advert } from '../models';
 import { AdvertsService } from '../services/adverts.service';
 import { IApplicationState } from '../../ngrx/application.state';
-import {MatDialog} from '@angular/material';
 
 @Injectable()
 export class AdvertsEffects {
@@ -64,7 +63,7 @@ export class AdvertsEffects {
       this.store.pipe(select(selectPage)),
       this.store.pipe(select(selectAdvertsOnPage))
     ),
-    switchMap(([action, page, advertsOnPage]) => this.adverts.getAdvertsPage(page, advertsOnPage, false)
+    switchMap(([action, page, advertsOnPage]) => this.adverts.getAdvertsPage(page, advertsOnPage)
       .pipe(
         map((response: IServerResponse<IAdvert[]>) => {
           return new AdvertsLoadAdvertsSuccess(response);
@@ -95,7 +94,7 @@ export class AdvertsEffects {
     ),
     switchMap(([action, page, totalPages, advertsOnPage]) => {
       if (page < totalPages) {
-        return this.adverts.getAdvertsPage(page + 1, advertsOnPage, false).pipe(
+        return this.adverts.getAdvertsPage(page + 1, advertsOnPage).pipe(
           map((response: IServerResponse<IAdvert[]>) => {
             return new AdvertsLoadAdvertsNextPageSuccess(response);
           })
@@ -139,7 +138,7 @@ export class AdvertsEffects {
   @Effect()
   addAdvertSuccess$ = this.actions$.pipe(
     ofType(AdvertsActionTypes.ADVERTS_ADD_ADVERT_SUCCESS),
-    switchMap((action: AdvertsAddAdvertSuccess) => {
+    switchMap(() => {
       this.dialog.getDialogById('add-advert-dialog').close(true);
       return EMPTY;
     })
@@ -180,7 +179,7 @@ export class AdvertsEffects {
     ofType(AdvertsActionTypes.ADVERTS_DELETE_ADVERT),
     switchMap((action: AdvertsDeleteAdvert) => this.adverts.removeAdvert(action.payload)
       .pipe(
-        map((response: IServerResponse<boolean>) => {
+        map(() => {
           return new AdvertsDeleteAdvertSuccess(action.payload);
         }),
         catchError((error: any) => {
@@ -318,12 +317,12 @@ export class AdvertsEffects {
   );
 
   @Effect()
-  deleteAttachment$ = this.actions$.pipe(
+  removeAttachment$ = this.actions$.pipe(
     ofType(AdvertsActionTypes.ADVERTS_DELETE_ATTACHMENT),
     withLatestFrom(this.store.pipe(select(selectSelectedAdvert))),
-    switchMap(([action, selectedAdvert]) => this.adverts.removeAttachment((action as AdvertsDeleteAttachment).payload.id)
+    switchMap(([action, selectedAdvert]) => this.adverts.removeAttachment((action as AdvertsDeleteAttachment).payload)
       .pipe(
-        map((response: IServerResponse<boolean>) => {
+        map(() => {
           this.snackBar.open('Вложение удалено', 'Закрыть', {
             verticalPosition: 'bottom',
             horizontalPosition: 'center',

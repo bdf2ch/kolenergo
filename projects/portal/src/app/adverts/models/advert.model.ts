@@ -58,7 +58,9 @@ export class Advert implements IAdvert {
     result.title = advert.title;
     result.preview = advert.preview;
     result.markup = advert.markup;
-    result.image = `${environment.staticUrl}/${advert.image.replace(/\\/g, '/')}`;
+    result.image = advert.image
+      ? `${environment.staticUrl}/${advert.image.replace(/\\/g, '/')}`
+      : null;
     result.user = advert.user;
     result.dateCreated = advert.dateCreated;
     result.dateCreatedD = advert.dateCreatedD;

@@ -161,6 +161,7 @@
           [allowUpload]="true"
           [allowDelete]="true"
           [uploadingInProgress]="uploadingAttachmentInProgress$ | async"
+          [removingInProgress]="deletingAttachmentInProgress$ | async"
           [showNoAttachmentsPlaceholder]="true"
           (select)="attachmentSelected($event)"
           (remove)="attachmentRemoved($event)">

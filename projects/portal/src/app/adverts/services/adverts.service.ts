@@ -7,7 +7,7 @@ import { IServerResponse } from '@kolenergo/core';
 import { IAdvert } from '../interfaces';
 import { AdvertsResource } from '../resources/adverts.resource';
 import { Advert } from '../models';
-import {IAttachment} from '../../portal/interfaces';
+import {Attachment} from "../../portal/models";
 
 
 
@@ -21,9 +21,9 @@ export class AdvertsService {
   /**
    * Загрузка страницы объявлений с сервера
    * @param page - Порядковый номер страницы
-   * @param itemsOnPage - Количество объявлений на старнице
+   * @param advertsOnPage - Количество объявлений на старнице
    */
-  getAdvertsPage(page: number, advertsOnPage: number, includePrevious: boolean): Observable<IServerResponse<IAdvert[]>> {
+  getAdvertsPage(page: number, advertsOnPage: number): Observable<IServerResponse<IAdvert[]>> {
     return from(this.resource.getAdverts(null, {page, advertsOnPage}, null)).pipe(
       map((response: IServerResponse<IAdvert[]>) => response)
     );
@@ -125,10 +125,10 @@ export class AdvertsService {
 
   /**
    * Удаление вложения
-   * @param attachmentId - Идентификатор удаляемого вложения
+   * @param attachment - Удаляемое вложение
    */
-  removeAttachment(attachmentId: number): Observable<IServerResponse<boolean>> {
-    return from(this.resource.removeAttachment(null, null, {id: attachmentId}))
+  removeAttachment(attachemnt: Attachment): Observable<IServerResponse<boolean>> {
+    return from(this.resource.removeAttachment(null, null, {id: attachemnt.id}))
       .pipe(
         map((response: IServerResponse<boolean>) => response)
       );
