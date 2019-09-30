@@ -1,20 +1,37 @@
-<div class="row mt-md-3 align-items-start">
-  <div class="col-12">
-    <div class="section-caption small pb-0">
-      <a routerLink="/adverts">Объявления</a>
-      <span class="ml-2 mr-2">/</span>
-      <span>{{(selectedAdvert$ | async)?.title}}</span>
+<div class="row align-items-center">
+  <div class="col">
+    <div class="row mt-md-3 align-items-start">
+      <div class="col-12">
+        <div class="section-caption small pb-0">
+          <a routerLink="/adverts">Объявления</a>
+          <span class="ml-2 mr-2">/</span>
+          <span>{{(selectedAdvert$ | async)?.title}}</span>
+        </div>
+      </div>
     </div>
+
+    <div class="row align-items-start">
+      <div class="col-12">
+        <div class="section-caption small">
+          <span class="attribute">{{(selectedAdvert$ | async)?.dateCreatedD | date:'dd MMMM yyyy'}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-auto">
+    <button class="kol-button">
+      <mat-icon>edit</mat-icon> Изменить
+    </button>
+
+    <button class="kol-button ml-2" (click)="openRemoveAdvertDialog()">
+      <mat-icon>delete</mat-icon> Удалить
+    </button>
   </div>
 </div>
 
-<div class="row align-items-start">
-  <div class="col-12">
-    <div class="section-caption small">
-      <span class="attribute">{{(selectedAdvert$ | async)?.dateCreatedD | date:'dd MMMM yyyy'}}</span>
-    </div>
-  </div>
-</div>
+
+
 
 <div class="mt-3" [innerHtml]="markup"></div>
 
@@ -26,7 +43,7 @@
       [caption]="'Вложения'"
       [showCaptionIfNoAttachments]="false"
       [showNoAttachmentsPlaceholder]="false"
-      [allowDelete]="true">
+      [allowDelete]="false">
     </app-attachments-list>
   </div>
 </div>

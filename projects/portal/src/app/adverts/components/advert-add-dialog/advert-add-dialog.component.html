@@ -30,7 +30,7 @@
         class="p-3"
         mat-raised-button
         color="primary"
-        [disabled]="advertForm.invalid || !content"
+        [disabled]="advertForm.invalid || !markup"
         (click)="addAdvert()">
         Добавить объявление
       </button>
@@ -94,12 +94,13 @@
             </mat-form-field>
             <!-- End: Дата публикации объявления -->
 
+            <!-- Start: Является ли объявление шаблоном -->
             <div class="row mt-4" *ngIf="!advertForm.get('template').value">
               <div class="col-12">
                 <mat-checkbox class="pr-3" formControlName="isTemplate">Объявление является шаблоном</mat-checkbox>
               </div>
             </div>
-
+            <!-- End: Является ли объявление шаблоном -->
           </form>
         </div>
       </div>
@@ -139,19 +140,21 @@
   </div>
     <!-- End: Вкладка с изображением объявления -->
 
+    <!-- Start: Вкладка с содержимым объявления -->
     <div class="h-100" *ngSwitchCase="formWithSteps.steps[2]">
       <div class="row h-100">
         <div class="col-12 h-100">
           <ckeditor
             [editor]="Editor"
             [config]="editorConfig"
-            [(ngModel)]="content"
+            [(ngModel)]="markup"
             (ready)="onReady($event)"
             (change)="advertContentChanged($event)">
           </ckeditor>
         </div>
       </div>
     </div>
+    <!-- End: Вкладка св содержимым объявления -->
 
     <!-- Start: Вкладка с вложениями -->
     <div class="h-100" *ngSwitchCase="formWithSteps.steps[3]">

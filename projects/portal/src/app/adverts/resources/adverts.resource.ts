@@ -47,14 +47,14 @@ export class AdvertsResource extends Resource {
     withCredentials: true
   })
   addAdvert:
-    IResourceMethodStrict<Advert, {page: number, advertsOnPage: number}, void, IServerResponse<{adverts: IAdvert[], advert: IAdvert}>>;
+    IResourceMethodStrict<Advert, {page: number, advertsOnPage: number}, void, IServerResponse<{adverts: IAdvert[], advert: IAdvert, total: number}>>;
 
   @ResourceAction({
     path: '/adverts/{!id}',
     method: ResourceRequestMethod.Patch,
     withCredentials: true
   })
-  editAdvert: IResourceMethodStrict<Advert, void, void, IServerResponse<IAdvert>>;
+  editAdvert: IResourceMethodStrict<Advert, {page: number, advertsOnPage: number}, void, IServerResponse<{adverts: IAdvert[], advert: IAdvert, total: number}>>;
 
   @ResourceAction({
     path: '/adverts/{!id}',

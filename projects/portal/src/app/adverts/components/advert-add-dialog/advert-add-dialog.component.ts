@@ -30,7 +30,7 @@ import {
   selectUploadingAttachmentInProgress,
   selectDeletingAttachmentInProgress,
   selectAddingInProgress,
-  selectEditingInProgress, selectTemplates
+  selectEditingInProgress, selectTemplates, AdvertsDeleteAttachmentFromNewAdvertBasedOnTemplate
 } from '../../ngrx';
 import { Attachment } from '../../../portal/models';
 import { AdvertImageUploadAdapter } from './image-upload-adapter.class';
@@ -60,7 +60,7 @@ export class AdvertAddDialogComponent implements OnInit {
   public deletingImageInProgress$: Observable<boolean>;
   public deletingAttachmentInProgress$: Observable<boolean>;
 
-  public content: string;
+  public markup: string;
   public Editor = DecoupledEditor;
   public formWithSteps: FormStepManager;
   public advertForm: FormGroup;
@@ -85,7 +85,7 @@ export class AdvertAddDialogComponent implements OnInit {
     this.formWithSteps.addStep(new FormStep('Содержание', 'Содержание объявления', 'notes'));
     this.formWithSteps.addStep(new FormStep('Вложения', 'Прикрепленные файлы', 'attach_file'));
     // this.attachments = [];
-    this.content = '';
+    this.markup = '';
   }
 
   ngOnInit() {
@@ -108,6 +108,7 @@ export class AdvertAddDialogComponent implements OnInit {
       this.advert = advert;
       this.advertForm.get('title').setValue(advert.title);
       this.advertForm.get('preview').setValue(advert.preview);
+      this.markup = advert.markup;
       console.log('advert changes', advert);
       console.log(this.advertForm.getRawValue());
     });
@@ -136,9 +137,12 @@ export class AdvertAddDialogComponent implements OnInit {
       this.advertForm.reset({
         template: this.advert.template,
         title: this.advert.title,
-        preview: this.advert.preview
+        preview: this.advert.preview,
+        isTemplate: this.advert.isTemplate,
+        date: value.date,
       }, {emitEvent: false});
       console.log('form state', this.advertForm.status);
+      console.log('form value', value);
     });
 
     /**
@@ -153,7 +157,11 @@ export class AdvertAddDialogComponent implements OnInit {
     });
   }
 
-  public onReady( editor ) {
+  /**
+   * Событие инициализации WYSIWYG - редактора
+   * @param editor - Объект редактора
+   */
+  public onReady(editor) {
     editor.ui.getEditableElement().parentElement.insertBefore(
       editor.ui.view.toolbar.element,
       editor.ui.getEditableElement()
@@ -165,17 +173,18 @@ export class AdvertAddDialogComponent implements OnInit {
    * @param event - Событие выбора
    */
   advertTemplateSelect(event: MatSelectChange) {
+    console.log(event);
     this.advert.template = event.value;
     this.advert.title = (event.value as Advert).title;
     this.advert.preview = (event.value as Advert).preview;
     this.advert.markup = (event.value as Advert).markup;
-    this.content = (event.value as Advert).markup;
+    this.markup = (event.value as Advert).markup;
     this.advert.attachments = (event.value as Advert).attachments;
     if ((event.value as Advert).image) {
       this.advert.changeImage((event.value as Advert).image);
     }
-    this.advertForm.get('title').setValue(this.advert.title);
-    this.advertForm.get('preview').setValue(this.advert.preview);
+    this.advertForm.get('title').setValue(this.advert.title, {emitEvent: false});
+    this.advertForm.get('preview').setValue(this.advert.preview, {emitEvent: false});
   }
 
   /**
@@ -190,9 +199,9 @@ export class AdvertAddDialogComponent implements OnInit {
         ? true : this.advert.template && this.advertForm.valid
         ? true : false;
     this.formWithSteps.steps[0].isInvalid = this.advertForm.invalid;
-    this.formWithSteps.steps[1].isInvalid = !this.content;
-    this.formWithSteps.steps[1].isValid = this.content ? true : false;
-    console.log('CONTENT', this.content);
+    this.formWithSteps.steps[1].isInvalid = !this.markup;
+    this.formWithSteps.steps[1].isValid = this.markup ? true : false;
+    console.log('CONTENT', this.markup);
   }
 
   /**
@@ -220,7 +229,11 @@ export class AdvertAddDialogComponent implements OnInit {
    * @param attachment - Удаляемое вложение
    */
   attachmentRemoved(attachment: Attachment) {
-    this.store.dispatch(new AdvertsDeleteAttachment(attachment));
+    if (attachment.advertId === this.advert.id) {
+      this.store.dispatch(new AdvertsDeleteAttachment(attachment));
+    } else {
+      this.store.dispatch(new AdvertsDeleteAttachmentFromNewAdvertBasedOnTemplate(attachment));
+    }
   }
 
   deleteImage() {
@@ -232,7 +245,7 @@ export class AdvertAddDialogComponent implements OnInit {
    */
   addAdvert() {
     console.log(this.advert);
-    this.advert.markup = this.content;
+    this.advert.markup = this.markup;
     this.advert.user = new User();
     this.advert.user.id = 7;
     this.advert.image = this.advert.image ?

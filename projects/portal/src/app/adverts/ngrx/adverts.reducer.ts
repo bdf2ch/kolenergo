@@ -90,13 +90,15 @@ export function reducer(
     case AdvertsActionTypes.ADVERTS_EDIT_ADVERT_SUCCESS: {
       return {
         ...state,
-        templates: action.payload.data.isTemplate ? [...state.templates, new Advert(action.payload.data)] : [...state.templates],
-        adverts: state.newAdvert.id ? [new Advert(action.payload.data), ...state.adverts].sort((a: Advert, b: Advert) => {
-          return a.dateCreated < b.dateCreated ? 1 : -1;
-        }) : state.adverts.map((item: Advert) => {
-          return item.id === action.payload.data.id ? new Advert(item) : item;
+        templates: action.payload.data.advert.isTemplate
+          ? [...state.templates, new Advert(action.payload.data.advert)]
+          : [...state.templates],
+        adverts: action.payload.data.adverts.map((item: IAdvert) => {
+          return new Advert(item);
         }),
-        newAdvert: new Advert()
+        totalAdverts: action.payload.data.total,
+        totalPages: Math.ceil((action.payload.data.total / state.advertsOnPage)) - 1,
+        newAdvert: new Advert(),
       };
     }
     case AdvertsActionTypes.ADVERTS_UPLOAD_IMAGE_TO_NEW_ADVERT: {
@@ -175,6 +177,14 @@ export function reducer(
         deletingAttachmentInProgress: false
       };
     }
+    case AdvertsActionTypes.ADVERTS_DELETE_ATTACHMENT_FROM_NEW_ADVERT_BASED_ON_TEMPLATE: {
+      return  {
+        ...state,
+        newAdvert: state.newAdvert.changeAttachments(state.newAdvert.attachments.filter((item: Attachment) => {
+          return item.id !== action.payload.id ? true : false;
+        }))
+      };
+    }
     case AdvertsActionTypes.ADVERTS_RESET_NEW_ADVERT: {
       return {
         ...state,
@@ -190,6 +200,11 @@ export function reducer(
     case AdvertsActionTypes.ADVERTS_DELETE_ADVERT_SUCCESS: {
       return {
         ...state,
+        templates: action.payload.isTemplate
+          ? state.templates.filter((advert: Advert) => {
+            return advert.id !== action.payload.id ? true : false;
+          })
+          : state.templates,
         adverts: [...state.adverts.filter((advert: Advert) => {
           return advert.id !== action.payload.id ? true : false;
         })],

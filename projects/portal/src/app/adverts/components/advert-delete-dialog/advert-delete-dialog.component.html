@@ -1,3 +1,16 @@
-<p>
-  advert-delete-dialog works!
-</p>
+<div class="container-fluid">
+  <div class="row" MatDialogTitle>
+    <div class="col-12 dialog-caption">Удаление объявления</div>
+  </div>
+  <div class="row">
+    <div class="col-12 pt-4 pb-4 dialog-content text-center" matDialogContent>Удалить объявление?</div>
+  </div>
+  <div class="row" matDialogActions>
+    <div class="col-6">
+      <button class="kol-button w-100" (click)="removeAdvert()">Удалить</button>
+    </div>
+    <div class="col-6">
+      <button class="kol-button w-100" (click)="closeDialog()">Отмена</button>
+    </div>
+  </div>
+</div>

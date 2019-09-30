@@ -51,7 +51,7 @@ export class AdvertDetailsComponent implements OnInit {
    */
   openRemoveAdvertDialog() {
     this.dialog.open(AdvertDeleteDialogComponent, {
-      id: 'advert-delete-dialog',
+      id: 'remove-advert-dialog',
       width: '350px'
     });
   }

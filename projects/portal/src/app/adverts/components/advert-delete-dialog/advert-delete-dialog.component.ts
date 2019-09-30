@@ -32,7 +32,7 @@ export class AdvertDeleteDialogComponent implements OnInit {
   /**
    * Удаление текущего объявления
    */
-  deleteAdvert() {
+  removeAdvert() {
     this.store.dispatch(new AdvertsDeleteAdvert(this.selectedAdvert));
   }
 

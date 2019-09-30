@@ -18,20 +18,35 @@
 
   <!-- Start: Перечень загруженный файлов -->
   <div class="attachment" *ngFor="let attachment of attachmentsList">
+    <!-- Start: Иконка и типа файла -->
     <div class="file-type-icon">
       <mat-icon>attach_file</mat-icon>
       <span class="extension">{{attachment.extension}}</span>
     </div>
+    <!-- End: Иконка и тип файла -->
+
+    <!-- Start: Подробности о вложении -->
     <div class="details">
+      <!-- Start: Имя файла -->
       <div class="file-name">
         <a href="{{attachment.url}}">{{attachment.fileName}}</a>
       </div>
+      <!-- End: Имя файла -->
+
+      <!-- Start: Атрибуты файла: размер -->
       <div class="properties">{{attachment.size | fileSize}}</div>
+      <!-- End: Атрибуты файла: размер -->
+
+      <!-- Start: Элементы управления вложением -->
       <div class="controls">
+        <!-- Start: Ссылка на загрузку вложения -->
         <a href="{{attachment.url}}"
            class="kol-button small">
           Загрузить
         </a>
+        <!-- End: Ссылка на загрузку вложения -->
+
+        <!-- Start: Кнопка удаления вложения -->
         <button
           class="kol-button small"
           *ngIf="allowDelete"
@@ -39,8 +54,11 @@
           (click)="onRemoveAttachment(attachment)">
           Удалить
         </button>
+        <!-- End: Кнопка удаления вложения -->
       </div>
+      <!-- End: Элементы управления вложением -->
     </div>
+    <!-- End: Подробности о вложении -->
 
   </div>
   <!-- End: Перечень загруженных файлов -->

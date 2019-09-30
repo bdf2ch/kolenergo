@@ -58,10 +58,16 @@ export class AdvertsService {
   /**
    * Изменение объявления
    * @param advert - Изменяемое объявление
+   * @param currentPage - Текущая страница объявлений
+   * @param advertsOnPage - Количество объявлений на странице
    */
-  editAdvert(advert: Advert): Observable<IServerResponse<IAdvert>> {
-    return from(this.resource.editAdvert(advert)).pipe(
-      map((response: IServerResponse<IAdvert>) => {
+  editAdvert(
+    advert: Advert,
+    currentPage: number,
+    advertsOnPage: number
+  ): Observable<IServerResponse<{adverts: IAdvert[], advert: IAdvert, total: number}>> {
+    return from(this.resource.editAdvert(advert, {page: currentPage, advertsOnPage})).pipe(
+      map((response: IServerResponse<{adverts: IAdvert[], advert: IAdvert, total: number}>) => {
         return response;
       })
     );

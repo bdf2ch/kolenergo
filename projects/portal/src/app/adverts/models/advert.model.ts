@@ -76,8 +76,8 @@ export class Advert implements IAdvert {
    */
   changeImage(url: string): Advert {
     this.image = url;
-    this.markup = `
-        <figure class="image image-style-side">
+    this.markup =
+      `<figure class="image image-style-side">
             <img alt="" src="${environment.staticUrl}/${url.replace(/\\\\/g, '/')}">
         </figure>`;
     return this.fromAnother(this);

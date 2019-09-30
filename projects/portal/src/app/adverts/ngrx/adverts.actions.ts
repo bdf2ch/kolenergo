@@ -26,6 +26,7 @@ export enum AdvertsActionTypes {
   ADVERTS_DELETE_ATTACHMENT = '[Adverts API] Delete attachment',
   ADVERTS_DELETE_ATTACHMENT_SUCCESS = '[Adverts API] Attachment deleted from selected advert successfully',
   ADVERTS_DELETE_ATTACHMENT_FROM_NEW_ADVERT_SUCCESS = '[Adverts API] Attachment deleted from new advert successfully',
+  ADVERTS_DELETE_ATTACHMENT_FROM_NEW_ADVERT_BASED_ON_TEMPLATE = '[Adverts API] Delete attachment from new advert based on template',
   ADVERTS_RESET_NEW_ADVERT = '[Adverts API] Reset new advert',
   ADVERTS_ADD_AVERT = '[Adverts API] Add new advert',
   ADVERTS_ADD_ADVERT_SUCCESS = '[Adverts API] Advert added successfully',
@@ -191,6 +192,14 @@ export class AdvertsDeleteAttachmentFromNewAdvertSuccess implements Action {
 }
 
 /**
+ * Удаление вложения из нового объявления, созданного на основе шаблона
+ */
+export class AdvertsDeleteAttachmentFromNewAdvertBasedOnTemplate implements Action {
+  readonly  type = AdvertsActionTypes.ADVERTS_DELETE_ATTACHMENT_FROM_NEW_ADVERT_BASED_ON_TEMPLATE;
+  constructor(public payload: Attachment) {}
+}
+
+/**
  * Сборос нового объявленияв  начальное состояние
  */
 export class AdvertsResetNewAdvert implements Action {
@@ -218,7 +227,7 @@ export class AdvertsEditAdvert implements Action {
  */
 export class AdvertsEditAdvertSuccess implements Action {
   readonly type = AdvertsActionTypes.ADVERTS_EDIT_ADVERT_SUCCESS;
-  constructor(public payload: IServerResponse<IAdvert>) {}
+  constructor(public payload: IServerResponse<{adverts: IAdvert[], advert: IAdvert, total: number}>) {}
 }
 
 /**
@@ -279,6 +288,7 @@ export type advertsActions =
   AdvertsUploadAttachmentToAdvert |
   AdvertsUploadAttachmentToAdvertSuccess |
   AdvertsDeleteAttachmentFromNewAdvertSuccess |
+  AdvertsDeleteAttachmentFromNewAdvertBasedOnTemplate |
   AdvertsDeleteAttachment |
   AdvertsDeleteAttachmentSuccess |
   AdvertsResetNewAdvert |
