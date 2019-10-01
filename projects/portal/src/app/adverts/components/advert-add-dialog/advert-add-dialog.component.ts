@@ -8,6 +8,11 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import '@ckeditor/ckeditor5-build-decoupled-document/build/translations/ru';
+import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize';
+import Image from '@ckeditor/ckeditor5-image/src/image';
+import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar';
+import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption';
+import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle';
 
 import { User } from '@kolenergo/core';
 import { FormStepManager } from '../../../../../../event-sheduler/src/app/event-sheduler/models/form-manager.model';

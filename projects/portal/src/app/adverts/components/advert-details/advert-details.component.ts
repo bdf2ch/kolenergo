@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material';
 
 import { select, Store } from '@ngrx/store';
@@ -6,15 +7,15 @@ import { Observable } from 'rxjs';
 
 import { AdvertDeleteDialogComponent } from '../advert-delete-dialog/advert-delete-dialog.component';
 import { Advert } from '../../models';
-import { selectSelectedAdvert } from '../../ngrx';
+import {AdvertsLoadSimilarAdverts, selectSelectedAdvert} from '../../ngrx';
 import { IApplicationState } from '../../../ngrx';
 import { AdvertEditDialogComponent } from '../advert-edit-dialog/advert-edit-dialog.component';
-import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-advert-details',
   templateUrl: './advert-details.component.html',
-  styleUrls: ['./advert-details.component.less']
+  styleUrls: ['./advert-details.component.less'],
+  styles: [':host { display: flex; flex-direction: column; flex: 1; }']
 })
 export class AdvertDetailsComponent implements OnInit {
   public selectedAdvert$: Observable<Advert>;
@@ -33,6 +34,7 @@ export class AdvertDetailsComponent implements OnInit {
         this.markup = this.sanitizer.bypassSecurityTrustHtml(value.markup);
       }
     });
+    this.store.dispatch(new AdvertsLoadSimilarAdverts(this.selectedAdvert));
   }
 
   /**

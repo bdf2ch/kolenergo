@@ -39,7 +39,7 @@ export class AdvertsResource extends Resource {
     method: ResourceRequestMethod.Get,
     withCredentials: true
   })
-  getAdvert: IResourceMethodStrict<void, void, {id: number}, IServerResponse<IAdvert>>;
+  getAdvert: IResourceMethodStrict<void, {similar?: boolean}, {id: number}, IServerResponse<IAdvert | IAdvert[]>>;
 
   @ResourceAction({
     path: '/adverts',

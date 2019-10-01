@@ -31,7 +31,7 @@ import {
   AdvertsDeleteAttachmentSuccess,
   AdvertsDeleteAttachmentFromNewAdvertSuccess,
   AdvertsLoadAdvert,
-  AdvertsLoadAdvertSuccess, AdvertsEditAdvert
+  AdvertsLoadAdvertSuccess, AdvertsEditAdvert, AdvertsLoadSimilarAdverts, AdvertsLoadSimilarAdvertsSuccess
 } from './adverts.actions';
 import {
   selectAdvertsOnPage,
@@ -102,6 +102,27 @@ export class AdvertsEffects {
         return EMPTY;
       }
     })
+  );
+
+  @Effect()
+  loadSimilarAdverts$ = this.actions$.pipe(
+    ofType(AdvertsActionTypes.ADVERTS_LOAD_SIMILAR_ADVERTS),
+    switchMap((action: AdvertsLoadSimilarAdverts) => this.adverts.getSimilarAdverts(action.payload)
+      .pipe(
+        map((response: IServerResponse<IAdvert[]>) => {
+          return new AdvertsLoadSimilarAdvertsSuccess(response);
+        }),
+        catchError((error: any) => {
+          console.error('error occurred: ', error);
+          this.snackBar.open('При загрузке похожих объявлений произошла ошибка', 'Закрыть', {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
+          return EMPTY;
+        })
+      )
+    )
   );
 
   @Effect()

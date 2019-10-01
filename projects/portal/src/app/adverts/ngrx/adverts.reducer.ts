@@ -66,6 +66,12 @@ export function reducer(
         fetchingInProgress: false
       };
     }
+    case AdvertsActionTypes.ADVERTS_LOAD_SIMILAR_ADVERTS_SUCCESS: {
+      return {
+        ...state,
+        selectedAdvert: state.selectedAdvert.changeSimilar(action.payload.data.map((item: IAdvert) => new Advert(item)))
+      };
+    }
     case AdvertsActionTypes.ADVERTS_ADD_AVERT: {
       return  {
         ...state,

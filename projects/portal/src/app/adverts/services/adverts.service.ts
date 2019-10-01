@@ -40,6 +40,17 @@ export class AdvertsService {
   }
 
   /**
+   * Загрузка похожих объявлений
+   * @param advert - Объявление, на основе которого ищутся похожие
+   */
+  getSimilarAdverts(advert): Observable<IServerResponse<IAdvert[]>> {
+    return from(this.resource.getAdvert(null, {similar: true}, {id: advert.id}))
+      .pipe(
+        map((response: IServerResponse<IAdvert[]>) => response)
+      );
+  }
+
+  /**
    * Добавление объявления
    * @param advert - Добавляемое объявление
    * @param currentPage - Текущая страница объявлений

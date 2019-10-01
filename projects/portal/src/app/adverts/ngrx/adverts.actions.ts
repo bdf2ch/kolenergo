@@ -15,6 +15,8 @@ export enum AdvertsActionTypes {
   ADVERTS_LOAD_ADVERT_SUCCESS = '[Advert details page] Advert loaded successfully',
   ADVERTS_LOAD_ADVERTS_NEXT_PAGE = '[Adverts page] Load next page of adverts',
   ADVERTS_LOAD_ADVERTS_NEXT_PAGE_SUCCESS = '[Adverts page] Next page of adverts loaded successfully',
+  ADVERTS_LOAD_SIMILAR_ADVERTS = '[Adverts API] Load similar adverts',
+  ADVERTS_LOAD_SIMILAR_ADVERTS_SUCCESS = '[Adverts API] Similar adverts loaded successfully',
   ADVERTS_UPLOAD_IMAGE_TO_NEW_ADVERT = '[Adverts API] Upload image to new advert',
   ADVERTS_UPLOAD_IMAGE_TO_NEW_ADVERT_SUCCESS = '[Adverts API] Image to new advert uploaded successfully',
   ADVERTS_UPLOAD_IMAGE_TO_ADVERT = '[Adverts API] Upload image to advert',
@@ -83,6 +85,22 @@ export class AdvertsLoadAdvertsNextPage implements Action {
  */
 export class AdvertsLoadAdvertsNextPageSuccess implements Action {
   readonly type = AdvertsActionTypes.ADVERTS_LOAD_ADVERTS_NEXT_PAGE_SUCCESS;
+  constructor(public payload: IServerResponse<IAdvert[]>) {}
+}
+
+/**
+ * Загрузка похожих объявлений
+ */
+export class AdvertsLoadSimilarAdverts implements Action {
+  readonly type = AdvertsActionTypes.ADVERTS_LOAD_SIMILAR_ADVERTS;
+  constructor(public payload: Advert) {}
+}
+
+/**
+ * Загрузка похожих объявлений выполнена успешно
+ */
+export class AdvertsLoadSimilarAdvertsSuccess implements Action {
+  readonly  type = AdvertsActionTypes.ADVERTS_LOAD_SIMILAR_ADVERTS_SUCCESS;
   constructor(public payload: IServerResponse<IAdvert[]>) {}
 }
 
@@ -276,6 +294,8 @@ export type advertsActions =
   AdvertsLoadAdvertSuccess |
   AdvertsLoadAdvertsNextPage |
   AdvertsLoadAdvertsNextPageSuccess |
+  AdvertsLoadSimilarAdverts |
+  AdvertsLoadSimilarAdvertsSuccess |
   AdvertsAddAdvert |
   AdvertsAddAdvertSuccess |
   AdvertsUploadImageToNewAdvert |
