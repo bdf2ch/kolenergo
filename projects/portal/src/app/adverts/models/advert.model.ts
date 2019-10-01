@@ -33,7 +33,7 @@ export class Advert implements IAdvert {
     this.preview = config && config.preview ? config.preview : null;
     this.markup = config ? config.markup : null;
     this.image = config && config.image ? `${environment.staticUrl}/${config.image.replace(/\\/g, '/')}` : null;
-    this.user = config ? new User(config.user) : null;
+    this.user = config && config.user ? new User(config.user) : null;
     this.attachments = [];
     this.dateCreated = config ? config.dateCreated : null;
     this.dateCreatedD = config ? new Date(config.dateCreated) : null;

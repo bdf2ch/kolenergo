@@ -6,7 +6,7 @@ import { IAttachment } from '../../portal/interfaces';
  */
 export interface IAdvert {
   id: number;                   // Идентификатор
-  user: IUser;                  // Пользователь, разместивший объявление
+  user?: IUser;                 // Пользователь, разместивший объявление
   title: string;                // Заголовок
   preview: string;              // Краткое содержание
   image: string;                // URL изображения объявления
