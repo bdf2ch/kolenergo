@@ -7,6 +7,22 @@ import { IApplicationState, IPortalState } from './application.state';
 export const selectPortal = createFeatureSelector<IApplicationState, IPortalState>('portal');
 
 /**
+ * Селектор состояния инициализации приложения
+ */
+export const selectIsApplicationInitialized = createSelector(
+  selectPortal,
+  (state: IPortalState) => state.isApplicationInitialized
+);
+
+/**
+ * Селектор состояние загрузки данных для инициализации приложения с сервера
+ */
+export const selectFetchingInProgress = createSelector(
+  selectPortal,
+  (state: IPortalState) => state.fetchingInProgress
+);
+
+/**
  * Селектор количества объявлений на старотовой странице
  */
 export const selectAdvertsOnStartPageCount = createSelector(

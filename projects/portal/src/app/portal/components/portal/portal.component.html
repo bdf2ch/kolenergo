@@ -1,22 +1,23 @@
 <div id="app">
   <!-- Start: Шапка приложения -->
   <header>
-    <div class="background"></div>
-    <div class="gradient">
-      <div class="header-content col-10">
-        <div class="logo"></div>
-        <div>
-          <button mat-stroked-button [matMenuTriggerFor]="userMenu">Сергей Воронов</button>
-          <mat-menu #userMenu="matMenu" [yPosition]="'below'" class="user-menu">
-            <button mat-menu-item (click)="openAddAdvertDialog()">
-              <mat-icon color="accent">add</mat-icon>
-              Добавить объявление
-            </button>
-            <button mat-menu-item>
-              <mat-icon color="accent">exit_to_app</mat-icon>
-              Выйти  из приложения
-            </button>
-          </mat-menu>
+    <div class="header-container">
+      <div class="background"></div>
+      <div class="gradient"></div>
+    </div>
+    <div class="content">
+      <div class="row justify-content-center">
+        <div class="col-11 col-md-11 col-lg-10 col-xl-10 d-flex flex-row justify-content-between align-items-center pt-3">
+          <div class="logo"></div>
+          <div>
+            <button mat-stroked-button [matMenuTriggerFor]="userMenu">Сергей Воронов</button>
+            <mat-menu #userMenu="matMenu" [yPosition]="'below'" class="user-menu">
+              <button mat-menu-item>
+                <mat-icon color="accent">exit_to_app</mat-icon>
+                Выйти  из приложения
+              </button>
+            </mat-menu>
+          </div>
         </div>
       </div>
     </div>
@@ -37,7 +38,7 @@
   <footer>
     <div class="gradient">
       <div class="row justify-content-center">
-        <div class="footer-section col-11 col-md-11 col-lg-10 col-xl-10 pt-4 pb-4">
+        <div class="footer-section col-10">
           <a href="http://www.kolen.elektra.ru/zayavki">Заявки УКиТАСУ</a>
           <a href="">Заявки автотранспорт</a>
           <a href="">Заявки АХО</a>

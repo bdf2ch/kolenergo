@@ -21,7 +21,7 @@ export class Advert implements IAdvert {
   dateChangedD: Date;           // Дата изменения
   isTemplate: boolean;          // Является ли объявление шаблоном
   template: Advert;             // Шаблонное обхявление, на основе которого создано объявление
-  similar: Advert[];            // Похожие объявления
+  similar?: Advert[];           // Похожие объявления
 
   /**
    * Конструктор
@@ -44,9 +44,10 @@ export class Advert implements IAdvert {
     this.similar = [];
 
     if (config && config.attachments) {
-      this.attachments = config.attachments.map((item: IAttachment) => {
-        return new Attachment(item);
-      });
+      this.attachments = config.attachments.map((item: IAttachment) => new Attachment(item));
+    }
+    if (config && config.similar) {
+      this.similar = config.similar.map((item: IAdvert) => new Advert(item));
     }
   }
 

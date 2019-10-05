@@ -8,6 +8,8 @@ import { Article } from '../articles/models';
  * Интерфейс, описывающий состояние портала
  */
 export interface IPortalState {
+  isApplicationInitialized: boolean;        // Выполнена ли инициализация приложения
+  fetchingInProgress: boolean;              // Выполняетлся ли загрузка данных для инициализации приложения с сервера
   advertsOnStartPage: Advert[];             // Объявления на главной странице
   advertsOnStartPageCount: number;          // Количество объявлений на главной странице
   advertsPage: number;                      // Порядковый номер текущей страница объявлений
@@ -24,6 +26,8 @@ export interface IPortalState {
  * Начальное состояние портала
  */
 export const portalInitialState: IPortalState = {
+  isApplicationInitialized: false,
+  fetchingInProgress: false,
   advertsOnStartPage: [],
   advertsOnStartPageCount: 3,
   advertsPage: 0,

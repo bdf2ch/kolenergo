@@ -40,7 +40,8 @@
   </div>
 
   <!--Start: Похожие объявления, длок управления объявлением -->
-  <div class="col-12 col-xl-4 pl-xl-4 border-left">
+  <div class="col-12 col-xl-4 pl-xl-4">
+
     <div class="row mb-4">
       <div class="col-12 col-md-6 col-xl-12">
         <div class="control-block p-4">
@@ -61,8 +62,8 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-12 col-md-6 col-xl-12">
+    <div class="row" *ngIf="selectedAdvert?.similar.length > 0">
+      <div class="col-12 col-md-12 col-xl-12">
         <div class="control-block p-4">
           <div class="row">
             <div class="col-12">
@@ -71,7 +72,26 @@
           </div>
           <div class="row">
             <div class="col-12">
-              similar adverts
+              <div class="row">
+                <div class="col-12 col-md-4 col-xl-12 d-flex flex-column flex-md-row flex-xl-column" *ngFor="let similar of selectedAdvert?.similar">
+                  <a class="advert"
+                     [ngClass]="{'no-image': !similar.image}"
+                     [routerLink]="['/adverts', similar.id]"
+                     [ngStyle]="{'background': similar.image ? 'url(' + similar.image + ')' : ''}">
+                    <div class="advert-date">
+                      <span class="date">{{ similar.dateCreatedD | date: 'dd MMMM' }}</span>
+                      <div class="attachments" *ngIf="similar.attachments.length > 0">
+                        <mat-icon>attach_file</mat-icon>
+                        <span class="attachments-count">{{similar.attachments.length}}</span>
+                      </div>
+                    </div>
+                    <div class="advert-caption-and-preview">
+                      <div class="advert-caption">{{similar.title}}</div>
+                      <div class="advert-preview" *ngIf="similar.preview">{{similar.preview}}</div>
+                    </div>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>

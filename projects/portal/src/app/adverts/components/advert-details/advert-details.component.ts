@@ -34,7 +34,7 @@ export class AdvertDetailsComponent implements OnInit {
         this.markup = this.sanitizer.bypassSecurityTrustHtml(value.markup);
       }
     });
-    this.store.dispatch(new AdvertsLoadSimilarAdverts(this.selectedAdvert));
+    // this.store.dispatch(new AdvertsLoadSimilarAdverts(this.selectedAdvert));
   }
 
   /**

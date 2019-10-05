@@ -12,6 +12,7 @@ export interface IAdvert {
   image: string;                // URL изображения объявления
   markup: string;               // Содержание объявления с разметкой
   attachments?: IAttachment[];  // Вложения
+  similar?: IAdvert[];          // Похожие объявления
   dateCreated: number;          // Дата публикации в формате Unix
   dateChanged: number;          // Дата изменения в формате Unix
   isTemplate: boolean;          // Является ли объявление шаблоном

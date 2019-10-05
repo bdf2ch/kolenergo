@@ -1,3 +1,174 @@
-<p>
-  advert-edit-dialog works!
-</p>
+<div class="add-request-dialog" matDialogContent>
+
+  <!-- Start: Блок выбора типа мероприяития -->
+  <div class="request-type-section">
+
+    <div class="form-caption-steps">
+      <div class="form-caption">Новое<br>объявление</div>
+
+      <div class="form-steps">
+        <div class="form-step"
+             [ngClass]="{'active': step.isActive}"
+             *ngFor="let step of formWithSteps.steps; let i = index"
+             (click)="formWithSteps.selectStep(i)">
+          <div class="step-icon">
+            <mat-icon>{{step.icon}}</mat-icon>
+            <mat-icon class="indicator valid" *ngIf="step.isValid">done</mat-icon>
+            <mat-icon class="indicator invalid" *ngIf="step.isInvalid">priority_high</mat-icon>
+          </div>
+          <div class="step-caption">
+            <div class="caption">{{step.caption}}</div>
+            <div class="description">{{step.description}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-controls">
+      <button
+        class="p-3"
+        mat-raised-button
+        color="primary"
+        [disabled]="advertForm.invalid || !markup"
+        (click)="addAdvert()">
+        Добавить объявление
+      </button>
+    </div>
+  </div>
+  <!-- End: Блок выбора мероприятия -->
+
+  <!-- Start: Область ввода параметров заявки -->
+  <div class="request-steps-section" [ngSwitch]="formWithSteps.getSelectedStep()">
+
+    <div class="d-flex flex-column h-100" *ngSwitchCase="formWithSteps.steps[0]">
+      <div class="row pl-2 pr-2">
+        <div class="col-12">
+          <form [formGroup]="advertForm">
+            <!-- Start: Заголовок обявления -->
+            <mat-form-field appearance="fill" class="w-100 mt-4">
+              <mat-label>Заголовок объявления</mat-label>
+              <input matInput
+                     placeholder="Введите заголовок объявления"
+                     [errorStateMatcher]="matcher"
+                     formControlName="title"
+                     required>
+              <mat-icon class="valid-icon" matSuffix *ngIf="advertForm.get('title').valid">done</mat-icon>
+              <mat-hint>Заголовок отражает основную мысль объявления</mat-hint>
+              <mat-error *ngIf="advertForm.get('title').invalid">Вы не указали заголовок объявления</mat-error>
+            </mat-form-field>
+            <!-- End: Заголовок обявления -->
+
+            <!-- Start: Краткое содержание обявления -->
+            <mat-form-field appearance="fill" class="w-100 mt-4">
+              <mat-label>Краткое содержание объявления</mat-label>
+              <input matInput
+                     placeholder="Введите краткое содержание объявления"
+                     [errorStateMatcher]="matcher"
+                     formControlName="preview">
+              <mat-icon class="valid-icon" matSuffix *ngIf="advertForm.get('preview').valid && advertForm.get('preview').value">done</mat-icon>
+              <mat-hint>Содержание объявления одним предложением (необязательно)</mat-hint>
+              <mat-error *ngIf="advertForm.get('preview').invalid">Вы не указали краткое содержание объявления
+              </mat-error>
+            </mat-form-field>
+            <!-- Start: Краткое содержание обявления -->
+
+            <!-- Start: Дата публикации объявления -->
+            <mat-form-field appearance="fill" class="w-100 mt-4">
+              <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Дата публикации">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-hint>Дата, которой будет датировано объявление</mat-hint>
+            </mat-form-field>
+            <!-- End: Дата публикации объявления -->
+
+            <!-- Start: Является ли объявление шаблоном -->
+            <div class="row mt-4" *ngIf="!advertForm.get('template').value">
+              <div class="col-12">
+                <mat-checkbox class="pr-3" formControlName="isTemplate">Объявление является шаблоном</mat-checkbox>
+              </div>
+            </div>
+            <!-- End: Является ли объявление шаблоном -->
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Start: Вкладка с изрбражением объявления -->
+    <div class="h-100" *ngSwitchCase="formWithSteps.steps[1]">
+      <div class="d-flex flex-column justify-content-center align-items-center h-100">
+        <div class="col-8 d-flex flex-column justify-content-center align-items-center">
+          <!-- Start: Изображение или плейсхолдер объявления -->
+          <div class="advert-image"
+               [ngStyle]="{'background': advert.image ? 'url(' + advert.image + ')' : 'url(/assets/no-image.jpg)'}">
+          </div>
+          <!-- End: Изображение или плейсхолдер объявления -->
+
+          <!-- Start: Кнопка загрузки изображения -->
+          <button class="kol-button w-100 mt-4" [disabled]="uploadingImageInProgress$ | async" (click)="dialog.click()">
+            <mat-icon *ngIf="!(uploadingImageInProgress$ | async)">cloud_upload</mat-icon>
+            <mat-progress-spinner *ngIf="uploadingImageInProgress$ | async" diameter="20" mode="indeterminate"></mat-progress-spinner>
+            <span>Загрузить</span>
+            <input type="file" #dialog (change)="imageSelected($event.target.files)">
+          </button>
+          <!-- End: Кнопка загрузки изображения -->
+
+          <!-- Start: Кнопка удаления изображения -->
+          <button class="kol-button w-100 mt-2"
+                  *ngIf="(advert$ | async).image"
+                  [disabled]="uploadingImageInProgress$ | async"
+                  (click)="deleteImage()">
+            <mat-icon *ngIf="!(deletingImageInProgress$ | async)">delete</mat-icon>
+            <mat-progress-spinner *ngIf="deletingImageInProgress$ | async" diameter="20" mode="indeterminate"></mat-progress-spinner>
+            <span>Удалить</span>
+          </button>
+          <!-- End: Кнопка удаления изображения -->
+        </div>
+      </div>
+    </div>
+    <!-- End: Вкладка с изображением объявления -->
+
+    <!-- Start: Вкладка с содержимым объявления -->
+    <div class="h-100" *ngSwitchCase="formWithSteps.steps[2]">
+      <div class="row h-100">
+        <div class="col-12 h-100">
+          <ckeditor
+            [editor]="Editor"
+            [config]="editorConfig"
+            [(ngModel)]="markup"
+            (ready)="onReady($event)"
+            (change)="advertContentChanged($event)">
+          </ckeditor>
+        </div>
+      </div>
+    </div>
+    <!-- End: Вкладка св содержимым объявления -->
+
+    <!-- Start: Вкладка с вложениями -->
+    <div class="h-100" *ngSwitchCase="formWithSteps.steps[3]">
+      <div class="h-100 d-flex flex-column justify-content-start">
+        <app-attachments-list
+          [attachments]="(advert$ | async).attachments"
+          [allowUpload]="true"
+          [allowDelete]="true"
+          [uploadingInProgress]="uploadingAttachmentInProgress$ | async"
+          [removingInProgress]="deletingAttachmentInProgress$ | async"
+          [showNoAttachmentsPlaceholder]="true"
+          (select)="attachmentSelected($event)"
+          (remove)="attachmentRemoved($event)">
+        </app-attachments-list>
+      </div>
+    </div>
+    <!-- End: Вкладка с вложениями -->
+
+  </div>
+  <!-- End: Область ввода параметров заявки -->
+
+
+  <!--
+  <div class="close-modal-section">
+    <mat-icon>close</mat-icon>
+  </div>
+  -->
+
+</div>

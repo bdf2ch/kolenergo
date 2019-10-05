@@ -7,9 +7,16 @@ export function reducer(
   state: IPortalState = portalInitialState,
   action: portalActions): IPortalState {
   switch (action.type) {
+    case PortalActionTypes.LOAD_INITIAL_DATA: {
+      return  {
+        ...state,
+
+      };
+    }
     case PortalActionTypes.LOAD_INITIAL_DATA_SUCCESS: {
       return {
         ...state,
+        isApplicationInitialized: true,
         advertsOnStartPage: action.payload.data.adverts.adverts.map((item: IAdvert) => {
           return new Advert(item);
         }),

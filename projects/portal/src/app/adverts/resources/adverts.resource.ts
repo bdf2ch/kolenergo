@@ -18,7 +18,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 @ResourceParams({
-  pathPrefix: environment.apiUrl + '/portal',
+  pathPrefix: environment.apiUrl + '/portal/adverts',
   withCredentials: true
 })
 export class AdvertsResource extends Resource {
@@ -28,21 +28,21 @@ export class AdvertsResource extends Resource {
   }
 
   @ResourceAction({
-    path: '/adverts',
+    path: '/',
     method: ResourceRequestMethod.Get,
     withCredentials: true
   })
   getAdverts: IResourceMethodStrict<void, {page?: number, advertsOnPage?: number, search?: string}, void, IServerResponse<IAdvert[]>>;
 
   @ResourceAction({
-    path: '/adverts/{!id}',
+    path: '/{!id}',
     method: ResourceRequestMethod.Get,
     withCredentials: true
   })
   getAdvert: IResourceMethodStrict<void, {similar?: boolean}, {id: number}, IServerResponse<IAdvert | IAdvert[]>>;
 
   @ResourceAction({
-    path: '/adverts',
+    path: '/',
     method: ResourceRequestMethod.Post,
     withCredentials: true
   })
@@ -50,49 +50,49 @@ export class AdvertsResource extends Resource {
     IResourceMethodStrict<Advert, {page: number, advertsOnPage: number}, void, IServerResponse<{adverts: IAdvert[], advert: IAdvert, total: number}>>;
 
   @ResourceAction({
-    path: '/adverts/{!id}',
+    path: '/{!id}',
     method: ResourceRequestMethod.Patch,
     withCredentials: true
   })
   editAdvert: IResourceMethodStrict<Advert, {page: number, advertsOnPage: number}, void, IServerResponse<{adverts: IAdvert[], advert: IAdvert, total: number}>>;
 
   @ResourceAction({
-    path: '/adverts/{!id}',
+    path: '/{!id}',
     method: ResourceRequestMethod.Delete,
     withCredentials: true
   })
   deleteAdvert: IResourceMethodStrict<void, void, {id: number}, IServerResponse<boolean>>;
 
   @ResourceAction({
-    path: '/adverts/image',
+    path: '/image',
     method: ResourceRequestMethod.Put,
     withCredentials: true
   })
   uploadImageToNewAdvert: IResourceMethodStrict<FormData, {header: boolean}, void, IServerResponse<{url: string, advert: IAdvert}>>;
 
   @ResourceAction({
-    path: '/adverts/{!id}/image',
+    path: '/{!id}/image',
     method: ResourceRequestMethod.Put,
     withCredentials: true
   })
   uploadImageToAdvert: IResourceMethodStrict<FormData, {header: boolean}, {id: number}, IServerResponse<string>>;
 
   @ResourceAction({
-    path: '/adverts/attachments',
+    path: '/attachments',
     method: ResourceRequestMethod.Put,
     withCredentials: true
   })
   uploadAttachmentToNewAdvert: IResourceMethodStrict<FormData, {userId: number}, void, IServerResponse<IAdvert>>;
 
   @ResourceAction({
-    path: '/adverts/{!id}/attachments',
+    path: '/{!id}/attachments',
     method: ResourceRequestMethod.Put,
     withCredentials: true
   })
   uploadAttachmentToAdvert: IResourceMethodStrict<FormData, {userId: number}, {id: number}, IServerResponse<IAdvert>>;
 
   @ResourceAction({
-    path: '/adverts/attachments/{!id}',
+    path: '/attachments/{!id}',
     method: ResourceRequestMethod.Delete,
     withCredentials: true
   })

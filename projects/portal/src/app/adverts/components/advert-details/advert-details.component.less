@@ -1,3 +1,6 @@
+@advert-height: 300px;
+@advert-margin-bottom: 15px;
+
 .section-link {
   display: block;
   margin-bottom: 15px;
@@ -61,3 +64,103 @@
     line-height: 17px;
   }
 }
+
+
+.advert {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  height: @advert-height;
+  margin-bottom: @advert-margin-bottom;
+  border-radius: 4px;
+  text-decoration: none;
+  background-size: cover !important;
+  background-position: top center !important;
+  box-shadow: 0 2px 16px rgba(0,0,0,.12);
+  cursor: pointer;
+
+  &.no-image {
+    background: linear-gradient(to top, rgba(51, 166, 198, 1) 50%, rgba(201, 225, 237, 1) 100%) !important;
+
+    .advert-caption-and-preview {
+      background: transparent !important;
+    }
+  }
+
+  .advert-date {
+    display: flex;
+    flex-direction: row;
+    font-family: 'Comfortaa', cursive;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: white;
+
+    .date {
+      padding: 7px 12px;
+      background: rgba(0, 79 ,140, 0.6);
+      border-top-left-radius: 4px;
+    }
+
+    .attachments {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 7px 12px;
+      background: rgba(0, 79 ,140, 0.6);
+
+      .attachments-count {
+        font-family: 'Comfortaa', cursive;
+        font-size: 13px;
+        line-height: 13px;
+        font-weight: 600;
+      }
+
+      .mat-icon {
+        width: 15px;
+        height: 15px;
+        margin-top: -3px;
+        font-size: 15px;
+        color: white;
+      }
+    }
+  }
+
+  .advert-caption-and-preview {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 30px 20px;
+    background: rgba(0, 79 ,140, 0.6);
+    background: linear-gradient(to bottom, transparent 10%, rgba(0, 79 ,140, 0.8) 50%) !important;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+
+  .advert-caption {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-family: 'Comfortaa', cursive;
+    font-size: 19px;
+    line-height: 22px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: white;
+  }
+
+  .advert-preview {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-family: 'Comfortaa', cursive;
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: 600;
+    color: white;
+  }
+
+}
+

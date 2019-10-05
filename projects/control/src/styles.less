@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+.kol-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 44px;
+  padding: 10px 30px;
+  background: #eeeeee;
+  outline: none;
+  border: none;
+  border-radius: 2.5px;
+  cursor: pointer;
+
+  &:hover {
+    background: #bdbdbd;
+  }
+
+  &[disabled] {
+    background: #e0e0e0;
+    cursor: default;
+  }
+
+  &.stroked {
+    border: 1.5px solid lightgray;
+  }
+
+  .fas {
+    margin-right: 15px;
+    font-size: 15px;
+  }
+
+  input[type='file'] {
+    display: none;
+  }
+}

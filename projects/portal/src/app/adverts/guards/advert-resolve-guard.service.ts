@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, ActivatedRoute, Params } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 import { filter, switchMap, take } from 'rxjs/operators';
@@ -12,12 +12,7 @@ import { AdvertsLoadAdvert, selectFetchingInProgress } from '../ngrx';
   providedIn: 'root'
 })
 export class AdvertResolveGuard implements Resolve<boolean> {
-  private readonly advertId = null;
-
-  constructor(private readonly store: Store<IApplicationState>,
-              private readonly route: ActivatedRoute) {
-    console.log('advert resolve guard');
-  }
+  constructor(private readonly store: Store<IApplicationState>) {}
 
   waitForDataToLoad(): Observable<boolean> {
     return this.store.pipe(select(selectFetchingInProgress))
@@ -27,7 +22,6 @@ export class AdvertResolveGuard implements Resolve<boolean> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    console.log('params', route.params);
     this.store.dispatch(new AdvertsLoadAdvert(parseInt(route.params.id, null)));
     return this.waitForDataToLoad()
       .pipe(

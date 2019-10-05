@@ -12,6 +12,7 @@ import { StartComponent } from './components/start/start.component';
 import { AdvertsSectionComponent } from './components/adverts-section/adverts-section.component';
 import { reducer } from '../ngrx';
 import { ApplicationEffects } from '../ngrx';
+import {InitialDataResolveGuard} from './guards/initial-data-resolve.guard';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,9 @@ import { ApplicationEffects } from '../ngrx';
     MatTooltipModule,
     MatMenuModule,
     MatDialogModule
+  ],
+  providers: [
+    InitialDataResolveGuard
   ],
   exports: [
     AdvertsSectionComponent

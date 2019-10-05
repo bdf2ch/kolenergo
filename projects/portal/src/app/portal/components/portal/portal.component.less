@@ -20,32 +20,66 @@ header {
   justify-content: center;
   align-items: flex-start;
   align-content: flex-start;
-  width: 120%;
+  // width: 120%;
+  width: 100%;
   height: @app-header-height;
-  border-bottom: 5px solid #eeeeee;
-  margin-left: -10%;
-  background: @app-background-color;
-  border-bottom-left-radius: 80%;
-  border-bottom-right-radius: 80%;
+  //border-bottom: 5px solid #eeeeee;
+  // margin-left: -10%;
+  //background: @app-background-color;
+  //border-bottom-left-radius: 80%;
+  //border-bottom-right-radius: 80%;
   // transform-origin: 0px 0px;
   // transform: skewY(-1.5deg);
 
-  .background {
-    content:"";
-    width:150%;
-    height:100%;
-    // position:absolute;
-    // top:0;
-    // left:0;
-    -webkit-backface-visibility: hidden;
-    -webkit-transform: translateZ(0) scale(1.0, 1.0);
-    transform: translateZ(0);
-    background:#1B2030 url("/assets/header-bg-1.jpg") center no-repeat;
-    background-size:cover;
-    background-attachment:fixed;
-    animation: grow 30s linear 10ms infinite;
-    transition:all 0.2s ease-in-out;
-    z-index: -2;
+  .header-container {
+    z-index: 2;
+    position:relative;
+    overflow: hidden;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+    width: 120%;
+    height: @app-header-height;
+    border-bottom: 5px solid #eeeeee;
+    margin-left: -10%;
+    margin-right: -10%;
+    background: @app-background-color;
+    border-bottom-left-radius: 80%;
+    border-bottom-right-radius: 80%;
+
+    .background {
+      content:"";
+      width:150%;
+      height:100%;
+      // position:absolute;
+      // top:0;
+      // left:0;
+      -webkit-backface-visibility: hidden;
+      -webkit-transform: translateZ(0) scale(1.0, 1.0);
+      transform: translateZ(0);
+      background:#1B2030 url("/assets/header-bg-1.jpg") center no-repeat;
+      background-size:cover;
+      background-attachment:fixed;
+      animation: grow 30s linear 10ms infinite;
+      transition:all 0.2s ease-in-out;
+      z-index: -2;
+    }
+
+    .gradient {
+
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 5;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.1) 50%, rgba(27, 32, 48, 0.8) 100%);
+      border-bottom-left-radius: 80%;
+      border-bottom-right-radius: 80%;
+    }
+
   }
 
   .gradient {
@@ -55,8 +89,10 @@ header {
     position:absolute;
     bottom:0;
     left:0;
-    z-index:-1;
+    z-index:5;
     background: linear-gradient(to top, rgba(0,0,0,0.1) 50%,rgba(27,32,48,0.8) 100%);
+    border-bottom-left-radius: 80%;
+    border-bottom-right-radius: 80%;
 
     .header-content {
       display: flex;
@@ -64,7 +100,7 @@ header {
       justify-content: space-between;
       align-items: flex-start;
       padding-top: 30px;
-      width: 70%;
+      // width: 70%;
       margin-left: 15%;
 
       .logo {
@@ -82,6 +118,32 @@ header {
       }
     }
   }
+
+  .content {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    z-index: 6;
+    height: 100%;
+
+    .logo {
+      width: 200px;
+      height: 70px;
+      background-size: contain !important;
+      background-repeat: no-repeat !important;
+      background: url('/assets/rosseti_logo.png');
+    }
+
+    .mat-stroked-button {
+      color: whitesmoke;
+      border-color: whitesmoke;
+      outline: none;
+    }
+  }
+
+
+
 
   .opacity-layout {
     z-index: 1;
@@ -141,13 +203,13 @@ footer {
   }
 
   .gradient {
-    content:"";
-    width:100%;
-    height:100%;
-    position:absolute;
-    bottom:0;
-    left:0;
-    z-index:-1;
+    //content:"";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
     background: linear-gradient(to bottom, rgba(27,32,48,0.4) 70%, rgba(0,0,0,0.1) 100%);
 
     .header-content {
@@ -156,8 +218,8 @@ footer {
       justify-content: space-between;
       align-items: flex-start;
       padding-top: 30px;
-      width: 70%;
-      margin-left: 15%;
+      //width: 70%;
+      //margin-left: 15%;
     }
   }
 }
