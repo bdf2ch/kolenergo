@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
 import { KolButtonDirective } from './directives/kol-button.directive';
 
 @NgModule({
@@ -11,7 +9,6 @@ import { KolButtonDirective } from './directives/kol-button.directive';
   ],
   imports: [
     CommonModule,
-    FontAwesomeModule
   ],
   exports: [
     KolButtonDirective

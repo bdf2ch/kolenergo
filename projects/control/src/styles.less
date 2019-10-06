@@ -1,35 +1,117 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@fortawesome/fontawesome-free/css/all.css';
+@import '~bootstrap/dist/css/bootstrap.css';
+
+html, body {
+  background: #fafafa;
+}
+
+@kol-button-height-small: 30px;
+@kol-button-height-regular: 40px;
+@kol-button-height-big: 60px;
+@kol-button-font-family: 'Source Sans Pro', sans-serif;
+@kol-button-font-size-small: 14px;
+@kol-button-font-size-regular: 15px;
+@kol-button-font-size-big: 19px;
+@kol-button-line-height-regular: 16px;
+@kol-button-line-height-small: 14px;
+@kol-button-line-height-big: 20px;
+@kol-button-font-color: rgb(96, 125, 139, 0.9);
+@kol-button-font-color-hover: #607d8b;
+@kol-button-font-color-disabled: rgb(96, 125, 139, 0.1);
+@kol-button-font-color-disabled-hover: rgb(96, 125, 139, 0.9);
+@kol-button-icon-color: #90a4ae;
+@kol-button-icon-color-hover: #607d8b;
+@kol-button-progress-bar-background-color: #b0bec5;
+@kol-button-background-color: rgba(176, 190, 197, 0.3);
+@kol-button-background-color-hover: rgba(176, 190, 197, 0.4);
+@kol-button-background-color-active: rgba(176, 190, 197, 0.8);
+@kol-button-background-color-disabled: rgba(176, 190, 197, 0.2) !important;
 
 .kol-button {
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 44px;
+  height: @kol-button-height-regular;
   padding: 10px 30px;
-  background: #eeeeee;
-  outline: none;
+  font-family: @kol-button-font-family;
+  font-size: @kol-button-font-size-regular;
+  line-height: @kol-button-line-height-regular;
+  color: @kol-button-font-color;
+  background: @kol-button-background-color;
+  outline: none !important;
   border: none;
   border-radius: 2.5px;
   cursor: pointer;
+  transition: background linear 0.1s;
 
-  &:hover {
-    background: #bdbdbd;
+  &.small {
+    height: @kol-button-height-small;
+    padding: 5px 10px;
+    font-size: @kol-button-font-size-small;
+    line-height: @kol-button-line-height-small;
+  }
+
+  &.big {
+    height: @kol-button-height-big;
+    font-size: @kol-button-font-size-big;
   }
 
   &[disabled] {
-    background: #e0e0e0;
+    color: @kol-button-font-color-disabled;
+    background: @kol-button-background-color-disabled;
     cursor: default;
+
+    &:hover {
+      color: @kol-button-font-color-disabled-hover;
+      background: @kol-button-background-color-disabled;
+
+      .fas {
+        color: #90a4ae;
+      }
+    }
   }
+
+  &:hover {
+    color: @kol-button-font-color-hover;
+    background: @kol-button-background-color-hover;
+
+    .fas {
+      color: @kol-button-icon-color-hover;
+    }
+  }
+
+  &:active {
+    background: @kol-button-background-color-active;
+  }
+
+
 
   &.stroked {
     border: 1.5px solid lightgray;
   }
 
+  .kol-button-progress-bar {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 3px;
+    background: @kol-button-progress-bar-background-color;
+    //border-bottom-left-radius: 2.5px;
+    //border-bottom-right-radius: 2.5px;
+  }
+
   .fas {
-    margin-right: 15px;
-    font-size: 15px;
+    margin-right: 10px;
+    // font-size: 15px;
+    color: @kol-button-icon-color;
+
+    &:last-child {
+      // margin-right: 0px;
+    }
   }
 
   input[type='file'] {

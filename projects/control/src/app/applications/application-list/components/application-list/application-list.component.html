@@ -1,4 +1,39 @@
-<p style="padding: 40px;">
-  <button kolButton [loading]="true">test button loading</button>
-  <button kolButton [loading]="true" [upload]="true">test button</button>
-</p>
+<div class="container-fluid p-4">
+  <div class="row">
+    <div class="col-auto">
+      <button kol-button-solid size="small" [icon]="'fa-cloud-upload-alt'" [upload]="true">Кнопка выбора файла</button>
+    </div>
+    <div class="col-auto">
+      <button kol-button-solid size="small" [icon]="'fa-cloud-upload-alt'" [loading]="true" [progress]="66">Кнопка выбора файла</button>
+    </div>
+    <div class="col-auto">
+      <button kol-button-solid size="small" [icon]="'fa-cloud-upload-alt'" [upload]="true"></button>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-auto">
+      <button kol-button-solid [icon]="'fa-bell'">Кнопка стандартного размера</button>
+    </div>
+    <div class="col-auto">
+      <button kol-button-solid [icon]="'fa-bell'" [disabled]="true" [loading]="true" [progress]="66">Кнопка стандартного размера</button>
+    </div>
+    <div class="col-auto">
+      <button kol-button-solid [icon]="'fa-bell'"></button>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-auto">
+      <button kol-button-solid size="big" [icon]="'fa-cloud-upload-alt'" [upload]="true">Кнопка выбора файла</button>
+    </div>
+    <div class="col-auto">
+      <button kol-button-solid size="big" [icon]="'fa-cloud-upload-alt'" [upload]="true" [loading]="true" [progress]="66">Кнопка выбора файла</button>
+    </div>
+    <div class="col-auto">
+      <button kol-button-solid size="big" [icon]="'fa-cloud-upload-alt'" [upload]="true"></button>
+    </div>
+  </div>
+</div>
+
+
