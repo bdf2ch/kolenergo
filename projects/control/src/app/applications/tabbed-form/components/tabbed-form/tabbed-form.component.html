@@ -1,0 +1,46 @@
+<div class="tabbed-form-component">
+  <!-- Start: Заголовок, вкладки и элементы управления формой -->
+  <div class="tabbed-form-control-panel">
+    <!-- Start: Заголовок формы и вкладки -->
+    <div class="caption-and-tabs-container">
+      <!-- Start: Заголовок формы -->
+      <div class="tabbed-form-caption" *ngIf="caption">{{caption}}</div>
+      <!-- End: Заголовок формы -->
+
+      <!-- Start: Вкладки формы -->
+      <div class="tabbed-form-tabs">
+        <div class="tabbed-form-tab" *ngFor="let tab of tabs" [ngClass]="{'active': tab.isActive}" (click)="selectTab(tab)">
+          <div class="tabbed-form-tab-icon" *ngIf="tab.icon">
+            <span class="fas fa-fw {{tab.icon}}"></span>
+          </div>
+          <div class="tabbed-form-tab-details">
+            <div class="tabbed-form-tab-details-caption">{{tab.caption}}</div>
+            <div class="tabbed-form-tab-details-description" *ngIf="tab.description">{{tab.description}}</div>
+          </div>
+        </div>
+      </div>
+      <!-- End: Вкладки формы -->
+    </div>
+    <!-- End: Заголовок формы и вкладки -->
+
+    <!-- Start: Элементы управления формы -->
+    <div class="tabbed-form-controls">
+      <button kol-button
+              size="big"
+              class="w-100"
+              [icon]="controlIcon"
+              [loading]="controlLoading"
+              [disabled]="controlDisabled">
+        {{controlText}}
+      </button>
+    </div>
+    <!-- End: Элементы управления формы -->
+  </div>
+  <!-- End: Заголовок, вкладки и элементы управления формой -->
+
+  <!-- Start: Содержимое вкладки формы -->
+  <div class="tabbed-form-tab-content">
+    <ng-content></ng-content>
+  </div>
+  <!-- End: Содержимое вкладки формы -->
+</div>

@@ -1,0 +1,135 @@
+@tabbed-form-control-panel-width: 280px;
+@tabbed-form-font-family: 'Source Sans Pro', sans-serif;;
+@tabbed-form-control-panel-background-color: #eceff1;
+@tabbed-form-tab-content-background-color: #fafafa;
+
+@tabbed-form-caption-font-size: 18px;
+@tabbed-form-caption-font-weight: bolder;
+@tabbed-form-caption-line-height: 18px;
+@tabbed-form-caption-font-color: #607d8b;
+
+@tabbed-form-tabs-margin-top: 40px;
+@tabbed-form-tabs-margin-bottom: 40px;
+@tabbed-form-tab-padding: 10px 15px;
+@tabbed-form-tab-background-color: @tabbed-form-tab-content-background-color;
+@tabbed-form-tab-border-radius: 4px;
+@tabbed-form-tab-icon-font-size: 32px;
+@tabbed-form-tab-icon-color: #cfd8dc;
+@tabbed-form-tab-icon-color-active: #b0bec5;
+@tabbed-form-tab-caption-font-size: 18px;
+@tabbed-form-tab-caption-font-weight: 400;
+@tabbed-form-tab-caption-line-height: 17px;
+@tabbed-form-tab-caption-font-color: #b0bec5;
+@tabbed-form-tab-caption-font-color-active: @tabbed-form-tab-icon-color-active;
+@tabbed-form-tab-description-font-size: 15px;
+@tabbed-form-tab-description-font-weight: 300;
+@tabbed-form-tab-description-line-height: 12px;
+@tabbed-form-tab-description-font-color: #b0bec5;
+
+.tabbed-form-component {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  font-family: @tabbed-form-font-family;
+
+  .tabbed-form-control-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: @tabbed-form-control-panel-width;
+    padding: 20px 0px 0px 20px;
+    background: @tabbed-form-control-panel-background-color;
+
+    .caption-and-tabs-container {
+      display: flex;
+      flex-direction: column;
+
+      .tabbed-form-caption {
+        font-size: @tabbed-form-caption-font-size;
+        font-weight: @tabbed-form-caption-font-weight;
+        line-height: @tabbed-form-caption-line-height;
+        color: @tabbed-form-caption-font-color;
+        padding-right: 20px;
+      }
+
+      .tabbed-form-tabs {
+        display: flex;
+        flex-direction: column;
+        margin-top: @tabbed-form-tabs-margin-top;
+        margin-bottom: @tabbed-form-tabs-margin-bottom;
+
+        .tabbed-form-tab {
+          display: flex;
+          flex-direction: row;
+          padding: @tabbed-form-tab-padding;
+          background: @tabbed-form-tab-background-color;
+          border-top-left-radius: @tabbed-form-tab-border-radius;
+          border-bottom-left-radius: @tabbed-form-tab-border-radius;
+          background: transparent;
+          cursor: pointer;
+          &.active {
+            background: @tabbed-form-tab-background-color;
+            .tabbed-form-tab-icon {
+              color: @tabbed-form-tab-icon-color-active;
+            }
+            .tabbed-form-tab-details {
+              .tabbed-form-tab-details-caption {
+                color: @tabbed-form-tab-caption-font-color-active;
+              }
+            }
+          }
+
+          .tabbed-form-tab-icon {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: @tabbed-form-tab-icon-font-size;
+            color: @tabbed-form-tab-icon-color;
+          }
+
+          .tabbed-form-tab-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding-left: 15px;
+
+            .tabbed-form-tab-details-caption {
+              font-size: @tabbed-form-tab-caption-font-size;
+              font-weight: @tabbed-form-tab-caption-font-weight;
+              line-height: @tabbed-form-tab-caption-line-height;
+              color: @tabbed-form-tab-caption-font-color;
+            }
+            .tabbed-form-tab-details-description {
+              padding-top: 3px;
+              font-size: @tabbed-form-tab-description-font-size;
+              font-weight: @tabbed-form-tab-description-font-weight;
+              line-height: @tabbed-form-tab-description-line-height;
+              color: @tabbed-form-tab-description-font-color;
+            }
+          }
+        }
+      }
+    }
+
+    .tabbed-form-controls {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 20px;
+      padding-right: 20px;
+    }
+  }
+
+  .tabbed-form-tab-content {
+    overflow: auto;
+    display: flex;
+    flex: 1;
+    background: @tabbed-form-tab-content-background-color;
+    border-right: 1px solid lightgray;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+  }
+}

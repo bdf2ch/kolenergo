@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Directive,
   ElementRef,
   EventEmitter,
@@ -10,20 +9,19 @@ import {
   SimpleChanges
 } from '@angular/core';
 
-import { buttonSizes } from '../enums/buttion-sizes.enum';
-
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: '[kol-button-solid]'
+  selector: '[kol-button]'
 })
-export class KolButtonDirective implements AfterViewInit, OnChanges {
+export class KolButtonDirective implements OnChanges {
   @Input() upload: boolean;
+  @Input() type: string;
   @Input() size: string;
-  @HostBinding('disabled') @Input() loading: boolean;
+  // @HostBinding('disabled')
+  @Input() loading: boolean;
   @Input() progress: number;
   @Input() icon: string;
   @Output() selectFile: EventEmitter<File>;
-  private content: HTMLDivElement;
   private buttonIcon: HTMLSpanElement;
   private spinnerIcon: HTMLSpanElement;
   private progressBar: HTMLDivElement;
@@ -35,24 +33,37 @@ export class KolButtonDirective implements AfterViewInit, OnChanges {
     this.progressBar = null;
     this.fileInput = null;
     this.selectFile = new EventEmitter<File>();
-
-  }
-
-  ngAfterViewInit(): void {
     this.element.nativeElement.classList.add('kol-button');
-    this.content = document.createElement('div');
-    this.content.classList.add('kol-button-content');
-    this.content.innerText = this.element.nativeElement.innerText;
-    this.element.nativeElement.innerText = '';
-    this.element.nativeElement.appendChild(this.content);
+    /*
+    this.element.nativeElement.addEventListener('DOMSubtreeModified', (event) => {
+      console.log(event);
+      if (this.buttonIcon && event.target.textContent) {
+        if (!this.buttonIcon.classList.contains('with-margin')) {
+          this.buttonIcon.classList.toggle('with-margin');
+        }
+      }
+    });
+     */
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.element.nativeElement) {
+
+      /**
+       * Утсановка типа кноаки
+       */
+      if (changes.type && changes.type.currentValue) {
+        switch (changes.type.currentValue) {
+          case 'stroked':
+            this.element.nativeElement.classList.toggle('stroked');
+            break;
+        }
+      }
+
       /**
        * Установка размера кнопки
        */
-      if (changes.size && changes.size.currentValue && changes.size.currentValue.length > 0) {
+      if (changes.size && changes.size.currentValue) {
         switch (changes.size.currentValue) {
           case 'small':
             this.element.nativeElement.classList.toggle('small');
@@ -69,6 +80,9 @@ export class KolButtonDirective implements AfterViewInit, OnChanges {
       if (changes.icon && changes.icon.currentValue.toString().length > 0) {
         this.buttonIcon = document.createElement('span');
         this.buttonIcon.classList.add('fas', changes.icon.currentValue);
+        if (this.element.nativeElement.innerHTML) {
+          this.buttonIcon.classList.add('with-margin');
+        }
         if (this.size) {
           switch (this.size) {
             case 'small':
@@ -101,13 +115,18 @@ export class KolButtonDirective implements AfterViewInit, OnChanges {
        */
       if (changes.loading) {
         if (changes.loading.currentValue === true) {
+          // this.element.nativeElement.setAttribute('disabled', 'disabled');
           this.spinnerIcon = document.createElement('span');
           this.spinnerIcon.classList.add('fas', 'fa-spinner', 'fa-pulse');
+          if (this.element.nativeElement.innerHTML) {
+            this.spinnerIcon.classList.add('with-margin');
+          }
           this.element.nativeElement.insertBefore(this.spinnerIcon, this.element.nativeElement.firstChild);
           if (this.buttonIcon) {
             this.buttonIcon.style.display = 'none';
           }
-        } else if (changes.loading.currentValue === false && changes.loading.previousValue === true) {
+        } else if (changes.loading.currentValue === false) {
+          // this.element.nativeElement.removeAttribute('disabled');
           this.element.nativeElement.removeChild(this.spinnerIcon, this.element.nativeElement);
           if (this.buttonIcon) {
             this.buttonIcon.style.display = 'inline';

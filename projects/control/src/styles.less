@@ -6,27 +6,50 @@ html, body {
   background: #fafafa;
 }
 
-@kol-button-height-small: 30px;
-@kol-button-height-regular: 40px;
-@kol-button-height-big: 60px;
+@kol-button-height-small: 32px;
+@kol-button-height-regular: 44px;
+@kol-button-height-big: 64px;
 @kol-button-font-family: 'Source Sans Pro', sans-serif;
+@kol-button-font-weight: 500;
+
 @kol-button-font-size-small: 14px;
 @kol-button-font-size-regular: 15px;
-@kol-button-font-size-big: 19px;
-@kol-button-line-height-regular: 16px;
-@kol-button-line-height-small: 14px;
+@kol-button-font-size-big: 17px;
+@kol-button-line-height-regular: 14px;
+@kol-button-line-height-small: 10px;
 @kol-button-line-height-big: 20px;
-@kol-button-font-color: rgb(96, 125, 139, 0.9);
-@kol-button-font-color-hover: #607d8b;
-@kol-button-font-color-disabled: rgb(96, 125, 139, 0.1);
-@kol-button-font-color-disabled-hover: rgb(96, 125, 139, 0.9);
-@kol-button-icon-color: #90a4ae;
-@kol-button-icon-color-hover: #607d8b;
-@kol-button-progress-bar-background-color: #b0bec5;
-@kol-button-background-color: rgba(176, 190, 197, 0.3);
-@kol-button-background-color-hover: rgba(176, 190, 197, 0.4);
-@kol-button-background-color-active: rgba(176, 190, 197, 0.8);
-@kol-button-background-color-disabled: rgba(176, 190, 197, 0.2) !important;
+@kol-button-font-color: white;
+
+@kol-button-font-color-hover: white;
+@kol-button-font-color-disabled: white;
+@kol-button-font-color-disabled-hover: white;
+@kol-button-icon-color: white;
+@kol-button-icon-color-hover: white;
+@kol-button-progress-bar-background-color: white;
+@kol-button-progress-bar-background-color-disabled: rgba(2, 119, 189, 0.8);
+@kol-button-background-color: rgba(2, 119, 189, 0.7);
+
+@kol-button-background-color-hover: rgba(2, 119, 189, 0.9);
+@kol-button-background-color-active: rgba(2, 119, 189, 1);
+@kol-button-background-color-disabled: rgba(2, 119, 189, 0.5);
+
+@kol-button-stroked-font-weight: 600;
+@kol-button-stroked-font-color: @kol-button-background-color;
+@kol-button-stroked-font-color-hover: @kol-button-background-color-hover;
+@kol-button-stroked-font-color-disabled: @kol-button-background-color-disabled;
+@kol-button-stroked-font-color-disabled-hover: @kol-button-background-color-disabled;
+@kol-button-stroked-icon-color: @kol-button-background-color;
+@kol-button-stroked-icon-color-disabled: @kol-button-background-color-disabled;
+@kol-button-stroked-icon-color-disabled-hover: @kol-button-background-color-disabled;
+@kol-button-stroked-progress-bar-height: 100%;
+@kol-button-stroked-progress-bar-background-color: rgba(2, 119, 189, 0.2);
+@kol-button-stroked-progress-bar-background-color-hover: rgba(200, 224, 238, 0.4);
+@kol-button-stroked-progress-bar-background-color-disabled: @kol-button-stroked-progress-bar-background-color;
+@kol-button-stroked-progress-bar-background-color-disabled-hover: @kol-button-stroked-progress-bar-background-color-disabled;
+@kol-button-stroked-background-color: transparent;
+@kol-button-stroked-background-color-disabled: transparent;
+@kol-button-stroked-background-color-disabled-hover: transparent;
+@kol-button-stroked-border-disabled: 1.5px solid @kol-button-background-color-disabled;
 
 .kol-button {
   position: relative;
@@ -36,10 +59,9 @@ html, body {
   justify-content: center;
   align-items: center;
   height: @kol-button-height-regular;
-  padding: 10px 30px;
+  padding: 10px 20px;
   font-family: @kol-button-font-family;
-  font-size: @kol-button-font-size-regular;
-  line-height: @kol-button-line-height-regular;
+  font-weight: @kol-button-font-weight;
   color: @kol-button-font-color;
   background: @kol-button-background-color;
   outline: none !important;
@@ -47,17 +69,71 @@ html, body {
   border-radius: 2.5px;
   cursor: pointer;
   transition: background linear 0.1s;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+
+  &:not(.fas) {
+    font-size: @kol-button-font-size-regular;
+    line-height: @kol-button-line-height-regular;
+  }
 
   &.small {
     height: @kol-button-height-small;
     padding: 5px 10px;
-    font-size: @kol-button-font-size-small;
-    line-height: @kol-button-line-height-small;
+    &:not(.fas) {
+      font-size: @kol-button-font-size-small;
+      line-height: @kol-button-line-height-small;
+    }
   }
 
   &.big {
     height: @kol-button-height-big;
-    font-size: @kol-button-font-size-big;
+    &:not(.fas) {
+      font-size: @kol-button-font-size-big;
+      line-height: @kol-button-line-height-big;
+    }
+  }
+
+  &.stroked {
+    font-weight: @kol-button-stroked-font-weight;
+    color: @kol-button-stroked-font-color;
+    background: @kol-button-stroked-background-color;
+    border: 1.5px solid @kol-button-background-color;
+    box-shadow: none;
+    &[disabled] {
+      color: @kol-button-stroked-font-color-disabled;
+      background: @kol-button-stroked-background-color-disabled;
+      border: @kol-button-stroked-border-disabled;
+      &:hover {
+        color: @kol-button-stroked-font-color-disabled;
+        background: @kol-button-stroked-background-color-disabled-hover;
+        .fas {
+          color: @kol-button-stroked-icon-color-disabled-hover;
+        }
+        .kol-button-progress-bar {
+          background: @kol-button-stroked-progress-bar-background-color-disabled-hover;
+        }
+      }
+      .fas {
+        color: @kol-button-stroked-icon-color-disabled;
+      }
+      .kol-button-progress-bar {
+        background: @kol-button-stroked-progress-bar-background-color-disabled;
+      }
+    }
+    &:hover {
+      .kol-button-progress-bar {
+        background: @kol-button-stroked-progress-bar-background-color-hover;
+      }
+    }
+
+    .fas {
+      color: @kol-button-stroked-icon-color;
+    }
+
+    .kol-button-progress-bar {
+      height: @kol-button-stroked-progress-bar-height;
+      background: @kol-button-stroked-progress-bar-background-color;
+    }
   }
 
   &[disabled] {
@@ -70,8 +146,12 @@ html, body {
       background: @kol-button-background-color-disabled;
 
       .fas {
-        color: #90a4ae;
+        color: @kol-button-icon-color-hover;
       }
+    }
+
+    .kol-button-progress-bar {
+      background: @kol-button-progress-bar-background-color-disabled;
     }
   }
 
@@ -88,29 +168,20 @@ html, body {
     background: @kol-button-background-color-active;
   }
 
-
-
-  &.stroked {
-    border: 1.5px solid lightgray;
-  }
-
   .kol-button-progress-bar {
+    // z-index: 2;
     position: absolute;
     bottom: 0px;
     left: 0px;
     height: 3px;
     background: @kol-button-progress-bar-background-color;
-    //border-bottom-left-radius: 2.5px;
-    //border-bottom-right-radius: 2.5px;
   }
 
   .fas {
-    margin-right: 10px;
-    // font-size: 15px;
+    // margin-right: 10px;
     color: @kol-button-icon-color;
-
-    &:last-child {
-      // margin-right: 0px;
+    &.with-margin {
+      margin-right: 10px;
     }
   }
 
