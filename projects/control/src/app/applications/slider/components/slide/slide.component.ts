@@ -11,16 +11,15 @@ export class SlideComponent implements OnInit {
   @Input() url: string;
   @Input() link: string;
 
-  constructor(@Host() @Optional() private slider: SliderComponent) {
+  constructor(@Host() @Optional() private slider: SliderComponent) {}
+
+  ngOnInit() {
     if (this.slider) {
       console.log('slider', this.slider);
       if (this.url) {
         this.slider.addSlide(this);
       }
     }
-  }
-
-  ngOnInit() {
   }
 
 }

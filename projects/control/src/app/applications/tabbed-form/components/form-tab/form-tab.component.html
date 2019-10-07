@@ -1,4 +1,4 @@
-<div class="form-tab-component" [hidden]="!isActive">
+<div class="form-tab-component" *ngIf="isActive">
   <ng-content></ng-content>
 </div>
 
