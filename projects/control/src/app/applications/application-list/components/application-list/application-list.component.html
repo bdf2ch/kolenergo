@@ -135,7 +135,15 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row justify-content-center" style="height: 350px;">
+    <div class="col-12">
+      <kol-slider [interval]="5">
+        <kol-slide [url]="'https://s2.glbimg.com/jn6DeQa95IclmsKeFkxfPR7XLPE=/620x430/e.glbimg.com/og/ed/f/original/2016/11/29/torre-de-transmissao.jpg'"></kol-slide>
+        <kol-slide [url]="'https://assetsds.cdnedge.bluemix.net/sites/default/files/styles/big_2/public/feature/images/electricity_act.jpg?itok=28BWqnl8'"></kol-slide>
+      </kol-slider>
+    </div>
+  </div>
+  <div class="row mt-3">
     <div class="col-6 h-50">
       <kol-tabbed-form [caption]="'Тестовая форма с тремя вкладками'"
                        [controlText]="'Отправить форму'"
@@ -173,9 +181,7 @@
       </kol-tabbed-form>
     </div>
     <div class="col-6">
-      <kol-slider>
-        <kol-slide [url]="'http://galereyashtor.ru/wp-content/uploads/2012/01/DSC00310.jpg'"></kol-slide>
-      </kol-slider>
+
     </div>
   </div>
 </div>

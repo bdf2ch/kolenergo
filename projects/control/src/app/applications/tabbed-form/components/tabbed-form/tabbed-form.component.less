@@ -1,11 +1,11 @@
 @tabbed-form-control-panel-width: 280px;
-@tabbed-form-font-family: 'Source Sans Pro', sans-serif;;
+@tabbed-form-font-family: 'Open Sans', sans-serif;
 @tabbed-form-control-panel-background-color: rgba(207, 216, 220, 0.5);
 @tabbed-form-tab-content-background-color: #fafafa;
 
-@tabbed-form-caption-font-size: 18px;
-@tabbed-form-caption-font-weight: bolder;
-@tabbed-form-caption-line-height: 18px;
+@tabbed-form-caption-font-size: 16px;
+@tabbed-form-caption-font-weight: 600;
+@tabbed-form-caption-line-height: 16px;
 @tabbed-form-caption-font-color: #607d8b;
 
 @tabbed-form-tabs-margin-top: 40px;
@@ -17,12 +17,13 @@
 @tabbed-form-tab-icon-font-size: 32px;
 @tabbed-form-tab-icon-color: #cfd8dc;
 @tabbed-form-tab-icon-color-active: #b0bec5;
-@tabbed-form-tab-caption-font-size: 18px;
+@tabbed-form-tab-caption-font-size: 15px;
 @tabbed-form-tab-caption-font-weight: 400;
+@tabbed-form-tab-caption-font-weight-active: 400;
 @tabbed-form-tab-caption-line-height: 17px;
 @tabbed-form-tab-caption-font-color: #b0bec5;
-@tabbed-form-tab-caption-font-color-active: @tabbed-form-tab-icon-color-active;
-@tabbed-form-tab-description-font-size: 15px;
+@tabbed-form-tab-caption-font-color-active: #78909c;
+@tabbed-form-tab-description-font-size: 13px;
 @tabbed-form-tab-description-font-weight: 300;
 @tabbed-form-tab-description-line-height: 12px;
 @tabbed-form-tab-description-font-color: #b0bec5;
@@ -76,6 +77,7 @@
             }
             .tabbed-form-tab-details {
               .tabbed-form-tab-details-caption {
+                font-weight: @tabbed-form-tab-caption-font-weight-active;
                 color: @tabbed-form-tab-caption-font-color-active;
               }
             }

@@ -31,12 +31,10 @@ export class SliderComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit() {
     this.changeInterval = setInterval(() => {
       this.nextSlide();
-      console.log('next slide');
     }, this.interval * 1000);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes.interval);
     this.interval = changes.interval && changes.interval.currentValue ? changes.interval.currentValue : 30;
   }
 
@@ -49,6 +47,7 @@ export class SliderComponent implements OnInit, OnChanges, OnDestroy {
    * @param slide - Добавляемый слайд
    */
   addSlide(slide: SlideComponent) {
+    console.log(slide);
     this.slides.push(slide);
     if (!this.currentSlide) {
       slide.isActive = true;
@@ -60,10 +59,8 @@ export class SliderComponent implements OnInit, OnChanges, OnDestroy {
    * Показ следующего слайда
    */
   nextSlide() {
-    // this.currentSlide.element.nativeElement.classList.toggle('fade-out');
     const index = this.slides.indexOf(this.currentSlide);
     this.currentSlide = this.slides[index + 1] ? this.slides[index + 1] : this.slides[0];
-    // this.currentSlide.element.nativeElement.classList.toggle('fade-in');
     this.slides.forEach((item: SlideComponent, itemIndex: number) => {
       item.isActive = itemIndex === index ? true : false;
     });

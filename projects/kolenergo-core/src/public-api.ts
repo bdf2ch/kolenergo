@@ -12,6 +12,13 @@ export * from './lib/authentication/resources/authentication.resource';
 export * from './lib/authentication/services/authentication.service';
 export * from './lib/authentication/components/sign-in/sign-in.component';
 
+export * from './lib/ui/components/button/button.module';
+export * from './lib/ui/components/button/directives/kol-button.directive';
+
+export * from './lib/ui/components/slider/slider.module';
+export * from './lib/ui/components/slider/components/slider/slider.component';
+export * from './lib/ui/components/slider/components/slide/slide.component';
+
 export * from './lib/ui/components/search-with-filters/search-with-filters.module';
 export * from './lib/ui/components/search-with-filters/components/search-with-filters/search-with-filters.component';
 

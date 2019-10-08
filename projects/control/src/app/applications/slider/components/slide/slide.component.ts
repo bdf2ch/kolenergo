@@ -1,5 +1,6 @@
-import {Component, Host, Input, OnInit, Optional} from '@angular/core';
-import {SliderComponent} from '../slider/slider.component';
+import {Component, ElementRef, Host, Input, OnInit, Optional} from '@angular/core';
+
+import { SliderComponent } from '../slider/slider.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -10,8 +11,14 @@ import {SliderComponent} from '../slider/slider.component';
 export class SlideComponent implements OnInit {
   @Input() url: string;
   @Input() link: string;
+  public isActive: boolean;
 
-  constructor(@Host() @Optional() private slider: SliderComponent) {}
+  constructor(
+    @Host() @Optional() private slider: SliderComponent,
+    public element: ElementRef
+  ) {
+    this.isActive = false;
+  }
 
   ngOnInit() {
     if (this.slider) {

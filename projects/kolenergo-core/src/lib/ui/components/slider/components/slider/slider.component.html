@@ -1,0 +1,23 @@
+<div class="slider-component">
+
+  <!-- Start: Слайды -->
+  <div class="slider-slides">
+    <div class="slide"
+         [@fade]="slide.isActive ? 'in' : 'out'"
+         *ngFor="let slide of slides"
+         [ngStyle]="{'background': 'url(' + slide.url + ')','z-index': slide.isActive ? '2' : '1','background-size': slide.backgroundSize,'background-position-x': slide.backgroundPositionX,'background-position-y': slide.backgroundPositionY}"
+    >
+    </div>
+  </div>
+  <!-- End: Слайды -->
+
+  <!-- Start: Элементы управления -->
+  <div class="slider-controls">
+    <div class="control"
+         *ngFor="let slide of slides"
+         [ngClass]="{'active': slide.isActive}"
+         (click)="selectSlide(slide)">
+    </div>
+  </div>
+  <!-- End: Элементы управления -->
+</div>

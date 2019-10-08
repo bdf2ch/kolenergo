@@ -2,7 +2,11 @@
   <!-- Start: Шапка приложения -->
   <header>
     <div class="header-container">
-      <div class="background"></div>
+      <!--<div class="background"></div>-->
+      <kol-slider [interval]="5">
+        <kol-slide [url]="'http://127.0.0.1:4200/assets/header-bg-1.jpg'" [positionY]="'-200px'"></kol-slide>
+        <kol-slide [url]="'http://127.0.0.1:4200/assets/header-bg-7.jpg'" [positionY]="'-500px'"></kol-slide>
+      </kol-slider>
       <div class="gradient"></div>
     </div>
     <div class="content">

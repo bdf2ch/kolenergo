@@ -5,14 +5,14 @@ import { MatIconModule, MatGridListModule, MatButtonModule, MatBadgeModule, MatT
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-
+import { ButtonModule, SliderModule } from '@kolenergo/core';
 import { PortalRoutingModule } from './portal-routing.module';
 import { PortalComponent } from './components/portal/portal.component';
 import { StartComponent } from './components/start/start.component';
 import { AdvertsSectionComponent } from './components/adverts-section/adverts-section.component';
 import { reducer } from '../ngrx';
 import { ApplicationEffects } from '../ngrx';
-import {InitialDataResolveGuard} from './guards/initial-data-resolve.guard';
+import { InitialDataResolveGuard } from './guards/initial-data-resolve.guard';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,9 @@ import {InitialDataResolveGuard} from './guards/initial-data-resolve.guard';
     MatBadgeModule,
     MatTooltipModule,
     MatMenuModule,
-    MatDialogModule
+    MatDialogModule,
+    ButtonModule,
+    SliderModule
   ],
   providers: [
     InitialDataResolveGuard

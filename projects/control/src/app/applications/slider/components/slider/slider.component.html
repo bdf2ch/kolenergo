@@ -1,4 +1,16 @@
 <div class="slider-component">
-  <div class="slider-slides" #slidesContainer></div>
-  <div class="slider-controls"></div>
+  <div class="slider-slides">
+    <div class="slide"
+         [@fade]="slide.isActive ? 'in' : 'out'"
+         *ngFor="let slide of slides"
+         [ngStyle]="{'background': 'url(' + slide.url + ')', 'z-index': slide.isActive ? '2' : '1'}">
+    </div>
+  </div>
+  <div class="slider-controls">
+    <div class="control"
+         *ngFor="let slide of slides"
+         [ngClass]="{'active': slide.isActive}"
+         (click)="selectSlide(slide)">
+    </div>
+  </div>
 </div>

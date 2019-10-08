@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { ButtonModule } from '../button/button.module';
 import { TabbedFormComponent } from './components/tabbed-form/tabbed-form.component';
 import { FormTabComponent } from './components/form-tab/form-tab.component';
-import { ButtonModule } from '../button/button.module';
 
 @NgModule({
   declarations: [
