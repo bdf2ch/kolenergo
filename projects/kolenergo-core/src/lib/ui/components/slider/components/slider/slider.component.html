@@ -5,8 +5,11 @@
     <div class="slide"
          [@fade]="slide.isActive ? 'in' : 'out'"
          *ngFor="let slide of slides"
-         [ngStyle]="{'background': 'url(' + slide.url + ')','z-index': slide.isActive ? '2' : '1','background-size': slide.backgroundSize,'background-position-x': slide.backgroundPositionX,'background-position-y': slide.backgroundPositionY}"
-    >
+         [style.zIndex]="slide.isActive ? '2' : '1'"
+         [style.background]="'url(' + slide.url + ')'"
+         [style.background-size]="slide.size ? slide.size.toString() : 'cover !important'"
+         [style.background-position-y]="slide.backgroundPositionY.toString()"
+         [style.background-position-x]="slide.backgroundPositionX.toString()">
     </div>
   </div>
   <!-- End: Слайды -->

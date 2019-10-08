@@ -34,14 +34,15 @@ export class SlideComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     this.backgroundSize = changes.size && changes.size.currentValue
-      ? `${changes.size.currentValue} !important`
+      ? changes.size.currentValue
       : 'cover !important';
     this.backgroundPositionX = changes.positionX && changes.positionX.currentValue
       ? `${changes.positionX.currentValue} !important`
       : 'center !important';
     this.backgroundPositionY = changes.positionY && changes.positionY.currentValue
-      ? `${changes.positionY.currentValue} !important`
+      ? changes.positionY.currentValue
       : 'top !important';
+    console.log(this);
   }
 
 }
