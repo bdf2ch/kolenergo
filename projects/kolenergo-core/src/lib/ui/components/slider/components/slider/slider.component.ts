@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { trigger, style, animate, transition, state } from '@angular/animations';
 import { SlideComponent } from '../slide/slide.component';
 
@@ -34,7 +34,7 @@ export class SliderComponent implements OnInit, OnChanges, OnDestroy {
     }, this.interval * 1000);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges) {
     this.interval = changes.interval && changes.interval.currentValue ? changes.interval.currentValue : 30;
   }
 
@@ -62,7 +62,7 @@ export class SliderComponent implements OnInit, OnChanges, OnDestroy {
     const index = this.slides.indexOf(this.currentSlide);
     this.currentSlide = this.slides[index + 1] ? this.slides[index + 1] : this.slides[0];
     this.slides.forEach((item: SlideComponent, itemIndex: number) => {
-      item.isActive = itemIndex === index ? true : false;
+      item.isActive = itemIndex === index;
     });
   }
 

@@ -1,27 +1,299 @@
-<div id="app-content" class="">
+<div id="start-component">
+  <div class="service-column p-4">
+    <div class="container-fluid pt-2">
+      <div class="row no-gutters">
+        <div class="col-12">
+          <!-- Start: Поиск абонентов в телефонном справочнике -->
+          <div class="search-bar">
+            <div class="prefix">
+              <mat-icon>search</mat-icon>
+            </div>
+            <input type="text" placeholder="Поиск в телефонном справочнике">
+          </div>
+          <!-- End: Поиск абонентов в телефонном справочнике -->
+        </div>
+      </div>
+
+      <div class="row no-gutters mt-5">
+        <div class="col-12">
+          <span class="caption">Наши сервисы</span>
+        </div>
+      </div>
+
+      <div class="row no-gutters mt-3">
+        <div class="col-12">
+          <!-- Start: Сервисы -->
+          <div class="services">
+            <div class="row justify-content-between">
+              <div class="col-12"></div>
+              <!-- Start: Ссылка на заявки УКиТАСУ -->
+                <a href="#" class=" service ukitasu">
+                  <div class="service-caption">Заявки УКиТАСУ</div>
+                  <div class="service-icon">
+                    <img src="/assets/printer.png">
+                  </div>
+                </a>
+              <!-- End: Ссылка на заявки УКиТАСУ -->
+
+              <!-- Start: Ссылка на заявки на автотранспорт -->
+                <a href="#" class="service auto">
+                  <div class="service-caption">Заявки на транспорт</div>
+                  <div class="service-icon">
+                    <img src="/assets/car.png" alt="">
+                  </div>
+                </a>
+              <!-- End: Ссылка на заявки на автотранспорт -->
+
+              <!-- Start: Ссылка на заявки АХО -->
+                <a href="#" class="service aho">
+                  <div class="service-caption">Заявки АХО</div>
+                  <div class="service-icon">
+                    <img src="/assets/toolbox.png">
+                  </div>
+                </a>
+              <!-- End: Ссылка на заявки АХО -->
+            </div>
+            <div class="row justify-content-between mt-2">
+              <!-- Start: Ссылка на расчетные листки -->
+                <a href="#" class="service billing-lists">
+                  <div class="service-caption">Расчетные листки</div>
+                  <div class="service-icon">
+                    <img src="/assets/folders.png">
+                  </div>
+                </a>
+              <!-- End: Ссылка на расчетные листки -->
+
+              <!-- Start: Ссылка на телефонный справочник -->
+                <a href="#" class="service phone-book">
+                  <div class="service-caption">Телефонный справочник</div>
+                  <div class="service-icon">
+                    <img src="/assets/phone.png">
+                  </div>
+                </a>
+              <!-- End: Ссылка на телефонный справочник -->
+
+              <!-- Start: Ссылка на телефонный справочник -->
+              <a href="#" class="service phone-book">
+                <div class="service-caption">Телефонный справочник</div>
+                <div class="service-icon">
+                  <img src="/assets/phone.png">
+                </div>
+              </a>
+              <!-- End: Ссылка на телефонный справочник -->
+            </div>
+          </div>
+          <!-- End: Сервисы -->
+        </div>
+      </div>
+
+      <div class="row no-gutters mt-5">
+        <div class="col-12">
+          <span class="caption">Полезные ресурсы</span>
+        </div>
+      </div>
+
+      <div class="row no-gutters mt-3">
+        <div class="col-12">
+          <!-- Start: Полезные ресурсы -->
+          <div class="services">
+            <div class="row justify-content-between mt-2">
+              <!-- Start: Ссылка на расчетные листки -->
+              <a href="#" class="service billing-lists">
+                <div class="service-caption">Расчетные листки</div>
+                <div class="service-icon">
+                  <img src="/assets/folders.png">
+                </div>
+              </a>
+              <!-- End: Ссылка на расчетные листки -->
+
+              <!-- Start: Ссылка на телефонный справочник -->
+              <a href="#" class="service phone-book">
+                <div class="service-caption">Телефонный справочник</div>
+                <div class="service-icon">
+                  <img src="/assets/phone.png">
+                </div>
+              </a>
+              <!-- End: Ссылка на телефонный справочник -->
+
+              <!-- Start: Ссылка на телефонный справочник -->
+              <a href="#" class="service empty"></a>
+              <!-- End: Ссылка на телефонный справочник -->
+            </div>
+          </div>
+          <!-- End: Полезные ресурсы -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="content-column p-4">
+    <div class="container-fluid pt-2">
+      <div class="row">
+        <!-- Start: Объявления -->
+        <div class="col-12">
+          <div class="section">
+            <div class="section-content">
+              <app-adverts-section
+                [adverts]="adverts$ | async"
+                [totalAdvertsCount]="totalAdverts"
+                [fetchingInProgress]="advertsIsFetching$ | async"
+                (previousAdverts)="loadAdvertsPreviousPage($event)"
+                (nextAdverts)="loadAdvertsNextPage($event)">
+              </app-adverts-section>
+            </div>
+          </div>
+        </div>
+        <!-- End: Объявления -->
+      </div>
+
+      <!-- Start: Разделитель -->
+      <div class="row separator mt-4 pt-3 mb-2 pb-3 justify-content-center">
+        <div class="col-12 col-md-12 col-lg-10 col-xl-10 d-flex flex-row justify-content-center align-content-center">
+          <mat-icon>offline_bolt</mat-icon>
+        </div>
+      </div>
+      <!-- End: Разделитель -->
+
+      <div class="row">
+        <!-- Start: Наши люди -->
+        <div class="col-12">
+          <div class="section h-100">
+            <div class="section-caption">Наши люди</div>
+            <div class="section-content h-100">
+
+              <div class="our-people">
+                <div class="col-6 col-md-6 col-lg-6 col-xl-4 p-0">
+                  <a href="#" class="person" [style.background]="'url(http://www.kolen.elektra.ru/newspicture/image/%D0%97%D0%B0%D0%B1%D0%BE%D1%80%D1%89%D0%B8%D0%BA%D0%BE%D0%B2%D0%B0%20%D0%95.jpg)'">
+                    <div class="details">
+                      <div class="caption">Елена Заборщикова</div>
+                      <div class="description">Спорт – моя вторая жизнь</div>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="col-6 col-md-6 col-lg-6 col-xl-4 p-0 ml-1">
+                  <a href="#" class="person" [style.background]="'url(http://www.kolen.elektra.ru/newspicture/image/our_people/photo_0001.jpg)'">
+                    <div class="details">
+                      <div class="caption">Вера Цикота</div>
+                      <div class="description">Метрологи – это вам не синоптики</div>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="col-4 p-0 ml-1 d-none d-xl-flex">
+                  <a href="#" class="person" [style.background]="'url(http://www.kolen.elektra.ru/newspicture/news_190409.jpg)'">
+                    <div class="details">
+                      <div class="caption">Геннадий Сорокин</div>
+                      <div class="description">Когда опоры гнутся, а люди не сдаются</div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <!-- End: Наши люди -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--
+<div id="app-content">
+
+  <div class="row h-100">
+    <div class="service-column col-4 h-100">
+      <div class="search-bar">
+        <div class="prefix">
+          <mat-icon>search</mat-icon>
+        </div>
+        <input type="text" placeholder="Поиск в телефонном справочнике">
+      </div>
+    </div>
+
+    <div class="col-8">
+
+      <div class="row">
+        <div class="col-12">
+          <div class="section">
+            <div class="section-content">
+              <app-adverts-section
+                [adverts]="adverts$ | async"
+                [totalAdvertsCount]="totalAdverts"
+                [fetchingInProgress]="advertsIsFetching$ | async"
+                (previousAdverts)="loadAdvertsPreviousPage($event)"
+                (nextAdverts)="loadAdvertsNextPage($event)">
+              </app-adverts-section>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="section h-100">
+            <div class="section-caption">Наши люди</div>
+            <div class="section-content h-100">
+
+              <div class="our-people">
+                <div class="col-6 col-md-6 col-lg-6 col-xl-4 p-0">
+                  <a href="#" class="person" [style.background]="'url(http://www.kolen.elektra.ru/newspicture/image/%D0%97%D0%B0%D0%B1%D0%BE%D1%80%D1%89%D0%B8%D0%BA%D0%BE%D0%B2%D0%B0%20%D0%95.jpg)'">
+                    <div class="details">
+                      <div class="caption">Елена Заборщикова</div>
+                      <div class="description">Спорт – моя вторая жизнь</div>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="col-6 col-md-6 col-lg-6 col-xl-4 p-0 ml-1">
+                  <a href="#" class="person" [style.background]="'url(http://www.kolen.elektra.ru/newspicture/image/our_people/photo_0001.jpg)'">
+                    <div class="details">
+                      <div class="caption">Вера Цикота</div>
+                      <div class="description">Метрологи – это вам не синоптики</div>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="col-4 p-0 ml-1 d-none d-xl-flex">
+                  <a href="#" class="person" [style.background]="'url(http://www.kolen.elektra.ru/newspicture/news_190409.jpg)'">
+                    <div class="details">
+                      <div class="caption">Геннадий Сорокин</div>
+                      <div class="description">Когда опоры гнутся, а люди не сдаются</div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
 
 
   <div class="row">
 
-    <!-- Start: Сервисы и полезные ресурсы -->
     <div class="col-md-6 col-lg-6 col-xl-5">
       <div class="section">
         <div class="section-caption">Сервисы и полезные ресурсы</div>
         <div class="section-content highlighted p-4 flex-column">
 
-          <!-- Start: Поиск абонентов в телефонном справочнике -->
           <div class="search-bar">
             <div class="prefix">
               <mat-icon>search</mat-icon>
             </div>
             <input type="text" placeholder="Поиск абонентов в телефонном справочнике">
           </div>
-          <!-- End: Поиск абонентов в телефонном справочнике -->
 
-          <!-- Start: Сервисы -->
           <div class="services">
             <div class="row">
-              <!-- Start: Ссылка на заявки УКиТАСУ -->
               <div class="col-3 col-lg-4 col-xl-3 pl-1 pr-1 d-flex flex-row justify-content-start">
                 <a href="#" class=" service ukitasu">
                   <div class="service-caption">Заявки УКиТАСУ</div>
@@ -30,9 +302,7 @@
                   </div>
                 </a>
               </div>
-              <!-- End: Ссылка на заявки УКиТАСУ -->
 
-              <!-- Start: Ссылка на заявки на автотранспорт -->
               <div class="col-3 col-lg-4 col-xl-3 pl-1 pr-1 d-flex flex-row justify-content-center">
                 <a href="#" class="service auto">
                   <div class="service-caption">Заявки на транспорт</div>
@@ -41,9 +311,7 @@
                   </div>
                 </a>
               </div>
-              <!-- End: Ссылка на заявки на автотранспорт -->
 
-              <!-- Start: Ссылка на заявки АХО -->
               <div class="col-3 col-lg-4 col-xl-3 pl-1 pr-1 d-flex flex-row justify-content-center justify-content-md-end justify-content-xl-end">
                 <a href="#" class="service aho">
                   <div class="service-caption">Заявки АХО</div>
@@ -52,9 +320,7 @@
                   </div>
                 </a>
               </div>
-              <!-- End: Ссылка на заявки АХО -->
 
-              <!-- Start: Ссылка на расчетные листки -->
               <div class="col-3 col-lg-4 col-xl-3 pl-1 pr-1 d-flex flex-row justify-content-end justify-content-xl-end">
                 <a href="#" class="service billing-lists">
                   <div class="service-caption">Расчетные листки</div>
@@ -63,9 +329,7 @@
                   </div>
                 </a>
               </div>
-              <!-- End: Ссылка на расчетные листки -->
 
-              <!-- Start: Ссылка на телефонный справочник -->
               <div class="col-3 col-lg-4 col-xl-3 pl-1 pr-1">
                 <a href="#" class="service phone-book">
                   <div class="service-caption">Телефонный справочник</div>
@@ -74,14 +338,11 @@
                   </div>
                 </a>
               </div>
-              <!-- End: Ссылка на телефонный справочник -->
 
             </div>
           </div>
-          <!-- End: Сервисы -->
 
 
-          <!--
           <div class="links mt-3">
             <div class="row">
               <div class="col-6 col-md-3 col-lg-6 col-xl-4 pl-1 pr-1">
@@ -111,14 +372,11 @@
             </div>
 
           </div>
-          -->
         </div>
       </div>
     </div>
-    <!-- End: Сервисы и полезные ресурсы -->
 
 
-    <!-- Start: Объявления -->
     <div class="col-12 col-md-5 col-md-6 col-xl-7">
       <div class="section">
         <div class="section-content">
@@ -132,7 +390,6 @@
         </div>
       </div>
     </div>
-    <!-- End: Объявления -->
 
     <div class="col-6">
 
@@ -141,17 +398,13 @@
   </div>
 
 
-  <!-- Start: Разделитель -->
   <div class="row separator mt-4 pt-3 mb-2 pb-2 justify-content-center">
     <div class="col-12 col-md-12 col-lg-10 col-xl-10 d-flex flex-row justify-content-center align-content-center">
       <mat-icon>offline_bolt</mat-icon>
     </div>
   </div>
-  <!-- End: Разделитель -->
 
-  <!-- Start: Наши люди, отсутствующие и дни рождения -->
   <div class="row pb-4">
-    <!-- Start: Наши люди -->
     <div class="col-md-6 col-lg-7 col-xl-8">
       <div class="section h-100">
         <div class="section-caption">Наши люди</div>
@@ -189,9 +442,7 @@
         </div>
       </div>
     </div>
-    <!-- End: Наши люди -->
 
-    <!-- Start: Дни рождения и отпуска -->
     <div class="col-md-6 col-lg-5 col-xl-4">
 
       <div class="section h-100">
@@ -296,11 +547,9 @@
             </div>
           </div>
 
-          <!--<a href="#" class="section-more-link mt-4">Смотреть все статьи</a>-->
         </div>
       </div>
 
-      <!--
       <div class="row">
 
         <div class="col-5">
@@ -409,12 +658,8 @@
         </div>
 
       </div>
-      -->
 
     </div>
-    <!-- End: Дни рождения и отпуска -->
   </div>
-  <!-- End: Наши люди, отсутствующие и дни рождения -->
-
-
 </div>
+-->

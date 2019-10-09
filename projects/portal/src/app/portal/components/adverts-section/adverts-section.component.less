@@ -10,13 +10,13 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
 
   .controls {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    margin-bottom: 20px;
 
     .control {
       display: flex;
@@ -26,6 +26,7 @@
       width: @control-width;
       height: @control-height;
       border: 1px solid @control-color;
+      border-radius: 50%;
       cursor: pointer;
 
       &:hover {
@@ -38,7 +39,7 @@
       &.previous {}
 
       &.next {
-        margin-left: 3px;
+        margin-left: 5px;
       }
 
       &.disabled {

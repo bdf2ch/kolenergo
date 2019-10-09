@@ -18,12 +18,12 @@
   </div>
 </div>
 
-<mat-grid-list cols="4" rowHeight="170px" gutterSize="5px">
+<mat-grid-list cols="6" rowHeight="170px" gutterSize="5px">
   <mat-grid-tile
     *ngFor="let advert of currentAdverts; let i = index"
     class="advert"
     colspan="2"
-    rowspan="{{i === 0 ? '2' : '1'}}">
+    rowspan="2">
     <a href="#" class="advert-mask" [routerLink]="['adverts', advert.id]">
       <div class="advert-date">{{advert.dateCreatedD | date:'d MMMM'}}</div>
       <div class="advert-caption">{{advert.title}}</div>

@@ -11,7 +11,7 @@ import { SliderComponent } from '../slider/slider.component';
 export class SlideComponent implements OnInit, OnChanges {
   @Input() url: string;
   @Input() link: string;
-  @Input() size: string;
+  // @Input() size: string;
   @Input() positionY: string;
   @Input() positionX: string;
   public isActive: boolean;
@@ -33,9 +33,11 @@ export class SlideComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    /*
     this.backgroundSize = changes.size && changes.size.currentValue
       ? changes.size.currentValue
       : 'cover !important';
+     */
     this.backgroundPositionX = changes.positionX && changes.positionX.currentValue
       ? `${changes.positionX.currentValue} !important`
       : 'center !important';
