@@ -13,12 +13,16 @@ import { AdvertsSectionComponent } from './components/adverts-section/adverts-se
 import { reducer } from '../ngrx';
 import { ApplicationEffects } from '../ngrx';
 import { InitialDataResolveGuard } from './guards/initial-data-resolve.guard';
+import { PhonebookSearchComponent } from './components/phonebook-search/phonebook-search.component';
+import { AdvertComponent } from './components/advert/advert.component';
 
 @NgModule({
   declarations: [
     PortalComponent,
     StartComponent,
-    AdvertsSectionComponent
+    AdvertsSectionComponent,
+    PhonebookSearchComponent,
+    AdvertComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +43,8 @@ import { InitialDataResolveGuard } from './guards/initial-data-resolve.guard';
     InitialDataResolveGuard
   ],
   exports: [
-    AdvertsSectionComponent
+    AdvertsSectionComponent,
+    AdvertComponent
   ]
 })
 export class PortalModule { }

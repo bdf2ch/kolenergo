@@ -21,6 +21,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
+import { ButtonModule } from '@kolenergo/core';
 import { PortalModule } from '../portal/portal.module';
 import { AdvertsRoutingModule } from './adverts-routing.module';
 import { AdvertsComponent } from './components/adverts/adverts.component';
@@ -70,7 +71,8 @@ import { FileSizePipe } from './pipes/file-size.pipe';
     MatProgressSpinnerModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    PortalModule
+    PortalModule,
+    ButtonModule
   ],
   providers: [
     AdvertsResource,

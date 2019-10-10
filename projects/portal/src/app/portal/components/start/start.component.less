@@ -71,30 +71,17 @@
         // border: 2px solid #eceff1;
         // border: 1px solid transparent;
         border-radius: 4px;
-        // border-radius: 15px/30px;
-        .border-squircle(50%; 50%);
-
         transition: all linear 0.1s;
+        .border-squircle(50%; 50%);
 
         &.empty {
           background: transparent !important;
           cursor: default;
         }
 
-
-
         &:hover {
-          // border: 4px solid #eceff1;
-          // box-shadow: inset 0px 0px 10px rgba(0,0,0,0.15);
           box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.2);
-          // transform: rotateZ(90deg);
           transform: scaleY(1,5);
-          // box-shadow: 0 0 0 40px #53a7ea;
-
-          .service-caption {
-            //padding-top: 10px;
-          }
-
         }
 
         &.ukitasu {
@@ -198,6 +185,99 @@
           }
         }
 
+        &.asud {
+          background: linear-gradient(to bottom, rgba(255, 167, 38, 1) 10%, rgb(255, 224, 178, 1) 90%);
+
+          &:hover {
+            background: linear-gradient(to bottom, rgba(255, 167, 38, 1) 10%, rgba(255, 167, 38, 1) 90%);
+            .service-icon {
+              img {
+                transform: scale(1.2);
+              }
+            }
+          }
+
+          .service-icon {
+            img {
+              width: 85%;
+              margin-bottom: -90%;
+            }
+          }
+        }
+
+        &.external-web {
+          background: linear-gradient(to bottom, rgba(126, 87, 194, 1) 10%, rgba(179, 157, 219, 1) 90%);
+
+          &:hover {
+            background: linear-gradient(to bottom, rgba(126, 87, 194, 1) 10%, rgba(126, 87, 194, 1) 90%);
+            .service-icon {
+              img {
+                transform: scale(1.2);
+              }
+            }
+          }
+
+          .service-icon {
+            img {
+              width: 85%;
+              margin-bottom: -30%;
+            }
+          }
+        }
+
+        &.social {
+          justify-content: center;
+
+          i {
+            transition: all linear 0.1s;
+          }
+
+          &.facebook {
+            background: linear-gradient(to bottom, rgba(59, 89, 152, 1) 10%, rgba(59, 89, 152, 0.6) 90%);
+            &:hover {
+              background: linear-gradient(to bottom, rgba(59, 89, 152, 1) 10%, rgba(59, 89, 152, 1) 90%);
+            }
+          }
+
+          &.twitter {
+            background: linear-gradient(to bottom, rgba(29, 161, 242, 1) 10%, rgba(29, 161, 242, 0.6) 90%);
+            &:hover {
+              background: linear-gradient(to bottom, rgba(29, 161, 242, 1) 10%, rgba(29, 161, 242, 1) 90%);
+            }
+          }
+
+          &.instagram {
+            background: linear-gradient(to bottom, rgba(177, 55, 176, 0.6) 10%, rgba(255, 136, 59, 0.6) 90%);
+            &:hover {
+              background: linear-gradient(to bottom, rgba(177, 55, 176, 1) 10%, rgba(255, 136, 59, 1) 90%);
+            }
+          }
+
+          &:hover {
+            i {
+              transform: scale(1.3);
+            }
+          }
+
+          .fab {
+            color: white;
+          }
+        }
+
+        &.banner {
+          justify-content: center;
+          width: 300px;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+
+          &.together-brighter {
+            background: url('/assets/together-brighter.png');
+            background-size: contain;
+          }
+        }
+
         .service-icon {
           img {
             transition: all linear 0.1s;
@@ -230,6 +310,23 @@
       }
 
 
+    }
+
+    .banner {
+      width: 100%;
+      background-size: contain;
+      border-radius: 12px;
+      filter: saturate(75%);
+      .border-squircle(6%; 35%);
+      transition: all linear 0.1s;
+      &:hover {
+        filter: saturate(100%);
+      }
+
+      &.together-brighter {
+        height: 90px;
+        background: url('/assets/together-brighter.png');
+      }
     }
   }
 

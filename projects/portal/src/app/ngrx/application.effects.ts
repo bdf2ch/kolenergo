@@ -124,7 +124,6 @@ export class ApplicationEffects {
     })
   );
 
-  /*
   @Effect()
   loadAdvertsNextPage$ = this.actions$.pipe(
     ofType(PortalActionTypes.LOAD_ADVERTS_NEXT_PAGE),
@@ -136,5 +135,4 @@ export class ApplicationEffects {
       );
     })
   );
-   */
 }

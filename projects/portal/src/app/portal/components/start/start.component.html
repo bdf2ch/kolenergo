@@ -1,25 +1,20 @@
 <div id="start-component">
   <div class="service-column p-4">
     <div class="container-fluid pt-2">
+      <!-- Start: Поиск абонентов в телефонном справочнике -->
       <div class="row no-gutters">
         <div class="col-12">
-          <!-- Start: Поиск абонентов в телефонном справочнике -->
-          <div class="search-bar">
-            <div class="prefix">
-              <mat-icon>search</mat-icon>
-            </div>
-            <input type="text" placeholder="Поиск в телефонном справочнике">
-          </div>
-          <!-- End: Поиск абонентов в телефонном справочнике -->
+          <app-phonebook-search></app-phonebook-search>
         </div>
       </div>
+      <!-- End: Поиск абонентов в телефонном справочнике -->
 
+      <!-- Start: Наши сервисы -->
       <div class="row no-gutters mt-5">
         <div class="col-12">
           <span class="caption">Наши сервисы</span>
         </div>
       </div>
-
       <div class="row no-gutters mt-3">
         <div class="col-12">
           <!-- Start: Сервисы -->
@@ -27,7 +22,7 @@
             <div class="row justify-content-between">
               <div class="col-12"></div>
               <!-- Start: Ссылка на заявки УКиТАСУ -->
-                <a href="#" class=" service ukitasu">
+                <a href="http://www.kolen.elektra.ru/zayavki/" target="_blank" class=" service ukitasu">
                   <div class="service-caption">Заявки УКиТАСУ</div>
                   <div class="service-icon">
                     <img src="/assets/printer.png">
@@ -36,7 +31,7 @@
               <!-- End: Ссылка на заявки УКиТАСУ -->
 
               <!-- Start: Ссылка на заявки на автотранспорт -->
-                <a href="#" class="service auto">
+                <a href="http://www.kolen.elektra.ru/zayavki/auto" target="_blank" class="service auto">
                   <div class="service-caption">Заявки на транспорт</div>
                   <div class="service-icon">
                     <img src="/assets/car.png" alt="">
@@ -45,7 +40,7 @@
               <!-- End: Ссылка на заявки на автотранспорт -->
 
               <!-- Start: Ссылка на заявки АХО -->
-                <a href="#" class="service aho">
+                <a href="http://10.50.0.153:12345" target="_blank" class="service aho">
                   <div class="service-caption">Заявки АХО</div>
                   <div class="service-icon">
                     <img src="/assets/toolbox.png">
@@ -55,7 +50,7 @@
             </div>
             <div class="row justify-content-between mt-2">
               <!-- Start: Ссылка на расчетные листки -->
-                <a href="#" class="service billing-lists">
+                <a href="http://hr.kolen.elektra.ru/" target="_blank" class="service billing-lists">
                   <div class="service-caption">Расчетные листки</div>
                   <div class="service-icon">
                     <img src="/assets/folders.png">
@@ -64,7 +59,7 @@
               <!-- End: Ссылка на расчетные листки -->
 
               <!-- Start: Ссылка на телефонный справочник -->
-                <a href="#" class="service phone-book">
+                <a href="http://10.50.0.153:4444" target="_blank" class="service phone-book">
                   <div class="service-caption">Телефонный справочник</div>
                   <div class="service-icon">
                     <img src="/assets/phone.png">
@@ -72,57 +67,102 @@
                 </a>
               <!-- End: Ссылка на телефонный справочник -->
 
-              <!-- Start: Ссылка на телефонный справочник -->
-              <a href="#" class="service phone-book">
-                <div class="service-caption">Телефонный справочник</div>
+              <!-- Start: Ссылка на АСУД -->
+              <a href="http://192.168.90.14:7777/asud_sz/" target="_blank" class="service asud">
+                <div class="service-caption">АСУД</div>
                 <div class="service-icon">
-                  <img src="/assets/phone.png">
+                  <img src="/assets/asud.png">
                 </div>
               </a>
-              <!-- End: Ссылка на телефонный справочник -->
+              <!-- End: Ссылка на АСУД -->
             </div>
           </div>
           <!-- End: Сервисы -->
         </div>
       </div>
+      <!-- End: Наши сервисы -->
 
+      <!-- Start: Полезные ресурсы -->
       <div class="row no-gutters mt-5">
         <div class="col-12">
           <span class="caption">Полезные ресурсы</span>
         </div>
       </div>
-
       <div class="row no-gutters mt-3">
         <div class="col-12">
           <!-- Start: Полезные ресурсы -->
           <div class="services">
             <div class="row justify-content-between mt-2">
-              <!-- Start: Ссылка на расчетные листки -->
-              <a href="#" class="service billing-lists">
-                <div class="service-caption">Расчетные листки</div>
+              <!-- Start: Ссылка портал МРСК СЗ -->
+              <a href="http://portal.mrsksevzap.ru" target="_blank" class="service external-web">
+                <div class="service-caption">Портал МРСК С-З</div>
                 <div class="service-icon">
-                  <img src="/assets/folders.png">
+                  <img src="/assets/mrsk-portal.png">
                 </div>
               </a>
-              <!-- End: Ссылка на расчетные листки -->
+              <!-- End: Ссылка на портал МРСК СЗ -->
 
-              <!-- Start: Ссылка на телефонный справочник -->
-              <a href="#" class="service phone-book">
-                <div class="service-caption">Телефонный справочник</div>
+              <!-- Start: Ссылка на сайт МРСК С-З -->
+              <a href="http://www.mrsksevzap.ru" target="_blank" class="service external-web">
+                <div class="service-caption">Сайт<br>МРСК С-З</div>
                 <div class="service-icon">
-                  <img src="/assets/phone.png">
+                  <img src="/assets/mrsk-site.png">
                 </div>
               </a>
-              <!-- End: Ссылка на телефонный справочник -->
+              <!-- End: Ссылка на сайт МРСК С-З -->
 
-              <!-- Start: Ссылка на телефонный справочник -->
-              <a href="#" class="service empty"></a>
-              <!-- End: Ссылка на телефонный справочник -->
+              <!-- Start: Ссылка на сайт ГИС ПРОФИ -->
+              <a href="http://gisprofi.com/enterprise-auth/mrsksevzap_corp" target="_blank" class="service external-web">
+                <div class="service-caption">ГИС-Профи</div>
+                <div class="service-icon">
+                  <img src="/assets/gis-profi.png">
+                </div>
+              </a>
+              <!-- End: Ссылка на сайт ГИС ПРОФИ -->
             </div>
           </div>
           <!-- End: Полезные ресурсы -->
         </div>
       </div>
+      <!-- End: Полезные ресурсы -->
+
+      <!-- Start: Мы в соцсетях -->
+      <div class="row no-gutters mt-5">
+        <div class="col-12">
+          <span class="caption">Мы в соцсетях</span>
+        </div>
+      </div>
+      <div class="row no-gutters mt-3">
+        <div class="col-12">
+          <div class="services">
+            <div class="row justify-content-between mt-2">
+              <!-- Start: Ссылка на facebook -->
+              <a href="https://www.facebook.com/mrsksevzap" target="_blank" class="service social facebook">
+                <i class="fab fa-facebook-f fa-2x"></i>
+              </a>
+              <!-- End: Ссылка на facebook -->
+
+              <!-- Start: Ссылка на twitter -->
+              <a href="https://twitter.com/mrsksevzap" target="_blank" class="service social twitter">
+                <i class="fab fa-twitter fa-2x"></i>
+              </a>
+              <!-- End: Ссылка на twitter -->
+
+              <!-- Start: Ссылка на instagram -->
+              <a href="https://www.instagram.com/mrsksevzap" target="_blank" class="service social instagram">
+                <i class="fab fa-instagram fa-2x"></i>
+              </a>
+              <!-- End: Ссылка на instagram -->
+            </div>
+            <div class="row justify-content-between mt-3">
+              <!-- Start: Ссылка на Вместе ярче -->
+              <a href="https://www.вместеярче.рф" target="_blank" class="banner together-brighter"></a>
+              <!-- End: Ссылка на Вместе ярче -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End: Мы в соцсетях -->
     </div>
 
   </div>

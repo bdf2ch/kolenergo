@@ -18,41 +18,10 @@
   </div>
 </div>
 
-<mat-grid-list cols="6" rowHeight="170px" gutterSize="5px">
-  <mat-grid-tile
-    *ngFor="let advert of currentAdverts; let i = index"
-    class="advert"
-    colspan="2"
-    rowspan="2">
-    <a href="#" class="advert-mask" [routerLink]="['adverts', advert.id]">
-      <div class="advert-date">{{advert.dateCreatedD | date:'d MMMM'}}</div>
-      <div class="advert-caption">{{advert.title}}</div>
-      <div class="advert-preview" *ngIf="i === 0">{{advert.preview}}</div>
-    </a>
-  </mat-grid-tile>
-
-
-  <!--
-  <mat-grid-tile
-    class="advert small"
-    colspan="2"
-    rowspan="1">
-    <div class="advert-mask">
-      <div class="advert-date">24 июля</div>
-      <div class="advert-caption">Еще одно объявление</div>
-    </div>
-  </mat-grid-tile>
-
-  <mat-grid-tile
-    class="advert small"
-    colspan="2"
-    rowspan="1">
-    <div class="advert-mask">
-      <div class="advert-date">23 июля</div>
-      <div class="advert-caption">Специальное издание газеты "Энергетика" для пользователей системы
-        "Техэксперт"
-      </div>
-    </div>
-  </mat-grid-tile>
-  -->
-</mat-grid-list>
+<div class="row no-gutters">
+  <div class="col-12 col-md-12 col-lg-6 col-xl-4 advert-container"
+       *ngFor="let advert of currentAdverts; let i = index;"
+       [ngClass]="{'pl-1 pr-1': i !== 0 && i !== 2}">
+    <app-advert [advert]="advert"></app-advert>
+  </div>
+</div>

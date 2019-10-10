@@ -1,0 +1,17 @@
+<a class="advert"
+   [ngClass]="{'no-image': !advert?.image}"
+   [routerLink]="['/adverts', advert?.id]"
+   [ngStyle]="{'background': advert?.image ? 'url(' + advert.image + ')' : ''}">
+  <div class="advert-date">
+    <span class="date">{{ advert?.dateCreatedD | date: 'dd MMMM' }}</span>
+    <div class="attachments" *ngIf="advert?.attachments.length > 0">
+      <mat-icon>attach_file</mat-icon>
+      <span class="attachments-count">{{advert?.attachments.length}}</span>
+    </div>
+  </div>
+
+  <div class="advert-caption-and-preview">
+    <div class="advert-caption">{{advert?.title}}</div>
+    <div class="advert-preview" *ngIf="advert?.preview">{{advert.preview}}</div>
+  </div>
+</a>

@@ -1,7 +1,7 @@
 <div class="adverts-list-component p-4">
   <div class="container-fluid">
     <div class="row mt-md-3 align-items-start">
-      <div class="col-12 col-md-auto col-lg-3 justify-content-s">
+      <div class="col-12 h-100 col-md-auto col-lg-3 align-items-center">
         <div class="section-caption">
           <span>Объявления</span>
         </div>
@@ -12,51 +12,31 @@
       </div>
 
       <div class="col d-flex flex-row justify-content-end align-items-start">
-        <button class="kol-button" (click)="openAddAdvertDialog()">
-          <mat-icon class="mr-2">add</mat-icon>
+        <button kol-button type="stroked" [icon]="'fa-plus'" (click)="openAddAdvertDialog()">
           Добавить
         </button>
       </div>
     </div>
 
     <div class="row mt-2 mt-md-5">
-      <div class="col-6 col-md-4 col-lg-4 col-xl-3" *ngFor="let advert of adverts$ | async">
-
-        <a class="advert"
-           [ngClass]="{'no-image': !advert.image}"
-           [routerLink]="['/adverts', advert.id]"
-           [ngStyle]="{'background': advert.image ? 'url(' + advert.image + ')' : ''}">
-          <div class="advert-date">
-            <span class="date">{{ advert.dateCreatedD | date: 'dd MMMM' }}</span>
-            <div class="attachments" *ngIf="advert.attachments.length > 0">
-              <mat-icon>attach_file</mat-icon>
-              <span class="attachments-count">{{advert.attachments.length}}</span>
-            </div>
-          </div>
-
-          <div class="advert-caption-and-preview">
-            <div class="advert-caption">{{advert.title}}</div>
-            <div class="advert-preview" *ngIf="advert.preview">{{advert.preview}}</div>
-          </div>
-        </a>
+      <div class="col-6 col-md-4 col-lg-4 col-xl-3 advert-container" *ngFor="let advert of adverts$ | async">
+        <app-advert [advert]="advert"></app-advert>
       </div>
     </div>
 
-    <div class="row pt-5 mt-5">
-      <div class="no-adverts-placeholder col-12"
-           *ngIf="!(searchingInProgress$ | async) && (adverts$ | async).length === 0 && !(searchQuery$ | async)">
+    <div class="row pt-5 mt-5" *ngIf="!(searchingInProgress$ | async) && (adverts$ | async).length === 0 && !(searchQuery$ | async)">
+      <div class="no-adverts-placeholder col-12">
         Объявления отсутствуют
       </div>
     </div>
 
-    <div class="row">
-      <div class="no-adverts-placeholder col-12"
-           *ngIf="!(searchingInProgress$ | async) && (adverts$ | async).length === 0 && (searchQuery$ | async)">
+    <div class="row" *ngIf="!(searchingInProgress$ | async) && (adverts$ | async).length === 0 && (searchQuery$ | async) && !(fetchingInProgress$ | async)">
+      <div class="no-adverts-placeholder col-12">
         Объявления по Вашему запросу не найдены
       </div>
     </div>
 
-    <div class="row justify-content-center pb-5 mb-5" *ngIf="(page$ | async) < (totalPages$ | async) && !(searchQuery$ | async)">
+    <div class="row justify-content-center pb-5" *ngIf="(page$ | async) < (totalPages$ | async) && !(searchQuery$ | async)">
       <div class="col-12 col-lg-6 mt-5 mb-5">
         <button class="kol-button w-100" [disabled]="fetchingInProgress$ | async" (click)="loadAdvertsNextPAge()">
           <mat-progress-spinner class="mr-2" diameter="20" mode="indeterminate" *ngIf="fetchingInProgress$ | async"></mat-progress-spinner>
