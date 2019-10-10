@@ -1,8 +1,9 @@
 @app-header-height: 200px;
 @app-header-border-bottom: 5px solid #eeeeee;
 @app-content-margin-top: -50px;
+@app-content-margin-bottom: 100px;
 @app-content-border-radius: 12px;
-@app-footer-height: 200px;
+@app-footer-height: 150px;
 @app-background-color: #fafafa;
 
 #app {
@@ -24,7 +25,6 @@ header {
   align-content: flex-start;
   width: 100%;
   height: @app-header-height;
-  border-bottom: @app-header-border-bottom;
 
   kol-slider {
     width: 150%;
@@ -83,10 +83,12 @@ main {
   #application-content {
     z-index: 6;
     margin-top: @app-content-margin-top;
+    margin-bottom: @app-content-margin-bottom;
     background: white;
     // border-top: 5px solid rgb(244,244,244);
-    border-top-left-radius: @app-content-border-radius;
-    border-top-right-radius: @app-content-border-radius;
+    // border-top-left-radius: @app-content-border-radius;
+    // border-top-right-radius: @app-content-border-radius;
+    border-radius: @app-content-border-radius;
     box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
   }
 }
