@@ -1,5 +1,5 @@
-<div class="adverts-list-component p-4">
-  <div class="container-fluid">
+<div class="adverts-list-component h-100 p-4">
+  <div class="container-fluid d-flex flex-column h-100">
     <div class="row mt-md-3 align-items-start">
       <div class="col-12 h-100 col-md-auto col-lg-3 align-items-center">
         <div class="section-caption">
@@ -18,19 +18,19 @@
       </div>
     </div>
 
-    <div class="row mt-2 mt-md-5">
+    <div class="row mt-2 mt-md-5" *ngIf="(adverts$ | async)?.length > 0">
       <div class="col-6 col-md-4 col-lg-4 col-xl-3 advert-container" *ngFor="let advert of adverts$ | async">
         <app-advert [advert]="advert"></app-advert>
       </div>
     </div>
 
-    <div class="row pt-5 mt-5" *ngIf="!(searchingInProgress$ | async) && (adverts$ | async).length === 0 && !(searchQuery$ | async)">
+    <div class="row pt-5 mt-5 h-100" *ngIf="!(searchingInProgress$ | async) && (adverts$ | async).length === 0 && !(searchQuery$ | async)">
       <div class="no-adverts-placeholder col-12">
         Объявления отсутствуют
       </div>
     </div>
 
-    <div class="row" *ngIf="!(searchingInProgress$ | async) && (adverts$ | async).length === 0 && (searchQuery$ | async) && !(fetchingInProgress$ | async)">
+    <div class="row h-100" *ngIf="!(searchingInProgress$ | async) && (adverts$ | async).length === 0 && (searchQuery$ | async) && !(fetchingInProgress$ | async)">
       <div class="no-adverts-placeholder col-12">
         Объявления по Вашему запросу не найдены
       </div>

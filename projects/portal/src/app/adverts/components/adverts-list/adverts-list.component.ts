@@ -20,7 +20,8 @@ import { AdvertAddDialogComponent } from '../advert-add-dialog/advert-add-dialog
 @Component({
   selector: 'app-adverts-list',
   templateUrl: './adverts-list.component.html',
-  styleUrls: ['./adverts-list.component.less']
+  styleUrls: ['./adverts-list.component.less'],
+  styles: [':host { display: flex; flex-direction: column; flex: 1; height: 100%; }']
 })
 export class AdvertsListComponent implements OnInit {
   public adverts$: Observable<Advert[]>;

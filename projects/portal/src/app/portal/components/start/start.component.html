@@ -164,12 +164,12 @@
       </div>
       <!-- End: Мы в соцсетях -->
     </div>
-
   </div>
+
   <div class="content-column p-4">
-    <div class="container-fluid pt-2">
+    <div class="container-fluid pt-2 pb-4">
+      <!-- Start: Объявления -->
       <div class="row">
-        <!-- Start: Объявления -->
         <div class="col-12">
           <div class="section">
             <div class="section-content">
@@ -183,8 +183,8 @@
             </div>
           </div>
         </div>
-        <!-- End: Объявления -->
       </div>
+      <!-- End: Объявления -->
 
       <!-- Start: Разделитель -->
       <div class="row separator mt-4 pt-3 mb-2 pb-3 justify-content-center">
@@ -194,11 +194,30 @@
       </div>
       <!-- End: Разделитель -->
 
+      <!-- Start: Статьи раздела "Наши люди" -->
+      <div class="row">
+        <div class="col-12">
+          <div class="section">
+            <div class="section-content">
+              <app-articles-section
+                [caption]="'Наши люди'"
+                [articles]="adverts$ | async"
+                [totalArticlesCount]="10"
+                [fetchingInProgress]="true"
+                (previousArticles)="loadAdvertsPreviousPage($event)"
+                (nextArticles)="loadAdvertsNextPage($event)">
+              </app-articles-section>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End: Статьи раздела "Наши люди" -->
+
+
       <div class="row">
         <!-- Start: Наши люди -->
         <div class="col-12">
           <div class="section h-100">
-            <div class="section-caption">Наши люди</div>
             <div class="section-content h-100">
 
               <div class="our-people">

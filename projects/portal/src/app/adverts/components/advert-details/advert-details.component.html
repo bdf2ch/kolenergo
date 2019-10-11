@@ -1,109 +1,110 @@
-<!-- Start: Заголовок объявления -->
-<div class="row pt-4 pb-4">
-
-  <div class="col-12 col-xl-8 pr-xl-4">
+<div class="advert-details-component">
+    <!-- Start: Заголовок объявления -->
     <div class="row">
-      <div class="col-12">
-        <a class="section-link" routerLink="/adverts">Объявления</a>
-        <div class="article-caption">{{(selectedAdvert)?.title}}</div>
-        <div class="article-attributes">
-          <span class="attribute">{{(selectedAdvert)?.dateCreatedD | date:'dd MMMM yyyy'}}</span>
-        </div>
-      </div>
-    </div>
 
-    <!-- Start: Содержание объявления -->
-    <div class="row">
-      <!-- Start: Содержание объявления с вложениями -->
-      <div class="col-12">
-        <!-- Start: Содержание объявления -->
-        <div class="advert-content pt-4" [innerHtml]="markup"></div>
-        <!-- End: Содержание объявления -->
-
-        <!-- Start: Вложения в объявлении -->
-        <div class="row mt-md-5">
-          <div class="col-12">
-            <app-attachments-list
-              [attachments]="(selectedAdvert$ | async)?.attachments"
-              [caption]="'Вложения'"
-              [showCaptionIfNoAttachments]="false"
-              [showNoAttachmentsPlaceholder]="false"
-              [allowDelete]="false">
-            </app-attachments-list>
-          </div>
-        </div>
-        <!-- End: Вложения в объявлении -->
-      </div>
-      <!-- End: Содержание объявления с вложениями -->
-    </div>
-    <!-- End: Содержание объявления -->
-  </div>
-
-  <!--Start: Похожие объявления, длок управления объявлением -->
-  <div class="col-12 col-xl-4 pl-xl-4">
-
-    <div class="row mb-4">
-      <div class="col-12 col-md-6 col-xl-12">
-        <div class="control-block p-4">
+      <div class="col-12 col-xl-8 p-5">
+        <div class="container-fluid">
           <div class="row">
             <div class="col-12">
-              <div class="block-caption">Управление объявлением</div>
+              <a class="section-link" routerLink="/adverts">Объявления</a>
+              <div class="article-caption">{{(selectedAdvert)?.title}}</div>
+              <div class="article-attributes">
+                <span class="attribute">{{(selectedAdvert)?.dateCreatedD | date:'dd MMMM yyyy'}}</span>
+              </div>
             </div>
           </div>
+
+          <!-- Start: Содержание объявления -->
           <div class="row">
-            <div class="col-6">
-              <button class="kol-button w-100">Изменить</button>
+            <!-- Start: Содержание объявления с вложениями -->
+            <div class="col-12">
+              <!-- Start: Содержание объявления -->
+              <div class="advert-content pt-4" [innerHtml]="markup"></div>
+              <!-- End: Содержание объявления -->
+
+              <!-- Start: Вложения в объявлении -->
+              <div class="row mt-md-5">
+                <div class="col-12">
+                  <app-attachments-list
+                    [attachments]="(selectedAdvert$ | async)?.attachments"
+                    [caption]="'Вложения'"
+                    [showCaptionIfNoAttachments]="false"
+                    [showNoAttachmentsPlaceholder]="false"
+                    [allowDelete]="false">
+                  </app-attachments-list>
+                </div>
+              </div>
+              <!-- End: Вложения в объявлении -->
             </div>
-            <div class="col-6">
-              <button class="kol-button w-100" (click)="openRemoveAdvertDialog()">Удалить</button>
-            </div>
+            <!-- End: Содержание объявления с вложениями -->
           </div>
+          <!-- End: Содержание объявления -->
         </div>
       </div>
-    </div>
 
-    <div class="row" *ngIf="selectedAdvert?.similar.length > 0">
-      <div class="col-12 col-md-12 col-xl-12">
-        <div class="control-block p-4">
-          <div class="row">
-            <div class="col-12">
-              <div class="block-caption">Похожие объявления</div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
+      <!--Start: Похожие объявления, длок управления объявлением -->
+      <div class="col-12 col-xl-4">
+
+        <div class="row mb-4">
+          <div class="col-12 col-md-6 col-xl-12">
+            <div class="control-block p-4">
               <div class="row">
-                <div class="col-12 col-md-4 col-xl-12 d-flex flex-column flex-md-row flex-xl-column" *ngFor="let similar of selectedAdvert?.similar">
-                  <a class="advert"
-                     [ngClass]="{'no-image': !similar.image}"
-                     [routerLink]="['/adverts', similar.id]"
-                     [ngStyle]="{'background': similar.image ? 'url(' + similar.image + ')' : ''}">
-                    <div class="advert-date">
-                      <span class="date">{{ similar.dateCreatedD | date: 'dd MMMM' }}</span>
-                      <div class="attachments" *ngIf="similar.attachments.length > 0">
-                        <mat-icon>attach_file</mat-icon>
-                        <span class="attachments-count">{{similar.attachments.length}}</span>
-                      </div>
+                <div class="col-12">
+                  <div class="block-caption">Управление объявлением</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <button class="kol-button w-100">Изменить</button>
+                </div>
+                <div class="col-6">
+                  <button class="kol-button w-100" (click)="openRemoveAdvertDialog()">Удалить</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="selectedAdvert?.similar.length > 0">
+          <div class="col-12 col-md-12 col-xl-12">
+            <div class="control-block p-4">
+              <div class="row">
+                <div class="col-12">
+                  <div class="block-caption">Похожие объявления</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col-12 col-md-4 col-xl-12 d-flex flex-column flex-md-row flex-xl-column" *ngFor="let similar of selectedAdvert?.similar">
+                      <app-advert [advert]="similar"></app-advert>
+                      <!--
+                      <a class="advert"
+                         [ngClass]="{'no-image': !similar.image}"
+                         [routerLink]="['/adverts', similar.id]"
+                         [ngStyle]="{'background': similar.image ? 'url(' + similar.image + ')' : ''}">
+                        <div class="advert-date">
+                          <span class="date">{{ similar.dateCreatedD | date: 'dd MMMM' }}</span>
+                          <div class="attachments" *ngIf="similar.attachments.length > 0">
+                            <mat-icon>attach_file</mat-icon>
+                            <span class="attachments-count">{{similar.attachments.length}}</span>
+                          </div>
+                        </div>
+                        <div class="advert-caption-and-preview">
+                          <div class="advert-caption">{{similar.title}}</div>
+                          <div class="advert-preview" *ngIf="similar.preview">{{similar.preview}}</div>
+                        </div>
+                      </a>
+                      -->
                     </div>
-                    <div class="advert-caption-and-preview">
-                      <div class="advert-caption">{{similar.title}}</div>
-                      <div class="advert-preview" *ngIf="similar.preview">{{similar.preview}}</div>
-                    </div>
-                  </a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <!--End: Похожие объявления, длок управленяи объявлением -->
     </div>
-  </div>
-  <!--End: Похожие объявления, длок управленяи объявлением -->
+    <!-- End: Заголовок объявления -->
 </div>
-<!-- End: Заголовок объявления -->
-
-
-
-
-
-

@@ -27,9 +27,13 @@
   //height: 800px;
 
   .service-column {
+    position: relative;
     width: 400px;
-    background: #ECECEC;
+    // background: #ECECEC;
+    background: rgba(236, 236, 236, 0.95) !important;
+    backdrop-filter: blur(3px);
     border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
 
     .caption {
       font-family: 'Open Sans', serif;
@@ -332,6 +336,9 @@
 
   .content-column {
     flex: 1;
+    background: white;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
     .row {
       &.people {
         border-top: 1px dotted #eeeeee;
@@ -364,8 +371,8 @@
   border-top-left-radius: 4px;
 
   .service-column {
-    background: #eceff1;
-    border-top-left-radius: 4px;
+    // background: #eceff1;
+    // border-top-left-radius: 4px;
   }
 
   .row {

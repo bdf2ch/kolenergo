@@ -1,0 +1,27 @@
+<div class="caption-and-controls">
+  <div class="section-caption"><a routerLink="/adverts">{{caption}}</a></div>
+  <div class="controls">
+    <div class="control previous"
+         [ngClass]="{'disabled': step === 1 || isFetching === true}"
+         (click)="previous()"
+         matTooltip="{{step !== 1 ? 'Предыдущие статьи' : null}}"
+         matTooltipPosition="above">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+    </div>
+    <div class="control next"
+         [ngClass]="{'disabled': step === totalSteps || isFetching === true}"
+         (click)="next()"
+         matTooltip="{{step !== totalSteps ? 'Следующие статьи' : null}}"
+         matTooltipPosition="above">
+      <mat-icon>keyboard_arrow_right</mat-icon>
+    </div>
+  </div>
+</div>
+
+<div class="row no-gutters">
+  <div class="col-12 col-md-12 col-lg-6 col-xl-4 advert-container"
+       *ngFor="let advert of currentArticles; let i = index;"
+       [ngClass]="{'pl-1 pr-1': i !== 0 && i !== 2}">
+    <app-advert [advert]="advert"></app-advert>
+  </div>
+</div>
