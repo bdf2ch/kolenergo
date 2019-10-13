@@ -10,12 +10,13 @@ export function reducer(
     case PortalActionTypes.LOAD_INITIAL_DATA: {
       return  {
         ...state,
-
+        advertsIsFetching: true,
       };
     }
     case PortalActionTypes.LOAD_INITIAL_DATA_SUCCESS: {
       return {
         ...state,
+        advertsIsFetching: false,
         isApplicationInitialized: true,
         advertsOnStartPage: action.payload.data.adverts.adverts.map((item: IAdvert) => {
           return new Advert(item);

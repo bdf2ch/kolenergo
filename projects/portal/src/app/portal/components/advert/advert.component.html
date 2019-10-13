@@ -1,5 +1,5 @@
 <a class="advert"
-   [ngClass]="{'no-image': !advert?.image}"
+   [ngClass]="{'no-image': !advert?.image, 'zoom-on-hover': zoomOnHover}"
    [routerLink]="['/adverts', advert?.id]"
    [ngStyle]="{'background': advert?.image ? 'url(' + advert.image + ')' : ''}">
   <div class="advert-date">

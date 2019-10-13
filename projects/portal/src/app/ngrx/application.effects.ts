@@ -1,30 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-// import { MatDialog } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-import {map, mergeMap, switchMap, tap, withLatestFrom} from 'rxjs/operators';
-import { EMPTY, of } from 'rxjs';
-
-import { Store, select } from '@ngrx/store';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
-import { actionTypes, IServerResponse } from '@kolenergo/core';
+import { IServerResponse } from '@kolenergo/core';
 import { IApplicationState } from './application.state';
 import { LoadAdvertsNextPage, LoadAdvertsNextPageSuccess, LoadAdvertsPreviousPageSuccess, PortalActionTypes } from './application.actions';
 import { PortalService } from '../portal/services/portal.service';
 import { IPortalInitialData } from '../portal/interfaces';
 import { IAdvert } from '../adverts/interfaces';
-import {selectAdvertsOnStartPageCount} from './application.selectors';
-
-
-
 
 @Injectable()
 export class ApplicationEffects {
   constructor(private readonly router: Router,
-              // private readonly dialog: MatDialog,
               private readonly store: Store<IApplicationState>,
               private readonly actions$: Actions,
+              private readonly snackBar: MatSnackBar,
               private readonly portal: PortalService) {}
 
 
@@ -107,6 +102,15 @@ export class ApplicationEffects {
       .pipe(
         map((response: IServerResponse<IPortalInitialData>) => {
           return {type: PortalActionTypes.LOAD_INITIAL_DATA_SUCCESS, payload: response};
+        }),
+        catchError((error: any) => {
+          console.error('error occurred: ', error);
+          this.snackBar.open('При загрузке данных с сервера произошла ошибка', 'Закрыть', {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
+          return EMPTY;
         })
       )
     )
@@ -119,6 +123,15 @@ export class ApplicationEffects {
       return this.portal.getAdvertsPage(action.payload.page, action.payload.advertsOnPage).pipe(
         map((response: IServerResponse<IAdvert[]>) => {
           return new LoadAdvertsPreviousPageSuccess(response);
+        }),
+        catchError((error: any) => {
+          console.error('error occurred: ', error);
+          this.snackBar.open('При загрузке объявлений произошла ошибка', 'Закрыть', {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
+          return EMPTY;
         })
       );
     })
@@ -131,6 +144,15 @@ export class ApplicationEffects {
       return this.portal.getAdvertsPage(action.payload.page, action.payload.advertsOnPage).pipe(
         map((response: IServerResponse<IAdvert[]>) => {
           return new LoadAdvertsNextPageSuccess(response);
+        }),
+        catchError((error: any) => {
+          console.error('error occurred: ', error);
+          this.snackBar.open('При загрузке объявлений произошла ошибка', 'Закрыть', {
+            verticalPosition: 'bottom',
+            horizontalPosition: 'center',
+            duration: 3000
+          });
+          return EMPTY;
         })
       );
     })

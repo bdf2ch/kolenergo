@@ -22,6 +22,10 @@
   <div class="col-12 col-md-12 col-lg-6 col-xl-4 advert-container"
        *ngFor="let advert of currentAdverts; let i = index;"
        [ngClass]="{'pl-1 pr-1': i !== 0 && i !== 2}">
-    <app-advert [advert]="advert"></app-advert>
+    <app-advert [advert]="advert" [zoomOnHover]="true"></app-advert>
   </div>
+</div>
+
+<div class="no-adverts-placeholder" *ngIf="currentAdverts.length === 0 && !isFetching">
+  Объявления отсутствуют
 </div>

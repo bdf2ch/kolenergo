@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
 import { Advert } from '../../models';
-import {IApplicationState, selectAdvertsOnStartPageCount, selectTotalAdvertsCount} from '../../../ngrx';
+import { IApplicationState, selectAdvertsOnStartPageCount, selectTotalAdvertsCount } from '../../../ngrx';
 import {
   AdvertsLoadAdvertsNextPage,
   selectAdverts,

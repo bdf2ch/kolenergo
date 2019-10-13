@@ -9,6 +9,7 @@ import { Advert } from '../../../adverts/models';
 })
 export class AdvertComponent implements OnInit {
   @Input() advert: Advert;
+  @Input() zoomOnHover: boolean;
 
   constructor() {}
 

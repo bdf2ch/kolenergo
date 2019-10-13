@@ -1,6 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatIconModule, MatGridListModule, MatButtonModule, MatBadgeModule, MatTooltipModule, MatMenuModule, MatDialogModule } from '@angular/material';
+import {
+  MatIconModule,
+  MatGridListModule,
+  MatButtonModule,
+  MatBadgeModule,
+  MatTooltipModule,
+  MatMenuModule,
+  MatDialogModule,
+  MatSnackBarModule
+} from '@angular/material';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -38,6 +47,7 @@ import { ArticlesSectionComponent } from './components/articles-section/articles
     MatTooltipModule,
     MatMenuModule,
     MatDialogModule,
+    MatSnackBarModule,
     ButtonModule,
     SliderModule
   ],

@@ -20,7 +20,7 @@
 
     <div class="row mt-2 mt-md-5" *ngIf="(adverts$ | async)?.length > 0">
       <div class="col-6 col-md-4 col-lg-4 col-xl-3 advert-container" *ngFor="let advert of adverts$ | async">
-        <app-advert [advert]="advert"></app-advert>
+        <app-advert [advert]="advert" [zoomOnHover]="true"></app-advert>
       </div>
     </div>
 

@@ -19,6 +19,7 @@ import { SlideComponent } from '../slide/slide.component';
 })
 export class SliderComponent implements OnInit, OnChanges, OnDestroy {
   @Input() interval: number;
+  @Input() showControls: boolean;
   public slides: SlideComponent[];
   public currentSlide: SlideComponent;
   private changeInterval;

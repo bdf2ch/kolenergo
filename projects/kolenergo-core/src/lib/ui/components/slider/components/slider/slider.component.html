@@ -14,7 +14,7 @@
   <!-- End: Слайды -->
 
   <!-- Start: Элементы управления -->
-  <div class="slider-controls">
+  <div class="slider-controls" *ngIf="showControls">
     <div class="control"
          *ngFor="let slide of slides"
          [ngClass]="{'active': slide.isActive}"
