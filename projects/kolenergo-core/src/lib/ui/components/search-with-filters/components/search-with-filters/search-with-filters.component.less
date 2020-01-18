@@ -1,14 +1,17 @@
-@height: 40px;
+@height: 44px;
 @background-color: #eceff1;
-@border-radius: 4px;
+@border-radius: 3.5px;
+@input-font-family: 'Open Sans Light';
+@input-font-size: 15px;
 @icon-color: #b0bec5;
 @icon-color-hover: #90a4ae;
 @indicator-background-color: #ffb300;
 @filter-background-color: #ffd740;
 @filter-background-color-hover: #ffc400;
+@filter-font-family: 'Open Sans';
 @filter-font-size: 12px;
 @filter-font-color: #37474f;
-@filter-border-radius: 4px;
+@filter-border-radius: 3.5px;
 
 
 .requests-search-component {
@@ -23,15 +26,19 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding-left: 10px;
-    // padding-right: 10px;
+    // padding-left: 10px;
+    border-top-left-radius: @border-radius;
+    border-bottom-left-radius: @border-radius;
 
     .mat-icon {
-      width: 32px;
-      height: 32px;
+      width: @height;
+      height: @height;
       font-size: 22px;
-      line-height: 32px;
+      line-height: @height;
       color: @icon-color;
+      text-align: center;
+      border-top-left-radius: @border-radius;
+      border-bottom-left-radius: @border-radius;
       &:hover {
 
       }
@@ -54,7 +61,7 @@
       padding-left: 7px;
       padding-right: 7px;
       margin-right: 5px;
-      font-family: "Segoe UI";
+      font-family: @filter-font-family;
       font-size: @filter-font-size;
       color: @filter-font-color;
       background: @filter-background-color;
@@ -79,10 +86,21 @@
     input {
       width: 100%;
       height: @height;
-      font-family: "Segoe UI";
+      font-family: @input-font-family;
+      font-size: @input-font-size;
       background: @background-color;
       border: none;
       outline: none;
+      &::placeholder {
+        color: @icon-color-hover;
+        opacity: 1;
+      }
+      &:-ms-input-placeholder {
+        color: @icon-color-hover;
+      }
+      &::-ms-input-placeholder {
+        color: @icon-color-hover;
+      }
     }
   }
 

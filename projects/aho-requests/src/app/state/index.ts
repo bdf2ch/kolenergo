@@ -14,7 +14,7 @@ export * from './selectors';
 
 /*
 export const reducers: ActionReducerMap<IApplicationState> = {
-  selectAho: reducer
+  selectAho: phoneBookReducer
 };
 */
 

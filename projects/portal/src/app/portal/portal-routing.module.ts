@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PortalComponent } from './components/portal/portal.component';
 import { StartComponent } from './components/start/start.component';
 import { InitialDataResolveGuard } from './guards/initial-data-resolve.guard';
+import {OurPeopleResolveGuard} from './guards/our-people-resolve.guard';
 
 const routes: Routes = [
   {
@@ -22,8 +23,11 @@ const routes: Routes = [
         loadChildren: '../adverts/adverts.module#AdvertsModule'
       },
       {
-        path: 'articles',
-        loadChildren: '../articles/articles.module#ArticlesModule'
+        path: 'our-people',
+        loadChildren: '../articles/articles.module#ArticlesModule',
+        resolve: [
+          OurPeopleResolveGuard
+        ]
       }
     ]
   }

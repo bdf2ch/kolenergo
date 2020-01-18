@@ -1,0 +1,84 @@
+@side-navigation-user-menu-height: 80px;
+@side-navigation-user-menu-background-color: #f5f5f5;
+@side-navigation-user-menu-avatar-width: 40px;
+@side-navigation-user-menu-avatar-height: 40px;
+@side-navigation-user-menu-avatar-initials-font-color: white;
+@side-navigation-user-menu-avatar-background-color: #80cbc4;
+@side-navigation-user-menu-details-name-font-size: 15px;
+@side-navigation-user-menu-details-name-font-color: #546e7a;
+@side-navigation-user-menu-details-position-font-size: 13px;
+@side-navigation-user-menu-details-position-font-color: #757575;
+
+.side-navigation {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .company-selector {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .company-divisions {
+    overflow: auto;
+    display: flex;
+    flex: 1;
+  }
+
+  .user-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    height: @side-navigation-user-menu-height;
+    background: @side-navigation-user-menu-background-color;
+
+    .user-avatar {
+      .initials {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: @side-navigation-user-menu-avatar-width;
+        height: @side-navigation-user-menu-avatar-height;
+        color: @side-navigation-user-menu-avatar-initials-font-color;
+        border-radius: 50%;
+        background: @side-navigation-user-menu-avatar-background-color;
+      }
+    }
+
+    .user-details {
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      .name {
+        font-family: 'Open Sans';
+        font-weight: 400;
+        font-size: @side-navigation-user-menu-details-name-font-size;
+        color: @side-navigation-user-menu-details-name-font-color;
+      }
+      .position {
+        overflow: hidden;
+        font-family: "Open Sans Light";
+        //font-weight: 400;
+        font-size: @side-navigation-user-menu-details-position-font-size;
+        color: @side-navigation-user-menu-details-position-font-color;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    .user-controls {
+      .mat-icon-button {
+        color: #cfd8dc;
+        cursor: pointer;
+        transition: all linear 0.1s;
+        &:hover {
+          color: #607d8b;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,98 @@
+<!--
+<div class="contact">
+  <div class="contact-photo">
+    <div class="contact-photo-controls">
+      <i class="control favorites far fa-star"></i>
+    </div>
+  </div>
+  <div class="contact-details">
+
+    <div class="data-item">
+      <div class="icon">
+        <i class="material-icons-outlined">face</i>
+      </div>
+      <div class="content">
+        <span class="name">Константинопольский Константин Константинович</span>
+      </div>
+    </div>
+
+    <div class="data-item">
+      <div class="icon">
+        <i class="material-icons-outlined">work_outline</i>
+      </div>
+      <div class="content">
+        <span class="position">Менеджер по сбору бутылок от шампанского</span>
+      </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="data-item slim">
+      <div class="icon">
+        <i class="material-icons-outlined">phone</i>
+      </div>
+      <div class="content">
+        <span class="phone">2294, </span>&nbsp; &nbsp;
+        <span class="phone">(521)1654, </span>&nbsp; &nbsp;
+        <span class="phone">(520)2294</span>
+      </div>
+    </div>
+
+    <div class="data-item slim">
+      <div class="icon">
+        <i class="material-icons-outlined">phone_iphone</i>
+      </div>
+      <div class="content">
+        <span class="position">+7 (921) 555-66-77</span>
+      </div>
+    </div>
+
+    <div class="data-item slim">
+      <div class="icon">
+        <i class="material-icons-outlined">mail</i>
+      </div>
+      <div class="content">
+        <span class="position">
+          <a href="mailto:testmail@kolenergo.ru">testmail@kolenergo.ru</a>
+        </span>
+      </div>
+    </div>
+
+  </div>
+</div>
+-->
+
+  <div class="contact-item p-1 p-md-3">
+    <div class="contact-avatar p-2 p-md-0">
+      <mat-icon class="favorites"
+                [ngClass]="{'mobile': (viewMode$ | async) === views.MOBILE_VIEW}"
+                matTooltip="Избранные абоненты"
+                matTooltipPosition="below">
+        star_outline
+      </mat-icon>
+      <img class="photo">
+    </div>
+
+    <div class="contact-details d-flex flex-column flex-md-row justify-content-center justify-content-md-between pl-2 pl-md-4 pt-md-2 pb-md-2">
+      <div class="name-and-position">
+        <span class="primary-data mb-2 d-none d-md-flex">Константинопольский<br>Константин Константинович</span>
+        <span class="primary-data mb-1 d-flex d-md-none">Константинопольский Константин</span>
+        <span class="secondary-data d-none d-md-flex">Менеджер по сбору бутылок от шампанского и портвейна</span>
+        <span class="secondary-data ellipsis d-flex d-md-none mb-1">Менеджер по сбору бутылок от шампанского и портвейна</span>
+      </div>
+
+      <div class="contacts pl-md-5 pl-lg-3">
+      <span class="secondary-data strong mb-1">(520)2234 &nbsp; (521)1234 &nbsp; 3612</span>
+        <span class="secondary-data mb-md-1">+7 (921) 555-66-77</span>
+        <span class="secondary-data d-none d-md-flex">
+          <a href="mailto:testemail@kolenergo.ru">testemail@kolenergo.ru</a>
+        </span>
+      </div>
+
+      <div class="location d-none d-md-flex pl-1 pl-md-5 pl-lg-3">
+        <span class="secondary-data strong mb-1">Здание управления</span>
+        <span class="secondary-data mb-1">пгт. Мурмаши, ул. Кирова, д. 1</span>
+        <span class="secondary-data">кабинет 214</span>
+      </div>
+    </div>
+  </div>

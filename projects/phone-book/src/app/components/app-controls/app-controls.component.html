@@ -1,0 +1,119 @@
+<div class="app-controls row">
+  <!-- Start: Кнопка открытия боковой панели -->
+  <div class="col-auto sidebar-toggle-button" *ngIf="(viewMode$ | async) !== views.DESKTOP_VIEW">
+    <button mat-icon-button (click)="openSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <!-- End: Кнопка открытия боковой панели -->
+
+  <!-- Start: Логотип приложения -->
+  <div class="col-auto d-none d-lg-flex">
+    <div class="logo">
+      <div class="icon-and-caption">
+        <i class="fas fa-address-book"></i>
+        <div class="logo-caption">Телефонный<br>справочник</div>
+      </div>
+      <span class="logo-sub-caption">Колэнерго</span>
+    </div>
+    <!--
+    <i class="fas fa-2x fa-address-book mr-2"></i>
+    <div class="logo-caption">Телефонный<br>справочник</div>
+    -->
+  </div>
+  <!-- End: Логотип приложения -->
+
+  <!-- Start: Поле ввода поиска абоеннтов -->
+  <div class="col search-bar">
+    <lib-search-with-filters
+      class="w-100"
+      [placeholder]="'Введите имя абонента или телефон'">
+    </lib-search-with-filters>
+  </div>
+  <!-- End: Поле воода поиска абоеннтов -->
+
+  <!-- Start: Элементы управления -->
+  <div class="col-auto controls">
+    <!-- Start: Помощь -->
+    <div [ngSwitch]="applicationMode$ | async">
+      <div *ngSwitchCase="modes.APPLICATION_MODE_HELP"
+           class="d-flex flex-column justify-content-center align-items-center">
+        <mat-icon class="control active d-none d-lg-inline mr-3"
+                  routerLink="/help"
+                  matTooltip="Помощь"
+                  matTooltipPosition="below">
+          help
+        </mat-icon>
+      </div>
+      <div *ngSwitchDefault
+           class="d-flex flex-column justify-content-center align-items-center">
+        <mat-icon class="control d-none d-lg-inline mr-3"
+                  routerLink="/help"
+                  matTooltip="Помощь"
+                  matTooltipPosition="below">
+          help_outline
+        </mat-icon>
+      </div>
+    </div>
+    <!-- End: Помощь -->
+
+    <!-- Start: Избранные абоненты -->
+    <div [ngSwitch]="applicationMode$ | async">
+      <div *ngSwitchCase="modes.APPLICATION_MODE_FAVORITE_CONTACTS"
+           class="d-flex flex-column justify-content-center align-items-center">
+        <mat-icon class="control active favorites mr-3"
+                  routerLink="/favorites"
+                  matTooltip="Избранные абоненты"
+                  matTooltipPosition="below">
+          star
+        </mat-icon>
+      </div>
+      <div *ngSwitchDefault
+           class="d-flex flex-column justify-content-center align-items-center">
+        <mat-icon class="control favorites mr-3"
+                  routerLink="/favorites"
+                  matTooltip="Избранные абоненты"
+                  matTooltipPosition="below">
+          star_outline
+        </mat-icon>
+      </div>
+    </div>
+
+    <!-- End: Избранные абоненты -->
+
+    <!-- Start: Авторизация пользователя -->
+    <mat-icon class="control d-none d-lg-inline"
+              *ngIf="!(currentUser$ | async)"
+              matTooltip="Войти"
+              matTooltipPosition="below"
+              (click)="openSignInDialog()">
+      exit_to_app
+    </mat-icon>
+    <!-- End: Авторизация пользователя -->
+
+    <!-- Start: Личный кабинет -->
+    <div [ngSwitch]="applicationMode$ | async" *ngIf="currentUser$ | async">
+      <div *ngSwitchCase="modes.APPLICATION_MODE_USER_ACCOUNT"
+           class="d-flex flex-column justify-content-center align-items-center">
+        <mat-icon class="control active d-none d-lg-inline"
+                  routerLink="/account"
+                  matTooltip="Личный кабинет"
+                  matTooltipPosition="below">
+          account_circle
+        </mat-icon>
+      </div>
+      <div *ngSwitchDefault
+           class="d-flex flex-column justify-content-center align-items-center">
+        <mat-icon class="control d-none d-lg-inline"
+                  fontSet="material-icons-outlined"
+                  routerLink="/account"
+                  matTooltip="Личный кабинет"
+                  matTooltipPosition="below">
+          account_circle
+        </mat-icon>
+      </div>
+    </div>
+    <!-- End: Личный кабинет -->
+  </div>
+  <!-- End: Элементы управления -->
+</div>

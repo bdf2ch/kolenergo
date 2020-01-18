@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material';
 
 import { ArticlesListRoutingModule } from './articles-list-routing.module';
 import { ArticlesListComponent } from './components/articles-list/articles-list.component';
@@ -10,7 +11,8 @@ import { ArticlesListComponent } from './components/articles-list/articles-list.
   ],
   imports: [
     CommonModule,
-    ArticlesListRoutingModule
+    ArticlesListRoutingModule,
+    MatIconModule
   ]
 })
 export class ArticlesListModule { }

@@ -1,0 +1,32 @@
+<div class="d-flex flex-column justify-content-center align-items-center h-100 pl-3 pl-md-4 pr-3 pr-md-4">
+
+  <div class="caption">Личный кабинет</div>
+
+  <div class="block p-5">
+    <div class="block-caption mb-4">Ваша фотография</div>
+    <div class="user-account-photo">
+      <img src="http://10.50.0.153:4444/assets/images/users/3816/IMG_2128.jpg" alt="">
+      <div class="user-account-photo-title">
+        <span class="user-name">
+          {{(currentUser$ | async).firstName + ' ' + (currentUser$ | async)?.secondName + ' ' + (currentUser$ | async).lastName}}
+        </span>
+        <span class="user-position">{{(currentUser$ | async)?.position}}</span>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="user-account">
+
+    <div class="user-account-photo">
+      <img src="http://10.50.0.153:4444/assets/images/users/3816/IMG_2128.jpg" alt="">
+      <div class="user-account-photo-title">
+        <span class="user-name">
+          {{(currentUser$ | async).firstName + ' ' + (currentUser$ | async)?.secondName + ' ' + (currentUser$ | async).lastName}}
+        </span>
+        <span class="user-position">{{(currentUser$ | async)?.position}}</span>
+      </div>
+    </div>
+  </div>
+</div>

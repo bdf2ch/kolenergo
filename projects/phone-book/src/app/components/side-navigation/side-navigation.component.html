@@ -1,0 +1,36 @@
+<div class="side-navigation">
+  <div class="company-selector pl-3 pl-md-4 pr-3 pr-md-4 pt-4 pb-4">
+    <mat-form-field class="company-selector" appearance="outline">
+      <!--<mat-label>Организация</mat-label>-->
+      <mat-select panelClass="example-panel" [value]="selectedCompany$ | async">
+        <mat-option *ngFor="let company of companies$ | async"
+                    [value]="company">
+          {{company.shortTitle ? company.shortTitle : company.title}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="company-divisions pl-3 pl-md-4 pr-3 pr-md-4 pb-0">
+    <app-division-tree></app-division-tree>
+  </div>
+
+  <div class="user-menu row pl-3 pl-md-4 pr-3 pr-md-4">
+
+    <div class="col">
+      <div class="row no-gutters">
+        <div class="user-avatar col-auto mr-3">
+          <div class="initials">СВ</div>
+        </div>
+        <div class="user-details col">
+          <span class="name">Сергей Воронов</span>
+          <span class="position">Инженер-программист</span>
+        </div>
+      </div>
+    </div>
+    <div class="user-controls col-auto">
+      <button mat-icon-button routerLink="/account">
+        <mat-icon>open_in_browser</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

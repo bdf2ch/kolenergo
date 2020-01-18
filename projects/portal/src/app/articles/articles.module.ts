@@ -8,6 +8,11 @@ import { ArticlesResource } from './resources/articles.resource';
 import { ArticlesService } from './services/articles.service';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { ArticlesSearchComponent } from './components/articles-search/articles-search.component';
+import {StoreModule} from '@ngrx/store';
+import { reducer } from '../ngrx';
+import {EffectsModule} from '@ngrx/effects';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {environment} from '../../environments/environment';
 
 @NgModule({
   declarations: [
@@ -19,6 +24,9 @@ import { ArticlesSearchComponent } from './components/articles-search/articles-s
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
+    StoreModule.forFeature('articles', reducer),
+    // EffectsModule.forFeature([AdvertsEffects]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     ArticlesRoutingModule
   ],
   providers: [

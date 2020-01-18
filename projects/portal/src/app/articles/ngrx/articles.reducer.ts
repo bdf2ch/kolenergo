@@ -1,11 +1,17 @@
-import { articlesActions, ArticlesActionTypes } from './articles.actions';
-import { IArticlesState, articlesInitialState } from './articles.state';
+import {articlesActions, ArticlesActionTypes} from './articles.actions';
+import {articlesInitialState, IArticlesState} from './articles.state';
 
 export function reducer(
   state: IArticlesState = articlesInitialState,
   action: articlesActions
 ): IArticlesState {
   switch (action.type) {
+    case ArticlesActionTypes.ARTICLES_SELECT_SECTION: {
+      return {
+        ...state,
+        selectedSection: action.payload
+      };
+    }
     case ArticlesActionTypes.ARTICLES_LOAD_ARTICLES: {
       return {
         ...state,

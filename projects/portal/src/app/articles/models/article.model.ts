@@ -41,7 +41,7 @@ export class Article implements IArticle {
     this.dateChangedD = config ? new Date(config.dateChanged) : null;
     this.attachments = [];
 
-    if (config.attachments) {
+    if (config && config.attachments) {
       this.attachments = config.attachments.map((item: IAttachment) => {
         return new Attachment(item);
       });

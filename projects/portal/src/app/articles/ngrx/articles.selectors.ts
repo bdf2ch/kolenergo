@@ -2,6 +2,7 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { IApplicationState } from '../../ngrx';
 import { IArticlesState } from './';
+import { ArticleSection } from '../models';
 
 /**
  * Селектор дерева параметров раздела статей
@@ -14,6 +15,16 @@ export const articles = createFeatureSelector<IApplicationState, IArticlesState>
 export const selectSections = createSelector(
   articles,
   (state: IArticlesState) => state.sections
+);
+
+/**
+ * Селектор раздела статей по идентификатору раздела
+ */
+export const selectSectionById = createSelector(
+  selectSections,
+  (sections, sectionId) => {
+    return sections.filter((section: ArticleSection) => section.id === sectionId);
+  }
 );
 
 /**

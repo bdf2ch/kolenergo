@@ -1,0 +1,9 @@
+/**
+ * Перечисление режимов приложения
+ */
+export enum EApplicationMode {
+  APPLICATION_MODE_CONTACT_LIST,
+  APPLICATION_MODE_FAVORITE_CONTACTS,
+  APPLICATION_MODE_USER_ACCOUNT,
+  APPLICATION_MODE_HELP
+}

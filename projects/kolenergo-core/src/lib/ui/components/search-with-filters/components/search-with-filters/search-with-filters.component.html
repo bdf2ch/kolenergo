@@ -1,8 +1,10 @@
 <div class="requests-search-component">
+
   <div class="search-before">
     <mat-icon>search</mat-icon>
   </div>
-  <div class="search-filters d-none d-md-flex">
+
+  <div class="search-filters d-none d-md-flex" *ngIf="filterManager">
     <div class="filter" *ngFor="let filter of filterManager.getAppliedFilters()"
          (click)="resetFilter(filter)"
          matTooltip="{{filter.getTitle()}}"
@@ -10,9 +12,15 @@
       {{filter.getLabel()}}
     </div>
   </div>
+
   <div class="search-input">
-    <input type="text" [(ngModel)]="search">
+    <input type="text"
+           [(ngModel)]="search"
+           #input
+           (change)="inputChange(input.value)"
+           placeholder="{{placeholder}}">
   </div>
+
   <div class="search-after">
     <button
       *ngIf="search"
@@ -21,7 +29,7 @@
       (click)="clearSearchField()">
       <mat-icon>close</mat-icon>
     </button>
-    <button mat-icon-button matTooltip="Фильтры" (click)="filtersClickHandler()">
+    <button mat-icon-button matTooltip="Фильтры" *ngIf="showFilters" (click)="filtersClickHandler()">
       <mat-icon>filter_list</mat-icon>
       <div class="indicator" *ngIf="filterManager.isFiltersApplied()"></div>
     </button>

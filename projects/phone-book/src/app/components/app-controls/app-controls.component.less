@@ -1,0 +1,93 @@
+.app-controls {
+  display: flex;
+  flex-direction: row;
+
+  .sidebar-toggle-button {
+    .mat-icon {
+      color: #b0bec5;
+      transition: all linear 0.1s;
+      &:hover {
+        color: #607d8b;
+      }
+    }
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 44px;
+    padding: 5px 10px;
+    border: 1.5px solid rgba(2, 119, 189, 0.7);
+    border-radius: 3.5px;
+
+    .icon-and-caption {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-start;
+
+      .fas {
+        margin-right: 10px;
+        font-size: 25px;
+        color: rgba(2, 119, 189, 0.7);
+      }
+
+      .logo-caption {
+        display: flex;
+        flex-direction: column;
+        font-family: "Open Sans Bold";
+        font-size: 11px;
+        line-height: 13px;
+        text-align: justify;
+        text-transform: uppercase;
+        color: rgba(2, 119, 189, 0.7);
+      }
+    }
+
+    .logo-sub-caption {
+      font-family: "Open Sans Regular";
+      font-size: 9px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      background: #FAFAFA;
+    }
+  }
+
+  .search-bar {
+    display: flex;
+    flex: 1;
+  }
+
+  .controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .control {
+      width: 35px;
+      height: 35px;
+      font-size: 35px;
+      line-height: 35px;
+      color: #cfd8dc;
+      cursor: pointer;
+      outline: none;
+      transition: all linear 0.1s;
+      &:hover {
+        color: #607d8b;
+      }
+      &.active {
+        color: #607d8b;
+      }
+
+      &.favorites {
+        color: #ffd54f;
+        &:hover {
+          color: #ffc107;
+        }
+      }
+    }
+  }
+}

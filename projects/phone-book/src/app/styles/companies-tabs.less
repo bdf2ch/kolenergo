@@ -1,0 +1,47 @@
+@label-width: 20px;
+@label-height: 20px;
+@label-background-color: rgba(2, 119, 189, 1);
+@label-font-family: 'Open Sans Regular';
+@label-font-color: white;
+@label-font-size: 11px;
+
+.mat-tab-group {
+  &.companies-tabs {
+    .mat-tab-list {
+      .mat-tab-labels {
+        // justify-content: center;
+        margin-bottom: -2px;
+        .mat-tab-label {
+          border: 1px solid transparent;
+          .mat-tab-label-content {
+            font-family: "Open Sans Regular";
+            .label {
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+              align-items: center;
+              width: @label-width;
+              height: @label-height;
+              margin-left: 6px;
+              font-family: @label-font-family;
+              font-size: @label-font-size;
+              line-height: @label-height;
+              color: @label-font-color;
+              background: @label-background-color;
+              border-radius: 50%;
+            }
+          }
+        }
+        .mat-tab-label-active {
+          border: 1px solid #cfd8dc;
+          border-bottom: 1px solid #fff;
+          border-top-left-radius: 2.5px;
+          border-top-right-radius: 2.5px;
+        }
+      }
+      .mat-ink-bar {
+        display: none;
+      }
+    }
+  }
+}

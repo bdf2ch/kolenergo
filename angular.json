@@ -727,6 +727,425 @@
           }
         }
       }
+    },
+    "auto-requests": {
+      "root": "projects/auto-requests/",
+      "sourceRoot": "projects/auto-requests/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "less"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/auto-requests",
+            "index": "projects/auto-requests/src/index.html",
+            "main": "projects/auto-requests/src/main.ts",
+            "polyfills": "projects/auto-requests/src/polyfills.ts",
+            "tsConfig": "projects/auto-requests/tsconfig.app.json",
+            "assets": [
+              "projects/auto-requests/src/favicon.ico",
+              "projects/auto-requests/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
+              "projects/auto-requests/src/styles.less"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/auto-requests/src/environments/environment.ts",
+                  "with": "projects/auto-requests/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "auto-requests:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "auto-requests:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "auto-requests:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/auto-requests/src/test.ts",
+            "polyfills": "projects/auto-requests/src/polyfills.ts",
+            "tsConfig": "projects/auto-requests/tsconfig.spec.json",
+            "karmaConfig": "projects/auto-requests/karma.conf.js",
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
+              "projects/auto-requests/src/styles.less"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/auto-requests/src/favicon.ico",
+              "projects/auto-requests/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/auto-requests/tsconfig.app.json",
+              "projects/auto-requests/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "auto-requests-e2e": {
+      "root": "projects/auto-requests-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/auto-requests-e2e/protractor.conf.js",
+            "devServerTarget": "auto-requests:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "auto-requests:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/auto-requests-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "phone-book": {
+      "root": "projects/phone-book/",
+      "sourceRoot": "projects/phone-book/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "less"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/phone-book",
+            "index": "projects/phone-book/src/index.html",
+            "main": "projects/phone-book/src/main.ts",
+            "polyfills": "projects/phone-book/src/polyfills.ts",
+            "tsConfig": "projects/phone-book/tsconfig.app.json",
+            "assets": [
+              "projects/phone-book/src/favicon.ico",
+              "projects/phone-book/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "projects/phone-book/src/styles.less"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/phone-book/src/environments/environment.ts",
+                  "with": "projects/phone-book/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "phone-book:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "phone-book:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "phone-book:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/phone-book/src/test.ts",
+            "polyfills": "projects/phone-book/src/polyfills.ts",
+            "tsConfig": "projects/phone-book/tsconfig.spec.json",
+            "karmaConfig": "projects/phone-book/karma.conf.js",
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
+              "projects/phone-book/src/styles.less"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/phone-book/src/favicon.ico",
+              "projects/phone-book/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/phone-book/tsconfig.app.json",
+              "projects/phone-book/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "phone-book-e2e": {
+      "root": "projects/phone-book-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/phone-book-e2e/protractor.conf.js",
+            "devServerTarget": "phone-book:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "phone-book:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/phone-book-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "operative-situation": {
+      "root": "projects/operative-situation/",
+      "sourceRoot": "projects/operative-situation/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "less",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/operative-situation",
+            "index": "projects/operative-situation/src/index.html",
+            "main": "projects/operative-situation/src/main.ts",
+            "polyfills": "projects/operative-situation/src/polyfills.ts",
+            "tsConfig": "projects/operative-situation/tsconfig.app.json",
+            "assets": [
+              "projects/operative-situation/src/favicon.ico",
+              "projects/operative-situation/src/assets"
+            ],
+            "styles": [
+              "projects/operative-situation/src/styles.less"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/operative-situation/src/environments/environment.ts",
+                  "with": "projects/operative-situation/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "operative-situation:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "operative-situation:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "operative-situation:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/operative-situation/src/test.ts",
+            "polyfills": "projects/operative-situation/src/polyfills.ts",
+            "tsConfig": "projects/operative-situation/tsconfig.spec.json",
+            "karmaConfig": "projects/operative-situation/karma.conf.js",
+            "styles": [
+              "projects/operative-situation/src/styles.less"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/operative-situation/src/favicon.ico",
+              "projects/operative-situation/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/operative-situation/tsconfig.app.json",
+              "projects/operative-situation/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "operative-situation-e2e": {
+      "root": "projects/operative-situation-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/operative-situation-e2e/protractor.conf.js",
+            "devServerTarget": "operative-situation:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "operative-situation:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/operative-situation-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "kolenergo-core"

@@ -25,6 +25,7 @@ import { InitialDataResolveGuard } from './guards/initial-data-resolve.guard';
 import { PhonebookSearchComponent } from './components/phonebook-search/phonebook-search.component';
 import { AdvertComponent } from './components/advert/advert.component';
 import { ArticlesSectionComponent } from './components/articles-section/articles-section.component';
+import {OurPeopleResolveGuard} from './guards/our-people-resolve.guard';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { ArticlesSectionComponent } from './components/articles-section/articles
     SliderModule
   ],
   providers: [
-    InitialDataResolveGuard
+    InitialDataResolveGuard,
+    OurPeopleResolveGuard
   ],
   exports: [
     AdvertsSectionComponent,

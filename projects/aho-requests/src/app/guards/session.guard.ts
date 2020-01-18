@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Resolve, Router, RouterStateSnapshot} from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { filter, mergeMap, take, withLatestFrom } from 'rxjs/operators';
+import { tap } from 'rxjs/internal/operators/tap';
 import { of } from 'rxjs/internal/observable/of';
 import { select, Store } from '@ngrx/store';
 
 import { AuthenticationCheck, User } from 'kolenergo-core';
 import { IApplicationState, selectCurrentUser } from '../state';
 import { selectIsAuthenticationInProgress } from '../state/selectors';
-import {tap} from 'rxjs/internal/operators/tap';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,7 @@ export class SessionGuard implements Resolve<User> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<User> {
-    this.store.dispatch(new AuthenticationCheck());
+    this.store.dispatch(new AuthenticationCheck(environment.appCode));
     return this.checkSession()
       .pipe(
         withLatestFrom(this.store.pipe(select(selectCurrentUser))),

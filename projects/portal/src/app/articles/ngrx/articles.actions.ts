@@ -8,6 +8,7 @@ import { IArticle } from '../interfaces';
  * Типы действий со статьями
  */
 export enum ArticlesActionTypes {
+  ARTICLES_SELECT_SECTION = '[Articles API] Select articles section',
   ARTICLES_LOAD_ARTICLES = '[Articles API] Load list of articles',
   ARTICLES_LOAD_ARTICLES_SUCCESS = '[Articles API] List of articles loaded successfully',
   ARTICLES_LOAD_ARTICLE = '[Articles API] Load article',
@@ -17,6 +18,14 @@ export enum ArticlesActionTypes {
   ARTICLES_SEARCH_ARTICLES = '[Articles API] Search articles',
   ARTICLES_SEARCH_ARTICLES_SUCCESS = '[Articles API] Articles search completed successfully',
   ARTICLES_CLEAR_SEARCH = '[Articles list page] Clear articles search'
+}
+
+/**
+ * Выбор текущего раздела статей
+ */
+export class ArticlesSelectSection implements Action {
+  readonly type = ArticlesActionTypes.ARTICLES_SELECT_SECTION;
+  constructor(public payload: ArticleSection) {}
 }
 
 /**
@@ -90,6 +99,7 @@ export class ArticlesClearSearch implements Action {
 }
 
 export type articlesActions =
+  ArticlesSelectSection |
   ArticlesLoadArticles |
   ArticlesLoadArticlesSuccess |
   ArticlesLoadArticle |

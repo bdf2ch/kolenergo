@@ -1,0 +1,25 @@
+<!-- Start: Индикатор загрузки данных -->
+<mat-progress-bar mode="indeterminate" *ngIf="isFetchingInProgress$ | async"></mat-progress-bar>
+<!-- End: Индикатор загрузки данных -->
+
+<mat-sidenav-container [hasBackdrop]="mobileQuery.matches ? true : false">
+  <!-- Start: Боковая панель -->
+  <mat-sidenav [disableClose]="false"
+               [opened]="mobileQuery.matches ? false : true"
+               [mode]="mobileQuery.matches ? 'over' : 'side'"
+               (openedStart)="sideBarOpened()"
+               (closedStart)="sidebarClosed()"
+               #sidenav>
+    <app-side-navigation></app-side-navigation>
+  </mat-sidenav>
+  <!-- End: Боковая ранель -->
+
+  <!-- Start: Содержание -->
+  <mat-sidenav-content>
+    <div class="content">
+      <app-controls class="pl-3 pl-md-4 pr-3 pr-md-4 pt-4 pb-4" [sidenav]="sidenav"></app-controls>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+  <!-- End: Содержание -->
+</mat-sidenav-container>
