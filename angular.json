@@ -1039,6 +1039,7 @@
               "projects/operative-situation/src/assets"
             ],
             "styles": [
+              "projects/operative-situation/src/custom-theme.scss",
               "projects/operative-situation/src/styles.less"
             ],
             "scripts": [],
