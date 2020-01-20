@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { InitializationGuard } from './guards/initialization.guard';
+
 const routes: Routes = [
   {
     path: '',
-    loadChildren: './features/operative-situation/operative-situation.module#OperativeSituationModule'
+    loadChildren: './features/operative-situation/operative-situation.module#OperativeSituationModule',
+    resolve: [InitializationGuard]
   },
   {
     path: 'sign-in',

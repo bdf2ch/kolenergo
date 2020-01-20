@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { SignInWrapperComponent } from './components/sign-in-wrapper/sign-in-wrapper.component';
-import { SignInComponent } from './components/sign-in/sign-in.component';
+import { SignInDialogComponent } from './components/sign-in/sign-in-dialog.component';
 
 const routes: Routes = [
   {
@@ -11,7 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: SignInComponent
+        component: SignInDialogComponent
       }
     ]
   }

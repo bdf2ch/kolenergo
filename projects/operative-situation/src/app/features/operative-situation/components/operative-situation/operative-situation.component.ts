@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {IApplicationState} from '../../../../ngrx';
+import {Store} from '@ngrx/store';
+import {LoadInitialData} from '../../ngrx';
 
 @Component({
   selector: 'app-operative-situation',
@@ -7,9 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OperativeSituationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly store: Store<IApplicationState>) { }
 
   ngOnInit() {
+    // this.store.dispatch(new LoadInitialData());
   }
 
 }
