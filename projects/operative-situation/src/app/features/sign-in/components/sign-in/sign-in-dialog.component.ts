@@ -15,6 +15,7 @@ export class SignInDialogComponent implements OnInit {
   ngOnInit() {
     setTimeout(() => {
       this.dialog.open(SignInComponent, {
+        id: 'sign-in-dialog',
         width: '350px',
         panelClass: 'sign-in-dialog',
         hasBackdrop: true,

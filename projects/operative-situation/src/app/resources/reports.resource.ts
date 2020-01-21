@@ -32,7 +32,7 @@ export class OperativeSituationResource extends Resource {
     method: ResourceRequestMethod.Get,
     withCredentials: true
   })
-  getInitialData: IResourceMethodStrict<void, {companyId: number}, void, IServerResponse<IAppInitData>>;
+  getInitialData: IResourceMethodStrict<void, void, void, IServerResponse<IAppInitData>>;
 
   @ResourceAction({
     path: '/',

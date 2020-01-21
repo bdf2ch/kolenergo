@@ -1,0 +1,40 @@
+@application-header-title-font-family: 'Open Sans Light';
+@application-header-title-font-size: 45px;
+@application-header-title-line-height: @application-header-title-font-size + 4px;
+@application-header-title-font-color: #546e7a;
+@application-header-subtitle-font-family: 'Open Sans Light';
+@application-header-subtitle-font-size: 17px;
+@application-header-subtitle-font-color: #546e7a;
+
+.mat-progress-bar {
+  position: fixed;
+  z-index: 100;
+}
+
+
+.application-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  .application-title {
+    font-family: @application-header-title-font-family;
+    font-size: @application-header-title-font-size;
+    line-height: @application-header-title-line-height;
+    color: @application-header-title-font-color;
+  }
+
+  .application-subtitle {
+    font-family: @application-header-subtitle-font-family;
+    font-size: @application-header-subtitle-font-size;
+    color: @application-header-subtitle-font-color;
+  }
+}
+
+.application-controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+}

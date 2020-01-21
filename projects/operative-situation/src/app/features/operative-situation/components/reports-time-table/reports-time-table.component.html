@@ -1,0 +1,16 @@
+<div class="reports-time-table">
+  <div class="periods-and-consumption">
+    <div class="period"
+         *ngFor="let period of periods$ | async"
+         [ngClass]="{'selected': (selectedPeriod$ | async) === period}"
+         (click)="selectPeriod(period)">
+      {{period.time}}
+    </div>
+    <div class="period">
+      <mat-icon appearance="outline">offline_bolt</mat-icon>
+    </div>
+  </div>
+  <div class="report">
+
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="division-tree-item">
+  <span class="division-title"
+        [ngClass]="{'selected': (selectedDivision$ | async) === division}"
+        (click)="select()">
+    {{division.title}}
+  </span>
+  <ng-container *ngIf="(nestedDivisions$ | async).length > 0 && isExpanded">
+    <div class="nested-divisions">
+      <app-division-tree-item
+        *ngFor="let division of (nestedDivisions$ | async)"
+        [division]="division">
+      </app-division-tree-item>
+    </div>
+  </ng-container>
+</div>

@@ -2,6 +2,8 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { IOperativeSituationState} from '../operative-situation.state';
 import { IApplicationState } from '../../../../ngrx';
+import {IDivision} from '../../../../interfaces';
+import {ICompany} from 'kolenergo-core/lib/interfaces';
 
 /**
  * Селектор раздела с отчетами по оперативной обстановке
@@ -17,9 +19,91 @@ export const selectLoadingInProgress = createSelector(
 );
 
 /**
+ * Селектор состояния инициализации приложения
+ */
+export const selectApplicationInitialized = createSelector(
+  selectOSR,
+  (state: IOperativeSituationState) => state.isApplicationInitialized
+);
+
+/**
  * Селектор текущей даты
  */
 export const selectDate = createSelector(
   selectOSR,
   (state: IOperativeSituationState) => state.date
 );
+
+/**
+ * Селектор списка временных промежутков
+ */
+export const selectPeriods = createSelector(
+  selectOSR,
+  (state: IOperativeSituationState) => state.periods
+);
+
+/**
+ * Селектор списка организаций
+ */
+export const selectCompanies = createSelector(
+  selectOSR,
+  (state: IOperativeSituationState) => state.companies
+);
+
+/**
+ * Селектор списка структурных подразделений
+ */
+export const selectDivisions = createSelector(
+  selectOSR,
+  (state: IOperativeSituationState) => state.divisions
+);
+
+/**
+ * Селектор текущей организации
+ */
+export const selectSelectedCompany = createSelector(
+  selectOSR,
+  (state: IOperativeSituationState) => state.selectedCompany
+);
+
+/**
+ * Селектор структурных подразделений первого уровня по идентификатору организации
+ */
+export const selectSelectedCompanyRootDivisions = createSelector(
+  selectOSR,
+  selectSelectedCompany,
+  (state: IOperativeSituationState, company: ICompany) => state.divisions.filter(
+    (division: IDivision) => division.companyId === company.id && division.parentId === 0
+  )
+);
+
+/**
+ * Селектор текущего структурного подразделения
+ */
+export const selectSelectedDivisions = createSelector(
+  selectOSR,
+  (state: IOperativeSituationState) => state.selectedDivision
+);
+
+/**
+ * Селектор дочерних структурных подразделений по идентификатору структурного подразделения
+ */
+export const selectNestedDivisionsByDivisionId = createSelector(
+  selectOSR,
+  (state: IOperativeSituationState, props) => state.divisions.filter(
+    (division: IDivision) => division.parentId === props.divisionId
+  )
+);
+
+/**
+ * Селектор текущего временного промежутка
+ */
+export const selectSelectedPeriod = createSelector(
+  selectOSR,
+  (state: IOperativeSituationState) => state.selectedPeriod
+);
+
+
+
+
+

@@ -1,6 +1,74 @@
+<mat-progress-bar mode="indeterminate"></mat-progress-bar>
 <mat-drawer-container class="application-sidebar">
-  <mat-drawer mode="side" opened>Drawer content
-  <button kol-button type="stroked" icon="fa-dropdown-arrow"></button>
+  <mat-drawer mode="side" opened>
+  <div class="container-fluid p-4 overflow-hidden">
+
+    <div class="row">
+      <div class="col-12">
+        <button mat-stroked-button
+                class="w-100"
+                [matMenuTriggerFor]="companiesMenu">
+          {{(selectedCompany$ | async)?.shortTitle}}
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #companiesMenu="matMenu" yPosition="below">
+          <button mat-menu-item
+                  class="pl-4 pr-4"
+                  *ngFor="let company of (companies$ | async)"
+                  (click)="selectCompany(company)">
+            <mat-icon>business</mat-icon>
+            <span class="mr-4">{{company.shortTitle}}</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 pt-4 overflow-auto">
+        <app-division-tree></app-division-tree>
+      </div>
+    </div>
+  </div>
   </mat-drawer>
-  <mat-drawer-content>Main content</mat-drawer-content>
+
+  <mat-drawer-content>
+    <div class="container-fluid pt-3 pl-4 pr-4 pb-4">
+      <div class="row">
+
+        <div class="col">
+          <div class="application-header">
+            <span class="application-title">Оперативная обстановка</span>
+            <span class="application-subtitle">
+              на {{(date$| async) | date:"dd.MM.yyyy"}}
+              <span *ngIf="selectedCompany$ | async">в {{(selectedCompany$ | async)?.shortTitle}}</span>
+              <span *ngIf="selectedDivision$ | async">&nbsp;&rarr;&nbsp; {{(selectedDivision$ | async)?.title}}</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="col-auto">
+          <div class="application-controls pt-3">
+            <button mat-stroked-button [matMenuTriggerFor]="userMenu">
+              <span *ngIf="user$ | async">{{(user$ | async)?.firstName + ' ' + (user$ | async)?.lastName}}</span>
+              <mat-icon>arrow_drop_down</mat-icon>
+            </button>
+            <mat-menu #userMenu="matMenu" yPosition="below">
+              <button mat-menu-item
+                      class="pl-4 pr-4"
+                      (click)="signOut()">
+                <mat-icon>exit_to_app</mat-icon>
+                Выйти из приложения
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 pt-5">
+          <app-reports-time-table></app-reports-time-table>
+        </div>
+      </div>
+    </div>
+  </mat-drawer-content>
 </mat-drawer-container>

@@ -27,27 +27,6 @@ export class OperativeSituationEffects {
               private readonly actions$: Actions,
               private readonly osr: OperativeSituationService) {}
 
-
-              /*
-  @Effect()
-  checkSessionSuccess$ = this.actions$.pipe(
-    ofType(actionTypes.AUTHENTICATION_CHECK_SUCCESS),
-    mergeMap(() => {
-      return of(new LoadInitialData());
-    })
-  );
-
-  @Effect()
-  signIn$ = this.actions$.pipe(
-    ofType(actionTypes.AUTHENTICATION_SIGN_IN_SUCCESS),
-    tap(() => {
-      this.router.navigate(['/']);
-    }),
-    mergeMap(() => {
-      return EMPTY;
-    })
-  );
-
   @Effect()
   signInSuccess$ = this.actions$.pipe(
     ofType(actionTypes.AUTHENTICATION_SIGN_IN_SUCCESS),
@@ -56,12 +35,10 @@ export class OperativeSituationEffects {
       if (dialog) {
         dialog.close();
       }
+      this.router.navigate(['/']);
     }),
-    withLatestFrom(
-      this.store.pipe(select(selectCurrentUser))
-    ),
-    mergeMap(([action, user]) => {
-      return of(new LoadInitialData());
+    mergeMap(() => {
+      return EMPTY;
     })
   );
 
@@ -75,7 +52,7 @@ export class OperativeSituationEffects {
       return EMPTY;
     })
   );
-*/
+
   @Effect()
   loadInitialData$ = this.actions$.pipe(
     ofType(OperativeSituationActionTypes.LOAD_INITIAL_DATA),

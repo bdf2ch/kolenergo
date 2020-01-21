@@ -2,7 +2,7 @@ import * as moment from 'moment';
 
 import {IOperativeSituationState, operativeSituationInitialState} from './operative-situation.state';
 import {OperativeSituationActions, OperativeSituationActionTypes} from './operative-situation.actions';
-import {Company, ICompany} from '@kolenergo/core';
+import {authenticationActionTypes, Company, ICompany} from '@kolenergo/core';
 import {IDivision, IPeriod} from '../../../interfaces';
 import {Division, Period} from '../../../models';
 
@@ -13,7 +13,7 @@ import {Division, Period} from '../../../models';
  */
 export function reducer(
   state: IOperativeSituationState = operativeSituationInitialState,
-  action: OperativeSituationActions
+  action: OperativeSituationActions | authenticationActionTypes
 ) {
   switch (action.type) {
 
@@ -28,10 +28,14 @@ export function reducer(
       return {
         ...state,
         isLoadingInProgress: false,
+        isApplicationInitialized: true,
         date: moment(action.payload.data.date, 'DD.MM.YYYY'),
         companies: action.payload.data.companies.map((item: ICompany) => new Company(item)),
         divisions: action.payload.data.divisions.map((item: IDivision) => new Division(item)),
-        periods: action.payload.data.periods.map((item: IPeriod) => new Period(item))
+        periods: action.payload.data.periods.map((item: IPeriod) => new Period(item)),
+        selectedCompany: action.payload.data.user ? new Company(action.payload.data.user.company) : null,
+        selectedDivision: null,
+        selectedPeriod: new Period(action.payload.data.periods[0])
       };
     }
 
@@ -39,6 +43,28 @@ export function reducer(
       return {
         ...state,
         isLoadingInProgress: false
+      };
+    }
+
+    case OperativeSituationActionTypes.SELECT_COMPANY: {
+      return {
+        ...state,
+        selectedCompany: action.payload,
+        selectedDivision: null
+      };
+    }
+
+    case OperativeSituationActionTypes.SELECT_DIVISION: {
+      return {
+        ...state,
+        selectedDivision: action.payload
+      };
+    }
+
+    case OperativeSituationActionTypes.SELECT_PERIOD: {
+      return {
+        ...state,
+        selectedPeriod: action.payload
       };
     }
 

@@ -1,0 +1,6 @@
+<div class="division-tree">
+  <app-division-tree-item
+    *ngFor="let division of (divisions$ | async)"
+    [division]="division">
+  </app-division-tree-item>
+</div>

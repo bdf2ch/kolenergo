@@ -1,0 +1,36 @@
+@division-title-font-family: 'Open Sans Light';
+@division-title-font-size: 16px;
+@division-title-font-color: #78909c;
+@division-title-font-color-hover: #546e7a;
+@division-title-font-color-selected: #37474f;
+@division-title-line-height: @division-title-font-size;
+@nested-divisions-margin-left: 20px;
+@nested-divisions-margin-top: 5px;
+
+.division-tree-item {
+  display: flex;
+  flex-direction: column;
+
+  .division-title {
+    font-family: @division-title-font-family;
+    font-size: @division-title-font-size;
+    line-height: @division-title-line-height;
+    color: @division-title-font-color;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    cursor: pointer;
+
+    &:hover {
+      color: @division-title-font-color-hover;
+    }
+
+    &.selected {
+      color: @division-title-font-color-selected;
+    }
+  }
+
+  .nested-divisions {
+    margin-left: @nested-divisions-margin-left;
+    // margin-top: @nested-divisions-margin-top;
+  }
+}

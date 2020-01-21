@@ -17,7 +17,7 @@ export class OperativeSituationService {
    * Загрузка данных для инициализации приложения
    */
   getInitialData(): Observable<IServerResponse<IAppInitData>> {
-    return from(this.resource.getInitialData(null, {companyId: 1}, null))
+    return from(this.resource.getInitialData(null, null, null))
       .pipe(
         map((response: IServerResponse<IAppInitData>) => response)
       );
