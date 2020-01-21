@@ -1,7 +1,8 @@
-@period-width: 80px;
-@period-height: 80px;
+@period-width: 70px;
+@period-height: 70px;
 @period-font-family: 'Open Sans Regular';
-@period-font-size: 16px;
+@period-font-size: 14px;
+@period-font-size-selected: 16px;
 @period-font-color: #546e7a;
 @period-background-color-selected: #e0e0e0;
 @period-border: 1px solid #e0e0e0;
@@ -28,17 +29,23 @@
       border: @period-border;
       border-top: none;
       border-right: @period-border-right;
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px;
       cursor: pointer;
+      transition: border linear 0.1s;
 
       &:first-of-type {
         border-top: @period-border;
       }
 
       &.selected {
+        font-size: @period-font-size-selected;
         border-left: @period-border-right;
         border-top: @period-border-right;
         border-bottom: @period-border-right;
         border-right: none;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
         // background: @period-background-color-selected;
       }
 
