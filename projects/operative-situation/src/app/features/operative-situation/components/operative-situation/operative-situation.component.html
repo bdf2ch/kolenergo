@@ -67,11 +67,7 @@
       <div class="row">
         <div class="col-12 pt-5">
           <!--<app-reports-time-table></app-reports-time-table>-->
-          <app-form-with-steps [caption]="'Отчет об оперативной обстановке на 15:00'" [actionTitle]="'Опубликовать отчет'">
-            <app-form-step [caption]="'Нарушения'" [description]="'Зафиксированные нарушения'" [icon]="'fas fa-search'" [isValid]="true">hgfhf</app-form-step>
-            <app-form-step [caption]="'Погодные условия'" [description]="'Режим РПГ/ОРР'" [icon]="'fas fa-peace'" [isValid]="true">bcvbc</app-form-step>
-            <app-form-step [caption]="'Без описания'" [icon]="'fab fa-app-store'" [isInvalid]="true">ouiou</app-form-step>
-          </app-form-with-steps>
+          <app-report-add-dialog></app-report-add-dialog>
         </div>
       </div>
     </div>

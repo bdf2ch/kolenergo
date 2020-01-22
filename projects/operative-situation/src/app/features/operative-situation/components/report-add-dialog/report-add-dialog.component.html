@@ -1,0 +1,42 @@
+<app-form-with-steps [caption]="'Отчет об оперативной обстановке на ' +  (selectedPeriod$ | async)?.time" [actionTitle]="'Опубликовать отчет'">
+  <app-form-step
+    [caption]="'Оборудование 35-150 кВ'"
+    [description]="'Отключенное оборудование'"
+    [icon]="'fas fa-charging-station'"
+    [isValid]="true">
+    hgfhf
+  </app-form-step>
+
+  <app-form-step
+    [caption]="'Распределительная сеть'"
+    [description]="'Отключенное оборудование'"
+    [icon]="'fas fa-plug'"
+    [isValid]="true">
+    bcvbc
+  </app-form-step>
+
+  <app-form-step
+    [caption]="'Задейств. ресурсы'"
+    [description]="'Люди, бригады, техника'"
+    [icon]="'fas fa-car'"
+    [isInvalid]="true">
+    ouiou
+  </app-form-step>
+
+  <app-form-step
+    [caption]="'Нарушения'"
+    [description]="'Зафиксированные нарушения'"
+    [icon]="'fas fa-exclamation-circle'"
+    [isInvalid]="true">
+    ouiou
+  </app-form-step>
+
+  <app-form-step
+    [caption]="'Погодные условия'"
+    [description]="'Режим РПГ/ОРР'"
+    [icon]="'far fa-snowflake'"
+    [isInvalid]="true">
+    ouiou
+  </app-form-step>
+
+</app-form-with-steps>
