@@ -15,10 +15,12 @@ import { DivisionTreeComponent } from './components/division-tree/division-tree.
 import { DivisionTreeItemComponent } from './components/division-tree-item/division-tree-item.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { ReportsTimeTableComponent } from './components/reports-time-table/reports-time-table.component';
+import { FormWithStepsComponent } from './components/form-with-steps/form-with-steps.component';
+import { FormStepComponent } from './components/form-step/form-step.component';
 
 
 @NgModule({
-  declarations: [OperativeSituationComponent, OperativeSituationWrapperComponent, DivisionTreeComponent, DivisionTreeItemComponent, ReportsTimeTableComponent],
+  declarations: [OperativeSituationComponent, OperativeSituationWrapperComponent, DivisionTreeComponent, DivisionTreeItemComponent, ReportsTimeTableComponent, FormWithStepsComponent, FormStepComponent],
   imports: [
     CommonModule,
     OperativeSituationRoutingModule,

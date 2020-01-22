@@ -1,0 +1,36 @@
+<div class="form-with-steps">
+  <div class="form-control-panel">
+
+    <div class="caption-and-steps">
+      <div class="caption">{{caption}}</div>
+
+      <div class="steps">
+        <div class="step"
+             *ngFor="let step of steps"
+             [ngClass]="{'active': step.isSelected}"
+             (click)="selectStep(step)">
+          <div class="icon-and-status">
+            <i class="{{step.icon}}"></i>
+            <i class="fas fa-check-circle status valid" *ngIf="step.isValid"></i>
+            <i class="fas fa-exclamation-circle status invalid" *ngIf="step.isInvalid"></i>
+          </div>
+          <div class="caption-and-description">
+            <span class="caption">{{step.caption}}</span>
+            <span class="description">{{step.description}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="w-100 pt-2 pb-2"
+              mat-raised-button
+              (click)="processForm()">
+        {{actionTitle}}
+      </button>
+    </div>
+  </div>
+  <div class="form-content">
+    <ng-content></ng-content>
+  </div>
+</div>
