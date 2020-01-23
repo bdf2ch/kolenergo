@@ -1,4 +1,4 @@
-import { ILocation, IWeatherSummary } from '@kolenergo/osr';
+import { ILocation, IWeatherSummary } from '../interfaces';
 import { Location } from './location.model';
 
 export class WeatherSummary implements IWeatherSummary {

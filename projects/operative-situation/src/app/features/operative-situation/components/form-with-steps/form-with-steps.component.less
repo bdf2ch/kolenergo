@@ -17,7 +17,7 @@
 @form-with-steps-control-panel-steps-step-border-radius: 2.5px;
 @form-with-steps-control-panel-steps-step-icon-font-size: 25px;
 @form-with-steps-control-panel-steps-step-icon-font-color: @form-with-steps-control-panel-steps-step-caption-color;
-@form-with-steps-control-panel-steps-step-icon-font-color-active: #607d8b;
+@form-with-steps-control-panel-steps-step-icon-font-color-active: @form-with-steps-control-panel-steps-step-caption-color-selected;
 @form-with-steps-control-panel-steps-step-caption-font-family: 'Open Sans Regular';
 @form-with-steps-control-panel-steps-step-caption-font-size: 15px;
 @form-with-steps-control-panel-steps-step-caption-line-height: 16px;
@@ -69,7 +69,7 @@
         .step {
           display: flex;
           flex-direction: row;
-          margin-bottom: 5px;
+          margin-bottom: 2px;
           height: @form-with-steps-control-panel-steps-step-height;
           padding: @form-with-steps-control-panel-steps-step-padding;
           background: @form-with-steps-control-panel-steps-step-background-color;
@@ -90,8 +90,8 @@
             border-right: 1px solid @form-with-steps-content-background-color;
 
             .icon-and-status {
-              .fa {
-                color: @form-with-steps-control-panel-steps-step-icon-font-color-active;
+              .i {
+                color: @form-with-steps-control-panel-steps-step-icon-font-color-active !important;
               }
             }
             .caption-and-description {
@@ -116,7 +116,7 @@
               margin-right: 10px;
               font-size: @form-with-steps-control-panel-steps-step-icon-font-size;
               text-align: center;
-              color: @form-with-steps-control-panel-steps-step-icon-font-color;
+              color: @form-with-steps-control-panel-steps-step-icon-font-color !important;
 
               &.status {
                 position: absolute;
@@ -127,15 +127,15 @@
                 box-sizing: content-box;
                 font-size: 12px;
                 background-color: white;
-                border: 2px solid @form-with-steps-control-panel-steps-step-background-color;
+                border: 1px solid @form-with-steps-control-panel-steps-step-background-color;
                 border-radius: 50%;
 
                 &.valid {
-                  color: #388e3c;
+                  color: #388e3c !important;
                 }
 
                 &.invalid {
-                  color: #f44336;
+                  color: #f44336 !important;
                 }
               }
             }

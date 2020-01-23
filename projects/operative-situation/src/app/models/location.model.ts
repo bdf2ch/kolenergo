@@ -1,6 +1,6 @@
 import { ILocation } from '../interfaces/location.interface';
 import { LocationWeather } from './location-weather.model';
-import { ILocationWeather } from '@kolenergo/osr';
+import { ILocationWeather } from '../interfaces';
 
 /**
  * Класс, реализующий интерфейс местоположения

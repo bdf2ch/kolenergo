@@ -5,8 +5,9 @@ import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
 import { IApplicationState } from '../../../../ngrx';
-import { IPeriod } from '../../../../interfaces';
+import {IPeriod, IReport} from '../../../../interfaces';
 import { selectSelectedPeriod } from '../../ngrx/selectors';
+import {Report} from '../../../../models/report.model';
 
 @Component({
   selector: 'app-report-add-dialog',
@@ -16,11 +17,14 @@ import { selectSelectedPeriod } from '../../ngrx/selectors';
 export class ReportAddDialogComponent implements OnInit {
   public selectedPeriod$: Observable<IPeriod>;
   public equipmentHighVoltageForm: FormGroup;
+  public newReport: Report;
 
   constructor(
     private readonly builder: FormBuilder,
     private readonly store: Store<IApplicationState>
-  ) {}
+  ) {
+    this.newReport = new Report();
+  }
 
   ngOnInit() {
     this.selectedPeriod$ = this.store.pipe(select(selectSelectedPeriod));
@@ -39,12 +43,12 @@ export class ReportAddDialogComponent implements OnInit {
       population_effect_network: new FormControl(this.newReport.equipment_network.effect.population),
       power_effect_network: new FormControl(this.newReport.equipment_network.effect.power),
       szo_effect_network: new FormControl(this.newReport.equipment_network.effect.szo),
-      weather_min: new FormControl({value: this.newReport.weather.min, disabled: this.useWeatherSummary === true}, Validators.required),
-      weather_max: new FormControl({value: this.newReport.weather.max, disabled: this.useWeatherSummary === true}, Validators.required),
-      weather_wind: new FormControl({value: this.newReport.weather.wind, disabled: this.useWeatherSummary === true}, Validators.required),
-      weather_precipitations: new FormControl({value: this.newReport.weather.precipitations, disabled: this.useWeatherSummary === true}, Validators.required),
-      weather_rpg_1: new FormControl({value: this.newReport.weather.rpg, disabled: this.useWeatherSummary}),
-      weather_orr_1: new FormControl({value: this.newReport.weather.orr, disabled: this.useWeatherSummary}),
+      weather_min: new FormControl(0),
+      weather_max: new FormControl(0),
+      weather_wind: new FormControl(0),
+      weather_precipitations: new FormControl(0),
+      weather_rpg_1: new FormControl(this.newReport.weather.rpg),
+      weather_orr_1: new FormControl(this.newReport.weather.orr),
       weather_rpg_2: new FormControl(this.newReport.weather.rpg),
       weather_orr_2: new FormControl(this.newReport.weather.orr),
       resources_rise: new FormControl(this.newReport.resources.rise),
@@ -64,7 +68,7 @@ export class ReportAddDialogComponent implements OnInit {
       violations_greater_3_04: new FormControl(this.newReport.violations.greater_3_04),
       violations_population_srez_o4: new FormControl(this.newReport.violations.population_srez_04),
       violations_population_greater_3_04: new FormControl(this.newReport.violations.population_greater_3_04),
-      useWeatherSummary: new FormControl(this.useWeatherSummary)
+      // useWeatherSummary: new FormControl(this.useWeatherSummary)
     });
   }
 
