@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatSidenavModule, MatButtonModule, MatMenuModule, MatIconModule, MatProgressBarModule } from '@angular/material';
+import { MatSidenavModule, MatButtonModule, MatMenuModule, MatIconModule, MatProgressBarModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -42,7 +42,9 @@ import { environment } from '../../../environments/environment';
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class OperativeSituationModule { }

@@ -1,5 +1,5 @@
 import { ICompany } from '@kolenergo/core';
-import { IDivision, IPeriod } from '../../../interfaces';
+import { IDivision, IPeriod, IReport } from '../../../interfaces';
 
 /**
  * Интерфейс, описывающий состояние раздела отчетов по оперативной обстановке
@@ -11,9 +11,11 @@ export interface IOperativeSituationState {
   companies: ICompany[];                // Список организаций
   divisions: IDivision[];               // Список структурных подразделений
   periods: IPeriod[];                   // Список временных периодов
+  reports: IReport[];                   // Список отчетов об оперативной обстановке
   selectedCompany: ICompany;            // Текущая организация
   selectedDivision: IDivision;          // Текущее структурное подразделение
   selectedPeriod: IPeriod;              // Текущий временной промежуток
+  selectedReport: IReport;              // Текущий отчет
 }
 
 /**
@@ -26,7 +28,9 @@ export const operativeSituationInitialState: IOperativeSituationState = {
   companies: [],
   divisions: [],
   periods: [],
+  reports: [],
   selectedCompany: null,
   selectedDivision: null,
-  selectedPeriod: null
+  selectedPeriod: null,
+  selectedReport: null
 };

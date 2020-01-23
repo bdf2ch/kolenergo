@@ -103,6 +103,22 @@ export const selectSelectedPeriod = createSelector(
   (state: IOperativeSituationState) => state.selectedPeriod
 );
 
+/**
+ * Селектор списка отчетов об оперативной обстановке
+ */
+export const selectReports = createSelector(
+  selectOSR,
+  (state: IOperativeSituationState) => state.reports
+);
+
+/**
+ * Селектор текущего отчета об оперативной обстановке
+ */
+export const selectSelectedReport = createSelector(
+  selectOSR,
+  (state: IOperativeSituationState) => state.selectedReport
+);
+
 
 
 

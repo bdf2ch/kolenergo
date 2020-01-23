@@ -1,18 +1,120 @@
 <app-form-with-steps [caption]="'Отчет об оперативной обстановке на ' +  (selectedPeriod$ | async)?.time" [actionTitle]="'Опубликовать отчет'">
   <app-form-step
     [caption]="'Оборудование 35-150 кВ'"
-    [description]="'Отключенное оборудование'"
+    [description]="'Оборудование и последствия'"
     [icon]="'fas fa-charging-station'"
     [isValid]="true">
-    hgfhf
+    <table class="d-flex operative-situation-reports w-100" [formGroup]="equipment35150Form">
+      <tr>
+        <th colspan="4" scope="colgroup" class="top border-right" style="border-color: #E0E0E0 !important;">Отключенное оборудование по сети 35-150 кВ</th>
+      </tr>
+      <tr>
+        <th scope="col" class="font-weight-normal border-right">ЛЭП 110-150 кВ, шт</th>
+        <th scope="col" class="font-weight-normal border-right">ЛЭП 35 кВ, шт.</th>
+        <th scope="col" class="font-weight-normal border-right">ПС 110 -150 кВ, шт</th>
+        <th scope="col" class="font-weight-normal border-right">ПС 35 кВ, шт</th>
+      </tr>
+      <tr class="content">
+        <td class="border-right">
+          <mat-form-field>
+            <input matInput formControlName="lep_110_150">
+          </mat-form-field>
+        </td>
+        <td class="border-right">
+          <mat-form-field>
+            <input matInput formControlName="lep_35">
+          </mat-form-field>
+        <td class="border-right">
+        <mat-form-field>
+          <input matInput formControlName="ps_110_150">
+        </mat-form-field>
+      </td>
+        <td class="border-right">
+          <mat-form-field>
+            <input matInput formControlName="ps_35">
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+    <table class="d-flex operative-situation-reports w-100">
+      <tr>
+        <th colspan="4" scope="colgroup" class="top  border-right">Последствия для потребителей по сети 35-150 кВ</th>
+      </tr>
+      <tr>
+        <th scope="col" class="font-weight-normal border-right">ТП 6-20 кВ, шт</th>
+        <th scope="col" class="font-weight-normal border-right">Население, чел</th>
+        <th scope="col" class="font-weight-normal border-right">Нагрузка, МВт</th>
+        <th scope="col" class="font-weight-normal border-right">СЗО, шт</th>
+      </tr>
+      <tr class="content">
+        <td class="border-right">{{newReport.equipment_35_150.effect.tp_6_20}}</td>
+        <td class="border-right">{{newReport.equipment_35_150.effect.population}}</td>
+        <td class="border-right">{{newReport.equipment_35_150.effect.power}}</td>
+        <td class="border-right">{{newReport.equipment_35_150.effect.szo}}</td>
+      </tr>
+    </table>
   </app-form-step>
 
   <app-form-step
     [caption]="'Распределительная сеть'"
-    [description]="'Отключенное оборудование'"
+    [description]="'Оборудование и последствия'"
     [icon]="'fas fa-plug'"
     [isValid]="true">
-    bcvbc
+    <div class="container-fluid h-100">
+      <div class="row h-100">
+        <div class="col-6 border-right">
+          <div class="section-caption mb-4">Оборудование</div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>ЛЭП 6-20 кВ, шт.</mat-label>
+                <input type="number" matInput formControlName="ps_35">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>ТП 6-20 кВ, шт.</mat-label>
+                <input type="number"  matInput formControlName="ps_35">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="section-caption mb-4">Последствия для потребителей</div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Население, чел</mat-label>
+                <input type="number" type="number" matInput formControlName="ps_35">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Нагрузка, МВт</mat-label>
+                <input matInput formControlName="ps_35">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>СЗО, шт.</mat-label>
+                <input matInput formControlName="ps_35">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </app-form-step>
 
   <app-form-step

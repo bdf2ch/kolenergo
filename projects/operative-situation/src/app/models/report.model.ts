@@ -3,6 +3,7 @@ import { WeatherSummary } from './weather-summary.model';
 import { IWeatherSummary } from '../interfaces/weather-summary.interface';
 // import { OperativeSituationConsumption } from './operative-situation-consumption.model';
 import { IReport } from '../interfaces';
+import {Consumption} from './consumption.model';
 
 export class Report extends Backup {
   id: number;
@@ -13,7 +14,7 @@ export class Report extends Backup {
   dateCreated: Date;
   dateChanged: Date;
   // consumption: number;
-  consumption: OperativeSituationConsumption;
+  consumption: Consumption;
   equipment_35_150: {
     lep_110_150: number,
     lep_35: number,
