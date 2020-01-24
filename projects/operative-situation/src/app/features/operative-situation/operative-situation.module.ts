@@ -18,6 +18,7 @@ import { FormWithStepsComponent } from './components/form-with-steps/form-with-s
 import { FormStepComponent } from './components/form-step/form-step.component';
 import { ReportAddDialogComponent } from './components/report-add-dialog/report-add-dialog.component';
 import { environment } from '../../../environments/environment';
+import { ReportComponent } from './components/report/report.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { environment } from '../../../environments/environment';
     ReportsTimeTableComponent,
     FormWithStepsComponent,
     FormStepComponent,
-    ReportAddDialogComponent
+    ReportAddDialogComponent,
+    ReportComponent
   ],
   imports: [
     CommonModule,

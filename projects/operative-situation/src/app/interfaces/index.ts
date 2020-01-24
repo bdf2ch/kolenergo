@@ -7,3 +7,5 @@ export { IWeatherSummary } from './weather-summary.interface';
 export { IWeatherResponse } from './weather.response.interface';
 export { IReport } from './report.interface';
 export { IConsumption } from './consumption.interface';
+export { IReportSummary } from './report-summary.interface';
+

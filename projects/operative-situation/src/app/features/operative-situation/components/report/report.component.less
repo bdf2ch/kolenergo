@@ -1,0 +1,132 @@
+.operative-situation-reports {
+  font-family: "Open Sans Light";
+  border: none;
+  min-height: 206px;
+
+  tbody {
+    border: none;
+  }
+
+  th {
+    padding: 10px;
+    font-size: 13px;
+    text-align: center;
+    background: #fafafa;
+    // border-color: #e3f2fd !important;
+
+    &.top {
+      // background: rgba(207, 216, 220, 0.3);
+      background: #eceff1;
+      // border: 1px dotted #eeeeee !important;
+      border-color: #E0E0E0 !important;
+      &.right-border {
+        border-right: 1px solid #e0e0e0 !important;
+      }
+      &.left-border {
+        border-left: 1px solid #e0e0e0 !important;
+      }
+    }
+
+    &.left-border {
+      border-left: 1px solid #efebe9 !important;
+    }
+    &.right-border {
+      border-right: 1px solid #efebe9 !important;
+    }
+
+    &.empty {
+      background: transparent;
+      border: none;
+    }
+
+    &.time {
+      width: 100px;
+      font-size: 18px;
+      text-align: center;
+      .mat-icon-button {
+        // width: 18px;
+        // height: 18px;
+        .mat-icon {
+          // width: 18px !important;
+          // height: 18px !important;
+          font-size: 18px;
+          line-height: 18px;
+        }
+      }
+    }
+  }
+
+  tr {
+    border-color: #eeeeee !important;
+    &.content {
+      height: 80px;
+    }
+  }
+
+  td {
+    text-align: center;
+    background: white;
+
+    &.left-border {
+      border-left: 1px solid #eeeeee;
+    }
+    &.right-border {
+      border-right: 1px solid #eeeeee;
+    }
+    &.total {
+      background: rgba(197, 202, 223, 0.3);
+      // background: #c5cae9;
+      // border-color: #eeeeee !important;
+    }
+  }
+}
+
+.indicator {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .value {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    text-align: center;
+    font-family: "Segoe UI Light";
+    font-size: 32px;
+    line-height: 32px;
+    font-weight: bold;
+    color: #607d8b;
+    .boxing {
+      font-size: 20px;
+      line-height: 20px;
+    }
+  }
+  .description {
+    margin-top: 5px;
+    font-family: "Segoe UI Light";
+    // font-weight: bolder;
+    font-size: 13px;
+    line-height: 13px;
+    text-align: center;
+    color: #37474f;
+  }
+}
+
+.indicator-row {
+  border-bottom: 1px dotted lightgrey;
+  .title {
+    font-family: "Segoe UI Light";
+    font-size: 14px;
+    line-height: 14px;
+  }
+  .value {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    text-align: right;
+    font-family: "Segoe UI Light";
+    font-weight: bolder;
+    font-size: 15px;
+    line-height: 15px;
+  }
+}
+

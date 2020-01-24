@@ -5,14 +5,16 @@ import { IWeatherSummary } from '../interfaces/weather-summary.interface';
 import { IReport } from '../interfaces';
 import {Consumption} from './consumption.model';
 
-export class Report extends Backup {
+export class Report extends Backup implements IReport {
   id: number;
   company: ICompany;
   user: User;
   periodDate: string;
   periodTime: string;
-  dateCreated: Date;
-  dateChanged: Date;
+  dateCreated: number;
+  dateCreatedD: Date;
+  dateChanged: number;
+  dateChangedD: Date;
   // consumption: number;
   consumption: Consumption;
   equipment_35_150: {
@@ -35,6 +37,12 @@ export class Report extends Backup {
       power: number,
       szo: number
     }
+  };
+  total: {
+    tp_6_20: number,
+    population: number,
+    power: number,
+    szo: number,
   };
   weather: {
     min: number,
@@ -79,8 +87,10 @@ export class Report extends Backup {
     this.user = config ? new User(config.user) : null;
     this.periodDate = config ? config.periodDate : null;
     this.periodTime = config ? config.periodTime : null;
-    this.dateCreated = config ? new Date(config.dateCreated) : null;
-    this.dateChanged = config ? new Date(config.dateChanged) : null;
+    this.dateCreated = config ? config.dateCreated : null;
+    this.dateCreatedD = config ? new Date(config.dateCreated) : null;
+    this.dateChanged = config ? config.dateChanged : null;
+    this.dateChangedD = config ? new Date(config.dateChanged) : null;
     // this.consumption = config ? config.consumption : 0;
     // this.consumption = config && config.consumption ? new OperativeSituationConsumption(config.consumption) : null;
     this.equipment_35_150 = {
@@ -103,6 +113,12 @@ export class Report extends Backup {
         power: config ? (Math.round(config.power_effect_raspr * 10) / 10) : 0,
         szo: config ? config.szo_count_effect_raspr : 0
       }
+    };
+    this.total = {
+      tp_6_20: (config ? config.tp_6_20_count_effect_35_150 : 0) + (config ? config.tp_6_20_count : 0),
+      population: (config ? config.population_count_effect_35_150 : 0) + (config ? config.population_count_effect_raspr : 0),
+      power: (config ? (Math.round(config.power_effect_35_150 * 10) / 10) : 0) + (config ? (Math.round(config.power_effect_raspr * 10) / 10) : 0),
+      szo: (config ? config.szo_count_effect_35_150 : 0) + (config ? config.szo_count_effect_raspr : 0)
     };
     this.weather = {
       min: config ? config.weatherMin : null,

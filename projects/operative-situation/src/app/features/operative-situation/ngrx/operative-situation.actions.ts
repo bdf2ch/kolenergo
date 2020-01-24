@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
-import {ICompany, IServerResponse} from '@kolenergo/core';
-import {IAppInitData, IDivision, IPeriod} from '../../../interfaces';
+import { ICompany, IServerResponse } from '@kolenergo/core';
+import { IAppInitData, IDivision, IPeriod, IReportSummary } from '../../../interfaces';
 
 /**
  * Типы действий в разделе отчетов по оперативной обстановке
@@ -11,6 +11,9 @@ export enum OperativeSituationActionTypes {
   LOAD_INITIAL_DATA = '[OSR API] Load application initial data',
   LOAD_INITIAL_DATA_SUCCESS = '[OSR API] Application initial data loaded successfully',
   LOAD_INITIAL_DATA_FAIL = '[OSR API] Failed to load application initial data',
+  LOAD_REPORTS_BY_DIVISION = '[OSR API] Load reports by division',
+  LOAD_REPORTS_BY_DIVISION_SUCCESS = '[OSR API] Reports by division loaded successfully',
+  LOAD_REPORTS_BY_DIVISION_FAIL = '[OSR API] Failed to load reports by division',
   SELECT_COMPANY = '[Application] Select current company',
   SELECT_DIVISION = '[Application] Select current division',
   SELECT_PERIOD = '[Application] Select time period'
@@ -46,6 +49,28 @@ export class LoadInitialDataFail implements Action {
 }
 
 /**
+ * Загрузка сводки отчетов об оперативной обстановке по структурному подразделению
+ */
+export class LoadReportsByDivision implements Action {
+  readonly type = OperativeSituationActionTypes.LOAD_REPORTS_BY_DIVISION;
+}
+
+/**
+ * Загрузка сводки отчетов об оперативной обстановке по структурному подразделению выполенна успешно
+ */
+export class LoadReportsByDivisionSuccess implements Action {
+  readonly type = OperativeSituationActionTypes.LOAD_REPORTS_BY_DIVISION_SUCCESS;
+  constructor(public payload: IServerResponse<IReportSummary>) {}
+}
+
+/**
+ * Загрузка сводки отчетов об оперативной обстановке по структурному подразделению не выполнена
+ */
+export class LoadReportsByDivisionFail implements Action {
+  readonly type = OperativeSituationActionTypes.LOAD_REPORTS_BY_DIVISION_FAIL;
+}
+
+/**
  * Выбор текущей организации
  */
 export class SelectCompany implements Action {
@@ -77,6 +102,9 @@ export type OperativeSituationActions =
   LoadInitialData |
   LoadInitialDataSuccess |
   LoadInitialDataFail |
+  LoadReportsByDivision |
+  LoadReportsByDivisionSuccess |
+  LoadReportsByDivisionFail |
   SelectCompany |
   SelectDivision |
   SelectPeriod;
