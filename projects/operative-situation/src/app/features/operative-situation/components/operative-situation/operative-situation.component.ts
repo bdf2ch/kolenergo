@@ -9,9 +9,9 @@ import {
   LoadInitialData,
   selectCompanies,
   SelectCompany,
-  selectDate,
+  selectDate, selectLoadingInProgress,
   selectSelectedCompany,
-  selectSelectedDivisions,
+  selectSelectedDivision,
   selectUser
 } from '../../ngrx';
 import { IDivision } from '../../../../interfaces';
@@ -27,13 +27,15 @@ export class OperativeSituationComponent implements OnInit {
   public companies$: Observable<ICompany[]>;
   public selectedCompany$: Observable<ICompany>;
   public selectedDivision$: Observable<IDivision>;
+  public isLoadingInProgress$: Observable<boolean>;
 
   constructor(private readonly store: Store<IApplicationState>) {
     this.user$ = this.store.pipe(select(selectUser));
     this.date$ = this.store.pipe(select(selectDate));
     this.companies$ = this.store.pipe(select(selectCompanies));
     this.selectedCompany$ = this.store.pipe(select(selectSelectedCompany));
-    this.selectedDivision$ = this.store.pipe(select(selectSelectedDivisions));
+    this.selectedDivision$ = this.store.pipe(select(selectSelectedDivision));
+    this.isLoadingInProgress$ = this.store.pipe(select(selectLoadingInProgress));
   }
 
   ngOnInit() {}

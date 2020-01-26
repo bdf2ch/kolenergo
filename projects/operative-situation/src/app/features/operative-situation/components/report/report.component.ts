@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 
 import { IApplicationState } from '../../../../ngrx';
 import { IReport } from '../../../../interfaces';
+import { Report} from '../../../../models';
 import { selectSelectedReport } from '../../ngrx/selectors';
-import {Report} from '../../../../models/report.model';
 
 @Component({
   selector: 'app-report',

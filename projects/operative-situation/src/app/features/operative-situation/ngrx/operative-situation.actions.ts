@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { ICompany, IServerResponse } from '@kolenergo/core';
 import { IAppInitData, IDivision, IPeriod, IReportSummary } from '../../../interfaces';
+import { Report } from '../../../models';
 
 /**
  * Типы действий в разделе отчетов по оперативной обстановке
@@ -14,9 +15,13 @@ export enum OperativeSituationActionTypes {
   LOAD_REPORTS_BY_DIVISION = '[OSR API] Load reports by division',
   LOAD_REPORTS_BY_DIVISION_SUCCESS = '[OSR API] Reports by division loaded successfully',
   LOAD_REPORTS_BY_DIVISION_FAIL = '[OSR API] Failed to load reports by division',
+  LOAD_REPORTS_BY_COMPANY = '[OSR API] Load reports by company',
+  LOAD_REPORTS_BY_COMPANY_SUCCESS = '[OSR API] Reports by company loaded successfully',
+  LOAD_REPORTS_BY_COMPANY_FAIL = '[OSR API] Failed to load reports by company',
   SELECT_COMPANY = '[Application] Select current company',
   SELECT_DIVISION = '[Application] Select current division',
-  SELECT_PERIOD = '[Application] Select time period'
+  SELECT_PERIOD = '[Application] Select time period',
+  SELECT_REPORT = '[Application] Select report'
 }
 
 /**
@@ -71,6 +76,28 @@ export class LoadReportsByDivisionFail implements Action {
 }
 
 /**
+ * Загрузка сводки отчетов по оперативной обстановке по организации
+ */
+export class LoadReportsByCompany implements Action {
+  readonly type = OperativeSituationActionTypes.LOAD_REPORTS_BY_COMPANY;
+}
+
+/**
+ * Загрузка сводки отчетов по оперативной обстановке по организации выполнена успешно
+ */
+export class LoadReportsByCompanySuccess implements Action {
+  readonly type = OperativeSituationActionTypes.LOAD_REPORTS_BY_COMPANY_SUCCESS;
+  constructor(public payload: IServerResponse<IReportSummary>) {}
+}
+
+/**
+ * Загрузка сводки отчетов по оперативной обстановке по организации не выполнена
+ */
+export class LoadReportsByCompanyFail implements Action {
+  readonly type = OperativeSituationActionTypes.LOAD_REPORTS_BY_COMPANY_FAIL;
+}
+
+/**
  * Выбор текущей организации
  */
 export class SelectCompany implements Action {
@@ -95,6 +122,14 @@ export class SelectPeriod implements Action {
 }
 
 /**
+ * Выбор текущего отчета
+ */
+export class SelectReport implements Action {
+  readonly type = OperativeSituationActionTypes.SELECT_REPORT;
+  constructor(public payload: Report) {}
+}
+
+/**
  * Действия в разделе отчетов по оперативной обстановке
  */
 export type OperativeSituationActions =
@@ -105,6 +140,10 @@ export type OperativeSituationActions =
   LoadReportsByDivision |
   LoadReportsByDivisionSuccess |
   LoadReportsByDivisionFail |
+  LoadReportsByCompany |
+  LoadReportsByCompanySuccess |
+  LoadReportsByCompanyFail |
   SelectCompany |
   SelectDivision |
-  SelectPeriod;
+  SelectPeriod |
+  SelectReport;

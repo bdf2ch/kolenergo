@@ -1,10 +1,10 @@
 import * as moment from 'moment';
 
-import {IOperativeSituationState, operativeSituationInitialState} from './operative-situation.state';
-import {OperativeSituationActions, OperativeSituationActionTypes} from './operative-situation.actions';
 import {authenticationActionTypes, Company, ICompany} from '@kolenergo/core';
 import {IDivision, IPeriod} from '../../../interfaces';
-import {Division, Period} from '../../../models';
+import {Division, Period, Report, ReportSummary} from '../../../models';
+import {IOperativeSituationState, operativeSituationInitialState} from './operative-situation.state';
+import {OperativeSituationActions, OperativeSituationActionTypes} from './operative-situation.actions';
 
 /**
  * Редуктор раздела отчетов по оперативной обстановке
@@ -46,6 +46,56 @@ export function reducer(
       };
     }
 
+    case OperativeSituationActionTypes.LOAD_REPORTS_BY_DIVISION: {
+      return {
+        ...state,
+        isLoadingInProgress: true
+      };
+    }
+
+    case OperativeSituationActionTypes.LOAD_REPORTS_BY_DIVISION_SUCCESS: {
+      return {
+        ...state,
+        isLoadingInProgress: false,
+        reports: new ReportSummary(action.payload.data),
+        selectedReport: action.payload.data.reports[state.selectedPeriod.time]
+          ? new Report(action.payload.data.reports[state.selectedPeriod.time])
+          : null
+      };
+    }
+
+    case OperativeSituationActionTypes.LOAD_REPORTS_BY_DIVISION_FAIL: {
+      return {
+        ...state,
+        isLoadingInProgress: false
+      };
+    }
+
+    case OperativeSituationActionTypes.LOAD_REPORTS_BY_COMPANY: {
+      return {
+        ...state,
+        isLoadingInProgress: true
+      };
+    }
+
+    case OperativeSituationActionTypes.LOAD_REPORTS_BY_COMPANY_SUCCESS: {
+      return {
+        ...state,
+        isLoadingInProgress: false,
+        reports: new ReportSummary(action.payload.data),
+        selectedReport: action.payload.data.reports[state.selectedPeriod.time]
+          ? new Report(action.payload.data.reports[state.selectedPeriod.time])
+          : null
+      };
+    }
+
+    case OperativeSituationActionTypes.LOAD_REPORTS_BY_COMPANY_FAIL: {
+      return {
+        ...state,
+        isLoadingInProgress: false
+      };
+    }
+
     case OperativeSituationActionTypes.SELECT_COMPANY: {
       return {
         ...state,
@@ -64,7 +114,17 @@ export function reducer(
     case OperativeSituationActionTypes.SELECT_PERIOD: {
       return {
         ...state,
-        selectedPeriod: action.payload
+        selectedPeriod: action.payload,
+        selectedReport: state.reports.reports[action.payload.time]
+          ? state.reports.reports[action.payload.time]
+          : null
+      };
+    }
+
+    case OperativeSituationActionTypes.SELECT_REPORT: {
+      return {
+        ...state,
+        selectedReport: action.payload
       };
     }
 

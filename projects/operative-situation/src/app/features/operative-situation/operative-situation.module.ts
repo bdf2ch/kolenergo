@@ -19,6 +19,7 @@ import { FormStepComponent } from './components/form-step/form-step.component';
 import { ReportAddDialogComponent } from './components/report-add-dialog/report-add-dialog.component';
 import { environment } from '../../../environments/environment';
 import { ReportComponent } from './components/report/report.component';
+import { WeatherSummaryComponent } from './components/weather-summary/weather-summary.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ReportComponent } from './components/report/report.component';
     FormWithStepsComponent,
     FormStepComponent,
     ReportAddDialogComponent,
-    ReportComponent
+    ReportComponent,
+    WeatherSummaryComponent
   ],
   imports: [
     CommonModule,

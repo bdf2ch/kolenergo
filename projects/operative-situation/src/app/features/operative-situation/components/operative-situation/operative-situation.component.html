@@ -1,4 +1,4 @@
-<mat-progress-bar mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar mode="indeterminate" *ngIf="isLoadingInProgress$ | async"></mat-progress-bar>
 <mat-drawer-container class="application-sidebar">
   <mat-drawer mode="side" opened>
   <div class="container-fluid p-4 overflow-hidden">

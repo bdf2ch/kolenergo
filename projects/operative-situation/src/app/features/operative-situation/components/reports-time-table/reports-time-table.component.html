@@ -2,7 +2,7 @@
   <div class="periods-and-consumption">
     <div class="period"
          *ngFor="let period of periods$ | async"
-         [ngClass]="{'selected': (selectedPeriod$ | async) === period}"
+         [ngClass]="{'selected': (selectedPeriod$ | async)?.time === period.time}"
          (click)="selectPeriod(period)">
       {{period.time}}
     </div>

@@ -7,17 +7,23 @@ import { EMPTY, of } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
-import {actionTypes, IServerResponse, AuthenticationCheckSuccess, AuthenticationSignInSuccess} from '@kolenergo/core';
+import { actionTypes, IServerResponse, AuthenticationSignInSuccess } from '@kolenergo/core';
 import {
   OperativeSituationActionTypes,
-  LoadInitialData,
   LoadInitialDataSuccess,
   LoadInitialDataFail,
-  NavigateToSignInPage
+  NavigateToSignInPage,
+  LoadReportsByDivision,
+  LoadReportsByDivisionSuccess,
+  LoadReportsByDivisionFail,
+  LoadReportsByCompanySuccess,
+  LoadReportsByCompanyFail,
+  LoadReportsByCompany
 } from './operative-situation.actions';
 import { OperativeSituationService } from '../../../services/operative-situation.service';
 import { IApplicationState } from '../../../ngrx';
-import { IAppInitData } from '../../../interfaces';
+import { IAppInitData, IReportSummary } from '../../../interfaces';
+import { selectSelectedCompany, selectSelectedDivision } from './selectors';
 
 @Injectable()
 export class OperativeSituationEffects {
@@ -83,5 +89,41 @@ export class OperativeSituationEffects {
       this.router.navigate(['sign-in']);
     }),
     mergeMap(() => EMPTY)
+  );
+
+  @Effect()
+  loadReportsByDivision$ = this.actions$.pipe(
+    ofType(OperativeSituationActionTypes.LOAD_REPORTS_BY_DIVISION),
+    withLatestFrom(this.store.pipe(select(selectSelectedDivision))),
+    mergeMap(([action, division]) => this.osr.getReports(0, division.id)
+      .pipe(
+        map((response: IServerResponse<IReportSummary>) => new LoadReportsByDivisionSuccess(response)),
+        catchError(() => of(new LoadReportsByDivisionFail()))
+      )
+    )
+  );
+
+  @Effect()
+  loadReportsByCompany$ = this.actions$.pipe(
+    ofType(OperativeSituationActionTypes.LOAD_REPORTS_BY_COMPANY),
+    withLatestFrom(this.store.pipe(select(selectSelectedCompany))),
+    mergeMap(([action, company]) => this.osr.getReports(company.id, 0)
+      .pipe(
+        map((response: IServerResponse<IReportSummary>) => new LoadReportsByCompanySuccess(response)),
+        catchError(() => of(new LoadReportsByCompanyFail()))
+      )
+    )
+  );
+
+  @Effect()
+  selectCompany$ = this.actions$.pipe(
+    ofType(OperativeSituationActionTypes.SELECT_COMPANY),
+    mergeMap(() => of(new LoadReportsByCompany()))
+  );
+
+  @Effect()
+  selectDivision$ = this.actions$.pipe(
+    ofType(OperativeSituationActionTypes.SELECT_DIVISION),
+    mergeMap(() => of(new LoadReportsByDivision()))
   );
 }

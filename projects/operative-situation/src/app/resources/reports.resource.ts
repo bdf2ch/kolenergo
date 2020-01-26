@@ -12,7 +12,7 @@ import {
 } from '@ngx-resource/core';
 
 import { IServerResponse } from '@kolenergo/core';
-import { IAppInitData, IConsumption, IReport, IWeatherSummary } from '../interfaces';
+import {IAppInitData, IConsumption, IReport, IReportSummary, IWeatherSummary} from '../interfaces';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -35,11 +35,11 @@ export class OperativeSituationResource extends Resource {
   getInitialData: IResourceMethodStrict<void, void, void, IServerResponse<IAppInitData>>;
 
   @ResourceAction({
-    path: '/',
+    path: '/reports',
     method: ResourceRequestMethod.Get,
     withCredentials: true
   })
-  getReports: IResourceMethod<{companyId: number}, IServerResponse<IAppInitData>>;
+  getReports: IResourceMethod<{companyId?: number, divisionId?: number}, IServerResponse<IReportSummary>>;
 
   @ResourceAction({
     path: '/',

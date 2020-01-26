@@ -2,8 +2,9 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { IOperativeSituationState} from '../operative-situation.state';
 import { IApplicationState } from '../../../../ngrx';
-import {IDivision} from '../../../../interfaces';
+import {IDivision, IPeriod, IReport} from '../../../../interfaces';
 import {ICompany} from 'kolenergo-core/lib/interfaces';
+import {Report, ReportSummary} from "../../../../models";
 
 /**
  * Селектор раздела с отчетами по оперативной обстановке
@@ -80,7 +81,7 @@ export const selectSelectedCompanyRootDivisions = createSelector(
 /**
  * Селектор текущего структурного подразделения
  */
-export const selectSelectedDivisions = createSelector(
+export const selectSelectedDivision = createSelector(
   selectOSR,
   (state: IOperativeSituationState) => state.selectedDivision
 );

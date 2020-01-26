@@ -1,213 +1,226 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-12">
-      <div class="row">
-        <div class="col-auto">
-          <span class="row-caption">Оборудование 35-150 кВ</span>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12">
-          <table class="d-flex operative-situation-reports w-100">
-            <tr>
-              <th colspan="4" scope="colgroup" class="top border-right" style="border-color: #E0E0E0 !important;">Отключенное оборудование по сети 35-150 кВ</th>
-              <th colspan="4" scope="colgroup" class="top  border-right">Последствия для потребителей по сети 35-150 кВ</th>
-              <th colspan="2" scope="colgroup" class="top  border-right">Распределительная сеть</th>
-              <th colspan="3" scope="colgroup" class="top  border-right">Последствия для потребителей по распределительной сети</th>
-              <th colspan="4" scope="colgroup" class="top ">Последствия для потребителей суммарно по основной и распределительной сети</th>
-            </tr>
-            <tr>
-              <th scope="col" class="font-weight-normal border-right">ЛЭП 110-150 кВ, шт</th>
-              <th scope="col" class="font-weight-normal border-right">ЛЭП 35 кВ, шт.</th>
-              <th scope="col" class="font-weight-normal border-right">ПС 110 -150 кВ, шт</th>
-              <th scope="col" class="font-weight-normal border-right">ПС 35 кВ, шт</th>
-
-              <th scope="col" class="font-weight-normal border-right">ТП 6-20 кВ, шт</th>
-              <th scope="col" class="font-weight-normal border-right">Население, чел</th>
-              <th scope="col" class="font-weight-normal border-right">Нагрузка, МВт</th>
-              <th scope="col" class="font-weight-normal border-right">СЗО, шт</th>
-
-              <th scope="col" class="font-weight-normal border-right">ЛЭП 6-20 кВ, шт</th>
-              <th scope="col" class="font-weight-normal border-right">ТП 6-20 кВ, шт</th>
-
-              <th scope="col" class="font-weight-normal border-right">Население, чел</th>
-              <th scope="col" class="font-weight-normal border-right">Нагрузка, МВт</th>
-              <th scope="col" class="font-weight-normal border-right">СЗО, шт</th>
-
-              <th scope="col" class="font-weight-normal border-right">ТП 6-20 кВ, шт</th>
-              <th scope="col" class="font-weight-normal border-right">Население, чел</th>
-              <th scope="col" class="font-weight-normal border-right">Нагрузка, МВт</th>
-              <th scope="col" class="font-weight-normal">СЗО, шт</th>
-            </tr>
-            <tr class="content">
-              <td class="border-right">{{(selectedReport$ | async)?.equipment_35_150.lep_110_150}}</td>
-              <td class="border-right">{{(selectedReport$ | async)?.equipment_35_150.lep_35}}</td>
-              <td class="border-right">{{(selectedReport$ | async)?.equipment_35_150.ps_110_150}}</td>
-              <td class="border-right">{{(selectedReport$ | async)?.equipment_35_150.ps_35}}</td>
-
-              <td class="border-right">{{(selectedReport$ | async)?.equipment_35_150.effect.tp_6_20}}</td>
-              <td class="border-right">{{(selectedReport$ | async)?.equipment_35_150.effect.population}}</td>
-              <td class="border-right">{{(selectedReport$ | async)?.equipment_35_150.effect.power}}</td>
-              <td class="border-right">{{(selectedReport$ | async)?.equipment_35_150.effect.szo}}</td>
-
-              <td class="border-right">{{(selectedReport$ | async)?.equipment_network.lep_6_20}}</td>
-              <td class="border-right">{{(selectedReport$ | async)?.equipment_network.tp_6_20}}</td>
-
-              <td class="border-right">{{(selectedReport$ | async)?.equipment_network.effect.population}}</td>
-              <td class="border-right">{{(selectedReport$ | async)?.equipment_network.effect.power}}</td>
-              <td class="border-right">{{(selectedReport$ | async)?.equipment_network.effect.szo}}</td>
-
-              <td class="total border-right">{{(selectedReport$ | async)?.total?.tp_6_20}}</td>
-              <td class="total border-right">{{(selectedReport$ | async)?.total?.population}}</td>
-              <td class="total border-right">{{(selectedReport$ | async)?.total?.power}}</td>
-              <td class="total">{{(selectedReport$ | async)?.total?.szo}}</td>
-            </tr>
-          </table>
-        </div>
-      </div>
+<div class="container-fluid h-100">
+  <div class="row h-100" *ngIf="!(selectedReport$ | async)">
+    <div class="no-report-placeholder col-12">
+      Отчет об оперативной обстановке отсутствует
+      <button mat-stroked-button class="mt-3">
+        Добавить отчет
+      </button>
     </div>
   </div>
 
-  <div class="row mt-3">
+  <div class="row" *ngIf="selectedReport$ | async">
     <div class="col-12">
-      <div class="row">
-        <div class="col-auto">
-          <span class="row-caption">Нарушения</span>
-        </div>
-      </div>
-
       <div class="row">
         <div class="col-12">
-          <table class="operative-situation-reports w-100 h-100">
-            <tr class="border-bottom">
-              <th rowspan="2" scope="colgroup" class="top border-right">Всего 6 кВ и выше</th>
-              <th colspan="4" scope="colgroup" class="top border-right">Основная сеть 35 кВ и выше</th>
-              <th rowspan="2" scope="colgroup" class="top border-right">ЛЭП<br> р/с</th>
-              <th rowspan="2" scope="colgroup" class="top border-right">ТН с погаш.</th>
-              <th colspan="3" scope="colgroup" class="top border-right">Сеть 0,4 кВ</th>
-              <th colspan="2" scope="colgroup" class="top">Население, чел</th>
-            </tr>
-            <tr>
-              <th scope="col" class="font-weight-normal border-right">УАПВ</th>
-              <th scope="col" class="font-weight-normal border-right">НАПВ</th>
-              <th scope="col" class="font-weight-normal border-right">С обесточ.</th>
-              <th scope="col" class="font-weight-normal border-right">Итого</th>
+          <div class="row">
+            <div class="col-auto">
+              <span class="row-caption">Оборудование 35-150 кВ</span>
+            </div>
+          </div>
 
-              <th scope="col" class="font-weight-normal border-right">С 6:00</th>
-              <th scope="col" class="font-weight-normal border-right">Откл. на срез</th>
-              <th scope="col" class="font-weight-normal border-right">Более 3 часов</th>
+          <div class="row">
+            <div class="col-12">
+              <table class="d-flex operative-situation-reports w-100">
+                <tr>
+                  <th colspan="4" scope="colgroup" class="top border-right" style="border-color: #E0E0E0 !important;">Отключенное оборудование по сети 35-150 кВ</th>
+                  <th colspan="4" scope="colgroup" class="top  border-right">Последствия для потребителей по сети 35-150 кВ</th>
+                  <th colspan="2" scope="colgroup" class="top  border-right">Распределительная сеть</th>
+                  <th colspan="3" scope="colgroup" class="top  border-right">Последствия для потребителей по распределительной сети</th>
+                  <th colspan="4" scope="colgroup" class="top ">Последствия для потребителей суммарно по основной и распределительной сети</th>
+                </tr>
+                <tr>
+                  <th scope="col" class="font-weight-normal border-right">ЛЭП 110-150 кВ, шт</th>
+                  <th scope="col" class="font-weight-normal border-right">ЛЭП 35 кВ, шт.</th>
+                  <th scope="col" class="font-weight-normal border-right">ПС 110 -150 кВ, шт</th>
+                  <th scope="col" class="font-weight-normal border-right">ПС 35 кВ, шт</th>
 
-              <th scope="col" class="font-weight-normal border-right">По сети 0,4 кВ на срез</th>
-              <th scope="col" class="font-weight-normal">По сети 0,4 кВ (более 3 часов)</th>
-            </tr>
-            <tr class="content">
-              <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.total_6}}</td>
-              <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.uapv_35}}</td>
-              <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.napv_35}}</td>
-              <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.power_off_35}}</td>
-              <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.uapv_35 + (selectedReport$ | async)?.violations.napv_35}}</td>
+                  <th scope="col" class="font-weight-normal border-right">ТП 6-20 кВ, шт</th>
+                  <th scope="col" class="font-weight-normal border-right">Население, чел</th>
+                  <th scope="col" class="font-weight-normal border-right">Нагрузка, МВт</th>
+                  <th scope="col" class="font-weight-normal border-right">СЗО, шт</th>
 
-              <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.lep_rs}}</td>
-              <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.tn_cancel}}</td>
-              <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.from_6_04}}</td>
-              <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.power_off_04}}</td>
-              <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.greater_3_04}}</td>
-              <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.population_srez_04}}</td>
-              <td class="p-3">{{(selectedReport$ | async)?.violations.population_greater_3_04}}</td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
+                  <th scope="col" class="font-weight-normal border-right">ЛЭП 6-20 кВ, шт</th>
+                  <th scope="col" class="font-weight-normal border-right">ТП 6-20 кВ, шт</th>
 
-  <div class="row mt-3">
-    <div class="col-12">
+                  <th scope="col" class="font-weight-normal border-right">Население, чел</th>
+                  <th scope="col" class="font-weight-normal border-right">Нагрузка, МВт</th>
+                  <th scope="col" class="font-weight-normal border-right">СЗО, шт</th>
 
-      <div class="row">
-        <div class="col-6">
-          <span class="row-caption">Задействованные ресурсы</span>
-        </div>
-        <div class="col-6">
-          <span class="row-caption">Погодные условия</span>
+                  <th scope="col" class="font-weight-normal border-right">ТП 6-20 кВ, шт</th>
+                  <th scope="col" class="font-weight-normal border-right">Население, чел</th>
+                  <th scope="col" class="font-weight-normal border-right">Нагрузка, МВт</th>
+                  <th scope="col" class="font-weight-normal">СЗО, шт</th>
+                </tr>
+                <tr class="content">
+                  <td class="border-right">{{(selectedReport$ | async)?.equipment_35_150.lep_110_150}}</td>
+                  <td class="border-right">{{(selectedReport$ | async)?.equipment_35_150.lep_35}}</td>
+                  <td class="border-right">{{(selectedReport$ | async)?.equipment_35_150.ps_110_150}}</td>
+                  <td class="border-right">{{(selectedReport$ | async)?.equipment_35_150.ps_35}}</td>
+
+                  <td class="border-right">{{(selectedReport$ | async)?.equipment_35_150.effect.tp_6_20}}</td>
+                  <td class="border-right">{{(selectedReport$ | async)?.equipment_35_150.effect.population}}</td>
+                  <td class="border-right">{{(selectedReport$ | async)?.equipment_35_150.effect.power}}</td>
+                  <td class="border-right">{{(selectedReport$ | async)?.equipment_35_150.effect.szo}}</td>
+
+                  <td class="border-right">{{(selectedReport$ | async)?.equipment_network.lep_6_20}}</td>
+                  <td class="border-right">{{(selectedReport$ | async)?.equipment_network.tp_6_20}}</td>
+
+                  <td class="border-right">{{(selectedReport$ | async)?.equipment_network.effect.population}}</td>
+                  <td class="border-right">{{(selectedReport$ | async)?.equipment_network.effect.power}}</td>
+                  <td class="border-right">{{(selectedReport$ | async)?.equipment_network.effect.szo}}</td>
+
+                  <td class="total border-right">{{(selectedReport$ | async)?.total?.tp_6_20}}</td>
+                  <td class="total border-right">{{(selectedReport$ | async)?.total?.population}}</td>
+                  <td class="total border-right">{{(selectedReport$ | async)?.total?.power}}</td>
+                  <td class="total">{{(selectedReport$ | async)?.total?.szo}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="row mt-3">
-        <div class="col-6">
-          <div class="col-12 d-flex flex-row justify-content-between">
-            <div class="row no-gutters h-50" style="background: white; border-bottom: 1px dotted lightgray;">
-              <div class="col-12 d-flex flex-row justify-content-between">
-                <div class="d-flex flex-column justify-content-center align-items-center indicator border-right" style="width: 33%;">
-                  <div class="value">{{(selectedReport$ | async)?.resources.rise}}</div>
-                  <div class="description">Задействовано<br>РИСЭ, шт</div>
-                </div>
-
-                <div class="d-flex flex-column justify-content-center align-items-center indicator border-right" style="width: 33%">
-                  <div class="value">{{(selectedReport$ | async)?.resources.riseSumPower}}</div>
-                  <div class="description">Суммарная<br>мощность, кВт</div>
-                </div>
-
-                <div class="d-flex flex-column justify-content-center align-items-center indicator" style="width: 33%">
-                  <div class="value">{{(selectedReport$ | async)?.resources.risePeople}}</div>
-                  <div class="description">Запитано от<br>РИСЭ, человек</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="row no-gutters h-50 border-bottom" style="background: white;">
-              <div class="col-12 d-flex flex-row justify-content-between">
-                <div class="d-flex flex-column align-items-center indicator border-right" style="width: 33%">
-                  <div class="value">{{(selectedReport$ | async)?.resources.brigades}}</div>
-                  <div class="description">Задействовано<br>бригад, шт</div>
-                </div>
-
-                <div class="d-flex flex-column align-items-center indicator border-right" style="width: 33%">
-                  <div class="value">{{(selectedReport$ | async)?.resources.people}}</div>
-                  <div class="description">Человек<br>задействовано</div>
-                </div>
-
-                <div class="d-flex flex-column align-items-center indicator" style="width: 33%">
-                  <div class="value">{{(selectedReport$ | async)?.resources.technics}}</div>
-                  <div class="description">Единиц<br>техники, шт</div>
-                </div>
-              </div>
+        <div class="col-12">
+          <div class="row">
+            <div class="col-auto">
+              <span class="row-caption">Нарушения</span>
             </div>
           </div>
 
-          <div class="section-content justify-content-around p-0">
-            <!--
-            <table class="operative-situation-reports h-100">
-              <tr class="border-bottom">
-                <th colspan="3" scope="colgroup" class="border-right">Задействованные РИСЭ</th>
-                <th colspan="3" scope="colgroup">Задействованные силы и средства</th>
-              </tr>
-              <tr>
-                <th scope="col" class="font-weight-normal border-right">Количество, шт</th>
-                <th scope="col" class="font-weight-normal border-right">P∑, кВт</th>
-                <th scope="col" class="font-weight-normal border-right">Запитано от РИСЭ, чел</th>
+          <div class="row">
+            <div class="col-12">
+              <table class="operative-situation-reports w-100 h-100">
+                <tr class="border-bottom">
+                  <th rowspan="2" scope="colgroup" class="top border-right">Всего 6 кВ и выше</th>
+                  <th colspan="4" scope="colgroup" class="top border-right">Основная сеть 35 кВ и выше</th>
+                  <th rowspan="2" scope="colgroup" class="top border-right">ЛЭП<br> р/с</th>
+                  <th rowspan="2" scope="colgroup" class="top border-right">ТН с погаш.</th>
+                  <th colspan="3" scope="colgroup" class="top border-right">Сеть 0,4 кВ</th>
+                  <th colspan="2" scope="colgroup" class="top">Население, чел</th>
+                </tr>
+                <tr>
+                  <th scope="col" class="font-weight-normal border-right">УАПВ</th>
+                  <th scope="col" class="font-weight-normal border-right">НАПВ</th>
+                  <th scope="col" class="font-weight-normal border-right">С обесточ.</th>
+                  <th scope="col" class="font-weight-normal border-right">Итого</th>
 
-                <th scope="col" class="font-weight-normal border-right">Бригад, шт</th>
-                <th scope="col" class="font-weight-normal border-right">Человек</th>
-                <th scope="col" class="font-weight-normal">Единиц техники, шт</th>
-              </tr>
-              <tr  class="content">
-                <td class="border-right">{{report.resources.rise}}</td>
-                <td class="border-right">{{report.resources.riseSumPower}}</td>
-                <td class="border-right">{{report.resources.risePeople}}</td>
+                  <th scope="col" class="font-weight-normal border-right">С 6:00</th>
+                  <th scope="col" class="font-weight-normal border-right">Откл. на срез</th>
+                  <th scope="col" class="font-weight-normal border-right">Более 3 часов</th>
 
-                <td class="border-right">{{report.resources.brigades}}</td>
-                <td class="border-right">{{report.resources.people}}</td>
-                <td>{{report.resources.technics}}</td>
-              </tr>
-            </table>
-            -->
+                  <th scope="col" class="font-weight-normal border-right">По сети 0,4 кВ на срез</th>
+                  <th scope="col" class="font-weight-normal">По сети 0,4 кВ (более 3 часов)</th>
+                </tr>
+                <tr class="content">
+                  <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.total_6}}</td>
+                  <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.uapv_35}}</td>
+                  <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.napv_35}}</td>
+                  <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.power_off_35}}</td>
+                  <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.uapv_35 + (selectedReport$ | async)?.violations.napv_35}}</td>
+
+                  <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.lep_rs}}</td>
+                  <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.tn_cancel}}</td>
+                  <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.from_6_04}}</td>
+                  <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.power_off_04}}</td>
+                  <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.greater_3_04}}</td>
+                  <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.population_srez_04}}</td>
+                  <td class="p-3">{{(selectedReport$ | async)?.violations.population_greater_3_04}}</td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
-        <div class="col-6"></div>
       </div>
 
+      <div class="row mt-3">
+        <div class="col-12">
+
+          <div class="row">
+            <div class="col-6">
+              <span class="row-caption">Задействованные ресурсы</span>
+            </div>
+            <div class="col-6">
+              <span class="row-caption">Погодные условия</span>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-6">
+              <div class="col-12 d-flex flex-row justify-content-between">
+                <div class="row no-gutters h-50" style="background: white; border-bottom: 1px dotted lightgray;">
+                  <div class="col-12 d-flex flex-row justify-content-between">
+                    <div class="d-flex flex-column justify-content-center align-items-center indicator border-right" style="width: 33%;">
+                      <div class="value">{{(selectedReport$ | async)?.resources.rise}}</div>
+                      <div class="description">Задействовано<br>РИСЭ, шт</div>
+                    </div>
+
+                    <div class="d-flex flex-column justify-content-center align-items-center indicator border-right" style="width: 33%">
+                      <div class="value">{{(selectedReport$ | async)?.resources.riseSumPower}}</div>
+                      <div class="description">Суммарная<br>мощность, кВт</div>
+                    </div>
+
+                    <div class="d-flex flex-column justify-content-center align-items-center indicator" style="width: 33%">
+                      <div class="value">{{(selectedReport$ | async)?.resources.risePeople}}</div>
+                      <div class="description">Запитано от<br>РИСЭ, человек</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row no-gutters h-50 border-bottom" style="background: white;">
+                  <div class="col-12 d-flex flex-row justify-content-between">
+                    <div class="d-flex flex-column align-items-center indicator border-right" style="width: 33%">
+                      <div class="value">{{(selectedReport$ | async)?.resources.brigades}}</div>
+                      <div class="description">Задействовано<br>бригад, шт</div>
+                    </div>
+
+                    <div class="d-flex flex-column align-items-center indicator border-right" style="width: 33%">
+                      <div class="value">{{(selectedReport$ | async)?.resources.people}}</div>
+                      <div class="description">Человек<br>задействовано</div>
+                    </div>
+
+                    <div class="d-flex flex-column align-items-center indicator" style="width: 33%">
+                      <div class="value">{{(selectedReport$ | async)?.resources.technics}}</div>
+                      <div class="description">Единиц<br>техники, шт</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="section-content justify-content-around p-0">
+                <!--
+                <table class="operative-situation-reports h-100">
+                  <tr class="border-bottom">
+                    <th colspan="3" scope="colgroup" class="border-right">Задействованные РИСЭ</th>
+                    <th colspan="3" scope="colgroup">Задействованные силы и средства</th>
+                  </tr>
+                  <tr>
+                    <th scope="col" class="font-weight-normal border-right">Количество, шт</th>
+                    <th scope="col" class="font-weight-normal border-right">P∑, кВт</th>
+                    <th scope="col" class="font-weight-normal border-right">Запитано от РИСЭ, чел</th>
+
+                    <th scope="col" class="font-weight-normal border-right">Бригад, шт</th>
+                    <th scope="col" class="font-weight-normal border-right">Человек</th>
+                    <th scope="col" class="font-weight-normal">Единиц техники, шт</th>
+                  </tr>
+                  <tr  class="content">
+                    <td class="border-right">{{report.resources.rise}}</td>
+                    <td class="border-right">{{report.resources.riseSumPower}}</td>
+                    <td class="border-right">{{report.resources.risePeople}}</td>
+
+                    <td class="border-right">{{report.resources.brigades}}</td>
+                    <td class="border-right">{{report.resources.people}}</td>
+                    <td>{{report.resources.technics}}</td>
+                  </tr>
+                </table>
+                -->
+              </div>
+            </div>
+            <div class="col-6"></div>
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
 

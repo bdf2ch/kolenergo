@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
 import { IApplicationState } from '../../../../ngrx';
-import {selectNestedDivisionsByDivisionId, selectSelectedDivisions} from '../../ngrx/selectors';
+import {selectNestedDivisionsByDivisionId, selectSelectedDivision} from '../../ngrx/selectors';
 import {IDivision} from '../../../../interfaces';
 import {SelectDivision} from '../../ngrx';
 
@@ -23,7 +23,7 @@ export class DivisionTreeItemComponent implements OnInit {
   constructor(private readonly store: Store<IApplicationState>) {
     this.isExpanded = false;
     this.isSelected = false;
-    this.selectedDivision$ = this.store.pipe(select(selectSelectedDivisions));
+    this.selectedDivision$ = this.store.pipe(select(selectSelectedDivision));
   }
 
   ngOnInit() {
