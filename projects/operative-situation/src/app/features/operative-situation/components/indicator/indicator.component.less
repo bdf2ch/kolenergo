@@ -1,0 +1,39 @@
+@indicator-background-color: white;
+@indicator-border-radius: 6px;
+@indicator-value-font-family: 'Open Sans Light';
+@indicator-value-font-size: 45px;
+@indicator-value-line-height: 45px;
+@indicator-value-color: #546e7a;
+@indicator-title-font-family: 'Open Sans Light';
+@indicator-title-font-size: 13px;
+@indicator-title-line-height: 13px;
+@indicator-title-color: #78909c;
+
+.indicator {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 131px;
+  height: 131px;
+  padding: 15px;
+  background: @indicator-background-color;
+  border-radius: @indicator-border-radius;
+  // border-bottom: 2px solid #e0e0e0;
+
+  .value {
+    margin-bottom: 10px;
+    font-family: @indicator-value-font-family;
+    font-size: @indicator-value-font-size;
+    line-height: @indicator-value-line-height;
+    color: @indicator-value-color;
+  }
+
+  .title {
+    font-family: @indicator-title-font-family;
+    font-size: @indicator-title-font-size;
+    line-height: @indicator-title-line-height;
+    text-align: center;
+    color: @indicator-title-color;
+  }
+}

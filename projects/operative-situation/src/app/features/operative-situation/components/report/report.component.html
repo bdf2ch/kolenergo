@@ -20,13 +20,13 @@
 
           <div class="row">
             <div class="col-12">
-              <table class="d-flex operative-situation-reports w-100">
+              <table class="d-flex operative-situation-reports w-100 mat-elevation-z1">
                 <tr>
                   <th colspan="4" scope="colgroup" class="top border-right" style="border-color: #E0E0E0 !important;">Отключенное оборудование по сети 35-150 кВ</th>
-                  <th colspan="4" scope="colgroup" class="top  border-right">Последствия для потребителей по сети 35-150 кВ</th>
-                  <th colspan="2" scope="colgroup" class="top  border-right">Распределительная сеть</th>
-                  <th colspan="3" scope="colgroup" class="top  border-right">Последствия для потребителей по распределительной сети</th>
-                  <th colspan="4" scope="colgroup" class="top ">Последствия для потребителей суммарно по основной и распределительной сети</th>
+                  <th colspan="4" scope="colgroup" class="top border-right">Последствия для потребителей по сети 35-150 кВ</th>
+                  <th colspan="2" scope="colgroup" class="top border-right">Распределительная сеть</th>
+                  <th colspan="3" scope="colgroup" class="top border-right">Последствия для потребителей по распределительной сети</th>
+                  <th colspan="4" scope="colgroup" class="top">Последствия для потребителей суммарно по основной и распределительной сети</th>
                 </tr>
                 <tr>
                   <th scope="col" class="font-weight-normal border-right">ЛЭП 110-150 кВ, шт</th>
@@ -80,7 +80,7 @@
         </div>
       </div>
 
-      <div class="row mt-3">
+      <div class="row mt-5">
         <div class="col-12">
           <div class="row">
             <div class="col-auto">
@@ -133,90 +133,53 @@
         </div>
       </div>
 
-      <div class="row mt-3">
+      <div class="row mt-5">
+
         <div class="col-12">
 
           <div class="row">
-            <div class="col-6">
+            <div class="col-auto pr-4 h-100">
               <span class="row-caption">Задействованные ресурсы</span>
+
+              <div class="d-flex flex-column">
+                <div class="d-flex flex-row justify-content-between pb-3">
+                  <app-indicator
+                    class="mr-3"
+                    [value]="(selectedReport$ | async)?.resources.rise"
+                    [title]="'Задействовано РИСЭ, шт'">
+                  </app-indicator>
+                  <app-indicator
+                    class="mr-3"
+                    [value]="(selectedReport$ | async)?.resources.riseSumPower"
+                    [title]="'Суммарная мощность, кВт'">
+                  </app-indicator>
+                  <app-indicator
+                    [value]="(selectedReport$ | async)?.resources.risePeople"
+                    [title]="'Запитано от РИСЭ, человек'">
+                  </app-indicator>
+                </div>
+                <div class="d-flex flex-row justify-content-between align-items-stretch">
+                  <app-indicator
+                    [value]="(selectedReport$ | async)?.resources.brigades"
+                    [title]="'Задействовано бригад, шт'">
+                  </app-indicator>
+                  <app-indicator
+                    [value]="(selectedReport$ | async)?.resources.people"
+                    [title]="'Задействовано человек'">
+                  </app-indicator>
+                  <app-indicator
+                    [value]="(selectedReport$ | async)?.resources.technics"
+                    [title]="'Единиц техники, шт'">
+                  </app-indicator>
+                </div>
+              </div>
+
             </div>
-            <div class="col-6">
+            <div class="col">
               <span class="row-caption">Погодные условия</span>
+
+              <app-weather-summary [weatherSummary]="(selectedReport$ | async)?.weatherSummary"></app-weather-summary>
             </div>
-          </div>
-
-          <div class="row mt-3">
-            <div class="col-6">
-              <div class="col-12 d-flex flex-row justify-content-between">
-                <div class="row no-gutters h-50" style="background: white; border-bottom: 1px dotted lightgray;">
-                  <div class="col-12 d-flex flex-row justify-content-between">
-                    <div class="d-flex flex-column justify-content-center align-items-center indicator border-right" style="width: 33%;">
-                      <div class="value">{{(selectedReport$ | async)?.resources.rise}}</div>
-                      <div class="description">Задействовано<br>РИСЭ, шт</div>
-                    </div>
-
-                    <div class="d-flex flex-column justify-content-center align-items-center indicator border-right" style="width: 33%">
-                      <div class="value">{{(selectedReport$ | async)?.resources.riseSumPower}}</div>
-                      <div class="description">Суммарная<br>мощность, кВт</div>
-                    </div>
-
-                    <div class="d-flex flex-column justify-content-center align-items-center indicator" style="width: 33%">
-                      <div class="value">{{(selectedReport$ | async)?.resources.risePeople}}</div>
-                      <div class="description">Запитано от<br>РИСЭ, человек</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row no-gutters h-50 border-bottom" style="background: white;">
-                  <div class="col-12 d-flex flex-row justify-content-between">
-                    <div class="d-flex flex-column align-items-center indicator border-right" style="width: 33%">
-                      <div class="value">{{(selectedReport$ | async)?.resources.brigades}}</div>
-                      <div class="description">Задействовано<br>бригад, шт</div>
-                    </div>
-
-                    <div class="d-flex flex-column align-items-center indicator border-right" style="width: 33%">
-                      <div class="value">{{(selectedReport$ | async)?.resources.people}}</div>
-                      <div class="description">Человек<br>задействовано</div>
-                    </div>
-
-                    <div class="d-flex flex-column align-items-center indicator" style="width: 33%">
-                      <div class="value">{{(selectedReport$ | async)?.resources.technics}}</div>
-                      <div class="description">Единиц<br>техники, шт</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="section-content justify-content-around p-0">
-                <!--
-                <table class="operative-situation-reports h-100">
-                  <tr class="border-bottom">
-                    <th colspan="3" scope="colgroup" class="border-right">Задействованные РИСЭ</th>
-                    <th colspan="3" scope="colgroup">Задействованные силы и средства</th>
-                  </tr>
-                  <tr>
-                    <th scope="col" class="font-weight-normal border-right">Количество, шт</th>
-                    <th scope="col" class="font-weight-normal border-right">P∑, кВт</th>
-                    <th scope="col" class="font-weight-normal border-right">Запитано от РИСЭ, чел</th>
-
-                    <th scope="col" class="font-weight-normal border-right">Бригад, шт</th>
-                    <th scope="col" class="font-weight-normal border-right">Человек</th>
-                    <th scope="col" class="font-weight-normal">Единиц техники, шт</th>
-                  </tr>
-                  <tr  class="content">
-                    <td class="border-right">{{report.resources.rise}}</td>
-                    <td class="border-right">{{report.resources.riseSumPower}}</td>
-                    <td class="border-right">{{report.resources.risePeople}}</td>
-
-                    <td class="border-right">{{report.resources.brigades}}</td>
-                    <td class="border-right">{{report.resources.people}}</td>
-                    <td>{{report.resources.technics}}</td>
-                  </tr>
-                </table>
-                -->
-              </div>
-            </div>
-            <div class="col-6"></div>
           </div>
 
         </div>

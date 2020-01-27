@@ -1,0 +1,57 @@
+
+@weather-summary-background-color: white;
+@weather-summary-border-radius: 6px;
+
+@weather-summary-font-family: 'Open Sans Light';
+@weather-summary-header-font-size: 13px;
+@weather-summary-header-line-height: 14px;
+@weather-summary-header-font-color: #78909c;
+@weather-summary-locations-font-size: 15px;
+@weather-summary-locations-font-color: #546e7a;
+
+.weather-summary {
+  padding: 20px;
+  background: @weather-summary-background-color;
+  border-radius: @weather-summary-border-radius;
+  // border-bottom: 2px solid #e0e0e0;
+
+  table {
+    width: 100%;
+    font-family: @weather-summary-font-family;
+
+    thead {
+      th {
+        padding-bottom: 20px;
+        font-size: @weather-summary-header-font-size;
+        line-height: @weather-summary-header-line-height;
+        font-weight: normal;
+        vertical-align: top;
+        color: @weather-summary-header-font-color;
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid #eceff1;
+
+        &:last-of-type {
+          border-bottom: none;
+        }
+
+        td {
+          font-size: @weather-summary-locations-font-size;
+          color: @weather-summary-locations-font-color;
+
+          img {
+            width: 35px;
+          }
+
+          &.weather-mode {
+            font-size: 30px;
+          }
+        }
+      }
+    }
+
+  }
+}

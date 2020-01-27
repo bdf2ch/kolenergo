@@ -37,11 +37,12 @@ export class OperativeSituationEffects {
   signInSuccess$ = this.actions$.pipe(
     ofType(actionTypes.AUTHENTICATION_SIGN_IN_SUCCESS),
     tap(() => {
-      const dialog = this.dialog.getDialogById('sign-in-dialog');
-      if (dialog) {
-        dialog.close();
-      }
-      this.router.navigate(['/']);
+      this.router.navigate(['/']).then(() => {
+        const dialog = this.dialog.getDialogById('sign-in-dialog');
+        if (dialog) {
+          dialog.close();
+        }
+      });
     }),
     mergeMap(() => {
       return EMPTY;

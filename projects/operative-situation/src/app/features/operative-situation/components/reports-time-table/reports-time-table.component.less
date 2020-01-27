@@ -1,5 +1,5 @@
-@period-width: 70px;
-@period-height: 70px;
+@period-width: 14.28%;
+@period-height: 55px;
 @period-font-family: 'Open Sans Regular';
 @period-font-size: 14px;
 @period-font-size-selected: 16px;
@@ -10,11 +10,11 @@
 
 .reports-time-table {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
   .periods-and-consumption {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 
     .period {
       display: flex;
@@ -42,10 +42,9 @@
         font-size: @period-font-size-selected;
         border-left: @period-border-right;
         border-top: @period-border-right;
-        border-bottom: @period-border-right;
-        border-right: none;
+        border-right: @period-border-right;
         border-top-left-radius: 2px;
-        border-bottom-left-radius: 2px;
+        border-top-right-radius: 2px;
         // background: @period-background-color-selected;
       }
 

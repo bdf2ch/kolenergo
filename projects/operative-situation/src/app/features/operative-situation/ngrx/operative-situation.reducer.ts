@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 
-import {authenticationActionTypes, Company, ICompany} from '@kolenergo/core';
+import {actionTypes, authenticationActionTypes, Company, ICompany} from '@kolenergo/core';
 import {IDivision, IPeriod} from '../../../interfaces';
 import {Division, Period, Report, ReportSummary} from '../../../models';
 import {IOperativeSituationState, operativeSituationInitialState} from './operative-situation.state';
@@ -16,6 +16,13 @@ export function reducer(
   action: OperativeSituationActions | authenticationActionTypes
 ) {
   switch (action.type) {
+
+    case actionTypes.AUTHENTICATION_SIGN_IN_SUCCESS: {
+      return {
+        ...state,
+        selectedCompany: action.payload.company ? new Company(action.payload.company) : null
+      };
+    }
 
     case OperativeSituationActionTypes.LOAD_INITIAL_DATA: {
       return {
@@ -115,7 +122,7 @@ export function reducer(
       return {
         ...state,
         selectedPeriod: action.payload,
-        selectedReport: state.reports.reports[action.payload.time]
+        selectedReport: state.reports.reports && state.reports.reports[action.payload.time]
           ? state.reports.reports[action.payload.time]
           : null
       };

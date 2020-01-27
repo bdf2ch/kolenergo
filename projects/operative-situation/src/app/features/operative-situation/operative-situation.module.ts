@@ -20,6 +20,7 @@ import { ReportAddDialogComponent } from './components/report-add-dialog/report-
 import { environment } from '../../../environments/environment';
 import { ReportComponent } from './components/report/report.component';
 import { WeatherSummaryComponent } from './components/weather-summary/weather-summary.component';
+import { IndicatorComponent } from './components/indicator/indicator.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { WeatherSummaryComponent } from './components/weather-summary/weather-su
     FormStepComponent,
     ReportAddDialogComponent,
     ReportComponent,
-    WeatherSummaryComponent
+    WeatherSummaryComponent,
+    IndicatorComponent
   ],
   imports: [
     CommonModule,

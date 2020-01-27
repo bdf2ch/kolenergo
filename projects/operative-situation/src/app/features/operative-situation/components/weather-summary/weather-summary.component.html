@@ -1,3 +1,24 @@
-<p>
-  weather-summary works!
-</p>
+<div class="weather-summary mat-elevation-z1">
+  <table>
+    <thead>
+      <th>Населенный<br>пункт</th>
+      <th class="text-center">Темп.,<br> C&deg;</th>
+      <th class="text-center">Ветер,<br>м/с</th>
+      <th class="pl-3">Осадки</th>
+      <th></th>
+      <th class="pl-3 text-center">Режим ОРР/РПГ</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let location of weatherSummary.locations; let i = index;">
+      <td>{{location.title}}</td>
+      <td class="text-center">{{location.weather.temperature}}</td>
+      <td class="text-center">{{location.weather.wind}}</td>
+      <td class="pl-3">{{location.weather.precipitations}}</td>
+      <td><img src="http://openweathermap.org/img/w/{{location.weather.icon}}.png" alt=""></td>
+      <td class="weather-mode pl-3 text-center border-bottom-0" rowspan="5" *ngIf="i === 0">
+        {{(selectedReport$ | async)?.weatherORR ? 'ОРР' : (selectedReport$ | async)?.weatherRPG ? 'РПГ' : 'Нет'}}
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
