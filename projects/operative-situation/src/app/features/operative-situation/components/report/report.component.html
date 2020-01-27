@@ -2,7 +2,7 @@
   <div class="row h-100" *ngIf="!(selectedReport$ | async)">
     <div class="no-report-placeholder col-12">
       Отчет об оперативной обстановке отсутствует
-      <button mat-stroked-button class="mt-3">
+      <button mat-stroked-button class="mt-3" (click)="openAddReportDialog()">
         Добавить отчет
       </button>
     </div>
@@ -90,7 +90,7 @@
 
           <div class="row">
             <div class="col-12">
-              <table class="operative-situation-reports w-100 h-100">
+              <table class="operative-situation-reports w-100 h-100 mat-elevation-z1">
                 <tr class="border-bottom">
                   <th rowspan="2" scope="colgroup" class="top border-right">Всего 6 кВ и выше</th>
                   <th colspan="4" scope="colgroup" class="top border-right">Основная сеть 35 кВ и выше</th>

@@ -122,7 +122,7 @@ export function reducer(
       return {
         ...state,
         selectedPeriod: action.payload,
-        selectedReport: state.reports.reports && state.reports.reports[action.payload.time]
+        selectedReport: state.reports && state.reports.reports[action.payload.time]
           ? state.reports.reports[action.payload.time]
           : null
       };

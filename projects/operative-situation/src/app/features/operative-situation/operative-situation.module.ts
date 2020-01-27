@@ -1,7 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatSidenavModule, MatButtonModule, MatMenuModule, MatIconModule, MatProgressBarModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import {
+  MatSidenavModule,
+  MatButtonModule,
+  MatMenuModule,
+  MatIconModule,
+  MatProgressBarModule,
+  MatFormFieldModule,
+  MatInputModule
+} from '@angular/material';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -51,6 +59,9 @@ import { IndicatorComponent } from './components/indicator/indicator.component';
     MatProgressBarModule,
     MatFormFieldModule,
     MatInputModule
+  ],
+  entryComponents: [
+    ReportAddDialogComponent
   ]
 })
 export class OperativeSituationModule { }
