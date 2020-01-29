@@ -10,16 +10,30 @@ import { AuthenticationModule } from '@kolenergo/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
+import { FormWithStepsComponent } from './features/operative-situation/components/form-with-steps/form-with-steps.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatFormFieldModule, MatButtonModule} from '@angular/material';
+import {MatInputModule} from '@angular/material/input';
+import {ReportAddDialogComponent} from './features/operative-situation/components/report-add-dialog/report-add-dialog.component';
+import {FormStepComponent} from './features/operative-situation/components/form-step/form-step.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FormWithStepsComponent,
+    FormStepComponent,
+    ReportAddDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
     AuthenticationModule.forRoot({
       apiUrl: environment.apiUrl,
       appCode: environment.appCode,
@@ -30,6 +44,7 @@ import { environment } from '../environments/environment';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [],
+  entryComponents: [ReportAddDialogComponent],
   bootstrap: [
     AppComponent
   ]

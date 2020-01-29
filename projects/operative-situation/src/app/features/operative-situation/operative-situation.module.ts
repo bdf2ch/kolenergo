@@ -37,9 +37,9 @@ import { IndicatorComponent } from './components/indicator/indicator.component';
     DivisionTreeComponent,
     DivisionTreeItemComponent,
     ReportsTimeTableComponent,
-    FormWithStepsComponent,
-    FormStepComponent,
-    ReportAddDialogComponent,
+    // FormWithStepsComponent,
+    // FormStepComponent,
+    // ReportAddDialogComponent,
     ReportComponent,
     WeatherSummaryComponent,
     IndicatorComponent
@@ -60,8 +60,11 @@ import { IndicatorComponent } from './components/indicator/indicator.component';
     MatFormFieldModule,
     MatInputModule
   ],
+  exports: [
+    // ReportAddDialogComponent
+  ],
   entryComponents: [
-    ReportAddDialogComponent
+    // ReportAddDialogComponent
   ]
 })
 export class OperativeSituationModule { }

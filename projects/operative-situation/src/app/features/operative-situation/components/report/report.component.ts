@@ -32,7 +32,8 @@ export class ReportComponent implements OnInit {
   openAddReportDialog() {
     this.dialog.open(ReportAddDialogComponent, {
       id: 'add-report-dialog',
-      width: '450px'
+      width: '850px',
+      panelClass: 'form-step-dialog'
     });
   }
 
