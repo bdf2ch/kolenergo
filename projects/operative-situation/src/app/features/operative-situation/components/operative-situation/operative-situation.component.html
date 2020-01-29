@@ -7,6 +7,7 @@
       <div class="col-12">
         <button mat-stroked-button
                 class="w-100"
+                color="primary"
                 [matMenuTriggerFor]="companiesMenu">
           {{(selectedCompany$ | async)?.shortTitle}}
           <mat-icon>arrow_drop_down</mat-icon>
@@ -16,7 +17,7 @@
                   class="pl-4 pr-4"
                   *ngFor="let company of (companies$ | async)"
                   (click)="selectCompany(company)">
-            <mat-icon>business</mat-icon>
+            <mat-icon color="primary">business</mat-icon>
             <span class="mr-4">{{company.shortTitle}}</span>
           </button>
         </mat-menu>

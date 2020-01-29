@@ -9,11 +9,19 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
+//$osr-primary-color: mat-palette($mat-teal, A900);
+
+//$custom-theme-primary: mat-palette($mat-teal, A900, A800, A700);
+//$custom-theme-accent: mat-palette($mat-orange, A200, A100, A400);
+
+//$custom-theme: mat-light-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
+//@include angular-material-theme($custom-theme);
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$operative-situation-primary: mat-palette($mat-indigo);
-$operative-situation-accent: mat-palette($mat-pink, A200, A100, A400);
+$operative-situation-primary: mat-palette($mat-teal, 600, 200, 700);
+$operative-situation-accent: mat-palette($mat-orange, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $operative-situation-warn: mat-palette($mat-red);
