@@ -121,6 +121,15 @@ export const selectSelectedReport = createSelector(
 );
 
 
+/**
+ * Селектор текущей поголдоной сводке по текущему отчету об оперативной обстановке
+ */
+export const selectSelectedReportWeatherSummary = createSelector(
+  selectOSR,
+  (state: IOperativeSituationState) => state.selectedReportWeatherSummary
+);
+
+
 
 
 

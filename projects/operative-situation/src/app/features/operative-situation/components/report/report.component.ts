@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { IApplicationState } from '../../../../ngrx';
+import { IApplicationState, } from '../../../../ngrx';
 import { Report} from '../../../../models';
 import { ReportAddDialogComponent } from '../report-add-dialog/report-add-dialog.component';
 import { selectSelectedReport } from '../../ngrx/selectors';

@@ -19,6 +19,7 @@ export class ReportAddDialogComponent implements OnInit {
   public equipment35150Form: FormGroup;
   public equipmentNetworkForm: FormGroup;
   public resourcesForm: FormGroup;
+  public violationsForm: FormGroup;
   public newReport: Report;
 
   constructor(
@@ -54,6 +55,19 @@ export class ReportAddDialogComponent implements OnInit {
       resources_brigades: new FormControl(this.newReport.resources.brigades, Validators.required),
       resources_people: new FormControl(this.newReport.resources.people, Validators.required),
       resources_technics: new FormControl(this.newReport.resources.technics, Validators.required),
+    });
+    this.violationsForm = this.builder.group({
+      violations_total_6: new FormControl(this.newReport.violations.total_6),
+      violations_uapv_35: new FormControl(this.newReport.violations.uapv_35),
+      violations_napv_35: new FormControl(this.newReport.violations.napv_35),
+      violations_power_off_35: new FormControl(this.newReport.violations.power_off_35),
+      violations_lep_rs: new FormControl(this.newReport.violations.lep_rs),
+      violations_tn_cancel: new FormControl(this.newReport.violations.tn_cancel),
+      violations_from_6_04: new FormControl(this.newReport.violations.from_6_04),
+      violations_power_off_04: new FormControl(this.newReport.violations.power_off_04),
+      violations_greater_3_04: new FormControl(this.newReport.violations.greater_3_04),
+      violations_population_srez_o4: new FormControl(this.newReport.violations.population_srez_04),
+      violations_population_greater_3_04: new FormControl(this.newReport.violations.population_greater_3_04),
     });
   }
 
