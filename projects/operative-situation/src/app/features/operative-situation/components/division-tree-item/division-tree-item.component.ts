@@ -27,16 +27,26 @@ export class DivisionTreeItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.nestedDivisions$ = this.store.pipe(select(selectNestedDivisionsByDivisionId, {divisionId: this.division.id}));
+    this.nestedDivisions$ =
+      this.store.pipe(select(selectNestedDivisionsByDivisionId, {divisionId: this.division.id}));
   }
 
   /**
    * Выбор структурного подразделения, а также открытие/закрытие дочерних структурных подразделений
    */
   select() {
-    this.isSelected = true;
-    this.isExpanded = !this.isExpanded;
-    this.store.dispatch(new SelectDivision(this.division));
+    console.log(this.division.title, this.isSelected);
+    if (!this.isExpanded) {
+      this.isExpanded = true;
+      if (!this.isSelected) {
+        this.isSelected = true;
+        this.store.dispatch(new SelectDivision(this.division));
+      } else {
+        this.isSelected = false;
+      }
+    } else {
+      this.isExpanded = false;
+    }
   }
 
 }
