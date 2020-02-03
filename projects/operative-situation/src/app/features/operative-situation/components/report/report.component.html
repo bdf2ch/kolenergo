@@ -2,7 +2,10 @@
   <div class="row h-100" *ngIf="!(selectedReport$ | async)">
     <div class="no-report-placeholder col-12">
       Отчет об оперативной обстановке отсутствует
-      <button mat-stroked-button class="mt-3" (click)="openAddReportDialog()">
+      <button mat-stroked-button
+              class="mt-3"
+              *ngIf="(selectedDivision$ | async) && (selectedDivision$ | async)?.isReportsAllowed"
+              (click)="openAddReportDialog()">
         Добавить отчет
       </button>
     </div>
@@ -145,16 +148,16 @@
                 <div class="d-flex flex-row justify-content-between pb-3">
                   <app-indicator
                     class="mr-3"
-                    [value]="(selectedReport$ | async)?.resources.rise"
+                    [value]="(selectedReport$ | async)?.resources?.rise"
                     [title]="'Задействовано РИСЭ, шт'">
                   </app-indicator>
                   <app-indicator
                     class="mr-3"
-                    [value]="(selectedReport$ | async)?.resources.riseSumPower"
+                    [value]="(selectedReport$ | async)?.resources?.riseSumPower"
                     [title]="'Суммарная мощность, кВт'">
                   </app-indicator>
                   <app-indicator
-                    [value]="(selectedReport$ | async)?.resources.risePeople"
+                    [value]="(selectedReport$ | async)?.resources?.risePeople"
                     [title]="'Запитано от РИСЭ, человек'">
                   </app-indicator>
                 </div>

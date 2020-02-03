@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { ICompany, IServerResponse } from '@kolenergo/core';
-import { IAppInitData, IDivision, IPeriod, IReportSummary } from '../../../interfaces';
+import {IAppInitData, IDivision, IPeriod, IReport, IReportSummary} from '../../../interfaces';
 import { Report } from '../../../models';
 
 /**
@@ -18,6 +18,9 @@ export enum OperativeSituationActionTypes {
   LOAD_REPORTS_BY_COMPANY = '[OSR API] Load reports by company',
   LOAD_REPORTS_BY_COMPANY_SUCCESS = '[OSR API] Reports by company loaded successfully',
   LOAD_REPORTS_BY_COMPANY_FAIL = '[OSR API] Failed to load reports by company',
+  ADD_REPORT = '[OSR API] Add report',
+  ADD_REPORT_SUCCESS = '[OSR API] Report added successfully',
+  ADD_REPORT_FAIL = '[OSR API] Failed to add report',
   SELECT_COMPANY = '[Application] Select current company',
   SELECT_DIVISION = '[Application] Select current division',
   SELECT_PERIOD = '[Application] Select time period',
@@ -98,6 +101,29 @@ export class LoadReportsByCompanyFail implements Action {
 }
 
 /**
+ * Добавление отчета об оперативной обстановке
+ */
+export class AddReport implements Action {
+  readonly type = OperativeSituationActionTypes.ADD_REPORT;
+  constructor(public payload: Report) {}
+}
+
+/**
+ * Добавление отчета об оперативной обстановке выполенна успешно
+ */
+export class AddReportSuccess implements Action {
+  readonly type = OperativeSituationActionTypes.ADD_REPORT_SUCCESS;
+  constructor(public payload: IServerResponse<IReportSummary>) {}
+}
+
+/**
+ * Добавление отчета об оперативной обстановке не выполнена
+ */
+export class AddReportFail implements Action {
+  readonly type = OperativeSituationActionTypes.ADD_REPORT_FAIL;
+}
+
+/**
  * Выбор текущей организации
  */
 export class SelectCompany implements Action {
@@ -143,6 +169,9 @@ export type OperativeSituationActions =
   LoadReportsByCompany |
   LoadReportsByCompanySuccess |
   LoadReportsByCompanyFail |
+  AddReport |
+  AddReportSuccess |
+  AddReportFail |
   SelectCompany |
   SelectDivision |
   SelectPeriod |

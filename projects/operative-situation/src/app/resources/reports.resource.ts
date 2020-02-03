@@ -14,6 +14,7 @@ import {
 import { IServerResponse } from '@kolenergo/core';
 import {IAppInitData, IConsumption, IReport, IReportSummary, IWeatherSummary} from '../interfaces';
 import { environment } from '../../environments/environment';
+import {Report} from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,7 @@ export class OperativeSituationResource extends Resource {
     method: ResourceRequestMethod.Post,
     withCredentials: true
   })
-  addReport: IResourceMethod<IReport, IServerResponse<IReport>>;
+  addReport: IResourceMethod<Report, IServerResponse<IReportSummary>>;
 
   @ResourceAction({
     path: '/',

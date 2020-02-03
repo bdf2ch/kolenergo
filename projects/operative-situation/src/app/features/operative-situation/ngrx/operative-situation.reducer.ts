@@ -40,7 +40,11 @@ export function reducer(
         companies: action.payload.data.companies.map((item: ICompany) => new Company(item)),
         divisions: action.payload.data.divisions.map((item: IDivision) => new Division(item)),
         periods: action.payload.data.periods.map((item: IPeriod) => new Period(item)),
+        reports: new ReportSummary(action.payload.data.reports),
         selectedCompany: action.payload.data.user ? new Company(action.payload.data.user.company) : null,
+        selectedReport: action.payload.data.reports[new Period(action.payload.data.periods[0]).time]
+          ? new Report(action.payload.data.reports[new Period(action.payload.data.periods[0]).time])
+          : null,
         selectedDivision: null,
         selectedPeriod: new Period(action.payload.data.periods[0])
       };
@@ -97,6 +101,31 @@ export function reducer(
     }
 
     case OperativeSituationActionTypes.LOAD_REPORTS_BY_COMPANY_FAIL: {
+      return {
+        ...state,
+        isLoadingInProgress: false
+      };
+    }
+
+    case OperativeSituationActionTypes.ADD_REPORT: {
+      return {
+        ...state,
+        isLoadingInProgress: true
+      };
+    }
+
+    case OperativeSituationActionTypes.ADD_REPORT_SUCCESS: {
+      return {
+        ...state,
+        isLoadingInProgress: false,
+        reports: new ReportSummary(action.payload.data),
+        selectedReport: action.payload.data.reports[state.selectedPeriod.time]
+          ? new Report(action.payload.data.reports[state.selectedPeriod.time])
+          : null
+      };
+    }
+
+    case OperativeSituationActionTypes.ADD_REPORT_FAIL: {
       return {
         ...state,
         isLoadingInProgress: false

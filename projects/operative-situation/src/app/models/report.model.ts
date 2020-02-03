@@ -2,15 +2,18 @@ import { Backup, Company, ICompany, User } from '@kolenergo/core';
 import { WeatherSummary } from './weather-summary.model';
 import { IWeatherSummary } from '../interfaces/weather-summary.interface';
 // import { OperativeSituationConsumption } from './operative-situation-consumption.model';
-import { IReport } from '../interfaces';
+import {IPeriod, IReport} from '../interfaces';
 import {Consumption} from './consumption.model';
+import {Period} from './period.model';
 
 export class Report extends Backup implements IReport {
   id: number;
-  company: ICompany;
+  companyId: number;
+  divisionId: number;
+  // company: ICompany;
   user: User;
   periodDate: string;
-  periodTime: string;
+  periodTime: IPeriod | any;
   dateCreated: number;
   dateCreatedD: Date;
   dateChanged: number;
@@ -83,10 +86,11 @@ export class Report extends Backup implements IReport {
   constructor(config?: IReport) {
     super();
     this.id = config ? config.id : null;
-    this.company = config ? new Company(config.company) : null;
+    this.companyId = config ? config.companyId : null;
+    this.divisionId = config ? config.divisionId : null;
     this.user = config ? new User(config.user) : null;
     this.periodDate = config ? config.periodDate : null;
-    this.periodTime = config ? config.periodTime : null;
+    this.periodTime = config ? new Period(config.periodTime) : null;
     this.dateCreated = config ? config.dateCreated : null;
     this.dateCreatedD = config ? new Date(config.dateCreated) : null;
     this.dateChanged = config ? config.dateChanged : null;

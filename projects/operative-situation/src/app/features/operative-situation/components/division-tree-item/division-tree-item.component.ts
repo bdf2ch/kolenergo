@@ -4,9 +4,8 @@ import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
 import { IApplicationState } from '../../../../ngrx';
-import {selectNestedDivisionsByDivisionId, selectSelectedDivision} from '../../ngrx/selectors';
-import {IDivision} from '../../../../interfaces';
-import {SelectDivision} from '../../ngrx';
+import { selectNestedDivisionsByDivisionId, selectSelectedDivision, SelectDivision } from '../../ngrx';
+import { IDivision } from '../../../../interfaces';
 
 @Component({
   selector: 'app-division-tree-item',
@@ -17,6 +16,7 @@ export class DivisionTreeItemComponent implements OnInit {
   @Input() division: IDivision;
   public nestedDivisions$: Observable<IDivision[]>;
   public selectedDivision$: Observable<IDivision>;
+  private selectedDivision: IDivision;
   public isExpanded: boolean;
   public isSelected: boolean;
 
@@ -24,6 +24,9 @@ export class DivisionTreeItemComponent implements OnInit {
     this.isExpanded = false;
     this.isSelected = false;
     this.selectedDivision$ = this.store.pipe(select(selectSelectedDivision));
+    this.selectedDivision$.subscribe((value: IDivision) => {
+      this.selectedDivision = value;
+    });
   }
 
   ngOnInit() {
@@ -35,18 +38,11 @@ export class DivisionTreeItemComponent implements OnInit {
    * Выбор структурного подразделения, а также открытие/закрытие дочерних структурных подразделений
    */
   select() {
-    console.log(this.division.title, this.isSelected);
-    if (!this.isExpanded) {
-      this.isExpanded = true;
-      if (!this.isSelected) {
-        this.isSelected = true;
-        this.store.dispatch(new SelectDivision(this.division));
-      } else {
-        this.isSelected = false;
-      }
+    if (this.division === this.selectedDivision) {
+      this.isExpanded = !this.isExpanded;
     } else {
-      this.isExpanded = false;
+      this.store.dispatch(new SelectDivision(this.division));
+      this.isExpanded = true;
     }
   }
-
 }

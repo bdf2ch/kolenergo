@@ -6,6 +6,7 @@ import { IWeatherSummary } from './weather-summary.interface';
  */
 export interface IReport {
   id?: number;                                    // Идентификатор записи
+  companyId: number;
   company?: ICompany;                             // Данные об организации
   divisionId?: number;
   user?: IUser;                                    // Данные пользователя, создавшего запись

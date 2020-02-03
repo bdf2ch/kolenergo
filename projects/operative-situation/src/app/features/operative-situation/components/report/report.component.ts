@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 import { IApplicationState, } from '../../../../ngrx';
 import { Report} from '../../../../models';
 import { ReportAddDialogComponent } from '../report-add-dialog/report-add-dialog.component';
-import { selectSelectedReport } from '../../ngrx/selectors';
+import {selectSelectedDivision, selectSelectedReport} from '../../ngrx/selectors';
+import {IDivision} from '../../../../interfaces';
 
 @Component({
   selector: 'app-report',
@@ -15,6 +16,7 @@ import { selectSelectedReport } from '../../ngrx/selectors';
   styleUrls: ['./report.component.less']
 })
 export class ReportComponent implements OnInit {
+  public selectedDivision$: Observable<IDivision>;
   public selectedReport$: Observable<Report>;
 
   constructor(
@@ -23,6 +25,7 @@ export class ReportComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.selectedDivision$ = this.store.pipe(select(selectSelectedDivision));
     this.selectedReport$ = this.store.pipe(select(selectSelectedReport));
   }
 

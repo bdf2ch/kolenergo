@@ -1,23 +1,41 @@
+@expander-icon-margin-right: 10px;
+@expander-icon-font-size: 12px;
+@expander-icon-font-color: #00796b;
+
 @division-title-font-family: 'Open Sans Light';
 @division-title-font-size: 16px;
 @division-title-font-color: #78909c;
 @division-title-font-color-hover: #546e7a;
 @division-title-font-color-selected: #37474f;
 @division-title-line-height: @division-title-font-size;
-@nested-divisions-margin-left: 20px;
+
+@nested-divisions-margin-left: 30px;
 @nested-divisions-margin-top: 5px;
 
 .division-tree-item {
   display: flex;
   flex-direction: column;
 
+  .expander-and-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    i {
+      margin-right: @expander-icon-margin-right;
+      font-size: @expander-icon-font-size;
+      color: @expander-icon-font-color;
+    }
+  }
+
   .division-title {
     font-family: @division-title-font-family;
     font-size: @division-title-font-size;
     line-height: @division-title-line-height;
     color: @division-title-font-color;
-    padding-top: 4px;
-    padding-bottom: 4px;
     cursor: pointer;
 
     &:hover {

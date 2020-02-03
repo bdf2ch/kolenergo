@@ -1,9 +1,13 @@
 <div class="division-tree-item">
-  <span class="division-title"
-        [ngClass]="{'selected': (selectedDivision$ | async) === division}"
-        (click)="select()">
+  <div class="expander-and-title">
+    <i class="fas fa-caret-down" *ngIf="!isExpanded && (nestedDivisions$ | async).length > 0"></i>
+    <i class="fas fa-caret-right" *ngIf="isExpanded && (nestedDivisions$ | async).length > 0"></i>
+    <span class="division-title"
+          [ngClass]="{'selected': (selectedDivision$ | async) === division}"
+          (click)="select()">
     {{division.title}}
   </span>
+  </div>
   <ng-container *ngIf="(nestedDivisions$ | async).length > 0 && isExpanded">
     <div class="nested-divisions">
       <app-division-tree-item

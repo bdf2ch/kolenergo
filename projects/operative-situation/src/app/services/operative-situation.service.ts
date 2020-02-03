@@ -5,7 +5,8 @@ import { map } from 'rxjs/operators';
 
 import { IServerResponse } from '@kolenergo/core';
 import { OperativeSituationResource } from '../resources/reports.resource';
-import { IAppInitData, IReportSummary } from '../interfaces';
+import {IAppInitData, IReport, IReportSummary} from '../interfaces';
+import {Report} from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,17 @@ export class OperativeSituationService {
    */
   getReports(companyId: number = 0, divisionId: number = 0): Observable<IServerResponse<IReportSummary>> {
     return from(this.resource.getReports(null, {companyId, divisionId}, null))
+      .pipe(
+        map((response: IServerResponse<IReportSummary>) => response)
+      );
+  }
+
+  /**
+   * Добавление отчета об оперативной обстановке
+   * @param report - Добавляемый отчет об оперативной обстановке
+   */
+  addReport(report: Report): Observable<IServerResponse<IReportSummary>> {
+    return from(this.resource.addReport(report, null, null))
       .pipe(
         map((response: IServerResponse<IReportSummary>) => response)
       );

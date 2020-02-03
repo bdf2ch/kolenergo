@@ -10,6 +10,7 @@ import { FormStepComponent } from '../form-step/form-step.component';
 export class FormWithStepsComponent implements OnInit {
   @Input() caption: string;
   @Input() actionTitle: string;
+  @Input() actionDisabled: boolean;
   @Output() action: EventEmitter<any>;
   public steps: FormStepComponent[];
 

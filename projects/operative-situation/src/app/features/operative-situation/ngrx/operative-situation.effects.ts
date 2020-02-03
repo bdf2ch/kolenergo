@@ -18,7 +18,7 @@ import {
   LoadReportsByDivisionFail,
   LoadReportsByCompanySuccess,
   LoadReportsByCompanyFail,
-  LoadReportsByCompany
+  LoadReportsByCompany, AddReport, AddReportSuccess, AddReportFail
 } from './operative-situation.actions';
 import { OperativeSituationService } from '../../../services/operative-situation.service';
 import { IApplicationState } from '../../../ngrx';
@@ -114,6 +114,26 @@ export class OperativeSituationEffects {
         catchError(() => of(new LoadReportsByCompanyFail()))
       )
     )
+  );
+
+  @Effect()
+  addReport$ = this.actions$.pipe(
+    ofType(OperativeSituationActionTypes.ADD_REPORT),
+    mergeMap((action) => this.osr.addReport((action as AddReport).payload)
+      .pipe(
+        map((response: IServerResponse<IReportSummary>) => new AddReportSuccess(response)),
+        catchError(() => of(new AddReportFail()))
+      )
+    )
+  );
+
+  @Effect()
+  AddReportSuccess$ = this.actions$.pipe(
+    ofType(OperativeSituationActionTypes.ADD_REPORT_SUCCESS),
+    tap(() => {
+      this.dialog.getDialogById('add-report-dialog').close();
+    }),
+    mergeMap(() => EMPTY)
   );
 
   @Effect()

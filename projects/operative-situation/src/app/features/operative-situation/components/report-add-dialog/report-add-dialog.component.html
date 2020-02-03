@@ -1,4 +1,8 @@
-<app-form-with-steps [caption]="'Отчет об оперативной обстановке на ' +  (selectedPeriod$ | async)?.time" [actionTitle]="'Опубликовать отчет'">
+<app-form-with-steps
+  [caption]="'Отчет об оперативной обстановке на ' +  (selectedPeriod$ | async)?.time"
+  (action)="addReport()"
+  [actionDisabled]="equipment35150Form.invalid || equipmentNetworkForm.invalid || resourcesForm.invalid || violationsForm.invalid"
+  [actionTitle]="'Опубликовать отчет'">
   <app-form-step
     [caption]="'Оборудование 35-150 кВ'"
     [description]="'Оборудование и последствия'"
@@ -225,16 +229,102 @@
     [caption]="'Нарушения'"
     [description]="'Технологические нарушения'"
     [icon]="'fas fa-exclamation-circle'"
-    [isInvalid]="true">
-    ouiou
-  </app-form-step>
+    [isInvalid]="violationsForm.invalid">
+    <form [formGroup]="violationsForm">
 
-  <app-form-step
-    [caption]="'Погодные условия'"
-    [description]="'Режим РПГ/ОРР'"
-    [icon]="'far fa-snowflake'"
-    [isInvalid]="true">
-    ouiou
+      <fieldset class="mb-3">
+        <legend>Основная сеть 35 кВ и выше</legend>
+        <div class="container-fluid">
+          <div class="row no-gutters">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Всего 6 кВ и выше</mat-label>
+                <input matInput type="number" formControlName="violations_total_6">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>УАПВ</mat-label>
+                <input matInput type="number" formControlName="violations_uapv_35">
+              </mat-form-field>
+            </div>
+            <div class="col-4">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>НАПВ</mat-label>
+                <input matInput type="number" formControlName="violations_napv_35">
+              </mat-form-field>
+            </div>
+            <div class="col-4">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>С обесточ.</mat-label>
+                <input matInput type="number" formControlName="violations_power_off_35">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>ЛЭП р/с</mat-label>
+                <input matInput type="number" formControlName="violations_lep_rs">
+              </mat-form-field>
+            </div>
+
+            <div class="col-6">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>ТН с погаш.</mat-label>
+                <input matInput type="number" formControlName="violations_tn_cancel">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+
+      <fieldset class="mb-3">
+        <legend>Сеть 0,4 кВ</legend>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-4">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>С 6-00</mat-label>
+                <input matInput type="number" formControlName="violations_from_6_04">
+              </mat-form-field>
+            </div>
+            <div class="col-4">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Отключены на срез</mat-label>
+                <input matInput type="number" formControlName="violations_power_off_04">
+              </mat-form-field>
+            </div>
+            <div class="col-4">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Более 3 часов</mat-label>
+                <input matInput type="number" formControlName="violations_greater_3_04">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>По сети 0,4 кВ на срез</mat-label>
+                <input matInput type="number" formControlName="violations_population_srez_o4">
+              </mat-form-field>
+            </div>
+            <div class="col-6">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>По сети 0,4 кВ (более 3 часов)</mat-label>
+                <input matInput type="number" formControlName="violations_population_greater_3_04">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+    </form>
   </app-form-step>
 
 </app-form-with-steps>

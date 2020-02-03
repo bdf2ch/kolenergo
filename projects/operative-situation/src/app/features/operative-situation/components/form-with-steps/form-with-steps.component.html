@@ -26,6 +26,7 @@
       <button class="w-100 pt-2 pb-2"
               mat-raised-button
               color="primary"
+              [disabled]="actionDisabled"
               (click)="processForm()">
         {{actionTitle}}
       </button>
