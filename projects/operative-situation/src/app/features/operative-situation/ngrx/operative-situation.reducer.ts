@@ -42,8 +42,8 @@ export function reducer(
         periods: action.payload.data.periods.map((item: IPeriod) => new Period(item)),
         reports: new ReportSummary(action.payload.data.reports),
         selectedCompany: action.payload.data.user ? new Company(action.payload.data.user.company) : null,
-        selectedReport: action.payload.data.reports[new Period(action.payload.data.periods[0]).time]
-          ? new Report(action.payload.data.reports[new Period(action.payload.data.periods[0]).time])
+        selectedReport: action.payload.data.reports.reports[new Period(action.payload.data.periods[0]).time]
+          ? new Report(action.payload.data.reports.reports[new Period(action.payload.data.periods[0]).time])
           : null,
         selectedDivision: null,
         selectedPeriod: new Period(action.payload.data.periods[0])

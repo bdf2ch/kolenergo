@@ -21,47 +21,59 @@
   .periods-and-consumption {
     display: flex;
     flex-direction: row;
+    align-items: flex-end;
 
     .period {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       justify-content: center;
       align-items: center;
       width: @period-width;
       height: @period-height;
+      padding-left: 10px;
+      padding-right: 10px;
       font-family: @period-font-family;
       font-size: @period-font-size;
-      color: @period-font-color;
+      color: #b0bec5;
       border: @period-border;
-      border-top: none;
-      border-right: @period-border-right;
-      border-top-left-radius: 2px;
-      border-bottom-left-radius: 2px;
+      border-right: 1px solid transparent;
+      border-bottom: @period-border-right;
+      border-top-left-radius: 2.5px;
+      border-top-right-radius: 2.5px;
       cursor: pointer;
-      transition: border linear 0.1s;
 
       &:first-of-type {
-        border-top: @period-border;
+        // border-top: @period-border;
+      }
+
+      &:last-of-type {
+        border-right: 1px solid @period-border;
+      }
+
+      &.with-data {
+        color: @period-font-color;
       }
 
       &.selected {
-        font-size: @period-font-size-selected;
+        // font-size: @period-font-size-selected;
         border-left: @period-border-right;
         border-top: @period-border-right;
         border-right: @period-border-right;
-        border-top-left-radius: 2px;
-        border-top-right-radius: 2px;
+        border-bottom: 1px solid transparent;
+        // border-top-left-radius: 2px;
+        // border-top-right-radius: 2px;
         // background: @period-background-color-selected;
+      }
+
+      i {
+        margin-right: 10px;
+        font-size: 16px;
       }
 
       .mat-icon {
         //width: 25px;
         //height: 25px;
         font-size: 35px;
-      }
-
-      .fa {
-        font-size: 23px;
       }
     }
   }

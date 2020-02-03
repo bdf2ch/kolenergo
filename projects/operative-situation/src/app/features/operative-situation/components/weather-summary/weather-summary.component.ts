@@ -15,6 +15,7 @@ import { selectSelectedReport } from '../../ngrx/selectors';
 })
 export class WeatherSummaryComponent implements OnInit {
   @Input() weatherSummary: WeatherSummary;
+  @Input() showMode: boolean;
   public selectedReport$: Observable<Report>;
 
   constructor(private readonly store: Store<IApplicationState>) {}

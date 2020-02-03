@@ -120,7 +120,6 @@ export const selectSelectedReport = createSelector(
   (state: IOperativeSituationState) => state.selectedReport
 );
 
-
 /**
  * Селектор текущей поголдоной сводке по текущему отчету об оперативной обстановке
  */

@@ -13,7 +13,7 @@ export class Report extends Backup implements IReport {
   // company: ICompany;
   user: User;
   periodDate: string;
-  periodTime: IPeriod | any;
+  periodTime: string;
   dateCreated: number;
   dateCreatedD: Date;
   dateChanged: number;
@@ -65,8 +65,8 @@ export class Report extends Backup implements IReport {
   };
   violations: {
     total_6: number,
-    uapv_35: number;
-    napv_35: number;
+    uapv_35: number,
+    napv_35: number,
     power_off_35: number,
     lep_rs: number,
     tn_cancel: number,
@@ -90,7 +90,7 @@ export class Report extends Backup implements IReport {
     this.divisionId = config ? config.divisionId : null;
     this.user = config ? new User(config.user) : null;
     this.periodDate = config ? config.periodDate : null;
-    this.periodTime = config ? new Period(config.periodTime) : null;
+    this.periodTime = config ? config.periodTime : null;
     this.dateCreated = config ? config.dateCreated : null;
     this.dateCreatedD = config ? new Date(config.dateCreated) : null;
     this.dateChanged = config ? config.dateChanged : null;
