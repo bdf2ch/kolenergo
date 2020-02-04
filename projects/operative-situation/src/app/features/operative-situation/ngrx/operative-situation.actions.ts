@@ -1,8 +1,8 @@
 import { Action } from '@ngrx/store';
 
 import { ICompany, IServerResponse } from '@kolenergo/core';
-import {IAppInitData, IDivision, IPeriod, IReport, IReportSummary} from '../../../interfaces';
-import { Report } from '../../../models';
+import {IAppInitData, IConsumption, IDivision, IPeriod, IReport, IReportSummary} from '../../../interfaces';
+import {Consumption, Report} from '../../../models';
 
 /**
  * Типы действий в разделе отчетов по оперативной обстановке
@@ -21,6 +21,9 @@ export enum OperativeSituationActionTypes {
   ADD_REPORT = '[OSR API] Add report',
   ADD_REPORT_SUCCESS = '[OSR API] Report added successfully',
   ADD_REPORT_FAIL = '[OSR API] Failed to add report',
+  ADD_CONSUMPTION = '[OSR API] Add consumption report',
+  ADD_CONSUMPTION_SUCCESS = '[OSR API] Consumption report added successfully',
+  ADD_CONSUMPTION_FAIL = '[OSR API] Failed to add consumption report',
   SELECT_COMPANY = '[Application] Select current company',
   SELECT_DIVISION = '[Application] Select current division',
   SELECT_PERIOD = '[Application] Select time period',
@@ -124,6 +127,29 @@ export class AddReportFail implements Action {
 }
 
 /**
+ * Добавление отчета о масимальном потреблении за сутки
+ */
+export class AddConsumptionReport implements Action {
+  readonly type = OperativeSituationActionTypes.ADD_CONSUMPTION;
+  constructor(public payload: Consumption) {}
+}
+
+/**
+ * Добавление отчета о максимальном потреблении за сутки выполенно успешно
+ */
+export class AddConsumptionReportSuccess implements Action {
+  readonly type = OperativeSituationActionTypes.ADD_CONSUMPTION_SUCCESS;
+  constructor(public payload: IServerResponse<IConsumption>) {}
+}
+
+/**
+ * Добавление отчета о максимальном потреблении за сутки не выполнено
+ */
+export class AddConsumptionReportFail implements Action {
+  readonly type = OperativeSituationActionTypes.ADD_CONSUMPTION_FAIL;
+}
+
+/**
  * Выбор текущей организации
  */
 export class SelectCompany implements Action {
@@ -172,6 +198,9 @@ export type OperativeSituationActions =
   AddReport |
   AddReportSuccess |
   AddReportFail |
+  AddConsumptionReport |
+  AddConsumptionReportSuccess |
+  AddConsumptionReportFail |
   SelectCompany |
   SelectDivision |
   SelectPeriod |

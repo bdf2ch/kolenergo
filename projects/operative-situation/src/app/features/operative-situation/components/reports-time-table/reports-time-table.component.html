@@ -15,6 +15,7 @@
     </div>
   </div>
   <div class="report">
-    <app-report></app-report>
+    <app-report *ngIf="!inConsumptionMode"></app-report>
+    <app-consumption *ngIf="inConsumptionMode"></app-consumption>
   </div>
 </div>

@@ -227,7 +227,7 @@
 
   <app-form-step
     [caption]="'Нарушения'"
-    [description]="'Технологические нарушения'"
+    [description]="'Сеть 35 кВ и сеть 0,4 кВ'"
     [icon]="'fas fa-exclamation-circle'"
     [isInvalid]="violationsForm.invalid">
     <form [formGroup]="violationsForm">
@@ -258,7 +258,7 @@
             </div>
             <div class="col-4">
               <mat-form-field appearance="fill" class="w-100">
-                <mat-label>С обесточ.</mat-label>
+                <mat-label>С обесточиванием</mat-label>
                 <input matInput type="number" formControlName="violations_power_off_35">
               </mat-form-field>
             </div>
@@ -274,7 +274,7 @@
 
             <div class="col-6">
               <mat-form-field appearance="fill" class="w-100">
-                <mat-label>ТН с погаш.</mat-label>
+                <mat-label>ТН с погашением</mat-label>
                 <input matInput type="number" formControlName="violations_tn_cancel">
               </mat-form-field>
             </div>

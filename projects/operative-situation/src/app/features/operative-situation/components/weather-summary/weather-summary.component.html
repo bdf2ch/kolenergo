@@ -2,13 +2,13 @@
   <table>
     <thead>
       <th>Населенный<br>пункт</th>
-      <th class="text-center">Темп.,<br> C&deg;</th>
+      <th class="text-center">Темп.,<br>C&deg;</th>
       <th class="text-center">Ветер,<br>м/с</th>
       <th class="pl-3">Осадки</th>
       <th></th>
       <th class="pl-3 text-center" *ngIf="showMode">Режим ОРР/РПГ</th>
     </thead>
-    <tbody>
+    <tbody *ngIf="weatherSummary">
     <tr *ngFor="let location of weatherSummary.locations; let i = index;">
       <td>{{location.title}}</td>
       <td class="text-center">{{location.weather.temperature}}</td>

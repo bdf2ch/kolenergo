@@ -1,7 +1,7 @@
 <div class="division-tree-item">
   <div class="expander-and-title">
-    <i class="fas fa-caret-down" *ngIf="!isExpanded && (nestedDivisions$ | async).length > 0"></i>
-    <i class="fas fa-caret-right" *ngIf="isExpanded && (nestedDivisions$ | async).length > 0"></i>
+    <i class="fas fa-caret-right" *ngIf="!isExpanded && (nestedDivisions$ | async).length > 0"></i>
+    <i class="fas fa-caret-down" *ngIf="isExpanded && (nestedDivisions$ | async).length > 0"></i>
     <span class="division-title"
           [ngClass]="{'selected': (selectedDivision$ | async) === division}"
           (click)="select()">

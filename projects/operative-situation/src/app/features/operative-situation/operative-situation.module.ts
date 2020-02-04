@@ -29,6 +29,7 @@ import { environment } from '../../../environments/environment';
 import { ReportComponent } from './components/report/report.component';
 import { WeatherSummaryComponent } from './components/weather-summary/weather-summary.component';
 import { IndicatorComponent } from './components/indicator/indicator.component';
+import { ConsumptionComponent } from './components/consumption/consumption.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { IndicatorComponent } from './components/indicator/indicator.component';
     // ReportAddDialogComponent,
     ReportComponent,
     WeatherSummaryComponent,
-    IndicatorComponent
+    IndicatorComponent,
+    ConsumptionComponent
   ],
   imports: [
     CommonModule,

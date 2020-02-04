@@ -1,32 +1,26 @@
-// import { Backup } from '@kolenergo/cpa';
-import { IUser, Backup, ICompany, Company, User } from '@kolenergo/core';
 import { IConsumption } from '../interfaces';
 
 /**
- * Класс, реализующий интерфейс маскимального потребления за прошедшие сутки
+ * Класс, реализующий интерфейс отчета о маскимальном потреблении за прошедшие сутки
  */
-export class Consumption extends Backup implements IConsumption {
+export class Consumption implements IConsumption {
   id: number;             // Идентификатор
-  date: string;           // Дата
-  company: ICompany;      // Организация
-  user: IUser;            // Пользователь
+  companyId: number;      // Идентификатор организации
+  divisionId: number;     // Идентификатор структурного подразделения
+  userId: number;         // Пользователь
+  date: string;           // Дата отчета
   consumption: number;    // Потребление
-  dateCreated: Date;      // Дата создания
-  dateChanged: Date;      // Дата изменения
 
   /**
    * Конструктор
    * @param config - Параметры инициализации
    */
   constructor(config?: IConsumption) {
-    super();
     this.id = config ? config.id : null;
+    this.companyId = config ? config.companyId : null;
+    this.userId = config ? config.userId : null;
     this.date = config ? config.date : null;
-    this.company = config ? new Company(config.company) : null;
-    this.user = config ? new User(config.user) : null;
-    this.consumption = config ? config.consumption : null;
-    this.dateCreated = config ? new Date(config.dateCreated) : null;
-    this.dateChanged = config ? new Date(config.dateChanged) : null;
+    this.consumption = config ? config.consumption : 0;
   }
 }
 
