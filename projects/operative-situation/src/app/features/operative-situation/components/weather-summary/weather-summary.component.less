@@ -4,10 +4,10 @@
 
 @weather-summary-font-family: 'Open Sans Light';
 @weather-summary-header-font-size: 13px;
-@weather-summary-header-line-height: 14px;
-@weather-summary-header-font-color: #78909c;
+@weather-summary-header-line-height: 13px;
+@weather-summary-header-font-color: #90a4ae;
 @weather-summary-locations-font-size: 15px;
-@weather-summary-locations-font-color: #546e7a;
+@weather-summary-locations-font-color: #37474f;
 
 .weather-summary {
   padding: 20px;
@@ -21,33 +21,51 @@
 
     thead {
       th {
-        padding-bottom: 20px;
+        padding-bottom: 26px;
         font-size: @weather-summary-header-font-size;
         line-height: @weather-summary-header-line-height;
         font-weight: normal;
         vertical-align: top;
         color: @weather-summary-header-font-color;
+        // border-bottom: 1px solid #b0bec5;
+
+        //&:first-of-type {
+        //  padding-top: 10px;
+       // }
       }
     }
 
     tbody {
+      padding-top: 10px;
       tr {
-        border-bottom: 1px solid #eceff1;
+        // border-bottom: 1px solid #eceff1;
+        padding-left: 10px;
 
         &:last-of-type {
           border-bottom: none;
+        }
+
+        &:nth-child(odd) {
+          background: #fafafa;
         }
 
         td {
           font-size: @weather-summary-locations-font-size;
           color: @weather-summary-locations-font-color;
 
+          &:first-of-type {
+            padding-left: 10px;
+          }
+
           img {
             width: 35px;
           }
 
           &.weather-mode {
-            font-size: 30px;
+            font-family: 'Open Sans Light';
+            font-size: 25px;
+            text-transform: uppercase;
+            background: white;
           }
         }
       }

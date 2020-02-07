@@ -1,12 +1,12 @@
 @period-width: 14.28%;
-@period-height: 55px;
+@period-height: 60px;
 @period-font-family: 'Open Sans Regular';
-@period-font-size: 14px;
-@period-font-size-selected: 16px;
+@period-font-size: 13px;
+@period-font-size-selected: 13px;
 @period-font-color: #546e7a;
 @period-background-color-selected: #e0e0e0;
 @period-border: 1px solid #e0e0e0;
-@period-border-right: 1px solid #b0bec5;
+@period-border-right: 1px solid #D8DDDB;
 
 :host {
   display: block;
@@ -25,7 +25,7 @@
 
     .period {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       width: @period-width;
@@ -34,21 +34,19 @@
       padding-right: 10px;
       font-family: @period-font-family;
       font-size: @period-font-size;
+      text-transform: uppercase;
+      line-height: @period-font-size;
       color: #b0bec5;
-      border: @period-border;
-      border-right: 1px solid transparent;
+      background: rgba(222, 227, 225, 0.4);
+      border-right: @period-border-right;
       border-bottom: @period-border-right;
-      border-top-left-radius: 2.5px;
-      border-top-right-radius: 2.5px;
+      border-top: 2px solid transparent;
       cursor: pointer;
 
       &:first-of-type {
-        // border-top: @period-border;
+        border-left: @period-border;
       }
 
-      &:last-of-type {
-        border-right: 1px solid @period-border;
-      }
 
       &.with-data {
         color: @period-font-color;
@@ -56,18 +54,25 @@
 
       &.selected {
         // font-size: @period-font-size-selected;
+        color: #009688;
         border-left: @period-border-right;
-        border-top: @period-border-right;
+        border-top: 2px solid #009688;
         border-right: @period-border-right;
         border-bottom: 1px solid transparent;
         // border-top-left-radius: 2px;
         // border-top-right-radius: 2px;
-        // background: @period-background-color-selected;
+        background: transparent;
+
+        i {
+          color: #009688;
+        }
       }
 
       i {
-        margin-right: 10px;
-        font-size: 16px;
+        // margin-right: 10px;
+        margin-bottom: 5px;
+        font-size: 20px;
+        color: #C4C9C9;
       }
 
       .mat-icon {
@@ -80,5 +85,56 @@
 
   .report {
     flex: 1;
+
+    .semi-periods {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #D8DDDB;
+
+      .label {
+        font-family: 'open Sans Light';
+        font-size: 14px;
+        text-transform: uppercase;
+        color: #78909c;
+      }
+
+      .tags {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        margin-left: 20px;
+
+        .tag {
+          margin-right: 10px;
+          padding: 5px 15px;
+          font-family: 'Open Sans Regular';
+          font-size: 15px;
+          color: #b0bec5;
+          border: 1px solid #b0bec5;
+          border-radius: 2.5px;
+          cursor: pointer;
+
+          &:last-of-type {
+            margin-right: 0px;
+          }
+
+          &:hover {
+            color: #90a4ae;
+            border-color: #90a4ae;
+          }
+
+          &.selected {
+            color: #009688;
+            border-color: #009688;
+          }
+        }
+      }
+    }
   }
 }

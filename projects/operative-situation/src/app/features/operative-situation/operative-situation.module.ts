@@ -30,6 +30,7 @@ import { ReportComponent } from './components/report/report.component';
 import { WeatherSummaryComponent } from './components/weather-summary/weather-summary.component';
 import { IndicatorComponent } from './components/indicator/indicator.component';
 import { ConsumptionComponent } from './components/consumption/consumption.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ConsumptionComponent } from './components/consumption/consumption.compo
     ReportComponent,
     WeatherSummaryComponent,
     IndicatorComponent,
-    ConsumptionComponent
+    ConsumptionComponent,
+    TimelineComponent
   ],
   imports: [
     CommonModule,

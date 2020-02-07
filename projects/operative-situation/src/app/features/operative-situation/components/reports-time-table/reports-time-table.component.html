@@ -1,11 +1,11 @@
 <div class="reports-time-table">
   <div class="periods-and-consumption">
     <div class="period"
-         *ngFor="let period of (periods$ | async)"
+         *ngFor="let period of (periods$ | async); let i = index"
          [ngClass]="{'selected': (selectedPeriod$ | async)?.time === period.time && !inConsumptionMode, 'with-data': getReportByPeriod(period) === true}"
          (click)="selectPeriod(period)">
       <i class="far fa-clock"></i>
-      {{period.time}}
+      {{period.interval}}
     </div>
     <div class="period"
          [ngClass]="{'selected': inConsumptionMode, 'with-data': (selectedReport$ | async)?.consumption}"
@@ -15,6 +15,17 @@
     </div>
   </div>
   <div class="report">
+    <div class="semi-periods mb-4">
+      <span class="label">Промежуточные отчеты</span>
+      <div class="tags">
+        <span class="tag">00:30</span>
+        <span class="tag">01:00</span>
+        <span class="tag">01:30</span>
+        <span class="tag selected">02:00</span>
+        <span class="tag">02:30</span>
+      </div>
+    </div>
+    <!-- <app-timeline class="mt-5"></app-timeline> -->
     <app-report *ngIf="!inConsumptionMode"></app-report>
     <app-consumption *ngIf="inConsumptionMode"></app-consumption>
   </div>
