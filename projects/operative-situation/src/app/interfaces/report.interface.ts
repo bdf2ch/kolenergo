@@ -5,10 +5,11 @@ import { IWeatherSummary } from './weather-summary.interface';
  * Интерфейс, описывающий отчет об оперативной обстановке
  */
 export interface IReport {
-  id?: number;                                    // Идентификатор записи
+  id?: number;                                     // Идентификатор записи
   companyId: number;
-  company?: ICompany;                             // Данные об организации
+  company?: ICompany;                              // Данные об организации
   divisionId?: number;
+  periodId: number;                                // Идентификатор временного периода
   user?: IUser;                                    // Данные пользователя, создавшего запись
   periodDate: string;                              // Дата сводки оперативной ситуации
   periodTime: string;                              // Время сводки оперативной ситуации
@@ -20,7 +21,7 @@ export interface IReport {
   ps_35_count?: number;                            // Количество отключенных ПС 35 кВ
   tp_6_20_count_effect_35_150?: number;            // Последствие для потребителе по сети 35-150 кВ - ТП 6-20 Кв.
   population_count_effect_35_150?: number;         // Последствия для потребителей по сети 35-150 кВ - население
-  power_effect_35_150?: number;                    // Последствия дял потребителей по сети 35-150 кВ - нагрузка
+  power_effect_35_150?: number;                    // Последствия для потребителей по сети 35-150 кВ - нагрузка
   szo_count_effect_35_150?: number;                // Последствия для потребителей по сети 35-150 кВ - количество СЗО
   lep_6_20_count?: number;                         // Количество отключенных ЛЭП 20 кВ
   tp_6_20_count?: number;                          // Количество отключенных ТП 6-20 кВ
@@ -44,7 +45,7 @@ export interface IReport {
   violations_35_napv?: number;                     // Нарушений в основной сети 35 кВ и выше - НАПВ
   violations_35_power_off?: number;                // Нарушений в основной сети 35 кВ и выше - с обесточиванием
   violations_lep_rs?: number;                      // Нарушений ЛЭП р/с
-  violations_tn_cancel?: number;                  // Технологических нарушений с погашением
+  violations_tn_cancel?: number;                   // Технологических нарушений с погашением
   violations_04_from_6?: number;                   // Нарушений в сети 0,4 кВ с 6-00
   violations_04_power_off?: number;                // Отключенных на срез в сети 0,4 кВ
   violations_04_greater_3?: number;                // Нарушений в сети 0,4 кВ более 3 часов
@@ -52,5 +53,5 @@ export interface IReport {
   violations_population_04_greater_3?: number;     // Население в сети 0,4 кВ более 3 часов
   // consumption: number;                            // Максимум потребления за прошедшие сутки
   // consumption: IOperativeSituationConsumption;    // Максимум потребления за прошедшие сутки
-  weatherSummary?: IWeatherSummary;               // Погодная сводка
+  weatherSummary?: IWeatherSummary;                // Погодная сводка
 }

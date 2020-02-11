@@ -10,6 +10,7 @@ export class Report extends Backup implements IReport {
   id: number;
   companyId: number;
   divisionId: number;
+  periodId: number;
   // company: ICompany;
   user: User;
   periodDate: string;
@@ -88,6 +89,7 @@ export class Report extends Backup implements IReport {
     this.id = config ? config.id : null;
     this.companyId = config ? config.companyId : null;
     this.divisionId = config ? config.divisionId : null;
+    this.periodId = config ? config.periodId : null;
     this.user = config ? new User(config.user) : null;
     this.periodDate = config ? config.periodDate : null;
     this.periodTime = config ? config.periodTime : null;
