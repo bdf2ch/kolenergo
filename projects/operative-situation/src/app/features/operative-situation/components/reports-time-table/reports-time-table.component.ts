@@ -3,11 +3,20 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
-import { IPeriod } from '../../../../interfaces';
+import {IDivision, IPeriod} from '../../../../interfaces';
 import { IApplicationState } from '../../../../ngrx';
-import {selectPeriods, selectReports, selectSelectedPeriod, selectSelectedReport} from '../../ngrx/selectors';
-import { SelectPeriod } from '../../ngrx';
-import {Period, Report, ReportSummary} from '../../../../models';
+import {
+  selectPeriods,
+  selectReports,
+  selectReportsTime,
+  selectSelectedDivision,
+  selectSelectedPeriod,
+  selectSelectedReport
+} from '../../ngrx/selectors';
+import {SelectPeriod, SelectTime} from '../../ngrx';
+import {Division, Period, Report, ReportSummary} from '../../../../models';
+import {MatDialog} from '@angular/material/dialog';
+import {ReportAddDialogComponent} from '../report-add-dialog/report-add-dialog.component';
 
 @Component({
   selector: 'app-reports-time-table',
@@ -18,11 +27,16 @@ export class ReportsTimeTableComponent implements OnInit {
   public periods$: Observable<IPeriod[]>;
   public selectedPeriod$: Observable<IPeriod>;
   public reports$: Observable<ReportSummary>;
-  private reports: ReportSummary;
   public selectedReport$: Observable<Report>;
+  public reportsTime$: Observable<string[]>;
+  public selectedDivision$: Observable<IDivision>;
+  private reports: ReportSummary;
   public inConsumptionMode: boolean;
 
-  constructor(private readonly store: Store<IApplicationState>) {
+  constructor(
+    private readonly dialog: MatDialog,
+    private readonly store: Store<IApplicationState>
+  ) {
     this.periods$ = this.store.pipe(select(selectPeriods));
     this.inConsumptionMode = false;
   }
@@ -30,10 +44,12 @@ export class ReportsTimeTableComponent implements OnInit {
   ngOnInit() {
     this.selectedPeriod$ = this.store.pipe(select(selectSelectedPeriod));
     this.reports$ = this.store.pipe(select(selectReports));
+    this.reportsTime$ = this.store.pipe(select(selectReportsTime));
+    this.selectedReport$ = this.store.pipe(select(selectSelectedReport));
+    this.selectedDivision$ = this.store.pipe(select(selectSelectedDivision));
     this.reports$.subscribe((value: ReportSummary) => {
       this.reports = value;
     });
-    this.selectedReport$ = this.store.pipe(select(selectSelectedReport));
   }
 
   /**
@@ -41,7 +57,7 @@ export class ReportsTimeTableComponent implements OnInit {
    * @param period - Временной период
    */
   getReportByPeriod(period: Period) {
-    return this.reports && this.reports.reports[period.time] !== null ? true : false;
+    return this.reports && this.reports.reports[period.interval] !== null ? true : false;
   }
 
   /**
@@ -58,6 +74,25 @@ export class ReportsTimeTableComponent implements OnInit {
    */
   selectConsumption() {
     this.inConsumptionMode = true;
+  }
+
+  /**
+   * Выбор времени отчета
+   * @param time - Время отчета
+   */
+  selectTime(time: string) {
+    this.store.dispatch(new SelectTime(time));
+  }
+
+  /**
+   * Открытие диалогового окна добавления отчета об оперативной обстановке
+   */
+  openAddReportDialog() {
+    this.dialog.open(ReportAddDialogComponent, {
+      id: 'add-report-dialog',
+      width: '850px',
+      panelClass: 'form-step-dialog'
+    });
   }
 
 }

@@ -15,15 +15,20 @@
     </div>
   </div>
   <div class="report">
-    <div class="semi-periods">
-      <!--<span class="label">Промежуточные отчеты</span>-->
+    <div class="semi-periods" *ngIf="(reportsTime$ | async).length > 0">
       <div class="tags">
-        <span class="tag">00:00</span>
-        <span class="tag">00:30</span>
-        <span class="tag">01:00</span>
-        <span class="tag">01:30</span>
-        <span class="tag selected">02:00</span>
-        <span class="tag">02:30</span>
+        <span class="tag"
+              *ngFor="let time of reportsTime$ | async"
+              [ngClass]="{'selected': time === (selectedReport$ | async)?.periodTime}"
+              (click)="selectTime(time)">
+          {{time}}
+        </span>
+        <button mat-flat-button
+                color="primary"
+                *ngIf="(selectedDivision$ | async)?.isReportsAllowed"
+                (click)="openAddReportDialog()">
+          Добавить отчет
+        </button>
       </div>
     </div>
     <app-report *ngIf="!inConsumptionMode"></app-report>

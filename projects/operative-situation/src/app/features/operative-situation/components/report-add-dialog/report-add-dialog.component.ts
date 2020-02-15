@@ -97,7 +97,7 @@ export class ReportAddDialogComponent implements OnInit {
     this.newReport.user = this.user;
     this.newReport.companyId = this.selectedDivision.companyId;
     this.newReport.divisionId = this.selectedDivision.id;
-    this.newReport.periodId = this.selectedPeriod.id;
+    // this.newReport.periodId = this.selectedPeriod.id;
     this.newReport.periodTime = this.selectedPeriod.time;
     this.newReport.equipment_35_150.lep_110_150 = this.equipment35150Form.controls.lep_110_150.value;
     this.newReport.equipment_35_150.lep_35 = this.equipment35150Form.controls.lep_35.value;

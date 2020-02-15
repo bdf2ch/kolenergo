@@ -5,9 +5,9 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { IApplicationState, } from '../../../../ngrx';
-import { Report} from '../../../../models';
+import {Report, WeatherSummary} from '../../../../models';
 import { ReportAddDialogComponent } from '../report-add-dialog/report-add-dialog.component';
-import {selectSelectedDivision, selectSelectedReport} from '../../ngrx/selectors';
+import {selectSelectedDivision, selectSelectedReport, selectSelectedReportWeatherSummary} from '../../ngrx/selectors';
 import {IDivision} from '../../../../interfaces';
 
 @Component({
@@ -18,6 +18,7 @@ import {IDivision} from '../../../../interfaces';
 export class ReportComponent implements OnInit {
   public selectedDivision$: Observable<IDivision>;
   public selectedReport$: Observable<Report>;
+  public selectedReportWeatherSummary: Observable<WeatherSummary>;
 
   constructor(
     private readonly dialog: MatDialog,
@@ -27,6 +28,7 @@ export class ReportComponent implements OnInit {
   ngOnInit() {
     this.selectedDivision$ = this.store.pipe(select(selectSelectedDivision));
     this.selectedReport$ = this.store.pipe(select(selectSelectedReport));
+    this.selectedReportWeatherSummary = this.store.pipe(select(selectSelectedReportWeatherSummary));
   }
 
   /**

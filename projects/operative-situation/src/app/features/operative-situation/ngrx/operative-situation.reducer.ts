@@ -42,9 +42,10 @@ export function reducer(
         periods: action.payload.data.periods.map((item: IPeriod) => new Period(item)),
         reports: new ReportSummary(action.payload.data.reports),
         selectedCompany: action.payload.data.user ? new Company(action.payload.data.user.company) : null,
-        selectedReport: action.payload.data.reports.reports[new Period(action.payload.data.periods[0]).time]
-          ? new Report(action.payload.data.reports.reports[new Period(action.payload.data.periods[0]).time])
-          : null,
+        // selectedReport: action.payload.data.reports.reports[new Period(action.payload.data.periods[0]).time]
+        //  ? new Report(action.payload.data.reports.reports[new Period(action.payload.data.periods[0]).time])
+        //  : null,
+        selectedReport: null,
         selectedDivision: null,
         selectedPeriod: new Period(action.payload.data.periods[0])
       };
@@ -69,8 +70,9 @@ export function reducer(
         ...state,
         isLoadingInProgress: false,
         reports: new ReportSummary(action.payload.data),
-        selectedReport: action.payload.data.reports[state.selectedPeriod.time]
-          ? new Report(action.payload.data.reports[state.selectedPeriod.time])
+        reportsTime: new ReportSummary(action.payload.data).getReportTimesByInterval(state.selectedPeriod.interval),
+        selectedReport: action.payload.data.reports[state.selectedPeriod.interval]
+          ? new ReportSummary(action.payload.data).getFirstReportOfInterval(state.selectedPeriod.interval)
           : null
       };
     }
@@ -94,9 +96,10 @@ export function reducer(
         ...state,
         isLoadingInProgress: false,
         reports: new ReportSummary(action.payload.data),
-        selectedReport: action.payload.data.reports[state.selectedPeriod.time]
-          ? new Report(action.payload.data.reports[state.selectedPeriod.time])
-          : null
+        // selectedReport: action.payload.data.reports[state.selectedPeriod.time]
+        //   ? new Report(action.payload.data.reports[state.selectedPeriod.time])
+        //   : null
+        selectedReport: null
       };
     }
 
@@ -119,9 +122,8 @@ export function reducer(
         ...state,
         isLoadingInProgress: false,
         reports: new ReportSummary(action.payload.data),
-        selectedReport: action.payload.data.reports[state.selectedPeriod.time]
-          ? new Report(action.payload.data.reports[state.selectedPeriod.time])
-          : null
+        reportsTime: new ReportSummary(action.payload.data).getReportTimesByInterval(state.selectedPeriod.interval),
+        selectedReport: null
       };
     }
 
@@ -150,10 +152,19 @@ export function reducer(
     case OperativeSituationActionTypes.SELECT_PERIOD: {
       return {
         ...state,
+        reportsTime: state.reports.getReportTimesByInterval(action.payload.interval),
         selectedPeriod: action.payload,
-        selectedReport: state.reports && state.reports.reports[action.payload.time]
-          ? state.reports.reports[action.payload.time]
-          : null
+        selectedReport: state.reports && state.reports.reports[action.payload.interval]
+          ? state.reports.getFirstReportOfInterval(action.payload.interval)
+          : null,
+        selectedReportWeatherSummary: state.reports.getWeatherSummaryByInterval(action.payload.interval)
+      };
+    }
+
+    case OperativeSituationActionTypes.SELECT_TIME: {
+      return {
+        ...state,
+        selectedReport: state.reports.getReportByIntervalAndTime(state.selectedPeriod.interval, action.payload)
       };
     }
 

@@ -27,6 +27,7 @@ export enum OperativeSituationActionTypes {
   SELECT_COMPANY = '[Application] Select current company',
   SELECT_DIVISION = '[Application] Select current division',
   SELECT_PERIOD = '[Application] Select time period',
+  SELECT_TIME = '[Application] Select report time',
   SELECT_REPORT = '[Application] Select report'
 }
 
@@ -174,6 +175,14 @@ export class SelectPeriod implements Action {
 }
 
 /**
+ * Выбор времени отчета
+ */
+export class SelectTime implements Action {
+  readonly type = OperativeSituationActionTypes.SELECT_TIME;
+  constructor(public payload: string) {}
+}
+
+/**
  * Выбор текущего отчета
  */
 export class SelectReport implements Action {
@@ -204,4 +213,5 @@ export type OperativeSituationActions =
   SelectCompany |
   SelectDivision |
   SelectPeriod |
+  SelectTime |
   SelectReport;

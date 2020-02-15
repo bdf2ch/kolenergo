@@ -24,6 +24,7 @@
           <div class="row">
             <div class="col-12">
 
+              <!--
               <div class="panel mat-elevation-z1 mb-3 justify-content-between">
                 <div class="d-flex flex-row">
                   <div class="panel-group">
@@ -111,6 +112,7 @@
                   </div>
                 </div>
               </div>
+              -->
 
 
               <table class="d-flex operative-situation-reports w-100 mat-elevation-z1">
@@ -271,7 +273,7 @@
             <div class="col">
               <span class="row-caption">Погодные условия</span>
               <app-weather-summary
-                [weatherSummary]="(selectedReport$ | async)?.weatherSummary"
+                [weatherSummary]="(selectedReportWeatherSummary | async)"
                 [showMode]="true">
               </app-weather-summary>
             </div>
