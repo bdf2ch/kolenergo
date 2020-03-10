@@ -8,7 +8,8 @@ import {
   MatIconModule,
   MatProgressBarModule,
   MatFormFieldModule,
-  MatInputModule
+  MatInputModule,
+  MatTooltipModule
 } from '@angular/material';
 
 import { StoreModule } from '@ngrx/store';
@@ -62,7 +63,8 @@ import { TimelineComponent } from './components/timeline/timeline.component';
     MatIconModule,
     MatProgressBarModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatTooltipModule
   ],
   exports: [
     // ReportAddDialogComponent

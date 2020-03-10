@@ -2,9 +2,8 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { IOperativeSituationState} from '../operative-situation.state';
 import { IApplicationState } from '../../../../ngrx';
-import {IDivision, IPeriod, IReport} from '../../../../interfaces';
-import {ICompany} from 'kolenergo-core/lib/interfaces';
-import {Report, ReportSummary} from "../../../../models";
+import { IDivision, IPeriod, IReport } from '../../../../interfaces';
+import { ICompany } from '@kolenergo/core';
 
 /**
  * Селектор раздела с отчетами по оперативной обстановке

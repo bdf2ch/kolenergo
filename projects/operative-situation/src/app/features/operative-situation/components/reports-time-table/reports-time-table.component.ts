@@ -81,7 +81,7 @@ export class ReportsTimeTableComponent implements OnInit {
    * @param time - Время отчета
    */
   selectTime(time: string) {
-    this.store.dispatch(new SelectTime(time));
+    // this.store.dispatch(new SelectTime({null, time}));
   }
 
   /**

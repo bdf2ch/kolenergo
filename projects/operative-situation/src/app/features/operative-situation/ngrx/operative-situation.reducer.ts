@@ -164,7 +164,8 @@ export function reducer(
     case OperativeSituationActionTypes.SELECT_TIME: {
       return {
         ...state,
-        selectedReport: state.reports.getReportByIntervalAndTime(state.selectedPeriod.interval, action.payload)
+        selectedPeriod: action.payload.period,
+        selectedReport: state.reports.getReportByIntervalAndTime(action.payload.period.interval, action.payload.time)
       };
     }
 

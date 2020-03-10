@@ -76,6 +76,8 @@ export class ReportSummary implements IReportSummary {
     return this.reports[interval] && this.reports[interval][time] ? this.reports[interval][time] as IReport : null;
   }
 
+  getReportBy
+
   getWeatherSummaryByInterval(interval: string): WeatherSummary | null {
     return this.reports[interval] ? this.reports[interval].weatherSummary as WeatherSummary : null;
   }

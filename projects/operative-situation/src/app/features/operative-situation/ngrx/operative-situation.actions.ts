@@ -179,7 +179,7 @@ export class SelectPeriod implements Action {
  */
 export class SelectTime implements Action {
   readonly type = OperativeSituationActionTypes.SELECT_TIME;
-  constructor(public payload: string) {}
+  constructor(public payload: {period: IPeriod, time: string}) {}
 }
 
 /**

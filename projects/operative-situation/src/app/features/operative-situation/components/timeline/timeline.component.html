@@ -1,6 +1,21 @@
 <div class="timeline">
-  <div class="line"></div>
-  <div class="marker-container">
-    <div class="marker" *ngFor="let marker of [1,2,3,4,5,6]"></div>
-  </div>
+ <div class="period" *ngFor="let period of periods | async">
+   <div class="marker"
+        [ngClass]="{'selected': (selectedPeriod$ | async)?.time === period.start && !(selectedReport$ | async), 'with-data': getReportByPeriodAndTime(period, period.start)}"
+        (click)="selectPeriodAndTime(period, period.start)">
+     <span class="label">{{period.start}}</span>
+   </div>
+   <div class="time-marks">
+     <span class="time-mark"
+           *ngFor="let mark of period.marks"
+           [ngClass]="{'selected': (selectedReport$ | async)?.periodTime === mark, 'with-data': getReportByPeriodAndTime(period, mark)}"
+           (click)="selectPeriodAndTime(period, mark)"
+           matTooltip="{{getReportByPeriodAndTime(period, mark) ? mark : null}}"
+           matTooltipPosition="above">
+     </span>
+   </div>
+   <div class="marker">
+     <span class="label">{{period.end}}</span>
+   </div>
+ </div>
 </div>

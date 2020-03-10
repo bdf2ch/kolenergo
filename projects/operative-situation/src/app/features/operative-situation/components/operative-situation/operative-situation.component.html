@@ -72,10 +72,20 @@
 
       <div class="row flex-fill">
         <div class="col-12 pt-5">
+          <app-timeline class="mb-5 mt-3"></app-timeline>
           <app-reports-time-table></app-reports-time-table>
           <!-- <app-report-add-dialog></app-report-add-dialog> -->
         </div>
       </div>
     </div>
+
+    <button id="add-report-button"
+            mat-fab color="primary"
+            matTooltip="Добавить отчет"
+            matTooltipPosition="before"
+            *ngIf="selectedDivision$ | async"
+            (click)="openAddReportDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
   </mat-drawer-content>
 </mat-drawer-container>

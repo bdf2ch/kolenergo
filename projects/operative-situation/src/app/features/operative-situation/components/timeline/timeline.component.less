@@ -1,46 +1,119 @@
 @line-height: 2px;
 @line-background-color: @marker-background-color;
-@marker-width: 10px;
-@marker-height: 10px;
-@marker-background-color: #80cbc4;
+@marker-width: 15px;
+@marker-height: 15px;
+@marker-background-color: #D8DDDB;
 @marker-background-color-selected: #00796b;
-@marker-border-width: 5px;
+@marker-border-width: 2px;
 @marker-border-color: #EEEEEE;
+@time-mark-width: 7px;
+@time-mark-height: 7px;
+@time-mark-background-color: @marker-background-color;
+@time-mark-background-color-selected: @marker-background-color-selected;
+@time-mark-border-width: 3px;
+@time-mark-border-color: #EEEEEE;
+@label-font-size: 11px;
+@label-font-color: #C4C9C9;
+
+:host {
+  display: block;
+}
 
 .timeline {
   position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
 
-  .line {
-    position: relative;
+  .period {
     z-index: 1;
-    width: 100%;
-    height: @line-height;
-    background: @line-background-color;
-  }
-
-  .marker-container {
     position: relative;
-    z-index: 2;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    margin-top: -11px;
+    flex: 1;
+    border-top: 1px solid #D8DDDB;
+
+    &:nth-child(n+2) {
+      margin-left: -15px;
+    }
 
     .marker {
+      z-index: 2;
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
       width: @marker-width;
       height: @marker-height;
-      box-sizing: content-box;
-      background: @marker-background-color;
+      box-sizing: border-box;
+      margin-top: -8px;
+      // background: @marker-background-color;
+      background: @marker-border-color;
       border-width: @marker-border-width;
       border-style: solid;
-      border-color: @marker-border-color;
+      // border-color: @marker-border-color;
+      border-color: @marker-background-color;
       border-radius: 50%;
+      cursor: pointer;
+
+      &:hover {
+        border-color: #b0bec5;
+      }
+
+      &.selected {
+        border-color: @marker-background-color-selected;
+      }
+
+      &.with-data {
+        background: #b0bec5;
+      }
+
+      .label {
+        margin-top: -40px;
+        font-family: 'Open Sans', Serif;
+        font-size: @label-font-size;
+        color: @label-font-color;
+      }
     }
+
+    .time-marks {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      justify-self: center;
+      width: 66%;
+      // border: 1px solid red;
+
+      .time-mark {
+        width: @time-mark-width;
+        height: @time-mark-height;
+        margin-top: -8px;
+        box-sizing: content-box;
+        background: transparent;
+        border-width: 0px;
+        border-style: solid;
+        border-radius: 50%;
+
+        &.with-data {
+          background: #b0bec5;
+          cursor: pointer;
+
+          &:hover {
+            background: #b0bec5;
+            border-style: solid;
+            border-color: @time-mark-border-color;
+          }
+
+          &.selected {
+            background: @marker-background-color-selected;
+          }
+        }
+      }
+    }
+
   }
 }

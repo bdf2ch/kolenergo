@@ -15,6 +15,8 @@ import {
   selectUser
 } from '../../ngrx';
 import { IDivision } from '../../../../interfaces';
+import {MatDialog} from "@angular/material/dialog";
+import {ReportAddDialogComponent} from "../report-add-dialog/report-add-dialog.component";
 
 @Component({
   selector: 'app-operative-situation',
@@ -29,7 +31,10 @@ export class OperativeSituationComponent implements OnInit {
   public selectedDivision$: Observable<IDivision>;
   public isLoadingInProgress$: Observable<boolean>;
 
-  constructor(private readonly store: Store<IApplicationState>) {
+  constructor(
+    private readonly dialog: MatDialog,
+    private readonly store: Store<IApplicationState>
+  ) {
     this.user$ = this.store.pipe(select(selectUser));
     this.date$ = this.store.pipe(select(selectDate));
     this.companies$ = this.store.pipe(select(selectCompanies));
@@ -46,6 +51,17 @@ export class OperativeSituationComponent implements OnInit {
    */
   selectCompany(company: ICompany) {
     this.store.dispatch(new SelectCompany(company));
+  }
+
+  /**
+   * Открытие диалогового окна добавления отчета об оперативной обстановке
+   */
+  openAddReportDialog() {
+    this.dialog.open(ReportAddDialogComponent, {
+      id: 'add-report-dialog',
+      width: '850px',
+      panelClass: 'form-step-dialog'
+    });
   }
 
   /**

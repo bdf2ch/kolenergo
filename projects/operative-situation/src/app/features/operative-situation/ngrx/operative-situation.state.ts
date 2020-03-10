@@ -1,6 +1,6 @@
 import { ICompany } from '@kolenergo/core';
 import { IDivision, IPeriod, IReport } from '../../../interfaces';
-import { Report, ReportSummary, WeatherSummary } from '../../../models';
+import { Period, Report, ReportSummary, WeatherSummary } from '../../../models';
 
 /**
  * Интерфейс, описывающий состояние раздела отчетов по оперативной обстановке
@@ -11,7 +11,7 @@ export interface IOperativeSituationState {
   date: Date;                                     // Текущая дата
   companies: ICompany[];                          // Список организаций
   divisions: IDivision[];                         // Список структурных подразделений
-  periods: IPeriod[];                             // Список временных периодов
+  periods: Period[];                              // Список временных периодов
   reports: ReportSummary;                         // Сводка отчетов об оперативной обстановке
   reportsTime: string[];                          // Контрольные отметки времени в сводке отчетов об оперативнйо обстановке
   selectedCompany: ICompany;                      // Текущая организация
