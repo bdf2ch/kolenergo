@@ -165,6 +165,7 @@ export function reducer(
       return {
         ...state,
         selectedPeriod: action.payload.period,
+        selectedTime: action.payload.time,
         selectedReport: state.reports.getReportByIntervalAndTime(action.payload.period.interval, action.payload.time)
       };
     }

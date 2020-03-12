@@ -1,4 +1,5 @@
 <div class="reports-time-table">
+  <!--
   <div class="periods-and-consumption">
     <div class="period"
          *ngFor="let period of (periods$ | async); let i = index"
@@ -14,7 +15,9 @@
       Потребление
     </div>
   </div>
+  -->
   <div class="report">
+    <!--
     <div class="semi-periods" *ngIf="(reportsTime$ | async).length > 0">
       <div class="tags">
         <span class="tag"
@@ -31,6 +34,7 @@
         </button>
       </div>
     </div>
+    -->
     <app-report *ngIf="!inConsumptionMode"></app-report>
     <app-consumption *ngIf="inConsumptionMode"></app-consumption>
   </div>

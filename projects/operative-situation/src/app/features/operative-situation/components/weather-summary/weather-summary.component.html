@@ -16,7 +16,7 @@
       <td class="pl-3">{{location.weather.precipitations}}</td>
       <td><img src="http://openweathermap.org/img/w/{{location.weather.icon}}.png" alt=""></td>
       <td class="weather-mode text-center" rowspan="5" *ngIf="showMode === true && i === 0">
-        {{(selectedReport$ | async)?.weatherORR ? 'ОРР' : (selectedReport$ | async)?.weatherRPG ? 'РПГ' : 'Нет'}}
+        {{(selectedReport$ | async)?.weather.orr === true ? 'ОРР' : (selectedReport$ | async)?.weather.rpg === true ? 'РПГ' : 'Нет'}}
       </td>
     </tr>
     </tbody>

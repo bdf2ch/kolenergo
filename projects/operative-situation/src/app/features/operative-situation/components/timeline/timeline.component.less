@@ -6,6 +6,9 @@
 @marker-background-color-selected: #00796b;
 @marker-border-width: 2px;
 @marker-border-color: #EEEEEE;
+@marker-data-width: 7px;
+@marker-data-height: 7px;
+@marker-data-background-color: @marker-border-color;
 @time-mark-width: 7px;
 @time-mark-height: 7px;
 @time-mark-background-color: @marker-background-color;
@@ -13,7 +16,7 @@
 @time-mark-border-width: 3px;
 @time-mark-border-color: #EEEEEE;
 @label-font-size: 11px;
-@label-font-color: #C4C9C9;
+@label-font-color: #90a4ae;
 
 :host {
   display: block;
@@ -44,8 +47,8 @@
       z-index: 2;
       position: relative;
       display: flex;
-      flex-direction: row;
-      justify-content: space-around;
+      flex-direction: column;
+      justify-content: flex-end;
       align-items: center;
       width: @marker-width;
       height: @marker-height;
@@ -66,17 +69,48 @@
 
       &.selected {
         border-color: @marker-background-color-selected;
+        &.with-data {
+          .marker-data {
+            background: @marker-background-color-selected;
+          }
+          &:hover {
+            .marker-data {
+              background: @marker-background-color-selected;
+            }
+          }
+        }
       }
 
       &.with-data {
-        background: #b0bec5;
+        // background: #b0bec5;
+        .marker-data {
+          background: #b0bec5;
+        }
+        &:hover {
+          .marker-data {
+            background: #b0bec5;
+          }
+        }
       }
 
       .label {
-        margin-top: -40px;
+        margin-bottom: 12px;
         font-family: 'Open Sans', Serif;
         font-size: @label-font-size;
         color: @label-font-color;
+      }
+
+      .marker-data {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        width: @marker-data-width;
+        height: @marker-data-height;
+        margin-bottom: 2px;
+        background: transparent;
+        border-radius: 50%;
       }
     }
 

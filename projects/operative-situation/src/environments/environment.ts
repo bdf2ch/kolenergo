@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   appCode: 'OPERATIVE_SITUATION_APP',
-  apiUrl: 'http://10.50.4.7:3000'
+  apiUrl: 'http://localhost:3000'
 };
 
 /*

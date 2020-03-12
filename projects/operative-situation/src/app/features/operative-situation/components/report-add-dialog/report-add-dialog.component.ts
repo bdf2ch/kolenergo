@@ -27,6 +27,7 @@ export class ReportAddDialogComponent implements OnInit {
   public equipmentNetworkForm: FormGroup;
   public resourcesForm: FormGroup;
   public violationsForm: FormGroup;
+  public weatherForm: FormGroup;
   public newReport: Report;
 
   constructor(
@@ -88,6 +89,20 @@ export class ReportAddDialogComponent implements OnInit {
       violations_population_srez_o4: new FormControl(this.newReport.violations.population_srez_04, Validators.required),
       violations_population_greater_3_04: new FormControl(this.newReport.violations.population_greater_3_04, Validators.required),
     });
+    this.weatherForm = this.builder.group({
+      orr: new FormControl(this.newReport.weather.orr),
+      rpg: new FormControl(this.newReport.weather.rpg)
+    });
+
+    this.weatherForm.controls.orr.valueChanges.subscribe((value: boolean) => {
+      console.log('orr value', value);
+      this.weatherForm.controls.rpg.setValue(value ? false : false, {emitEvent: false});
+    });
+
+    this.weatherForm.controls.rpg.valueChanges.subscribe((value: boolean) => {
+      console.log('rpg value', value);
+      this.weatherForm.controls.orr.setValue(value ? false : false, {emitEvent: false});
+    });
   }
 
   /**
@@ -129,6 +144,8 @@ export class ReportAddDialogComponent implements OnInit {
     this.newReport.violations.greater_3_04 = this.violationsForm.controls.violations_greater_3_04.value;
     this.newReport.violations.population_srez_04 = this.violationsForm.controls.violations_population_srez_o4.value;
     this.newReport.violations.population_greater_3_04 = this.violationsForm.controls.violations_population_greater_3_04.value;
+    this.newReport.weather.orr = this.weatherForm.controls.orr.value;
+    this.newReport.weather.rpg = this.weatherForm.controls.rpg.value;
     this.store.dispatch(new AddReport(this.newReport));
   }
 }

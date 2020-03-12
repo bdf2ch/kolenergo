@@ -327,4 +327,26 @@
     </form>
   </app-form-step>
 
+  <app-form-step
+    class="h-100"
+    [caption]="'Погодные условия'"
+    [description]="'Режим ОРР / РПГ'"
+    [icon]="'fas fa-sun'"
+    [isInvalid]="violationsForm.invalid">
+    <form [formGroup]="weatherForm" class="h-100">
+        <div class="container-fluid h-100">
+          <div class="row h-100">
+            <div class="col-6 d-flex flex-column justify-content-center align-items-center border-right">
+              <span class="form-hint-label mb-5">Особый режим работы (ОРР)</span>
+              <mat-slide-toggle formControlName="orr"></mat-slide-toggle>
+            </div>
+            <div class="col-6 d-flex flex-column justify-content-center align-items-center">
+              <span class="form-hint-label mb-5">Режим повышенной готовности (РПГ)</span>
+              <mat-slide-toggle formControlName="rpg"></mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+    </form>
+  </app-form-step>
+
 </app-form-with-steps>

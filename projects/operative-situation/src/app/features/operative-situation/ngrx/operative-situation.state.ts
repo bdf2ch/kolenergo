@@ -17,6 +17,7 @@ export interface IOperativeSituationState {
   selectedCompany: ICompany;                      // Текущая организация
   selectedDivision: IDivision;                    // Текущее структурное подразделение
   selectedPeriod: IPeriod;                        // Текущий временной промежуток
+  selectedTime: string;                           // Текущее время отчета
   selectedReport: Report;                         // Текущий отчет
   selectedReportWeatherSummary: WeatherSummary;   // Погодная сводка по текущему отчету
 }
@@ -36,6 +37,7 @@ export const operativeSituationInitialState: IOperativeSituationState = {
   selectedCompany: null,
   selectedDivision: null,
   selectedPeriod: null,
+  selectedTime: null,
   selectedReport: null,
   selectedReportWeatherSummary: null
 };

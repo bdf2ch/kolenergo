@@ -30,6 +30,5 @@ export class Period implements IPeriod {
       start.add(30, 'minutes');
       this.marks.push(moment(start).format('HH:mm'));
     }
-    console.log(this);
   }
 }

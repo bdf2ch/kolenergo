@@ -104,6 +104,14 @@ export const selectSelectedPeriod = createSelector(
 );
 
 /**
+ * Селектор текущего времени отчета
+ */
+export const selectSelectedTime = createSelector(
+  selectOSR,
+  (state: IOperativeSituationState) => state.selectedTime
+);
+
+/**
  * Селектор списка отчетов об оперативной обстановке
  */
 export const selectReports = createSelector(

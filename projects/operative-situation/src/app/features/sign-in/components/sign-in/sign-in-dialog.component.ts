@@ -13,16 +13,19 @@ export class SignInDialogComponent implements OnInit {
   constructor(private readonly dialog: MatDialog) { }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.dialog.open(SignInComponent, {
-        id: 'sign-in-dialog',
-        width: '350px',
-        panelClass: 'sign-in-dialog',
-        hasBackdrop: true,
-        backdropClass: 'sign-in-backdrop',
-        disableClose: true
-      });
-    }, 0);
+    const signInDialog = this.dialog.getDialogById('sign-in-dialog');
+    if (!signInDialog) {
+      setTimeout(() => {
+        this.dialog.open(SignInComponent, {
+          id: 'sign-in-dialog',
+          width: '350px',
+          panelClass: 'sign-in-dialog',
+          hasBackdrop: true,
+          backdropClass: 'sign-in-backdrop',
+          disableClose: true
+        });
+      }, 0);
+    }
   }
 
 }

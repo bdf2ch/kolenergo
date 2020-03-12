@@ -12,7 +12,7 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { FormWithStepsComponent } from './features/operative-situation/components/form-with-steps/form-with-steps.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatFormFieldModule, MatButtonModule} from '@angular/material';
+import {MatFormFieldModule, MatButtonModule, MatSlideToggleModule} from '@angular/material';
 import {MatInputModule} from '@angular/material/input';
 import {ReportAddDialogComponent} from './features/operative-situation/components/report-add-dialog/report-add-dialog.component';
 import {FormStepComponent} from './features/operative-situation/components/form-step/form-step.component';
@@ -34,6 +34,7 @@ import {FormStepComponent} from './features/operative-situation/components/form-
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatSlideToggleModule,
     AuthenticationModule.forRoot({
       apiUrl: environment.apiUrl,
       appCode: environment.appCode,
