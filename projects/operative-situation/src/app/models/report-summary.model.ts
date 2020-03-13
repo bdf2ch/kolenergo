@@ -4,7 +4,8 @@ import { Report} from './report.model';
 
 export class ReportSummary implements IReportSummary {
   date: string;                                                                // Текущая дата
-  reports: {[interval: string]: {[time: string]: IReport | IWeatherSummary}};  // Отчеты, агрегированные по временному периоду
+  // reports: {[interval: string]: {[time: string]: IReport | IWeatherSummary}};  // Отчеты, агрегированные по временному периоду
+  reports: IReport[];
   consumption: number;                                                         // Максимум потребления за прошедшие сутки
   // weather?: IWeatherSummary;                                                   // Погодная сводка
 
@@ -15,10 +16,11 @@ export class ReportSummary implements IReportSummary {
   constructor(config?: IReportSummary) {
     console.log('config', config);
     this.date = config ? config.date : null;
-    this.reports = {};
+    this.reports = config ? config.reports.map((item: IReport) => new Report(item)) : [];
     this.consumption = config ? config.consumption : null;
     // this.weather = config && config.weather ? new WeatherSummary(config.weather) : null;
     if (config) {
+      /*
       for (const interval in config.reports) {
         console.log('interval', config.reports[interval]);
         this.reports[interval] = {};
@@ -31,6 +33,7 @@ export class ReportSummary implements IReportSummary {
           }
         }
       }
+      */
     }
   }
 
@@ -75,8 +78,6 @@ export class ReportSummary implements IReportSummary {
   getReportByIntervalAndTime(interval: string, time: string): IReport | null {
     return this.reports[interval] && this.reports[interval][time] ? this.reports[interval][time] as IReport : null;
   }
-
-  getReportBy
 
   getWeatherSummaryByInterval(interval: string): WeatherSummary | null {
     return this.reports[interval] ? this.reports[interval].weatherSummary as WeatherSummary : null;

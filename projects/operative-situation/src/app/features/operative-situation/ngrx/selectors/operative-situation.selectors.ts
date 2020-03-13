@@ -4,6 +4,7 @@ import { IOperativeSituationState} from '../operative-situation.state';
 import { IApplicationState } from '../../../../ngrx';
 import { IDivision, IPeriod, IReport } from '../../../../interfaces';
 import { ICompany } from '@kolenergo/core';
+import {Report, TimeMark} from '../../../../models';
 
 /**
  * Селектор раздела с отчетами по оперативной обстановке
@@ -117,6 +118,15 @@ export const selectSelectedTime = createSelector(
 export const selectReports = createSelector(
   selectOSR,
   (state: IOperativeSituationState) => state.reports
+);
+
+/**
+ * Селектор текущего отчета об оперативной обстановке
+ */
+export const selectReportByTime = createSelector(
+  selectOSR,
+  (state: IOperativeSituationState, props) =>
+    props.mark && state.reports.reports.find((report: Report) => report.periodTime === (props.mark as TimeMark).time) ? true : false
 );
 
 /**

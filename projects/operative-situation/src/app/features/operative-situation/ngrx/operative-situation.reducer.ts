@@ -47,7 +47,8 @@ export function reducer(
         //  : null,
         selectedReport: null,
         selectedDivision: null,
-        selectedPeriod: new Period(action.payload.data.periods[0])
+        selectedPeriod: new Period(action.payload.data.periods[0]),
+        selectedTime: new Period(action.payload.data.periods[0]).marks[0]
       };
     }
 
@@ -164,9 +165,11 @@ export function reducer(
     case OperativeSituationActionTypes.SELECT_TIME: {
       return {
         ...state,
-        selectedPeriod: action.payload.period,
-        selectedTime: action.payload.time,
-        selectedReport: state.reports.getReportByIntervalAndTime(action.payload.period.interval, action.payload.time)
+        // selectedPeriod: action.payload.period,
+        selectedTime: action.payload,
+        selectedReport: state.reports.reports.find((report: Report) => report.periodTime === action.payload.time)
+          ? state.reports.reports.find((report: Report) => report.periodTime === action.payload.time)
+          : null
       };
     }
 

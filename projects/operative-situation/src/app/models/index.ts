@@ -1,5 +1,6 @@
 export { Division } from './division.model';
 export { Period } from './period.model';
+export { TimeMark } from './time-mark.model';
 export { Report } from './report.model';
 export { ReportSummary } from './report-summary.model';
 export { Consumption } from './consumption.model';

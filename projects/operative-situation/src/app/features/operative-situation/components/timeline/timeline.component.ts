@@ -2,10 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import {IApplicationState} from '../../../../ngrx';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {selectPeriods, selectReports, selectSelectedPeriod, selectSelectedReport, selectSelectedTime} from '../../ngrx/selectors';
-import {Period, Report, ReportSummary} from '../../../../models';
-import {IPeriod} from "../../../../interfaces";
+import {
+  selectPeriods,
+  selectReportByTime,
+  selectReports,
+  selectSelectedPeriod,
+  selectSelectedReport,
+  selectSelectedTime
+} from '../../ngrx/selectors';
+import {Period, Report, ReportSummary, TimeMark} from '../../../../models';
+import {IPeriod, IReport} from '../../../../interfaces';
 import {SelectTime} from "../../ngrx";
+import {Time} from '@angular/common';
 
 @Component({
   selector: 'app-timeline',
@@ -15,9 +23,11 @@ import {SelectTime} from "../../ngrx";
 export class TimelineComponent implements OnInit {
   public periods: Observable<Period[]>;
   public selectedPeriod$: Observable<IPeriod>;
-  public selectedTime$: Observable<string>;
+  public selectedTime$: Observable<TimeMark>;
   public reports$: Observable<ReportSummary>;
   public selectedReport$: Observable<Report>;
+  public selectReportByTime$: Observable<boolean>;
+  private selectedTime: TimeMark;
   private reports: ReportSummary;
 
   constructor(private readonly store: Store<IApplicationState>) {}
@@ -28,6 +38,10 @@ export class TimelineComponent implements OnInit {
     this.selectedTime$ = this.store.pipe(select(selectSelectedTime));
     this.reports$ = this.store.pipe(select(selectReports));
     this.selectedReport$ = this.store.pipe(select(selectSelectedReport));
+    this.selectReportByTime$ = this.store.pipe(select(selectReportByTime, {mark: this.selectedTime}));
+    this.selectedTime$.subscribe((value: TimeMark) => {
+      this.selectedTime = value;
+    });
     this.reports$.subscribe((value: ReportSummary) => {
       this.reports = value;
     });
@@ -35,11 +49,10 @@ export class TimelineComponent implements OnInit {
 
   /**
    * Выбор времени отчета
-   * @param period - Временной период
-   * @param time - Время отчета
+   * @param mark - Время отчета
    */
-  selectPeriodAndTime(period: IPeriod, time: string) {
-    this.store.dispatch(new SelectTime({period, time}));
+  selectPeriodAndTime(mark: TimeMark) {
+    this.store.dispatch(new SelectTime(mark));
   }
 
   /**
@@ -54,18 +67,7 @@ export class TimelineComponent implements OnInit {
   }
 
   getReportByTime(time: string): boolean {
-    let result = false;
-    if (this.reports) {
-      for (const period in this.reports.reports) {
-        for (const mark in this.reports.reports[period]) {
-          if (mark === time) {
-            console.log('time found', mark);
-            result = true;
-          }
-        }
-      }
-    }
-    return result;
+    return this.reports.reports.find((report) => report.periodTime === time) ? true : false;
   }
 
 }

@@ -1,5 +1,6 @@
 import * as moment from 'moment';
 import { IPeriod } from '../interfaces';
+import { TimeMark } from './time-mark.model';
 
 /**
  * Класс, реализующий интерфейс временного периода
@@ -10,7 +11,7 @@ export class Period implements IPeriod {
   start: string;        // Начало периода
   end: string;          // Окончание периода
   interval: string;     // Интервал временного периода
-  marks: string[];      // Промежуточные временные отметки
+  marks: TimeMark[];    // Промежуточные временные отметки
 
   /**
    * Конструктор
@@ -26,9 +27,11 @@ export class Period implements IPeriod {
 
     const start = moment(this.start, 'HH:mm');
     const end = moment(this.end, 'HH:mm').subtract(30, 'minutes');
+    // this.marks.push(new TimeMark(this.id, moment(start).format('HH:mm')));
     while (start.unix() < end.unix()) {
       start.add(30, 'minutes');
-      this.marks.push(moment(start).format('HH:mm'));
+      this.marks.push(new TimeMark(this.id, moment(start).format('HH:mm')));
     }
+    // this.marks.push(new TimeMark(this.id, moment(end).add(30, 'minutes').format('HH:mm')));
   }
 }

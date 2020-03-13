@@ -1,8 +1,8 @@
 import { Action } from '@ngrx/store';
 
 import { ICompany, IServerResponse } from '@kolenergo/core';
-import {IAppInitData, IConsumption, IDivision, IPeriod, IReport, IReportSummary} from '../../../interfaces';
-import {Consumption, Report} from '../../../models';
+import { IAppInitData, IConsumption, IDivision, IPeriod, IReport, IReportSummary } from '../../../interfaces';
+import { Consumption, Report, TimeMark } from '../../../models';
 
 /**
  * Типы действий в разделе отчетов по оперативной обстановке
@@ -179,7 +179,7 @@ export class SelectPeriod implements Action {
  */
 export class SelectTime implements Action {
   readonly type = OperativeSituationActionTypes.SELECT_TIME;
-  constructor(public payload: {period: IPeriod, time: string}) {}
+  constructor(public payload: TimeMark) {}
 }
 
 /**
