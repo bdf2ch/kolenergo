@@ -1,21 +1,12 @@
-<div class="timeline">
- <div class="period" *ngFor="let period of periods | async">
-   <div class="marker"
-        [ngClass]="{'selected': (selectedTime$ | async)?.time === period.start, 'with-data': getReportByTime(period.start) === true}"
-        (click)="selectPeriodAndTime(period, period.start)">
-     <span class="label">{{period.start}}</span>
-     <span class="marker-data"></span>
-   </div>
-   <div class="time-marks">
-     <span class="time-mark"
-           *ngFor="let mark of period.marks"
-           [ngClass]="{'selected': (selectedReport$ | async)?.periodTime === mark.time, 'with-data': getReportByTime(mark.time)}"
-           (click)="selectPeriodAndTime(mark)"
-           matTooltip="{{getReportByPeriodAndTime(period, mark.time) ? mark : null}}" matTooltipPosition="above">
-     </span>
-   </div>
-   <div class="marker">
-     <span class="label"></span>
-   </div>
- </div>
+<div class="time-line">
+  <div class="time-mark"
+       *ngFor="let mark of marks"
+       [ngClass]="{'marker': mark.isControl, 'with-data': getReportByTime(mark), 'selected': (selectedTime$ | async) === mark}"
+       (click)="selectTimeMark(mark)"
+       matTooltip="{{getReportByTime(mark) && !mark.isControl? mark.time : null}}"
+       matTooltipPosition="above">
+    <span class="label" *ngIf="mark.isControl">{{mark.time}}</span>
+    <span class="data" *ngIf="mark.isControl"></span>
+  </div>
+  <i class="fas fa-chevron-right"></i>
 </div>

@@ -1,7 +1,7 @@
 <app-form-with-steps
   [caption]="'Отчет об оперативной обстановке на ' +  (selectedPeriod$ | async)?.time"
   (action)="addReport()"
-  [actionDisabled]="equipment35150Form.invalid || equipmentNetworkForm.invalid || resourcesForm.invalid || violationsForm.invalid"
+  [actionDisabled]="equipment35150Form.invalid || equipmentNetworkForm.invalid || resourcesForm.invalid || violationsForm.invalid || (isLoadingInProgress$ | async)"
   [actionTitle]="'Опубликовать отчет'">
   <app-form-step
     [caption]="'Оборудование 35-150 кВ'"

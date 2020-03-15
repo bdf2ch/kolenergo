@@ -1,153 +1,122 @@
-@line-height: 2px;
-@line-background-color: @marker-background-color;
-@marker-width: 15px;
-@marker-height: 15px;
-@marker-background-color: #D8DDDB;
-@marker-background-color-selected: #00796b;
-@marker-border-width: 2px;
-@marker-border-color: #EEEEEE;
-@marker-data-width: 7px;
-@marker-data-height: 7px;
-@marker-data-background-color: @marker-border-color;
-@time-mark-width: 7px;
-@time-mark-height: 7px;
-@time-mark-background-color: @marker-background-color;
-@time-mark-background-color-selected: @marker-background-color-selected;
-@time-mark-border-width: 3px;
-@time-mark-border-color: #EEEEEE;
-@label-font-size: 11px;
-@label-font-color: #90a4ae;
+@time-mark-width_: 7px;
+@time-mark-height_: 7px;
+@time-mark-background-color_: #D8DDDB;
+@time-mark-background-color-hover_: #b0bec5;
+@time-mark-background-color-selected_: #00796b;
+@marker-width_: 15px;
+@marker-height_: 15px;
+@marker-border-width_: 2px;
+@marker-background-color_: #EEEEEE;
+@marker-border-color_: @time-mark-background-color_;
+@label-font-family_: 'Open Sans Light';
+@label-font-size_: 11px;
+@label-font-color_: #90a4ae;
+@data-width_: 7px;
+@data-height_: 7px;
+@data-background-color_: @time-mark-background-color_;
 
-:host {
-  display: block;
-}
-
-.timeline {
-  position: relative;
+.time-line {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  border-top: 1px solid @time-mark-background-color_;
 
-  .period {
-    z-index: 1;
+  .time-mark {
     position: relative;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    flex: 1;
-    border-top: 1px solid #D8DDDB;
+    width: @time-mark-width_;
+    height: @time-mark-height_;
+    margin-top: -4px;
+    background: transparent;
+    border-radius: 50%;
 
-    &:nth-child(n+2) {
-      margin-left: -15px;
-    }
-
-    .marker {
-      z-index: 2;
-      position: relative;
-      display: flex;
-      flex-direction: column;
+    &.marker {
       justify-content: flex-end;
-      align-items: center;
-      width: @marker-width;
-      height: @marker-height;
-      box-sizing: border-box;
+      width: @marker-width_;
+      height: @marker-height_;
       margin-top: -8px;
-      // background: @marker-background-color;
-      background: @marker-border-color;
-      border-width: @marker-border-width;
+      background: @marker-background-color_;
+      border-width: @marker-border-width_;
+      border-color: @marker-border-color_;
       border-style: solid;
-      // border-color: @marker-border-color;
-      border-color: @marker-background-color;
-      border-radius: 50%;
       cursor: pointer;
 
+      &.selected {
+        border-color: @time-mark-background-color-selected_;
+        &:hover {
+          border-color: @time-mark-background-color-selected_;
+        }
+      }
+
       &:hover {
-        border-color: #b0bec5;
+        border-color: @time-mark-background-color-hover_;
+        .data {
+          background: transparent;
+        }
+      }
+    }
+
+    &.with-data {
+      background: @time-mark-background-color_;
+      cursor: pointer;
+      &:hover {
+        background: @time-mark-background-color-hover_;
+      }
+
+      &.marker {
+        background: @marker-background-color_;
+        .data {
+          background: @time-mark-background-color_;
+        }
+        &:hover {
+          .data {
+            background: @time-mark-background-color-hover_;
+          }
+        }
       }
 
       &.selected {
-        border-color: @marker-background-color-selected;
-        &.with-data {
-          .marker-data {
-            background: @marker-background-color-selected;
-          }
-          &:hover {
-            .marker-data {
-              background: @marker-background-color-selected;
-            }
-          }
-        }
-      }
-
-      &.with-data {
-        // background: #b0bec5;
-        .marker-data {
-          background: #b0bec5;
-        }
+        background: @time-mark-background-color-selected_;
         &:hover {
-          .marker-data {
-            background: #b0bec5;
+          background: @time-mark-background-color-selected_;
+        }
+
+        &.marker {
+          background: @marker-background-color_;
+          border-color: @time-mark-background-color-selected_;
+          .data {
+            background: @time-mark-background-color-selected_ !important;
           }
         }
       }
-
-      .label {
-        margin-bottom: 12px;
-        font-family: 'Open Sans', Serif;
-        font-size: @label-font-size;
-        color: @label-font-color;
-      }
-
-      .marker-data {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        flex-shrink: 0;
-        width: @marker-data-width;
-        height: @marker-data-height;
-        margin-bottom: 2px;
-        background: transparent;
-        border-radius: 50%;
-      }
     }
 
-    .time-marks {
+
+
+    .label {
+      margin-bottom: 15px;
+      font-family: @label-font-family_;
+      font-size: @label-font-size_;
+      text-align: center;
+      color: @label-font-color_;
+    }
+
+    .data {
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      justify-self: center;
-      width: 66%;
-      // border: 1px solid red;
-
-      .time-mark {
-        width: @time-mark-width;
-        height: @time-mark-height;
-        margin-top: -8px;
-        box-sizing: content-box;
-        background: transparent;
-        border-width: 0px;
-        border-style: solid;
-        border-radius: 50%;
-
-        &.with-data {
-          background: #b0bec5;
-          cursor: pointer;
-
-          &:hover {
-            background: #90a4ae;
-            border-style: solid;
-            border-color: @time-mark-border-color;
-          }
-
-          &.selected {
-            background: @marker-background-color-selected;
-          }
-        }
-      }
+      flex-shrink: 0;
+      width: @data-width_;
+      height: @data-height_;
+      margin-bottom: 2px;
+      background: transparent;
+      border-radius: 50%;
     }
+  }
 
+  .fas {
+    margin-top: -8px;
+    color: @time-mark-background-color_;
   }
 }

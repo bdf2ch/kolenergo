@@ -33,6 +33,7 @@ import { WeatherSummaryComponent } from './components/weather-summary/weather-su
 import { IndicatorComponent } from './components/indicator/indicator.component';
 import { ConsumptionComponent } from './components/consumption/consumption.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { TimelineComponent } from './components/timeline/timeline.component';
     MatFormFieldModule,
     MatInputModule,
     MatTooltipModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatSnackBarModule
   ],
   exports: [
     // ReportAddDialogComponent

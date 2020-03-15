@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 
 import { catchError, map, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
 import { EMPTY, of } from 'rxjs';
@@ -29,6 +29,7 @@ import { selectSelectedCompany, selectSelectedDivision } from './selectors';
 export class OperativeSituationEffects {
   constructor(private readonly router: Router,
               private readonly dialog: MatDialog,
+              private readonly snackBar: MatSnackBar,
               private readonly store: Store<IApplicationState>,
               private readonly actions$: Actions,
               private readonly osr: OperativeSituationService) {}
@@ -132,6 +133,24 @@ export class OperativeSituationEffects {
     ofType(OperativeSituationActionTypes.ADD_REPORT_SUCCESS),
     tap(() => {
       this.dialog.getDialogById('add-report-dialog').close();
+      this.snackBar.open(
+        'Отчет добавлен',
+        'Закрыть',
+        {horizontalPosition: 'left', verticalPosition: 'bottom', duration: 3000}
+      );
+    }),
+    mergeMap(() => EMPTY)
+  );
+
+  @Effect()
+  addReportFail$ = this.actions$.pipe(
+    ofType(OperativeSituationActionTypes.ADD_REPORT_FAIL),
+    tap(() => {
+      this.snackBar.open(
+        'При добавлении отчета произошла ошибка',
+        'Закрыть',
+        {horizontalPosition: 'left', verticalPosition: 'bottom', duration: 3000}
+      );
     }),
     mergeMap(() => EMPTY)
   );

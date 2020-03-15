@@ -12,8 +12,9 @@ import {
 } from '../../ngrx/selectors';
 import {Period, Report, ReportSummary, TimeMark} from '../../../../models';
 import {IPeriod, IReport} from '../../../../interfaces';
-import {SelectTime} from "../../ngrx";
+import {SelectTime} from '../../ngrx';
 import {Time} from '@angular/common';
+import * as moment from "moment";
 
 @Component({
   selector: 'app-timeline',
@@ -21,19 +22,24 @@ import {Time} from '@angular/common';
   styleUrls: ['./timeline.component.less']
 })
 export class TimelineComponent implements OnInit {
-  public periods: Observable<Period[]>;
+  public periods$: Observable<Period[]>;
   public selectedPeriod$: Observable<IPeriod>;
   public selectedTime$: Observable<TimeMark>;
   public reports$: Observable<ReportSummary>;
   public selectedReport$: Observable<Report>;
   public selectReportByTime$: Observable<boolean>;
+  private timePeriods: Period[];
   private selectedTime: TimeMark;
   private reports: ReportSummary;
 
-  constructor(private readonly store: Store<IApplicationState>) {}
+  public marks: TimeMark[];
+
+  constructor(private readonly store: Store<IApplicationState>) {
+    this.marks = [];
+  }
 
   ngOnInit() {
-    this.periods = this.store.pipe(select(selectPeriods));
+    this.periods$ = this.store.pipe(select(selectPeriods));
     this.selectedPeriod$ = this.store.pipe(select(selectSelectedPeriod));
     this.selectedTime$ = this.store.pipe(select(selectSelectedTime));
     this.reports$ = this.store.pipe(select(selectReports));
@@ -45,6 +51,19 @@ export class TimelineComponent implements OnInit {
     this.reports$.subscribe((value: ReportSummary) => {
       this.reports = value;
     });
+
+    this.periods$.subscribe((value: Period[]) => {
+      value.forEach((period: Period) => {
+        const start = moment(period.start, 'HH:mm');
+        const end = moment(period.end, 'HH:mm').subtract(30, 'minutes');
+        this.marks.push(new TimeMark(period.id, period.start, true));
+        while (start.unix() < end.unix()) {
+          start.add(30, 'minutes');
+          this.marks.push(new TimeMark(period.id, moment(start).format('HH:mm')));
+        }
+      });
+    });
+    console.log('marks', this.marks);
   }
 
   /**
@@ -66,8 +85,12 @@ export class TimelineComponent implements OnInit {
       null;
   }
 
-  getReportByTime(time: string): boolean {
-    return this.reports.reports.find((report) => report.periodTime === time) ? true : false;
+  getReportByTime(mark: TimeMark): boolean {
+    return this.reports.reports.find((report) => report.periodTime === mark.time) ? true : false;
+  }
+
+  selectTimeMark(mark: TimeMark) {
+    this.store.dispatch(new SelectTime(mark));
   }
 
 }

@@ -6,7 +6,7 @@ import { select, Store } from '@ngrx/store';
 
 import { IApplicationState } from '../../../../ngrx';
 import {IDivision, IPeriod, IReport} from '../../../../interfaces';
-import {selectSelectedDivision, selectSelectedPeriod, selectUser} from '../../ngrx/selectors';
+import {selectLoadingInProgress, selectSelectedDivision, selectSelectedPeriod, selectUser} from '../../ngrx/selectors';
 import { Report } from '../../../../models/report.model';
 import {AddReport} from '../../ngrx';
 import {User} from '@kolenergo/core';
@@ -29,6 +29,7 @@ export class ReportAddDialogComponent implements OnInit {
   public violationsForm: FormGroup;
   public weatherForm: FormGroup;
   public newReport: Report;
+  public isLoadingInProgress$: Observable<boolean>;
 
   constructor(
     private readonly builder: FormBuilder,
@@ -51,6 +52,7 @@ export class ReportAddDialogComponent implements OnInit {
     this.selectedPeriod$.subscribe((value: IPeriod) => {
       this.selectedPeriod = value;
     });
+    this.isLoadingInProgress$ = this.store.pipe(select(selectLoadingInProgress));
     this.equipment35150Form = this.builder.group({
       lep_110_150: new FormControl(this.newReport.equipment_35_150.lep_110_150, Validators.required),
       lep_35: new FormControl(this.newReport.equipment_35_150.lep_35, Validators.required),
