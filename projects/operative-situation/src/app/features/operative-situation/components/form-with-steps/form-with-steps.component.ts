@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { AfterContentInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { FormStepComponent } from '../form-step/form-step.component';
 
@@ -7,7 +7,7 @@ import { FormStepComponent } from '../form-step/form-step.component';
   templateUrl: './form-with-steps.component.html',
   styleUrls: ['./form-with-steps.component.less']
 })
-export class FormWithStepsComponent implements OnInit {
+export class FormWithStepsComponent implements OnInit, AfterContentInit {
   @Input() caption: string;
   @Input() actionTitle: string;
   @Input() actionDisabled: boolean;
@@ -23,16 +23,27 @@ export class FormWithStepsComponent implements OnInit {
 
   registerStep(step: FormStepComponent) {
     this.steps.push(step);
-    this.steps[0].isSelected = true;
   }
 
   selectStep(step: FormStepComponent) {
     this.steps.forEach((item: FormStepComponent) => {
-      item.isSelected = item === step ? true : false;
+      if (item === step) {
+        item.isSelected = true;
+        item.element.nativeElement.style.height = '100%';
+      } else {
+        item.isSelected = false;
+        item.element.nativeElement.style.height = 'auto';
+      }
     });
   }
 
   processForm() {
     this.action.emit();
+  }
+
+  ngAfterContentInit(): void {
+    if (this.steps.length > 0) {
+      this.selectStep(this.steps[0]);
+    }
   }
 }

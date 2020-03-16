@@ -1,4 +1,4 @@
-import { Component, Host, Input, OnInit, Optional } from '@angular/core';
+import {Component, ElementRef, Host, Input, OnInit, Optional} from '@angular/core';
 
 import { FormWithStepsComponent } from '../form-with-steps/form-with-steps.component';
 
@@ -15,13 +15,17 @@ export class FormStepComponent implements OnInit {
   @Input() isValid: boolean;
   @Input() isInvalid: boolean;
 
-  constructor(@Host() @Optional() private readonly form: FormWithStepsComponent) {
+  constructor(
+    @Host() @Optional() private readonly form: FormWithStepsComponent,
+    public readonly element: ElementRef
+  ) {
     this.isSelected = false;
     this.isValid = false;
     this.isInvalid = false;
   }
 
   ngOnInit() {
+    console.log('element', this.element.nativeElement);
     if (this.form) {
       this.form.registerStep(this);
     }

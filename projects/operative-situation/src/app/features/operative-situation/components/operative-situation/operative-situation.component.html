@@ -44,6 +44,7 @@
             <span class="application-title">Оперативная обстановка</span>
             <span class="application-subtitle">
               на {{(date$| async) | date:"dd.MM.yyyy"}}
+              <span *ngIf="selectedTime$ | async">, {{(selectedTime$ | async)?.time}} </span>
               <span *ngIf="selectedCompany$ | async">в {{(selectedCompany$ | async)?.shortTitle}}</span>
               <span *ngIf="selectedDivision$ | async">&nbsp;&rarr;&nbsp; {{(selectedDivision$ | async)?.title}}</span>
             </span>

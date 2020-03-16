@@ -2,7 +2,7 @@ import * as moment from 'moment';
 
 import {actionTypes, authenticationActionTypes, Company, ICompany} from '@kolenergo/core';
 import {IDivision, IPeriod} from '../../../interfaces';
-import {Division, Period, Report, ReportSummary} from '../../../models';
+import {Division, Period, Report, ReportSummary, TimeMark} from '../../../models';
 import {IOperativeSituationState, operativeSituationInitialState} from './operative-situation.state';
 import {OperativeSituationActions, OperativeSituationActionTypes} from './operative-situation.actions';
 
@@ -45,10 +45,13 @@ export function reducer(
         // selectedReport: action.payload.data.reports.reports[new Period(action.payload.data.periods[0]).time]
         //  ? new Report(action.payload.data.reports.reports[new Period(action.payload.data.periods[0]).time])
         //  : null,
-        selectedReport: null,
+        selectedReport: new ReportSummary(action.payload.data.reports).reports.pop(),
         selectedDivision: null,
         selectedPeriod: new Period(action.payload.data.periods[0]),
-        selectedTime: new Period(action.payload.data.periods[0]).marks[0]
+        selectedTime: new TimeMark(
+          new ReportSummary(action.payload.data.reports).reports.pop().periodId,
+          new ReportSummary(action.payload.data.reports).reports.pop().periodTime
+        )
       };
     }
 
@@ -100,7 +103,13 @@ export function reducer(
         // selectedReport: action.payload.data.reports[state.selectedPeriod.time]
         //   ? new Report(action.payload.data.reports[state.selectedPeriod.time])
         //   : null
-        selectedReport: null
+        selectedReport: new ReportSummary(action.payload.data).reports.pop(),
+        selectedTime: action.payload.data.reports.length > 0
+          ? new TimeMark(
+              new ReportSummary(action.payload.data).reports.pop().periodId,
+              new ReportSummary(action.payload.data).reports.pop().periodTime
+            )
+          : null
       };
     }
 
@@ -123,8 +132,11 @@ export function reducer(
         ...state,
         isLoadingInProgress: false,
         reports: new ReportSummary(action.payload.data),
-        reportsTime: new ReportSummary(action.payload.data).getReportTimesByInterval(state.selectedPeriod.interval),
-        selectedReport: null
+        selectedReport: new ReportSummary(action.payload.data).reports.pop(),
+        selectedTime: new TimeMark(
+          new ReportSummary(action.payload.data).reports.pop().periodId,
+          new ReportSummary(action.payload.data).reports.pop().periodTime
+        )
       };
     }
 

@@ -24,6 +24,7 @@ import { OperativeSituationService } from '../../../services/operative-situation
 import { IApplicationState } from '../../../ngrx';
 import { IAppInitData, IReportSummary } from '../../../interfaces';
 import { selectSelectedCompany, selectSelectedDivision } from './selectors';
+import {ReportSummary} from '../../../models';
 
 @Injectable()
 export class OperativeSituationEffects {
@@ -131,10 +132,10 @@ export class OperativeSituationEffects {
   @Effect()
   AddReportSuccess$ = this.actions$.pipe(
     ofType(OperativeSituationActionTypes.ADD_REPORT_SUCCESS),
-    tap(() => {
+    tap((action: AddReportSuccess) => {
       this.dialog.getDialogById('add-report-dialog').close();
       this.snackBar.open(
-        'Отчет добавлен',
+        `Отчет на ${new ReportSummary(action.payload.data).reports.pop().periodTime} добавлен`,
         'Закрыть',
         {horizontalPosition: 'left', verticalPosition: 'bottom', duration: 3000}
       );

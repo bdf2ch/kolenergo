@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
-import {AuthenticationSignOut, ICompany, User} from '@kolenergo/core';
+import { AuthenticationSignOut, ICompany, User } from '@kolenergo/core';
 import { IApplicationState } from '../../../../ngrx';
 import {
-  LoadInitialData,
   selectCompanies,
   SelectCompany,
   selectDate, selectLoadingInProgress,
   selectSelectedCompany,
-  selectSelectedDivision,
+  selectSelectedDivision, selectSelectedTime,
   selectUser
 } from '../../ngrx';
 import { IDivision } from '../../../../interfaces';
-import {MatDialog} from "@angular/material/dialog";
-import {ReportAddDialogComponent} from "../report-add-dialog/report-add-dialog.component";
+import { TimeMark } from '../../../../models';
+import { ReportAddDialogComponent } from '../report-add-dialog/report-add-dialog.component';
 
 @Component({
   selector: 'app-operative-situation',
@@ -29,6 +29,7 @@ export class OperativeSituationComponent implements OnInit {
   public companies$: Observable<ICompany[]>;
   public selectedCompany$: Observable<ICompany>;
   public selectedDivision$: Observable<IDivision>;
+  public selectedTime$: Observable<TimeMark>;
   public isLoadingInProgress$: Observable<boolean>;
 
   constructor(
@@ -40,6 +41,7 @@ export class OperativeSituationComponent implements OnInit {
     this.companies$ = this.store.pipe(select(selectCompanies));
     this.selectedCompany$ = this.store.pipe(select(selectSelectedCompany));
     this.selectedDivision$ = this.store.pipe(select(selectSelectedDivision));
+    this.selectedTime$ = this.store.pipe(select(selectSelectedTime));
     this.isLoadingInProgress$ = this.store.pipe(select(selectLoadingInProgress));
   }
 

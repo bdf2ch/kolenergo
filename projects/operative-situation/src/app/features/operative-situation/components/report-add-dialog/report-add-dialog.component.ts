@@ -53,6 +53,43 @@ export class ReportAddDialogComponent implements OnInit {
       this.selectedPeriod = value;
     });
     this.isLoadingInProgress$ = this.store.pipe(select(selectLoadingInProgress));
+    this.isLoadingInProgress$.subscribe((value: boolean) => {
+      if (this.equipment35150Form) {
+        if (value === true) {
+          this.equipment35150Form.disable();
+        } else {
+          this.equipment35150Form.enable();
+        }
+      }
+      if (this.equipmentNetworkForm) {
+        if (value === true) {
+          this.equipmentNetworkForm.disable();
+        } else {
+          this.equipmentNetworkForm.enable();
+        }
+      }
+      if (this.resourcesForm) {
+        if (value === true) {
+          this.resourcesForm.disable();
+        } else {
+          this.resourcesForm.enable();
+        }
+      }
+      if (this.violationsForm) {
+        if (value === true) {
+          this.violationsForm.disable();
+        } else {
+          this.violationsForm.enable();
+        }
+      }
+      if (this.weatherForm) {
+        if (value === true) {
+          this.weatherForm.disable();
+        } else {
+          this.weatherForm.enable();
+        }
+      }
+    });
     this.equipment35150Form = this.builder.group({
       lep_110_150: new FormControl(this.newReport.equipment_35_150.lep_110_150, Validators.required),
       lep_35: new FormControl(this.newReport.equipment_35_150.lep_35, Validators.required),
@@ -97,12 +134,10 @@ export class ReportAddDialogComponent implements OnInit {
     });
 
     this.weatherForm.controls.orr.valueChanges.subscribe((value: boolean) => {
-      console.log('orr value', value);
       this.weatherForm.controls.rpg.setValue(value ? false : false, {emitEvent: false});
     });
 
     this.weatherForm.controls.rpg.valueChanges.subscribe((value: boolean) => {
-      console.log('rpg value', value);
       this.weatherForm.controls.orr.setValue(value ? false : false, {emitEvent: false});
     });
   }

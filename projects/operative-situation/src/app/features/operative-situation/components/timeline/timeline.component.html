@@ -1,7 +1,7 @@
 <div class="time-line">
   <div class="time-mark"
        *ngFor="let mark of marks"
-       [ngClass]="{'marker': mark.isControl, 'with-data': getReportByTime(mark), 'selected': (selectedTime$ | async) === mark}"
+       [ngClass]="{'marker': mark.isControl, 'with-data': getReportByTime(mark), 'selected': (selectedTime$ | async)?.time === mark.time}"
        (click)="selectTimeMark(mark)"
        matTooltip="{{getReportByTime(mark) && !mark.isControl? mark.time : null}}"
        matTooltipPosition="above">
