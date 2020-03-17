@@ -13,7 +13,6 @@ export interface IOperativeSituationState {
   divisions: IDivision[];                         // Список структурных подразделений
   periods: Period[];                              // Список временных периодов
   reports: ReportSummary;                         // Сводка отчетов об оперативной обстановке
-  reportsTime: string[];                          // Контрольные отметки времени в сводке отчетов об оперативнйо обстановке
   selectedCompany: ICompany;                      // Текущая организация
   selectedDivision: IDivision;                    // Текущее структурное подразделение
   selectedPeriod: IPeriod;                        // Текущий временной промежуток
@@ -33,7 +32,6 @@ export const operativeSituationInitialState: IOperativeSituationState = {
   divisions: [],
   periods: [],
   reports: null,
-  reportsTime: [],
   selectedCompany: null,
   selectedDivision: null,
   selectedPeriod: null,

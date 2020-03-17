@@ -5,7 +5,7 @@ import { Report} from './report.model';
 export class ReportSummary implements IReportSummary {
   date: string;                                                                // Текущая дата
   // reports: {[interval: string]: {[time: string]: IReport | IWeatherSummary}};  // Отчеты, агрегированные по временному периоду
-  reports: IReport[];
+  reports: Report[];
   consumption: number;                                                         // Максимум потребления за прошедшие сутки
   // weather?: IWeatherSummary;                                                   // Погодная сводка
 

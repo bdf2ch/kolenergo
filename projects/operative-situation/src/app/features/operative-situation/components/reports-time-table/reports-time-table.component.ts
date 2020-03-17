@@ -8,7 +8,6 @@ import { IApplicationState } from '../../../../ngrx';
 import {
   selectPeriods,
   selectReports,
-  selectReportsTime,
   selectSelectedDivision,
   selectSelectedPeriod,
   selectSelectedReport
@@ -28,7 +27,6 @@ export class ReportsTimeTableComponent implements OnInit {
   public selectedPeriod$: Observable<IPeriod>;
   public reports$: Observable<ReportSummary>;
   public selectedReport$: Observable<Report>;
-  public reportsTime$: Observable<string[]>;
   public selectedDivision$: Observable<IDivision>;
   private reports: ReportSummary;
   public inConsumptionMode: boolean;
@@ -44,7 +42,6 @@ export class ReportsTimeTableComponent implements OnInit {
   ngOnInit() {
     this.selectedPeriod$ = this.store.pipe(select(selectSelectedPeriod));
     this.reports$ = this.store.pipe(select(selectReports));
-    this.reportsTime$ = this.store.pipe(select(selectReportsTime));
     this.selectedReport$ = this.store.pipe(select(selectSelectedReport));
     this.selectedDivision$ = this.store.pipe(select(selectSelectedDivision));
     this.reports$.subscribe((value: ReportSummary) => {

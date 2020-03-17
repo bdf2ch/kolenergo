@@ -4,12 +4,11 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
+import { User } from '@kolenergo/core';
 import { IApplicationState } from '../../../../ngrx';
-import {IDivision, IPeriod, IReport} from '../../../../interfaces';
-import {selectLoadingInProgress, selectSelectedDivision, selectSelectedPeriod, selectUser} from '../../ngrx/selectors';
-import { Report } from '../../../../models/report.model';
-import {AddReport} from '../../ngrx';
-import {User} from '@kolenergo/core';
+import { AddReport, selectReports, selectLoadingInProgress, selectSelectedDivision, selectSelectedPeriod, selectUser } from '../../ngrx';
+import { IDivision, IPeriod } from '../../../../interfaces';
+import { Report, ReportSummary } from '../../../../models';
 
 @Component({
   selector: 'app-report-add-dialog',
@@ -30,12 +29,12 @@ export class ReportAddDialogComponent implements OnInit {
   public weatherForm: FormGroup;
   public newReport: Report;
   public isLoadingInProgress$: Observable<boolean>;
+  public reports$: Observable<ReportSummary>;
 
   constructor(
     private readonly builder: FormBuilder,
     private readonly store: Store<IApplicationState>
   ) {
-
     this.newReport = new Report();
   }
 
@@ -51,6 +50,14 @@ export class ReportAddDialogComponent implements OnInit {
     this.selectedPeriod$ = this.store.pipe(select(selectSelectedPeriod));
     this.selectedPeriod$.subscribe((value: IPeriod) => {
       this.selectedPeriod = value;
+    });
+    this.reports$ = this.store.pipe(select(selectReports));
+    this.reports$.subscribe((value: ReportSummary) => {
+      if (value && value.reports.length > 0) {
+        this.newReport.fromAnother(value.reports[value.reports.length - 1]);
+        console.log('report', this.newReport);
+        console.log('source', value.reports[value.reports.length - 1]);
+      }
     });
     this.isLoadingInProgress$ = this.store.pipe(select(selectLoadingInProgress));
     this.isLoadingInProgress$.subscribe((value: boolean) => {

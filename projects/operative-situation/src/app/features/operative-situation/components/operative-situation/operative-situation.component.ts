@@ -62,6 +62,7 @@ export class OperativeSituationComponent implements OnInit {
     this.dialog.open(ReportAddDialogComponent, {
       id: 'add-report-dialog',
       width: '850px',
+      // height: '580px',
       panelClass: 'form-step-dialog'
     });
   }

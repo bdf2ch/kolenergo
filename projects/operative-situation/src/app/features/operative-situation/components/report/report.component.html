@@ -2,14 +2,6 @@
   <div class="row h-100" *ngIf="!(selectedReport$ | async)">
     <div class="no-report-placeholder col-12">
       Отчет об оперативной обстановке отсутствует
-      <!--
-      <button mat-stroked-button
-              class="mt-3"
-              *ngIf="(selectedDivision$ | async) && (selectedDivision$ | async)?.isReportsAllowed"
-              (click)="openAddReportDialog()">
-        Добавить отчет
-      </button>
-      -->
     </div>
   </div>
 
@@ -26,7 +18,7 @@
           <div class="row">
             <div class="col-12">
 
-              <!--
+
               <div class="panel mat-elevation-z1 mb-3 justify-content-between">
                 <div class="d-flex flex-row">
                   <div class="panel-group">
@@ -114,7 +106,50 @@
                   </div>
                 </div>
               </div>
-              -->
+
+              <div class="panel indicator-panel">
+                <div class="indicator-group">
+                  <div class="caption"></div>
+                  <div class="indicators">
+                    <div class="indicators-with-header">
+                      <div class="header">По сети 35-150 кВ</div>
+                      <div class="body">
+                        <div class="indicator">
+                          <span class="title">ЛЭП 110-150 кВ, шт</span>
+                          <span class="value">1</span>
+                        </div>
+                        <div class="indicator">
+                          <span class="title">ЛЭП 35 кВ, шт</span>
+                          <span class="value">2</span>
+                        </div>
+                        <div class="indicator">
+                          <span class="title">ПС 110 -150 кВ, шт</span>
+                          <span class="value">3</span>
+                        </div>
+                        <div class="indicator">
+                          <span class="title">ПС 35 кВ, шт</span>
+                          <span class="value">3</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="indicators-with-header">
+                      <div class="header">Распред. сеть</div>
+                      <div class="body">
+                        <div class="indicator">
+                          <span class="title">ЛЭП 6-20 кВ, шт</span>
+                          <span class="value">5</span>
+                        </div>
+                        <div class="indicator">
+                          <span class="title">ТП 6-20 кВ, шт</span>
+                          <span class="value">6</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
 
 
               <table class="d-flex operative-situation-reports w-100 mat-elevation-z1">

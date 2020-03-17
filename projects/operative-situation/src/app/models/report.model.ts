@@ -6,7 +6,7 @@ import {IPeriod, IReport} from '../interfaces';
 import {Consumption} from './consumption.model';
 import {Period} from './period.model';
 
-export class Report extends Backup implements IReport {
+export class Report extends Backup {
   id: number;
   companyId: number;
   divisionId: number;
@@ -165,5 +165,55 @@ export class Report extends Backup implements IReport {
       power: Math.round((this.equipment_35_150.effect.power + this.equipment_network.effect.power) * 10) / 10,
       szo: this.equipment_35_150.effect.szo + this.equipment_network.effect.szo
     };
+  }
+
+  fromAnother(report: Report) {
+    this.id = report.id;
+    this.companyId = report.companyId;
+    this.divisionId = report.divisionId;
+    this.periodId = report.periodId;
+    this.user = report.user;
+    this.periodDate = report.periodDate;
+    this.periodTime = report.periodTime;
+    this.dateCreated = report.dateCreated;
+    this.dateCreatedD = report.dateCreatedD;
+    this.dateChanged = report.dateChanged;
+    this.dateChangedD = report.dateChangedD;
+    this.equipment_35_150.lep_110_150 = report.equipment_35_150.lep_110_150;
+    this.equipment_35_150.lep_35 = report.equipment_35_150.lep_35;
+    this.equipment_35_150.ps_110_150 = report.equipment_35_150.ps_110_150;
+    this.equipment_35_150.ps_35 = report.equipment_35_150.ps_35;
+    this.equipment_35_150.effect.tp_6_20 = report.equipment_35_150.effect.tp_6_20;
+    this.equipment_35_150.effect.population = report.equipment_35_150.effect.population;
+    this.equipment_35_150.effect.power = report.equipment_35_150.effect.power;
+    this.equipment_35_150.effect.szo = report.equipment_35_150.effect.szo;
+    this.equipment_network.lep_6_20 = report.equipment_network.lep_6_20;
+    this.equipment_network.tp_6_20 = report.equipment_network.tp_6_20;
+    this.equipment_network.effect.population = report.equipment_network.effect.population;
+    this.equipment_network.effect.power = report.equipment_network.effect.power;
+    this.equipment_network.effect.szo = report.equipment_network.effect.szo;
+    this.total.tp_6_20 = report.total.tp_6_20;
+    this.total.population = report.total.population;
+    this.total.power = report.total.power;
+    this.total.szo = report.total.szo;
+    this.resources.brigades = report.resources.brigades;
+    this.resources.people = report.resources.people;
+    this.resources.technics = report.resources.technics;
+    this.resources.rise = report.resources.rise;
+    this.resources.riseSumPower = report.resources.riseSumPower;
+    this.resources.risePeople = report.resources.risePeople;
+    this.violations.total_6 = report.violations.total_6;
+    this.violations.uapv_35 = report.violations.uapv_35;
+    this.violations.napv_35 = report.violations.napv_35;
+    this.violations.power_off_35 = report.violations.power_off_35;
+    this.violations.lep_rs = report.violations.lep_rs;
+    this.violations.tn_cancel = report.violations.tn_cancel;
+    this.violations.from_6_04 = report.violations.from_6_04;
+    this.violations.power_off_04 = report.violations.power_off_04;
+    this.violations.greater_3_04 = report.violations.greater_3_04;
+    this.violations.population_srez_04 = report.violations.population_srez_04;
+    this.violations.population_greater_3_04 = report.violations.population_greater_3_04;
+    this.weather.orr = report.weather.orr;
+    this.weather.rpg = report.weather.rpg;
   }
 }

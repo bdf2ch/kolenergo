@@ -42,16 +42,15 @@ export function reducer(
         periods: action.payload.data.periods.map((item: IPeriod) => new Period(item)),
         reports: new ReportSummary(action.payload.data.reports),
         selectedCompany: action.payload.data.user ? new Company(action.payload.data.user.company) : null,
-        // selectedReport: action.payload.data.reports.reports[new Period(action.payload.data.periods[0]).time]
-        //  ? new Report(action.payload.data.reports.reports[new Period(action.payload.data.periods[0]).time])
-        //  : null,
         selectedReport: new ReportSummary(action.payload.data.reports).reports.pop(),
         selectedDivision: null,
         selectedPeriod: new Period(action.payload.data.periods[0]),
-        selectedTime: new TimeMark(
-          new ReportSummary(action.payload.data.reports).reports.pop().periodId,
-          new ReportSummary(action.payload.data.reports).reports.pop().periodTime
-        )
+        selectedTime: action.payload.data.reports.reports.length > 0
+          ? new TimeMark(
+            new ReportSummary(action.payload.data.reports).reports.pop().periodId,
+            new ReportSummary(action.payload.data.reports).reports.pop().periodTime
+          )
+          : null
       };
     }
 
@@ -74,10 +73,13 @@ export function reducer(
         ...state,
         isLoadingInProgress: false,
         reports: new ReportSummary(action.payload.data),
-        reportsTime: new ReportSummary(action.payload.data).getReportTimesByInterval(state.selectedPeriod.interval),
-        selectedReport: action.payload.data.reports[state.selectedPeriod.interval]
-          ? new ReportSummary(action.payload.data).getFirstReportOfInterval(state.selectedPeriod.interval)
-          : null
+        selectedTime: action.payload.data.reports.length > 0
+          ? new TimeMark(
+            new ReportSummary(action.payload.data).reports.pop().periodId,
+            new ReportSummary(action.payload.data).reports.pop().periodTime
+          )
+          : null,
+        selectedReport: new ReportSummary(action.payload.data).reports.pop()
       };
     }
 

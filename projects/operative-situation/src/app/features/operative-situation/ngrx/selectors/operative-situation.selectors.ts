@@ -130,14 +130,6 @@ export const selectReportByTime = createSelector(
 );
 
 /**
- * Селектор контрольных отметок времени в сводке отчетов об оперативнйо обстановке
- */
-export const selectReportsTime = createSelector(
-  selectOSR,
-  (state: IOperativeSituationState) => state.reportsTime
-);
-
-/**
  * Селектор текущего отчета об оперативной обстановке
  */
 export const selectSelectedReport = createSelector(
