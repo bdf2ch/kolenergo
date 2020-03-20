@@ -14,7 +14,6 @@ export class ReportSummary implements IReportSummary {
    * @param config - Параметры инициализации
    */
   constructor(config?: IReportSummary) {
-    console.log('config', config);
     this.date = config ? config.date : null;
     this.reports = config ? config.reports.map((item: IReport) => new Report(item)) : [];
     this.consumption = config ? config.consumption : null;

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {IApplicationState} from '../../../../ngrx';
-import {select, Store} from '@ngrx/store';
-import {Observable} from 'rxjs';
+
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as moment from 'moment';
+
 import {
   selectPeriods,
   selectReportByTime,
@@ -10,11 +12,10 @@ import {
   selectSelectedReport,
   selectSelectedTime
 } from '../../ngrx/selectors';
-import {Period, Report, ReportSummary, TimeMark} from '../../../../models';
-import {IPeriod, IReport} from '../../../../interfaces';
-import {SelectTime} from '../../ngrx';
-import {Time} from '@angular/common';
-import * as moment from "moment";
+import { IPeriod } from '../../../../interfaces';
+import { Period, Report, ReportSummary, TimeMark } from '../../../../models';
+import { IApplicationState } from '../../../../ngrx';
+import { SelectTime } from '../../ngrx';
 
 @Component({
   selector: 'app-timeline',
@@ -28,10 +29,8 @@ export class TimelineComponent implements OnInit {
   public reports$: Observable<ReportSummary>;
   public selectedReport$: Observable<Report>;
   public selectReportByTime$: Observable<boolean>;
-  private timePeriods: Period[];
   private selectedTime: TimeMark;
   private reports: ReportSummary;
-
   public marks: TimeMark[];
 
   constructor(private readonly store: Store<IApplicationState>) {
@@ -63,7 +62,6 @@ export class TimelineComponent implements OnInit {
         }
       });
     });
-    console.log('marks', this.marks);
   }
 
   /**

@@ -1,4 +1,4 @@
-<div class="container-fluid h-100">
+<div class="container-fluid h-100 pl-0 pr-0">
   <div class="row h-100" *ngIf="!(selectedReport$ | async)">
     <div class="no-report-placeholder col-12">
       Отчет об оперативной обстановке отсутствует
@@ -7,128 +7,46 @@
 
   <div class="row pt-4 pb-4" *ngIf="selectedReport$ | async">
     <div class="col-12">
+      <!-- Start: Оборудование 35-150 кВ, задействованные ресурсы и потребление -->
       <div class="row">
-        <div class="col-12">
+        <!-- Start: Оборудование 35-150 кВ -->
+        <div class="col-6">
+          <!-- Start: Заголвок -->
           <div class="row">
             <div class="col-auto">
               <span class="row-caption">Оборудование 35-150 кВ</span>
             </div>
           </div>
+          <!-- End: Заголвок -->
 
+          <!-- Start: Панель с данными -->
           <div class="row">
             <div class="col-12">
-
-
-              <div class="panel mat-elevation-z1 mb-3 justify-content-between">
-                <div class="d-flex flex-row">
-                  <div class="panel-group">
-                  <div class="group-label">
-                    <span class="label">Отключенное оборудование<br>по сети 35-150 кВ</span>
-                  </div>
-                  <div class="panel-indicators">
-                    <div class="panel-indicator">
-                      <span class="label">ЛЭП 110-150 кВ, шт</span>
-                      <span class="value">1</span>
-                    </div>
-                    <div class="panel-indicator">
-                      <span class="label">ЛЭП 110-150 кВ, шт</span>
-                      <span class="value">2</span>
-                    </div>
-                    <div class="panel-indicator">
-                      <span class="label">ПС 110 -150 кВ, шт</span>
-                      <span class="value">3</span>
-                    </div>
-                    <div class="panel-indicator">
-                      <span class="label">ПС 35 кВ, шт</span>
-                      <span class="value">4</span>
-                    </div>
-                  </div>
-                </div>
-                  <div class="panel-group connected">
-                    <div class="group-label">
-                      <span class="label">Последствия<br>для потребителей</span>
-                    </div>
-                    <div class="panel-indicators">
-                      <div class="panel-indicator">
-                        <span class="label">ЛЭП 110-150 кВ, шт</span>
-                        <span class="value">1</span>
-                      </div>
-                      <div class="panel-indicator">
-                        <span class="label">ЛЭП 110-150 кВ, шт</span>
-                        <span class="value">2</span>
-                      </div>
-                      <div class="panel-indicator">
-                        <span class="label">ПС 110 -150 кВ, шт</span>
-                        <span class="value">3</span>
-                      </div>
-                      <div class="panel-indicator">
-                        <span class="label">ПС 35 кВ, шт</span>
-                        <span class="value">4</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="d-flex flex-row justify-content-end">
-                  <div class="panel-group">
-                    <div class="group-label">
-                      <span class="label">Распред. сеть</span>
-                    </div>
-                    <div class="panel-indicators">
-                      <div class="panel-indicator">
-                        <span class="label">ЛЭП 110-150 кВ, шт</span>
-                        <span class="value">1</span>
-                      </div>
-                      <div class="panel-indicator">
-                        <span class="label">ЛЭП 110-150 кВ, шт</span>
-                        <span class="value">2</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="panel-group connected">
-                    <div class="group-label">
-                      <span class="label">Последствия для потребителей</span>
-                    </div>
-                    <div class="panel-indicators">
-                      <div class="panel-indicator">
-                        <span class="label">ЛЭП 110-150 кВ, шт</span>
-                        <span class="value">1</span>
-                      </div>
-                      <div class="panel-indicator">
-                        <span class="label">ЛЭП 110-150 кВ, шт</span>
-                        <span class="value">2</span>
-                      </div>
-                      <div class="panel-indicator">
-                        <span class="label">ПС 110 -150 кВ, шт</span>
-                        <span class="value">3</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="panel indicator-panel">
+              <div class="panel indicator-panel flex-column mat-elevation-z1">
+                <!-- Start: Отключенное оборудование -->
                 <div class="indicator-group">
-                  <div class="caption"></div>
+                  <div class="caption">
+                    <span class="title">Отключенное оборудование</span>
+                  </div>
                   <div class="indicators">
                     <div class="indicators-with-header">
                       <div class="header">По сети 35-150 кВ</div>
                       <div class="body">
                         <div class="indicator">
                           <span class="title">ЛЭП 110-150 кВ, шт</span>
-                          <span class="value">1</span>
+                          <span class="value">{{(selectedReport$ | async)?.equipment_35_150.lep_110_150}}</span>
                         </div>
                         <div class="indicator">
                           <span class="title">ЛЭП 35 кВ, шт</span>
-                          <span class="value">2</span>
+                          <span class="value">{{(selectedReport$ | async)?.equipment_35_150.lep_35}}</span>
                         </div>
                         <div class="indicator">
-                          <span class="title">ПС 110 -150 кВ, шт</span>
-                          <span class="value">3</span>
+                          <span class="title">ПС 110-150 кВ, шт</span>
+                          <span class="value">{{(selectedReport$ | async)?.equipment_35_150.ps_110_150}}</span>
                         </div>
                         <div class="indicator">
                           <span class="title">ПС 35 кВ, шт</span>
-                          <span class="value">3</span>
+                          <span class="value">{{(selectedReport$ | async)?.equipment_35_150.ps_35}}</span>
                         </div>
                       </div>
                     </div>
@@ -138,20 +56,94 @@
                       <div class="body">
                         <div class="indicator">
                           <span class="title">ЛЭП 6-20 кВ, шт</span>
-                          <span class="value">5</span>
+                          <span class="value">{{(selectedReport$ | async)?.equipment_network.lep_6_20}}</span>
                         </div>
                         <div class="indicator">
                           <span class="title">ТП 6-20 кВ, шт</span>
-                          <span class="value">6</span>
+                          <span class="value">{{(selectedReport$ | async)?.equipment_network.tp_6_20}}</span>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                <!-- End: Отключенное оборудование -->
+
+                <!-- Start: Последствия для потребителей -->
+                <div class="indicator-group mt-4">
+                  <div class="caption">
+                    <span class="title">Последствия для потребителей</span>
+                  </div>
+                  <div class="indicators flex-column">
+                    <div class="indicators-with-header">
+                      <div class="header">По сети 35-150 кВ</div>
+                      <div class="body">
+                        <div class="indicator">
+                          <span class="title">ТП 6-20 кВ, шт</span>
+                          <span class="value">{{(selectedReport$ | async)?.equipment_35_150.effect.tp_6_20}}</span>
+                        </div>
+                        <div class="indicator">
+                          <span class="title">Население, чел</span>
+                          <span class="value">{{(selectedReport$ | async)?.equipment_35_150.effect.population}}</span>
+                        </div>
+                        <div class="indicator">
+                          <span class="title">Нагрузка, МВт</span>
+                          <span class="value">{{(selectedReport$ | async)?.equipment_35_150.effect.power}}</span>
+                        </div>
+                        <div class="indicator">
+                          <span class="title">СЗО, шт</span>
+                          <span class="value">{{(selectedReport$ | async)?.equipment_35_150.effect.szo}}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="indicators-with-header">
+                      <div class="header">Распред. сеть</div>
+                      <div class="body">
+                        <div class="indicator empty">
+                          <span class="title"></span>
+                          <span class="value"></span>
+                        </div>
+                        <div class="indicator">
+                          <span class="title">Население, чел</span>
+                          <span class="value">{{(selectedReport$ | async)?.equipment_network.effect.population}}</span>
+                        </div>
+                        <div class="indicator">
+                          <span class="title">Нагрузка, МВт</span>
+                          <span class="value">{{(selectedReport$ | async)?.equipment_network.effect.power}}</span>
+                        </div>
+                        <div class="indicator">
+                          <span class="title">СЗО, шт</span>
+                          <span class="value">{{(selectedReport$ | async)?.equipment_network.effect.szo}}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="indicators-with-header">
+                      <div class="header">Суммарно</div>
+                      <div class="body">
+                        <div class="indicator highlighted">
+                          <span class="title">ТП 6-20 кВ, шт</span>
+                          <span class="value">{{(selectedReport$ | async)?.total?.tp_6_20}}</span>
+                        </div>
+                        <div class="indicator highlighted">
+                          <span class="title">Население, чел</span>
+                          <span class="value">{{(selectedReport$ | async)?.total?.population}}</span>
+                        </div>
+                        <div class="indicator highlighted">
+                          <span class="title highlighted">Нагрузка, МВт</span>
+                          <span class="value">{{(selectedReport$ | async)?.total?.power}}</span>
+                        </div>
+                        <div class="indicator highlighted">
+                          <span class="title">СЗО, шт</span>
+                          <span class="value">{{(selectedReport$ | async)?.total?.szo}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End: Последствия для потребителей -->
               </div>
-
-
-
+              <!--
               <table class="d-flex operative-situation-reports w-100 mat-elevation-z1">
                 <tr>
                   <th colspan="4" scope="colgroup" class="top border-right" style="border-color: #E0E0E0 !important;">Отключенное оборудование по сети 35-150 кВ</th>
@@ -207,21 +199,152 @@
                   <td class="total">{{(selectedReport$ | async)?.total?.szo}}</td>
                 </tr>
               </table>
+              -->
             </div>
           </div>
+          <!-- End: Панель с данными -->
         </div>
-      </div>
+        <!-- End: Оборудование 35-150 кВ -->
 
-      <div class="row mt-5">
-        <div class="col-12">
+        <!-- Start: Задействованные ресурсы -->
+        <div class="col-auto d-flex flex-column">
+          <span class="row-caption">Задействованные ресурсы</span>
+
+          <div class="d-flex flex-column justify-content-between flex-grow-1">
+            <div class="d-flex flex-row justify-content-between">
+              <app-indicator
+                class="mr-4"
+                [value]="(selectedReport$ | async)?.resources?.rise"
+                [title]="'Задействовано РИСЭ, шт'">
+              </app-indicator>
+              <app-indicator
+                [value]="(selectedReport$ | async)?.resources?.riseSumPower"
+                [title]="'Суммарная мощность, кВт'">
+              </app-indicator>
+            </div>
+            <div class="d-flex flex-row justify-content-between align-items-stretch">
+              <app-indicator
+                class="mr-4"
+                [value]="(selectedReport$ | async)?.resources?.risePeople"
+                [title]="'Запитано от РИСЭ, человек'">
+              </app-indicator>
+              <app-indicator
+                [value]="(selectedReport$ | async)?.resources.brigades"
+                [title]="'Задействовано бригад, шт'">
+              </app-indicator>
+            </div>
+            <div class="d-flex flex-row justify-content-between align-items-stretch">
+              <app-indicator
+                class="mr-4"
+                [value]="(selectedReport$ | async)?.resources.people"
+                [title]="'Задействовано человек'">
+              </app-indicator>
+              <app-indicator
+                [value]="(selectedReport$ | async)?.resources.technics"
+                [title]="'Единиц техники, шт'">
+              </app-indicator>
+            </div>
+          </div>
+
+        </div>
+        <!-- End: Задействованные ресурсы -->
+
+        <!-- Start: Потребление -->
+        <div class="col">потребление</div>
+        <!-- End: Потребление -->
+      </div>
+      <!-- End: Оборудование 35-150 кВ, задействованные ресурсы и потребление -->
+
+      <!-- Start: Нарушения, погодные условия и режим работы -->
+      <div class="row mt-4">
+        <!-- Start: Нарушения -->
+        <div class="col-6">
           <div class="row">
-            <div class="col-auto">
+            <div class="col-12">
               <span class="row-caption">Нарушения</span>
             </div>
           </div>
 
           <div class="row">
             <div class="col-12">
+              <div class="panel indicator-panel mat-elevation-z1 flex-column">
+                <div class="indicator-group">
+                  <div class="caption">
+                    <span class="title">Основная сеть 35 кВ и выше</span>
+                  </div>
+                  <div class="indicators">
+                    <div class="indicators-with-header">
+                      <div class="header">По сети 35-150 кВ</div>
+                      <div class="body">
+                        <div class="indicator">
+                          <span class="title">Всего 6 кВ и выше</span>
+                          <span class="value">{{(selectedReport$ | async)?.violations.total_6}}</span>
+                        </div>
+                        <div class="indicator">
+                          <span class="title">УАПВ</span>
+                          <span class="value">{{(selectedReport$ | async)?.violations.uapv_35}}</span>
+                        </div>
+                        <div class="indicator">
+                          <span class="title">НАПВ</span>
+                          <span class="value">{{(selectedReport$ | async)?.violations.napv_35}}</span>
+                        </div>
+                        <div class="indicator">
+                          <span class="title">С обесточ.</span>
+                          <span class="value">{{(selectedReport$ | async)?.violations.power_off_35}}</span>
+                        </div>
+                        <div class="indicator">
+                          <span class="title">Итого</span>
+                          <span
+                            class="value">{{(selectedReport$ | async)?.violations.uapv_35 + (selectedReport$ | async)?.violations.napv_35}}</span>
+                        </div>
+                        <div class="indicator">
+                          <span class="title">ЛЭП р/с</span>
+                          <span class="value">{{(selectedReport$ | async)?.violations.lep_rs}}</span>
+                        </div>
+                        <div class="indicator">
+                          <span class="title">ТН с погаш.</span>
+                          <span class="value">{{(selectedReport$ | async)?.violations.tn_cancel}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="indicator-group mt-4">
+                  <div class="caption">
+                    <span class="title">Сеть 0,4 кВ</span>
+                  </div>
+                  <div class="indicators">
+                    <div class="indicators-with-header">
+                      <!--<div class="header">По сети 35-150 кВ</div>-->
+                      <div class="body">
+                        <div class="indicator no-header">
+                          <span class="title">С 6:00</span>
+                          <span class="value">{{(selectedReport$ | async)?.equipment_35_150.effect.tp_6_20}}</span>
+                        </div>
+                        <div class="indicator no-header">
+                          <span class="title">Откл. на срез</span>
+                          <span class="value">{{(selectedReport$ | async)?.equipment_35_150.effect.population}}</span>
+                        </div>
+                        <div class="indicator no-header">
+                          <span class="title">Более 3 часов</span>
+                          <span class="value">{{(selectedReport$ | async)?.equipment_35_150.effect.power}}</span>
+                        </div>
+                        <div class="indicator no-header">
+                          <span class="title">По сети 0,4 кВ на срез</span>
+                          <span class="value">{{(selectedReport$ | async)?.equipment_35_150.effect.szo}}</span>
+                        </div>
+                        <div class="indicator no-header">
+                          <span class="title">СЗО, шт</span>
+                          <span class="value">{{(selectedReport$ | async)?.equipment_35_150.effect.szo}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!--
               <table class="operative-situation-reports w-100 h-100 mat-elevation-z1">
                 <tr class="border-bottom">
                   <th rowspan="2" scope="colgroup" class="top border-right">Всего 6 кВ и выше</th>
@@ -249,7 +372,8 @@
                   <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.uapv_35}}</td>
                   <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.napv_35}}</td>
                   <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.power_off_35}}</td>
-                  <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.uapv_35 + (selectedReport$ | async)?.violations.napv_35}}</td>
+                  <td
+                    class="p-3 border-right">{{(selectedReport$ | async)?.violations.uapv_35 + (selectedReport$ | async)?.violations.napv_35}}</td>
 
                   <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.lep_rs}}</td>
                   <td class="p-3 border-right">{{(selectedReport$ | async)?.violations.tn_cancel}}</td>
@@ -260,65 +384,28 @@
                   <td class="p-3">{{(selectedReport$ | async)?.violations.population_greater_3_04}}</td>
                 </tr>
               </table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row mt-5">
-
-        <div class="col-12">
-
-          <div class="row">
-            <div class="col-auto pr-4 h-100">
-              <span class="row-caption">Задействованные ресурсы</span>
-
-              <div class="d-flex flex-column">
-                <div class="d-flex flex-row justify-content-between pb-3">
-                  <app-indicator
-                    class="mr-3"
-                    [value]="(selectedReport$ | async)?.resources?.rise"
-                    [title]="'Задействовано РИСЭ, шт'">
-                  </app-indicator>
-                  <app-indicator
-                    class="mr-3"
-                    [value]="(selectedReport$ | async)?.resources?.riseSumPower"
-                    [title]="'Суммарная мощность, кВт'">
-                  </app-indicator>
-                  <app-indicator
-                    [value]="(selectedReport$ | async)?.resources?.risePeople"
-                    [title]="'Запитано от РИСЭ, человек'">
-                  </app-indicator>
-                </div>
-                <div class="d-flex flex-row justify-content-between align-items-stretch">
-                  <app-indicator
-                    [value]="(selectedReport$ | async)?.resources.brigades"
-                    [title]="'Задействовано бригад, шт'">
-                  </app-indicator>
-                  <app-indicator
-                    [value]="(selectedReport$ | async)?.resources.people"
-                    [title]="'Задействовано человек'">
-                  </app-indicator>
-                  <app-indicator
-                    [value]="(selectedReport$ | async)?.resources.technics"
-                    [title]="'Единиц техники, шт'">
-                  </app-indicator>
-                </div>
-              </div>
-
-            </div>
-            <div class="col">
-              <span class="row-caption">Погодные условия</span>
-              <app-weather-summary
-                [weatherSummary]="(selectedReport$ | async)?.weatherSummary"
-                [showMode]="true">
-              </app-weather-summary>
+              -->
             </div>
           </div>
 
+
         </div>
+        <!-- End: Нарушения -->
+
+        <!-- Start: Погодные условия -->
+        <div class="col-6 d-flex flex-column">
+          <span class="row-caption">Погодные условия</span>
+          <app-weather-summary
+            class="d-flex flex-column flex-grow-1"
+            [weatherSummary]="(selectedReport$ | async)?.weatherSummary"
+            [showMode]="false">
+          </app-weather-summary>
+        </div>
+        <!-- End: Погодные условия -->
       </div>
+      <!-- End: Нарушения, погодные условия и режим работы -->
     </div>
+
   </div>
 
 </div>
