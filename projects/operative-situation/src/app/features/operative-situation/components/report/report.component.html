@@ -7,7 +7,7 @@
 
   <div class="row pt-4 pb-4" *ngIf="selectedReport$ | async">
     <div class="col-12">
-      <!-- Start: Оборудование 35-150 кВ, задействованные ресурсы и потребление -->
+      <!-- Start: Оборудование 35-150 кВ, задействованные ресурсы, потребление и режим работы -->
       <div class="row">
         <!-- Start: Оборудование 35-150 кВ -->
         <div class="col-6">
@@ -213,7 +213,7 @@
           <div class="d-flex flex-column justify-content-between flex-grow-1">
             <div class="d-flex flex-row justify-content-between">
               <app-indicator
-                class="mr-4"
+                class="mr-3"
                 [value]="(selectedReport$ | async)?.resources?.rise"
                 [title]="'Задействовано РИСЭ, шт'">
               </app-indicator>
@@ -224,7 +224,7 @@
             </div>
             <div class="d-flex flex-row justify-content-between align-items-stretch">
               <app-indicator
-                class="mr-4"
+                class="mr-3"
                 [value]="(selectedReport$ | async)?.resources?.risePeople"
                 [title]="'Запитано от РИСЭ, человек'">
               </app-indicator>
@@ -235,7 +235,7 @@
             </div>
             <div class="d-flex flex-row justify-content-between align-items-stretch">
               <app-indicator
-                class="mr-4"
+                class="mr-3"
                 [value]="(selectedReport$ | async)?.resources.people"
                 [title]="'Задействовано человек'">
               </app-indicator>
@@ -249,22 +249,69 @@
         </div>
         <!-- End: Задействованные ресурсы -->
 
-        <!-- Start: Потребление -->
-        <div class="col">потребление</div>
-        <!-- End: Потребление -->
-      </div>
-      <!-- End: Оборудование 35-150 кВ, задействованные ресурсы и потребление -->
+        <!-- Start: Потребление и режим работы -->
+        <div class="col d-flex flex-column">
+          <!-- Start: Потребление -->
+          <div class="d-flex flex-column flex-grow-1">
+            <!-- Start: Заголвок -->
+            <div class="row">
+              <div class="col-auto">
+                <span class="row-caption">Потребление</span>
+              </div>
+            </div>
+            <!-- End: Заголвок -->
 
-      <!-- Start: Нарушения, погодные условия и режим работы -->
+            <!-- Start: Панель с данными -->
+            <div class="row d-flex flex-column flex-grow-1">
+              <div class="col-12">
+                <div class="panel indicator-panel h-100 flex-column flex-grow-1 mat-elevation-z1">
+
+                </div>
+              </div>
+            </div>
+            <!-- End: Панель с данными -->
+          </div>
+          <!-- End: Потребление -->
+
+          <!-- Start: Режим работы -->
+          <div class="d-flex flex-column flex-grow-1 mt-3">
+            <!-- Start: Заголвок -->
+            <div class="row">
+              <div class="col-auto">
+                <span class="row-caption">Режим работы</span>
+              </div>
+            </div>
+            <!-- End: Заголвок -->
+
+            <!-- Start: Панель с данными -->
+            <div class="row d-flex flex-column flex-grow-1">
+              <div class="col-12">
+                <div class="panel indicator-panel h-100 flex-column flex-grow-1 mat-elevation-z1">
+
+                </div>
+              </div>
+            </div>
+            <!-- End: Панель с данными -->
+          </div>
+          <!-- End: Режим работы -->
+        </div>
+        <!-- End: Потребление и режим работы -->
+      </div>
+      <!-- End: Оборудование 35-150 кВ, задействованные ресурсы, потребление и режим работы -->
+
+      <!-- Start: Нарушения и погодные условия -->
       <div class="row mt-4">
         <!-- Start: Нарушения -->
         <div class="col-6">
+          <!-- Start: Заголовок -->
           <div class="row">
             <div class="col-12">
               <span class="row-caption">Нарушения</span>
             </div>
           </div>
+          <!-- End: Заголовок -->
 
+          <!-- Start: Панель с данными -->
           <div class="row">
             <div class="col-12">
               <div class="panel indicator-panel mat-elevation-z1 flex-column">
@@ -387,8 +434,7 @@
               -->
             </div>
           </div>
-
-
+          <!-- End: Панель с данными -->
         </div>
         <!-- End: Нарушения -->
 
@@ -403,7 +449,7 @@
         </div>
         <!-- End: Погодные условия -->
       </div>
-      <!-- End: Нарушения, погодные условия и режим работы -->
+      <!-- End: Нарушения и погодные условия -->
     </div>
 
   </div>
