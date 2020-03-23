@@ -348,6 +348,10 @@
         display: flex;
         flex-direction: row;
         align-items: flex-end;
+        .body {
+          display: flex;
+          flex-direction: row;
+        }
 
         .indicator {
           display: flex;
@@ -358,7 +362,7 @@
           height: @panel-indicator-height;
           padding: 5px;
           border: 1px solid @panel-indicator-border-color;
-          border-right: none !important;
+          // border-right: none !important;
 
           &:first-of-type {
             border-top-left-radius: 0px;
