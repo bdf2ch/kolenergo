@@ -301,7 +301,7 @@
   .indicator-group {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    // width: 100%;
     margin-top: 7px;
     //margin-right: 10px;
 
@@ -344,14 +344,76 @@
       flex-direction: row;
       justify-content: space-between;
 
+      .indicators-without-header {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+
+        .indicator {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          // width: @panel-indicator-width;
+          min-width: @panel-indicator-width;
+          height: @panel-indicator-height;
+          padding: 5px;
+          border: 1px solid @panel-indicator-border-color;
+          border-right: none !important;
+
+          &:first-of-type {
+            border-top-left-radius: 0px;
+          }
+
+          &:last-of-type {
+            border-right: 1px solid #eceff1;
+            border-top-right-radius: 0px;
+          }
+
+          &.highlighted {
+            background: #fffde7;
+          }
+
+          &.empty {
+            background: #fafafa;
+          }
+
+          &.no-header {
+            border-top: 1px solid #eceff1;
+          }
+
+          .title {
+            min-height: 22px;
+            font-family: @panel-indicator-font-family;
+            font-size: @panel-indicator-title-font-size;
+            line-height: @panel-indicator-title-font-size;
+            color: @panel-indicator-title-font-color;
+            text-align: center;
+          }
+
+          .value {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            font-family: @panel-indicator-value-font-family;
+            font-size: @panel-indicator-value-font-size;
+            line-height: @panel-indicator-value-line-height;
+            font-weight: normal;
+            color: @panel-indicator-value-font-color;
+            text-align: center;
+          }
+        }
+
+      }
+
       .indicators-with-header {
         display: flex;
         flex-direction: column;
-        width: 100%;
-        margin-right: 15px;
+        flex-grow: 1;
 
-        &:last-of-type {
-          margin-right: 0px;
+        &.with-margin {
+          margin-right: 15px;
         }
 
         .header {
@@ -432,5 +494,22 @@
         }
       }
     }
+  }
+
+  .value {
+    margin-bottom: 10px;
+    font-family: 'Open Sans light';
+    font-size: 45px;
+    line-height: 45px;
+    text-align: center;
+    color: #546e7a;
+  }
+
+  .label {
+    font-family: 'Open Sans light';
+    font-size: 13px;
+    line-height: 13px;
+    text-align: center;
+    color: #78909c;
   }
 }

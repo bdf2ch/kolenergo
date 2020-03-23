@@ -29,7 +29,7 @@
                     <span class="title">Отключенное оборудование</span>
                   </div>
                   <div class="indicators">
-                    <div class="indicators-with-header">
+                    <div class="indicators-with-header with-margin">
                       <div class="header">По сети 35-150 кВ</div>
                       <div class="body">
                         <div class="indicator">
@@ -253,19 +253,21 @@
         <div class="col d-flex flex-column">
           <!-- Start: Потребление -->
           <div class="d-flex flex-column flex-grow-1">
-            <!-- Start: Заголвок -->
+            <!-- Start: Заголовок -->
             <div class="row">
               <div class="col-auto">
                 <span class="row-caption">Потребление</span>
               </div>
             </div>
-            <!-- End: Заголвок -->
+            <!-- End: Заголовок -->
 
             <!-- Start: Панель с данными -->
             <div class="row d-flex flex-column flex-grow-1">
               <div class="col-12">
-                <div class="panel indicator-panel h-100 flex-column flex-grow-1 mat-elevation-z1">
-
+                <div class="panel indicator-panel h-100 flex-column justify-content-center align-items-center flex-grow-1 mat-elevation-z1">
+                  <div class="value">1250</div>
+                  <div class="label">Максимум потребления за прошедшие сутки</div>
+                  <button mat-stroked-button class="mt-3" color="primary">Изменить</button>
                 </div>
               </div>
             </div>
@@ -275,19 +277,20 @@
 
           <!-- Start: Режим работы -->
           <div class="d-flex flex-column flex-grow-1 mt-3">
-            <!-- Start: Заголвок -->
+            <!-- Start: Заголовок -->
             <div class="row">
               <div class="col-auto">
                 <span class="row-caption">Режим работы</span>
               </div>
             </div>
-            <!-- End: Заголвок -->
+            <!-- End: Заголовок -->
 
             <!-- Start: Панель с данными -->
             <div class="row d-flex flex-column flex-grow-1">
               <div class="col-12">
-                <div class="panel indicator-panel h-100 flex-column flex-grow-1 mat-elevation-z1">
-
+                <div class="panel indicator-panel h-100 flex-column justify-content-center align-items-center flex-grow-1 mat-elevation-z1">
+                  <div class="value">{{(selectedReport$ | async)?.weather.orr ? 'ОРР' : (selectedReport$ | async)?.weather.rpg ? 'РПГ' : 'Нет'}}</div>
+                  <div class="label">{{(selectedReport$ | async)?.weather.orr ? 'Особый режим работы' : (selectedReport$ | async)?.weather.rpg ? 'Режим повышенной готовности' : 'ОРР / РПГ'}}</div>
                 </div>
               </div>
             </div>
@@ -320,13 +323,15 @@
                     <span class="title">Основная сеть 35 кВ и выше</span>
                   </div>
                   <div class="indicators">
+                    <div class="indicators-without-header">
+                      <div class="indicator">
+                        <span class="title">Всего 6 кВ и выше</span>
+                        <span class="value">{{(selectedReport$ | async)?.violations.total_6}}</span>
+                      </div>
+                    </div>
                     <div class="indicators-with-header">
                       <div class="header">По сети 35-150 кВ</div>
                       <div class="body">
-                        <div class="indicator">
-                          <span class="title">Всего 6 кВ и выше</span>
-                          <span class="value">{{(selectedReport$ | async)?.violations.total_6}}</span>
-                        </div>
                         <div class="indicator">
                           <span class="title">УАПВ</span>
                           <span class="value">{{(selectedReport$ | async)?.violations.uapv_35}}</span>
@@ -344,14 +349,16 @@
                           <span
                             class="value">{{(selectedReport$ | async)?.violations.uapv_35 + (selectedReport$ | async)?.violations.napv_35}}</span>
                         </div>
-                        <div class="indicator">
-                          <span class="title">ЛЭП р/с</span>
-                          <span class="value">{{(selectedReport$ | async)?.violations.lep_rs}}</span>
-                        </div>
-                        <div class="indicator">
-                          <span class="title">ТН с погаш.</span>
-                          <span class="value">{{(selectedReport$ | async)?.violations.tn_cancel}}</span>
-                        </div>
+                      </div>
+                    </div>
+                    <div class="indicators-without-header">
+                      <div class="indicator">
+                        <span class="title">ЛЭП р/с</span>
+                        <span class="value">{{(selectedReport$ | async)?.violations.lep_rs}}</span>
+                      </div>
+                      <div class="indicator">
+                        <span class="title">ТН с погаш.</span>
+                        <span class="value">{{(selectedReport$ | async)?.violations.tn_cancel}}</span>
                       </div>
                     </div>
                   </div>
@@ -367,23 +374,23 @@
                       <div class="body">
                         <div class="indicator no-header">
                           <span class="title">С 6:00</span>
-                          <span class="value">{{(selectedReport$ | async)?.equipment_35_150.effect.tp_6_20}}</span>
+                          <span class="value">{{(selectedReport$ | async)?.violations.from_6_04}}</span>
                         </div>
                         <div class="indicator no-header">
                           <span class="title">Откл. на срез</span>
-                          <span class="value">{{(selectedReport$ | async)?.equipment_35_150.effect.population}}</span>
+                          <span class="value">{{(selectedReport$ | async)?.violations.power_off_04}}</span>
                         </div>
                         <div class="indicator no-header">
                           <span class="title">Более 3 часов</span>
-                          <span class="value">{{(selectedReport$ | async)?.equipment_35_150.effect.power}}</span>
+                          <span class="value">{{(selectedReport$ | async)?.violations.greater_3_04}}</span>
                         </div>
                         <div class="indicator no-header">
                           <span class="title">По сети 0,4 кВ на срез</span>
-                          <span class="value">{{(selectedReport$ | async)?.equipment_35_150.effect.szo}}</span>
+                          <span class="value">{{(selectedReport$ | async)?.violations.population_srez_04}}</span>
                         </div>
                         <div class="indicator no-header">
-                          <span class="title">СЗО, шт</span>
-                          <span class="value">{{(selectedReport$ | async)?.equipment_35_150.effect.szo}}</span>
+                          <span class="title">По сети 0,4 кВ (более 3 часов)</span>
+                          <span class="value">{{(selectedReport$ | async)?.violations.population_greater_3_04}}</span>
                         </div>
                       </div>
                     </div>
