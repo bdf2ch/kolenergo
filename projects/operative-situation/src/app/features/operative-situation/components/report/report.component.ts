@@ -1,15 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { IApplicationState, } from '../../../../ngrx';
-import { Report, WeatherSummary } from '../../../../models';
-import { ReportAddDialogComponent } from '../report-add-dialog/report-add-dialog.component';
-import { selectSelectedDivision, selectSelectedReport, selectSelectedReportWeatherSummary } from '../../ngrx/selectors';
-import {IDivision} from '../../../../interfaces';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import { Report } from '../../../../models';
+import {
+  selectConsumption,
+  selectConsumptionLoadingInProgress,
+  selectLoadingInProgress,
+  selectSelectedDivision,
+  selectSelectedReport
+} from '../../ngrx/selectors';
+import { IDivision } from '../../../../interfaces';
+import {AddConsumptionReport} from '../../ngrx';
 
 @Component({
   selector: 'app-report',
@@ -19,7 +25,9 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 export class ReportComponent implements OnInit {
   public selectedDivision$: Observable<IDivision>;
   public selectedReport$: Observable<Report>;
-  public selectedReportWeatherSummary: Observable<WeatherSummary>;
+  public consumption$: Observable<number>;
+  public loadingInProgress$: Observable<boolean>;
+  public isConsumptionLoading$: Observable<boolean>;
   public inEditConsumptionMode: boolean;
   public consumptionForm: FormGroup;
 
@@ -34,21 +42,28 @@ export class ReportComponent implements OnInit {
   ngOnInit() {
     this.selectedDivision$ = this.store.pipe(select(selectSelectedDivision));
     this.selectedReport$ = this.store.pipe(select(selectSelectedReport));
-    this.selectedReportWeatherSummary = this.store.pipe(select(selectSelectedReportWeatherSummary));
+    this.consumption$ = this.store.pipe(select(selectConsumption));
+    this.loadingInProgress$ = this.store.pipe(select(selectLoadingInProgress));
+    this.isConsumptionLoading$ = this.store.pipe(select(selectConsumptionLoadingInProgress));
     this.consumptionForm = this.builder.group({
       consumption: new FormControl(0, Validators.required)
+    });
+    this.isConsumptionLoading$.subscribe((value: boolean) => {
+      if (value === false && this.inEditConsumptionMode === true) {
+        this.inEditConsumptionMode = false;
+      }
+    });
+    this.consumption$.subscribe((value: number) => {
+      if (value) {
+        this.consumptionForm.controls.consumption.setValue(value);
+      }
     });
   }
 
   /**
-   * Открытие диалогового окна добавления отчета об оперативной обстановке
+   * Добавление данных о максимальном потреблении за прошедшие сутки
    */
-  openAddReportDialog() {
-    this.dialog.open(ReportAddDialogComponent, {
-      id: 'add-report-dialog',
-      width: '850px',
-      panelClass: 'form-step-dialog'
-    });
+  addConsumption() {
+    this.store.dispatch(new AddConsumptionReport(this.consumptionForm.controls.consumption.value));
   }
-
 }

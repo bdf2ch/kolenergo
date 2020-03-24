@@ -3,12 +3,14 @@
   <mat-drawer mode="side" opened>
   <div class="container-fluid p-4 overflow-hidden">
 
-
     <div class="row">
       <div class="col-12">
+
+        <!-- Start: Выпадающее меню выбора организации -->
         <button mat-stroked-button
-                class="w-100"
+                class="w-100 mb-4"
                 color="primary"
+                *ngIf="(user$ | async).company.id === 8"
                 [matMenuTriggerFor]="companiesMenu">
           {{(selectedCompany$ | async)?.shortTitle}}
           <mat-icon>arrow_drop_down</mat-icon>
@@ -24,11 +26,20 @@
             </div>
           </button>
         </mat-menu>
+        <!-- End: Выпадающее меню выбора организации -->
+
+        <button mat-stroked-button
+                class="w-100 mb-4"
+                color="primary"
+                *ngIf="(user$ | async).company.id != 8"
+                (click)="loadReportByCompany()">
+          {{(selectedCompany$ | async)?.shortTitle}}
+        </button>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-12 pt-4 overflow-auto">
+      <div class="col-12 overflow-auto">
         <app-division-tree></app-division-tree>
       </div>
     </div>

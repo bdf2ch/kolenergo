@@ -18,7 +18,13 @@ import {
   LoadReportsByDivisionFail,
   LoadReportsByCompanySuccess,
   LoadReportsByCompanyFail,
-  LoadReportsByCompany, AddReport, AddReportSuccess, AddReportFail
+  LoadReportsByCompany,
+  AddReport,
+  AddReportSuccess,
+  AddReportFail,
+  AddConsumptionReport,
+  AddConsumptionReportFail,
+  AddConsumptionReportSuccess
 } from './operative-situation.actions';
 import { OperativeSituationService } from '../../../services/operative-situation.service';
 import { IApplicationState } from '../../../ngrx';
@@ -149,6 +155,47 @@ export class OperativeSituationEffects {
     tap(() => {
       this.snackBar.open(
         'При добавлении отчета произошла ошибка',
+        'Закрыть',
+        {horizontalPosition: 'left', verticalPosition: 'bottom', duration: 3000}
+      );
+    }),
+    mergeMap(() => EMPTY)
+  );
+
+  @Effect()
+  addConsumption$ = this.actions$.pipe(
+    ofType(OperativeSituationActionTypes.ADD_CONSUMPTION),
+    withLatestFrom(
+      this.store.pipe(select(selectSelectedCompany)),
+      this.store.pipe(select(selectSelectedDivision))
+    ),
+    mergeMap(([action, company, division]) => this.osr.addConsumption(company.id, division.id, (action as AddConsumptionReport).payload)
+      .pipe(
+        map((response: IServerResponse<number>) => new AddConsumptionReportSuccess(response)),
+        catchError(() => of(new AddConsumptionReportFail()))
+      )
+    )
+  );
+
+  @Effect()
+  addConsumptionSuccess$ = this.actions$.pipe(
+    ofType(OperativeSituationActionTypes.ADD_CONSUMPTION_SUCCESS),
+    tap((action: AddConsumptionReportSuccess) => {
+      this.snackBar.open(
+        `Данные о потреблении добавлены`,
+        'Закрыть',
+        {horizontalPosition: 'left', verticalPosition: 'bottom', duration: 3000}
+      );
+    }),
+    mergeMap(() => EMPTY)
+  );
+
+  @Effect()
+  addConsumptionFail$ = this.actions$.pipe(
+    ofType(OperativeSituationActionTypes.ADD_CONSUMPTION_FAIL),
+    tap(() => {
+      this.snackBar.open(
+        'При добавлении Данных о потреблении произошла ошибка',
         'Закрыть',
         {horizontalPosition: 'left', verticalPosition: 'bottom', duration: 3000}
       );

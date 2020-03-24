@@ -2,9 +2,9 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { IOperativeSituationState} from '../operative-situation.state';
 import { IApplicationState } from '../../../../ngrx';
-import { IDivision, IPeriod, IReport } from '../../../../interfaces';
+import { IDivision } from '../../../../interfaces';
 import { ICompany } from '@kolenergo/core';
-import {Report, TimeMark} from '../../../../models';
+import { Report, TimeMark } from '../../../../models';
 
 /**
  * Селектор раздела с отчетами по оперативной обстановке
@@ -17,6 +17,14 @@ export const selectOSR = createFeatureSelector<IApplicationState, IOperativeSitu
 export const selectLoadingInProgress = createSelector(
   selectOSR,
   (state: IOperativeSituationState) => state.isLoadingInProgress
+);
+
+/**
+ * Селектор состояния загрузки данных о потреблении
+ */
+export const selectConsumptionLoadingInProgress = createSelector(
+  selectOSR,
+  (state: IOperativeSituationState) => state.isConsumptionLoadingInProgress
 );
 
 /**
@@ -121,6 +129,15 @@ export const selectReports = createSelector(
 );
 
 /**
+ * Селектор отчета о максимальном потреблении за прошедшие сутки
+ */
+export const selectConsumption = createSelector(
+  selectOSR,
+  (state: IOperativeSituationState) => state.consumption
+);
+
+
+/**
  * Селектор текущего отчета об оперативной обстановке
  */
 export const selectReportByTime = createSelector(
@@ -140,10 +157,12 @@ export const selectSelectedReport = createSelector(
 /**
  * Селектор текущей поголдоной сводке по текущему отчету об оперативной обстановке
  */
+/*
 export const selectSelectedReportWeatherSummary = createSelector(
   selectOSR,
   (state: IOperativeSituationState) => state.selectedReportWeatherSummary
 );
+ */
 
 
 

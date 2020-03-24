@@ -31,6 +31,7 @@ export class OperativeSituationComponent implements OnInit {
   public selectedDivision$: Observable<IDivision>;
   public selectedTime$: Observable<TimeMark>;
   public isLoadingInProgress$: Observable<boolean>;
+  public selectedCompany: ICompany;
 
   constructor(
     private readonly dialog: MatDialog,
@@ -45,7 +46,13 @@ export class OperativeSituationComponent implements OnInit {
     this.isLoadingInProgress$ = this.store.pipe(select(selectLoadingInProgress));
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.selectedCompany$.subscribe((value: ICompany) => {
+      if (value) {
+        this.selectedCompany = value;
+      }
+    });
+  }
 
   /**
    * Выбор текущей организации
@@ -65,6 +72,10 @@ export class OperativeSituationComponent implements OnInit {
       // height: '580px',
       panelClass: 'form-step-dialog'
     });
+  }
+
+  loadReportByCompany() {
+    this.store.dispatch(new SelectCompany(this.selectedCompany));
   }
 
   /**

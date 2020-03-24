@@ -68,7 +68,7 @@ export class OperativeSituationResource extends Resource {
     method: ResourceRequestMethod.Post,
     withCredentials: true
   })
-  addConsumption: IResourceMethod<IConsumption, IServerResponse<IConsumption>>;
+  addConsumption: IResourceMethod<{companyId: number, divisionId: number, consumption: number}, IServerResponse<number>>;
 
   @ResourceAction({
     path: '/consumption',

@@ -132,7 +132,7 @@ export class AddReportFail implements Action {
  */
 export class AddConsumptionReport implements Action {
   readonly type = OperativeSituationActionTypes.ADD_CONSUMPTION;
-  constructor(public payload: Consumption) {}
+  constructor(public payload: number) {}
 }
 
 /**
@@ -140,7 +140,7 @@ export class AddConsumptionReport implements Action {
  */
 export class AddConsumptionReportSuccess implements Action {
   readonly type = OperativeSituationActionTypes.ADD_CONSUMPTION_SUCCESS;
-  constructor(public payload: IServerResponse<IConsumption>) {}
+  constructor(public payload: IServerResponse<number>) {}
 }
 
 /**

@@ -20,7 +20,12 @@ export function reducer(
     case actionTypes.AUTHENTICATION_SIGN_IN_SUCCESS: {
       return {
         ...state,
-        selectedCompany: action.payload.company ? new Company(action.payload.company) : null
+        selectedCompany:
+          action.payload.company ?
+            action.payload.company.id === 8
+              ? new Company(state.companies[0])
+              : new Company(action.payload.company)
+            : null
       };
     }
 
@@ -41,7 +46,13 @@ export function reducer(
         divisions: action.payload.data.divisions.map((item: IDivision) => new Division(item)),
         periods: action.payload.data.periods.map((item: IPeriod) => new Period(item)),
         reports: new ReportSummary(action.payload.data.reports),
-        selectedCompany: action.payload.data.user ? new Company(action.payload.data.user.company) : null,
+        consumption: action.payload.data.consumption,
+        selectedCompany:
+          action.payload.data.user ?
+            action.payload.data.user.company.id === 8
+              ? new Company(action.payload.data.companies[0])
+              : new Company(action.payload.data.user.company)
+            : null,
         selectedReport: new ReportSummary(action.payload.data.reports).reports.pop(),
         selectedDivision: null,
         selectedPeriod: new Period(action.payload.data.periods[0]),
@@ -73,6 +84,7 @@ export function reducer(
         ...state,
         isLoadingInProgress: false,
         reports: new ReportSummary(action.payload.data),
+        consumption: action.payload.data.consumption,
         selectedTime: action.payload.data.reports.length > 0
           ? new TimeMark(
             new ReportSummary(action.payload.data).reports.pop().periodId,
@@ -102,9 +114,7 @@ export function reducer(
         ...state,
         isLoadingInProgress: false,
         reports: new ReportSummary(action.payload.data),
-        // selectedReport: action.payload.data.reports[state.selectedPeriod.time]
-        //   ? new Report(action.payload.data.reports[state.selectedPeriod.time])
-        //   : null
+        consumption: action.payload.data.consumption,
         selectedReport: new ReportSummary(action.payload.data).reports.pop(),
         selectedTime: action.payload.data.reports.length > 0
           ? new TimeMark(
@@ -146,6 +156,28 @@ export function reducer(
       return {
         ...state,
         isLoadingInProgress: false
+      };
+    }
+
+    case OperativeSituationActionTypes.ADD_CONSUMPTION: {
+      return {
+        ...state,
+        isConsumptionLoadingInProgress: true
+      };
+    }
+
+    case OperativeSituationActionTypes.ADD_CONSUMPTION_SUCCESS: {
+      return {
+        ...state,
+        isConsumptionLoadingInProgress: false,
+        consumption: action.payload.data
+      };
+    }
+
+    case OperativeSituationActionTypes.ADD_CONSUMPTION_FAIL: {
+      return {
+        ...state,
+        isConsumptionLoadingInProgress: false
       };
     }
 
