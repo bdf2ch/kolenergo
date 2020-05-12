@@ -17,6 +17,7 @@ export class User implements IUser {
   lastName: string;                 // Фамилия
   position: string;                 // Должность
   photo: string;                    // Фотография
+  color: string;                    // Цвет автврв
   company: ICompany;                // Организация
   department: IDepartment;          // Подразделение организации
   division: IDivision;              // Структурное подразделение
@@ -33,6 +34,7 @@ export class User implements IUser {
     this.lastName = config ? config.lastName : null;
     this.position = config ? config.position : null;
     this.photo = config && config.photo ? config.photo : null;
+    this.color = this.getAvatarColor(85, 75);
     this.company = config && config.company ? new Company(config.company) : null;
     this.department = config && config.department ? new Department(config.department) : null;
     this.division = config && config.division ? new Division(config.division) : null;
@@ -44,5 +46,26 @@ export class User implements IUser {
         config.permissionList ? config.permissionList : null
       );
     }
+  }
+
+  /**
+   * Получение инифиалов пользователя
+   */
+  getInitials(): string {
+    return this.firstName[0] + this.lastName[0];
+  }
+
+  /**
+   * Вычисление цвета аватара пользователя
+   */
+  getAvatarColor(saturation, lightness) {
+    let hash = 0;
+    const name = `${this.firstName} ${this.lastName}`;
+    for (let i = 0; i < name.length; i++) {
+      // tslint:disable-next-line:no-bitwise
+      hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    const h = hash % 360;
+    return 'hsl(' + h + ', ' + saturation + '%, ' + lightness + '%)';
   }
 }

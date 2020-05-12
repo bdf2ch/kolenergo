@@ -272,7 +272,7 @@
                     <button mat-stroked-button
                             class="mt-3"
                             color="primary"
-                            *ngIf="(selectedDivision$ | async)"
+                            *ngIf="(selectedDivision$ | async) && (selectedDivision$ | async)?.isReportsAllowed"
                             [disabled]="(loadingInProgress$ | async)"
                             (click)="inEditConsumptionMode = !inEditConsumptionMode">
                       Изменить
@@ -286,19 +286,21 @@
                       <input matInput type="number" min="0" formControlName="consumption">
                     </mat-form-field>
                     <div class="d-flex flex-row justify-content-between">
-                      <button mat-stroked-button
+                      <button mat-icon-button
                               class="ml-1"
                               color="primary"
+                              matTooltip="Сохранить"
+                              matTooltipPosition="below"
                               [disabled]="consumptionForm.invalid || (isConsumptionLoading$ | async)"
                               (click)="addConsumption()">
-                        Сохранить
+                        <mat-icon>done</mat-icon>
                       </button>
                       <button mat-icon-button
                               class="ml-1"
                               color="primary"
                               matTooltip="Отмена"
-                              matTooltipPosition="above"
-                              [disabled]="consumptionForm.invalid || (isConsumptionLoading$ | async)"
+                              matTooltipPosition="below"
+                              [disabled]="(isConsumptionLoading$ | async)"
                               (click)="this.inEditConsumptionMode = !this.inEditConsumptionMode">
                         <mat-icon>clear</mat-icon>
                       </button>

@@ -4,21 +4,27 @@ import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { IServerResponse } from '@kolenergo/core';
-import { OperativeSituationResource } from '../resources/reports.resource';
-import { IAppInitData, IReportSummary } from '../interfaces';
-import {Consumption, Report} from '../models';
+import { ApplicationResource } from '../resources/application.resource';
+import { ReportsResource } from '../resources/reports.resource';
+import { ConsumptionResource } from '../resources/consumption.resource';
+import {IAppInitData, IReport, IReportSummary} from '../interfaces';
+import { Report} from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OperativeSituationService {
-  constructor(private readonly resource: OperativeSituationResource) {}
+  constructor(
+    private readonly application: ApplicationResource,
+    private readonly reports: ReportsResource,
+    private readonly consumption: ConsumptionResource
+  ) {}
 
   /**
    * Загрузка данных для инициализации приложения
    */
   getInitialData(): Observable<IServerResponse<IAppInitData>> {
-    return from(this.resource.getInitialData(null, null, null))
+    return from(this.application.getInitialData(null, null, null))
       .pipe(
         map((response: IServerResponse<IAppInitData>) => response)
       );
@@ -30,7 +36,7 @@ export class OperativeSituationService {
    * @param divisionId - Идентификатор структурного подразделения
    */
   getReports(companyId: number = 0, divisionId: number = 0): Observable<IServerResponse<IReportSummary>> {
-    return from(this.resource.getReports(null, {companyId, divisionId}, null))
+    return from(this.reports.get(null, {companyId, divisionId}, null))
       .pipe(
         map((response: IServerResponse<IReportSummary>) => response)
       );
@@ -41,7 +47,18 @@ export class OperativeSituationService {
    * @param report - Добавляемый отчет об оперативной обстановке
    */
   addReport(report: Report): Observable<IServerResponse<IReportSummary>> {
-    return from(this.resource.addReport(report, null, null))
+    return from(this.reports.add(report, null, null))
+      .pipe(
+        map((response: IServerResponse<IReportSummary>) => response)
+      );
+  }
+
+  /**
+   * Изменение отчета об оперативной обстановке
+   * @param report - Изменяемый отчет об оперативной обстановке
+   */
+  editReport(report: Report): Observable<IServerResponse<IReportSummary>> {
+    return from(this.reports.edit(report, null, {id: report.id}))
       .pipe(
         map((response: IServerResponse<IReportSummary>) => response)
       );
@@ -54,7 +71,7 @@ export class OperativeSituationService {
    * @param consumption - Максимальное потребление за прошедшие сутки
    */
   addConsumption(companyId: number, divisionId: number, consumption: number): Observable<IServerResponse<number>> {
-    return from(this.resource.addConsumption({companyId, divisionId, consumption}, null, null))
+    return from(this.consumption.add({companyId, divisionId, consumption}, null, null))
       .pipe(
         map((response: IServerResponse<number>) => response)
       );

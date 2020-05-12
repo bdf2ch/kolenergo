@@ -12,17 +12,17 @@ import {
 } from '@ngx-resource/core';
 
 import { IServerResponse } from '@kolenergo/core';
-import {IAppInitData, IConsumption, IReport, IReportSummary, IWeatherSummary} from '../interfaces';
+import { IReport, IReportSummary } from '../interfaces';
+import { Report } from '../models';
 import { environment } from '../../environments/environment';
-import {Report} from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
 @ResourceParams({
-  pathPrefix: environment.apiUrl + '/osr2'
+  pathPrefix: environment.apiUrl + '/osr2/reports'
 })
-export class OperativeSituationResource extends Resource {
+export class ReportsResource extends Resource {
 
   constructor(handler: ResourceHandler) {
     super(handler);
@@ -33,56 +33,28 @@ export class OperativeSituationResource extends Resource {
     method: ResourceRequestMethod.Get,
     withCredentials: true
   })
-  getInitialData: IResourceMethodStrict<void, void, void, IServerResponse<IAppInitData>>;
-
-  @ResourceAction({
-    path: '/reports',
-    method: ResourceRequestMethod.Get,
-    withCredentials: true
-  })
-  getReports: IResourceMethod<{companyId?: number, divisionId?: number}, IServerResponse<IReportSummary>>;
+  get: IResourceMethod<{companyId?: number, divisionId?: number}, IServerResponse<IReportSummary>>;
 
   @ResourceAction({
     path: '/',
     method: ResourceRequestMethod.Post,
     withCredentials: true
   })
-  addReport: IResourceMethod<Report, IServerResponse<IReportSummary>>;
+  add: IResourceMethod<Report, IServerResponse<IReportSummary>>;
 
   @ResourceAction({
-    path: '/',
+    path: '/{!id}',
     method: ResourceRequestMethod.Patch,
     withCredentials: true
   })
-  editReport: IResourceMethod<IReport, IServerResponse<IReport>>;
+  edit: IResourceMethodStrict<IReport, void, {id: number}, IServerResponse<IReportSummary>>;
 
   @ResourceAction({
     path: '/{!id}',
     method: ResourceRequestMethod.Delete,
     withCredentials: true
   })
-  deleteReport: IResourceMethodStrict<void, void, {id: number}, IServerResponse<boolean>>;
-
-  @ResourceAction({
-    path: '/consumption',
-    method: ResourceRequestMethod.Post,
-    withCredentials: true
-  })
-  addConsumption: IResourceMethod<{companyId: number, divisionId: number, consumption: number}, IServerResponse<number>>;
-
-  @ResourceAction({
-    path: '/consumption',
-    method: ResourceRequestMethod.Patch,
-    withCredentials: true
-  })
-  editConsumption: IResourceMethod<IConsumption, IServerResponse<IConsumption>>;
-
-  @ResourceAction({
-    path: '/weatherSummary',
-    method: ResourceRequestMethod.Get,
-    withCredentials: true
-  })
-  getWeatherSummary: IResourceMethodStrict<void, {companyId: number}, void, IServerResponse<IWeatherSummary>>;
+  delete: IResourceMethodStrict<void, void, {id: number}, IServerResponse<boolean>>;
 
   @ResourceAction({
     path: '/export',
@@ -90,5 +62,5 @@ export class OperativeSituationResource extends Resource {
     withCredentials: true,
     responseBodyType: ResourceResponseBodyType.Blob
   })
-  exportReport: IResourceMethodStrict<void, {date: string, period: string}, void, Blob>;
+  export: IResourceMethodStrict<void, {date: string, period: string}, void, Blob>;
 }

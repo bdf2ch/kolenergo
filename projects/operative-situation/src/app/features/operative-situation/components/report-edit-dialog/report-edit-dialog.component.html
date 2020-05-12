@@ -1,0 +1,395 @@
+<app-form-with-steps
+  caption="{{'Отчет об оперативной обстановке на ' + (selectedReport$ | async)?.periodTime}}"
+  (action)="saveChanges()"
+  [actionDisabled]="equipment35150Form.invalid || equipmentNetworkForm.invalid || resourcesForm.invalid || violationsForm.invalid || (equipment35150Form.pristine && equipmentNetworkForm.pristine && resourcesForm.pristine && violationsForm.pristine && weatherForm.pristine) || (isLoadingInProgress$ | async)"
+  [actionTitle]="'Сохранить изменения'">
+
+  <!-- Start: Оборудование 35-150 кВ -->
+  <app-form-step
+    [caption]="'Оборудование 35-150 кВ'"
+    [description]="'Оборудование и последствия'"
+    [icon]="'fas fa-charging-station'"
+    [isInvalid]="equipment35150Form.invalid">
+    <div class="container-fluid h-100"
+         [formGroup]="equipment35150Form">
+      <div class="row h-100">
+        <!-- Start: Оборудование -->
+        <div class="col-6 border-right d-flex flex-column justify-content-start">
+          <div class="section-caption mb-5">Оборудование</div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>ЛЭП 110-150 кВ, шт.</mat-label>
+                <input matInput type="number" min="0" formControlName="lep_110_150">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>ЛЭП 35 кВ, шт.</mat-label>
+                <input matInput type="number" min="0" formControlName="lep_35">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>ПС 110-150 кВ, шт.</mat-label>
+                <input matInput type="number" min="0" formControlName="ps_110_150">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>ПС 35 кВ, шт.</mat-label>
+                <input matInput type="number" min="0" formControlName="ps_35">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <!-- End: Оборудование -->
+
+        <!-- Start: Последствия для потребителей -->
+        <div class="col-6 d-flex flex-column justify-content-start">
+          <div class="section-caption mb-5">Последствия для потребителей</div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>ТП 6-20 кВ, шт.</mat-label>
+                <input matInput type="number" min="0" formControlName="tp_6_20_effect_110_150">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Население, чел.</mat-label>
+                <input matInput type="number" min="0" formControlName="population_effect_110_150">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Нагрузка, МВт.</mat-label>
+                <input matInput type="number" min="0" formControlName="power_effect_110_150">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>СЗО, шт.</mat-label>
+                <input matInput type="number" min="0" formControlName="szo_effect_110_150">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <!-- End: Последствия для потребителей -->
+      </div>
+    </div>
+  </app-form-step>
+  <!-- End: Оборудование 35-150 кВ -->
+
+  <!-- Start: Распределительная сеть -->
+  <app-form-step
+    [caption]="'Распределительная сеть'"
+    [description]="'Оборудование и последствия'"
+    [icon]="'fas fa-plug'"
+    [isInvalid]="equipmentNetworkForm.invalid">
+    <div class="container-fluid h-100" [formGroup]="equipmentNetworkForm">
+      <div class="row h-100">
+        <!-- Start: Оборудование -->
+        <div class="col-6 border-right d-flex flex-column justify-content-start">
+          <div class="section-caption mb-5">Оборудование</div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>ЛЭП 6-20 кВ, шт.</mat-label>
+                <input matInput type="number" min="0" formControlName="lep_6_20">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>ТП 6-20 кВ, шт.</mat-label>
+                <input matInput type="number" min="0" formControlName="tp_6_20">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <!-- End: Оборудование -->
+
+        <!-- Start: Последствия для потребителей -->
+        <div class="col-6 d-flex flex-column justify-content-start">
+          <div class="section-caption mb-5">Последствия для потребителей</div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Население, чел.</mat-label>
+                <input matInput type="number" min="0" formControlName="population_effect_network">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Нагрузка, МВт.</mat-label>
+                <input matInput type="number" min="0" formControlName="power_effect_network">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>СЗО, шт.</mat-label>
+                <input matInput type="number" min="0" formControlName="szo_effect_network">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <!-- End: Последствия для потребителей -->
+      </div>
+    </div>
+  </app-form-step>
+  <!-- End: Распределительная сеть -->
+
+  <!-- Start: Задействованные ресурсы -->
+  <app-form-step
+    [caption]="'Задейств. ресурсы'"
+    [description]="'Люди, бригады, техника'"
+    [icon]="'fas fa-car'"
+    [isInvalid]="resourcesForm.invalid">
+    <div class="container-fluid h-100">
+      <div class="row h-100">
+        <div class="col-6 border-right d-flex flex-column justify-content-start"
+             [formGroup]="resourcesForm">
+          <div class="section-caption mb-5">Задействованные РИСЭ</div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Количество, шт</mat-label>
+                <input type="number" min="0" matInput formControlName="resources_rise">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>P∑, кВт</mat-label>
+                <input type="number" min="0" matInput formControlName="resources_rise_sum_power">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Запитано от РИСЭ, чел</mat-label>
+                <input type="number" min="0" matInput formControlName="resources_rise_people">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 d-flex flex-column justify-content-start"
+             [formGroup]="resourcesForm">
+          <div class="section-caption mb-5">Задействованные силы и средства</div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Бригад, шт</mat-label>
+                <input type="number" type="number" min="0" matInput formControlName="resources_brigades">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Человек</mat-label>
+                <input matInput type="number" min="0" formControlName="resources_people">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Единиц техники, шт</mat-label>
+                <input matInput type="number" min="0" formControlName="resources_technics">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </app-form-step>
+  <!-- End: Задействованные ресурсы -->
+
+  <!-- Start: Нарушения -->
+  <app-form-step
+    [caption]="'Нарушения'"
+    [description]="'Сеть 35 кВ и сеть 0,4 кВ'"
+    [icon]="'fas fa-exclamation-circle'"
+    [isInvalid]="violationsForm.invalid">
+    <div class="container-fluid h-100"
+         [formGroup]="violationsForm">
+      <div class="row h-100">
+        <!-- Start: Основная сеть 35 кВ и выше -->
+        <div class="col-6 border-right d-flex flex-column justify-content-start">
+          <div class="section-caption mb-5">Основная сеть 35 кВ и выше</div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Всего 6 кВ и выше</mat-label>
+                <input matInput type="number" min="0" formControlName="violations_total_6">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>УАПВ</mat-label>
+                <input matInput type="number" min="0" formControlName="violations_uapv_35">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>НАПВ</mat-label>
+                <input matInput type="number" min="0" formControlName="violations_napv_35">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>С обесточиванием</mat-label>
+                <input matInput type="number" min="0" formControlName="violations_power_off_35">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>ЛЭП р/с</mat-label>
+                <input matInput type="number" min="0" formControlName="violations_lep_rs">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>ТН с погашением</mat-label>
+                <input matInput type="number" min="0" formControlName="violations_tn_cancel">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <!-- End: Основная сеть 35 кВ и выше -->
+
+        <!-- Start: Сеть 0,4 кВ -->
+        <div class="col-6 d-flex flex-column justify-content-start">
+          <div class="section-caption mb-5">Сеть 0,4 кВ</div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>С 6-00</mat-label>
+                <input matInput type="number" min="0" formControlName="violations_from_6_04">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Отключены на срез</mat-label>
+                <input matInput type="number" min="0" formControlName="violations_power_off_04">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Более 3 часов</mat-label>
+                <input matInput type="number" min="0" formControlName="violations_greater_3_04">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>По сети 0,4 кВ на срез</mat-label>
+                <input matInput type="number" min="0" formControlName="violations_population_srez_o4">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>По сети 0,4 кВ (более 3 часов)</mat-label>
+                <input matInput type="number" min="0" formControlName="violations_population_greater_3_04">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <!-- End: Сеть 0,4 кВ -->
+      </div>
+    </div>
+  </app-form-step>
+  <!-- End: Нарушения -->
+
+  <!-- Start: Режим работы -->
+  <app-form-step
+    [caption]="'Режим работы'"
+    [description]="'ОРР / РПГ'"
+    [icon]="'fas fa-bolt'"
+    [isInvalid]="weatherForm.invalid">
+    <form [formGroup]="weatherForm" class="h-100">
+      <div class="container-fluid h-100">
+        <div class="row h-100">
+          <div class="col-6 d-flex flex-column justify-content-center align-items-center border-right">
+            <span class="form-hint-label mb-5">Особый режим работы (ОРР)</span>
+            <mat-slide-toggle formControlName="orr" [checked]="weatherForm.controls.orr.value"></mat-slide-toggle>
+          </div>
+          <div class="col-6 d-flex flex-column justify-content-center align-items-center">
+            <span class="form-hint-label mb-5">Режим повышенной готовности (РПГ)</span>
+            <mat-slide-toggle formControlName="rpg"></mat-slide-toggle>
+          </div>
+        </div>
+      </div>
+    </form>
+  </app-form-step>
+  <!-- End: Режим работы -->
+
+</app-form-with-steps>

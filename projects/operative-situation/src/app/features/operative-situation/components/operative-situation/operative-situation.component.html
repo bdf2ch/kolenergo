@@ -65,6 +65,23 @@
         <div class="col-auto">
           <div class="application-controls pt-3">
             <button mat-stroked-button
+                    class="mr-2"
+                    color="primary"
+                    matTooltip="Изменить отчет"
+                    matTooltipPosition="below"
+                    *ngIf="(selectedReport$ | async) && (selectedDivision$ | async)?.isReportsAllowed && !(isLoadingInProgress$ | async)"
+                    (click)="openEditReportDialog()">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-stroked-button
+                    class="mr-2"
+                    color="primary"
+                    matTooltip="Экспорт в Excel"
+                    matTooltipPosition="below">
+              <mat-icon>save_alt</mat-icon>
+            </button>
+            <button mat-stroked-button
+                    class="ml-2"
                     color="primary"
                     [matMenuTriggerFor]="userMenu">
               <span *ngIf="user$ | async">{{(user$ | async)?.firstName + ' ' + (user$ | async)?.lastName}}</span>

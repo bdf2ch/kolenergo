@@ -159,6 +159,31 @@ export function reducer(
       };
     }
 
+    case OperativeSituationActionTypes.EDIT_REPORT: {
+      return {
+        ...state,
+        isLoadingInProgress: true
+      };
+    }
+
+    case OperativeSituationActionTypes.EDIT_REPORT_SUCCESS: {
+      return {
+        ...state,
+        isLoadingInProgress: false,
+        reports: new ReportSummary(action.payload.data),
+        selectedReport:
+          new ReportSummary(action.payload.data).reports
+            .find((report: Report) => report.periodTime === state.selectedTime.time)
+      };
+    }
+
+    case OperativeSituationActionTypes.EDIT_REPORT_FAIL: {
+      return {
+        ...state,
+        isLoadingInProgress: false
+      };
+    }
+
     case OperativeSituationActionTypes.ADD_CONSUMPTION: {
       return {
         ...state,

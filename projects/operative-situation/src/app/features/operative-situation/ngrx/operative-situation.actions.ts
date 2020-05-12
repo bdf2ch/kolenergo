@@ -1,8 +1,8 @@
 import { Action } from '@ngrx/store';
 
 import { ICompany, IServerResponse } from '@kolenergo/core';
-import { IAppInitData, IConsumption, IDivision, IPeriod, IReport, IReportSummary } from '../../../interfaces';
-import { Consumption, Report, TimeMark } from '../../../models';
+import { IAppInitData, IDivision, IPeriod, IReportSummary } from '../../../interfaces';
+import { Report, TimeMark } from '../../../models';
 
 /**
  * Типы действий в разделе отчетов по оперативной обстановке
@@ -21,6 +21,12 @@ export enum OperativeSituationActionTypes {
   ADD_REPORT = '[OSR API] Add report',
   ADD_REPORT_SUCCESS = '[OSR API] Report added successfully',
   ADD_REPORT_FAIL = '[OSR API] Failed to add report',
+  EDIT_REPORT = '[OSR API] Edit report',
+  EDIT_REPORT_SUCCESS = '[OSR API] Report changes saved successfully',
+  EDIT_REPORT_FAIL = '[OSR API] Failed to save changes to report',
+  EXPORT_REPORT = '[OSR API] Export report',
+  EXPORT_REPORT_SUCCESS = '[OSR API] Report downloaded successfully',
+  EXPORT_REPORT_FAIL = '[OSR API] Failed to export report',
   ADD_CONSUMPTION = '[OSR API] Add consumption report',
   ADD_CONSUMPTION_SUCCESS = '[OSR API] Consumption report added successfully',
   ADD_CONSUMPTION_FAIL = '[OSR API] Failed to add consumption report',
@@ -128,6 +134,50 @@ export class AddReportFail implements Action {
 }
 
 /**
+ * Изменение отчета об оперативной обстановке
+ */
+export class EditReport implements Action {
+  readonly type = OperativeSituationActionTypes.EDIT_REPORT;
+  constructor(public payload: Report) {}
+}
+
+/**
+ * Изменение отчета об оперативной обстановке выполнено успешно
+ */
+export class EditReportSuccess implements Action {
+  readonly type = OperativeSituationActionTypes.EDIT_REPORT_SUCCESS;
+  constructor(public payload: IServerResponse<IReportSummary>) {}
+}
+
+/**
+ * Изменение отчета об оперативной обстановке не выполнено
+ */
+export class EditReportFail implements Action {
+  readonly type = OperativeSituationActionTypes.EDIT_REPORT_FAIL;
+}
+
+/**
+ * Экспорт отчета об оперативной обстановке в Excel
+ */
+export class ExportReport implements Action {
+  readonly type = OperativeSituationActionTypes.EXPORT_REPORT;
+}
+
+/**
+ * Экспорт отчета об оперативнйо обстановке в Excel выполнен успешно
+ */
+export class ExportReportSuccess implements Action {
+  readonly type = OperativeSituationActionTypes.EXPORT_REPORT_SUCCESS;
+}
+
+/**
+ * Не удалось выполнить экспорт отчета об оперативной обстановке в Excel
+ */
+export class ExportReportFail implements Action {
+  readonly type = OperativeSituationActionTypes.EXPORT_REPORT_FAIL;
+}
+
+/**
  * Добавление отчета о масимальном потреблении за сутки
  */
 export class AddConsumptionReport implements Action {
@@ -207,6 +257,12 @@ export type OperativeSituationActions =
   AddReport |
   AddReportSuccess |
   AddReportFail |
+  EditReport |
+  EditReportSuccess |
+  EditReportFail |
+  ExportReport |
+  ExportReportSuccess |
+  ExportReportFail |
   AddConsumptionReport |
   AddConsumptionReportSuccess |
   AddConsumptionReportFail |

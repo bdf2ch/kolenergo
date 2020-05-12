@@ -1,0 +1,4 @@
+<div class="user-avatar"
+     [ngStyle]="{'background': user?.photo ? 'url(http://10.50.0.153:3000' + user?.photo + ')' : user?.color}">
+  <span class="initials" *ngIf="!user?.photo">{{user?.getInitials()}}</span>
+</div>

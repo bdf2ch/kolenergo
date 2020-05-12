@@ -1,0 +1,24 @@
+@chat-input-height: 100px;
+@chat-details-width: 300px;
+
+.chat-content {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  .chat-messages {
+    display: flex;
+    flex: 1;
+  }
+
+  .chat-input {
+    // height: @chat-input-height;
+  }
+}
+
+.chat-details {
+  width: @chat-details-width;
+  height: 100%;
+  background: white;
+}

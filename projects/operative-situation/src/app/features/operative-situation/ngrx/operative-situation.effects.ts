@@ -24,12 +24,12 @@ import {
   AddReportFail,
   AddConsumptionReport,
   AddConsumptionReportFail,
-  AddConsumptionReportSuccess
+  AddConsumptionReportSuccess, EditReport, EditReportFail, EditReportSuccess
 } from './operative-situation.actions';
 import { OperativeSituationService } from '../../../services/operative-situation.service';
 import { IApplicationState } from '../../../ngrx';
 import { IAppInitData, IReportSummary } from '../../../interfaces';
-import { selectSelectedCompany, selectSelectedDivision } from './selectors';
+import {selectSelectedCompany, selectSelectedDivision, selectSelectedTime} from './selectors';
 import {ReportSummary} from '../../../models';
 
 @Injectable()
@@ -155,6 +155,47 @@ export class OperativeSituationEffects {
     tap(() => {
       this.snackBar.open(
         'При добавлении отчета произошла ошибка',
+        'Закрыть',
+        {horizontalPosition: 'left', verticalPosition: 'bottom', duration: 3000}
+      );
+    }),
+    mergeMap(() => EMPTY)
+  );
+
+  @Effect()
+  editReport$ = this.actions$.pipe(
+    ofType(OperativeSituationActionTypes.EDIT_REPORT),
+    mergeMap((action: EditReport) => this.osr.editReport(action.payload)
+      .pipe(
+        map((response: IServerResponse<IReportSummary>) => new EditReportSuccess(response)),
+        catchError(() => of(new EditReportFail()))
+      )
+    )
+  );
+
+  @Effect()
+  editReportSuccess$ = this.actions$.pipe(
+    ofType(OperativeSituationActionTypes.EDIT_REPORT_SUCCESS),
+    withLatestFrom(
+      this.store.pipe(select(selectSelectedTime))
+    ),
+    tap(([action, selectedTime]) => {
+      this.dialog.getDialogById('edit-report-dialog').close();
+      this.snackBar.open(
+        `Отчет на ${selectedTime.time} изменен`,
+        'Закрыть',
+        {horizontalPosition: 'left', verticalPosition: 'bottom', duration: 3000}
+      );
+    }),
+    mergeMap(() => EMPTY)
+  );
+
+  @Effect()
+  editReportFail$ = this.actions$.pipe(
+    ofType(OperativeSituationActionTypes.EDIT_REPORT_FAIL),
+    tap(() => {
+      this.snackBar.open(
+        'При изменении отчета произошла ошибка',
         'Закрыть',
         {horizontalPosition: 'left', verticalPosition: 'bottom', duration: 3000}
       );

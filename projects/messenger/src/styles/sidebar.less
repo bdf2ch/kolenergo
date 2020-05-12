@@ -1,0 +1,57 @@
+@sidebar-width: 330px;
+@sidebar-background-color: #F4F7FF;
+
+@content-background-color: #E2EAF5;
+@content-left-border: 1px solid #e0e0e0;
+
+@header-height: 80px;
+@header-background-color: #dcedc8;
+@header-border-bottom: 1px solid #c5e1a5;
+
+@user-info-font-family: 'Open Sans Regular';
+@user-info-font-size: 14px;
+@user-info-color: #546e7a;
+@user-info-status-font-family: 'Open Sans Regular';
+@user-info-status-font-size: 12px;
+@user-info-status-color: #90a4ae;
+
+.application-sidebar {
+  height: 100%;
+  box-sizing: border-box;
+
+  .mat-drawer {
+    width: @sidebar-width;
+    background: @sidebar-background-color;
+    border-right: none;
+  }
+
+  .mat-drawer-content {
+    display: flex;
+    flex-direction: column;
+    background: @content-background-color;
+    // border-left: @content-left-border;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    height: @header-height;
+    background: @header-background-color;
+    border-bottom: @header-border-bottom;
+
+    .add-chat-button {
+      .mat-icon {
+        width: 32px;
+        font-size: 32px;
+        color: #023182;
+      }
+    }
+  }
+
+  .content {
+    overflow: auto;
+    flex: 1;
+  }
+}

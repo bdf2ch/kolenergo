@@ -1,0 +1,51 @@
+@current-user-name-font-family: 'Open Sans Regular';
+@current-user-name-font-size: 14px;
+@current-user-name-color: #546e7a;
+@current-user-name-icon-font-size: 15px;
+@current-user-name-icon-width: 15px;
+@current-user-name-icon-height: 15px;
+
+@current-user-status-font-family: 'Open Sans Light';
+@current-user-status-font-size: 13px;
+@current-user-status-color: #90a4ae;
+
+.current-user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+
+  msg-user-avatar {
+    margin-right: 20px;
+  }
+
+  .name-and-status {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    .name {
+      display: flex;
+      align-items: center;
+      font-family: @current-user-name-font-family;
+      font-size: @current-user-name-font-size;
+      color: @current-user-name-color;
+
+      .mat-icon {
+        width: @current-user-name-icon-width;
+        height: @current-user-name-icon-height;
+        margin-left: 5px;
+        font-size: @current-user-name-icon-font-size;
+      }
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      font-family: @current-user-status-font-family;
+      font-size: @current-user-status-font-size;
+      color: @current-user-status-color;
+    }
+  }
+}

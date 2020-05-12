@@ -1,0 +1,49 @@
+@input-height: 40px;
+@input-font-family: 'Open Sans Regular';
+@input-font-size: 14px;
+@input-color: #37474f;
+@input-background-color: white;
+
+@controls-icon-font-size: 28px;
+@controls-icon-color: #607d8b;
+@controls-icon-color-hover: #546e7a;
+
+.message-input {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  msg-user-avatar {
+    margin-right: 20px;
+  }
+
+  .input {
+    display: flex;
+    flex: 1;
+
+    input {
+      width: 100%;
+      height: @input-height;
+      padding: 0px 25px;
+      font-family: @input-font-family;
+      font-size: @input-font-size;
+      color: @input-color;
+      background: @input-background-color;
+      border: none;
+      border-radius: 20px;
+    }
+  }
+
+  .controls {
+    margin-left: 15px;
+
+    .mat-icon {
+      font-size: @controls-icon-font-size;
+      color: @controls-icon-color;
+      &:hover {
+        color: @controls-icon-color-hover;
+      }
+    }
+  }
+}

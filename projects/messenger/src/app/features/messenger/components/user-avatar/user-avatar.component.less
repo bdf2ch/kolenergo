@@ -1,0 +1,25 @@
+@user-avatar-width: 40px;
+@user-avatar-height: 40px;
+@initials-font-family: 'Open Sans Semi Bold';
+@initials-font-size: 15px;
+@initials-color: #37474f;
+
+&:host {
+  display: flex;
+}
+
+.user-avatar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: @user-avatar-width;
+  height: @user-avatar-height;
+  border-radius: 50%;
+
+  .initials {
+    font-family: @initials-font-family;
+    font-size: @initials-font-size;
+    color: @initials-color;
+  }
+}

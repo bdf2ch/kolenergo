@@ -11,12 +11,13 @@ import {
   SelectCompany,
   selectDate, selectLoadingInProgress,
   selectSelectedCompany,
-  selectSelectedDivision, selectSelectedTime,
+  selectSelectedDivision, selectSelectedReport, selectSelectedTime,
   selectUser
 } from '../../ngrx';
 import { IDivision } from '../../../../interfaces';
-import { TimeMark } from '../../../../models';
+import {Report, TimeMark} from '../../../../models';
 import { ReportAddDialogComponent } from '../report-add-dialog/report-add-dialog.component';
+import {ReportEditDialogComponent} from "../report-edit-dialog/report-edit-dialog.component";
 
 @Component({
   selector: 'app-operative-situation',
@@ -30,6 +31,7 @@ export class OperativeSituationComponent implements OnInit {
   public selectedCompany$: Observable<ICompany>;
   public selectedDivision$: Observable<IDivision>;
   public selectedTime$: Observable<TimeMark>;
+  public selectedReport$: Observable<Report>;
   public isLoadingInProgress$: Observable<boolean>;
   public selectedCompany: ICompany;
 
@@ -43,6 +45,7 @@ export class OperativeSituationComponent implements OnInit {
     this.selectedCompany$ = this.store.pipe(select(selectSelectedCompany));
     this.selectedDivision$ = this.store.pipe(select(selectSelectedDivision));
     this.selectedTime$ = this.store.pipe(select(selectSelectedTime));
+    this.selectedReport$ = this.store.pipe(select(selectSelectedReport));
     this.isLoadingInProgress$ = this.store.pipe(select(selectLoadingInProgress));
   }
 
@@ -70,6 +73,17 @@ export class OperativeSituationComponent implements OnInit {
       id: 'add-report-dialog',
       width: '850px',
       // height: '580px',
+      panelClass: 'form-step-dialog'
+    });
+  }
+
+  /**
+   * Открытие диалогового окна изменения отчета об оперативной обстановке
+   */
+  openEditReportDialog() {
+    this.dialog.open(ReportEditDialogComponent, {
+      id: 'edit-report-dialog',
+      width: '850px',
       panelClass: 'form-step-dialog'
     });
   }

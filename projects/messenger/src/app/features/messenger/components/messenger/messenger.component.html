@@ -1,0 +1,52 @@
+<!--<mat-progress-bar mode="indeterminate" *ngIf="isLoadingInProgress$ | async"></mat-progress-bar>-->
+<mat-drawer-container class="application-sidebar">
+  <mat-drawer mode="side" opened>
+    <div class="header">
+      <msg-chat-search
+        [query]="(chatSearchQuery$ | async)"
+        (searchChange)="chatSearchChanged($event)"
+        (searchClear)="chatSearchCleared()">
+      </msg-chat-search>
+    </div>
+    <div class="content">
+      <msg-chat-list [chats]="filteredChats$ | async"
+                     [searchQuery]="(chatSearchQuery$ | async)">
+      </msg-chat-list>
+    </div>
+  </mat-drawer>
+
+  <mat-drawer-content>
+
+    <!-- Start: Панель заголовка -->
+    <div class="header">
+      <div class="container-fluid">
+        <div class="row w-100">
+          <div class="col chat-info pl-5">
+            <msg-current-chat-header
+              [chat]="(selectedChat$ | async)"
+              *ngIf="(selectedChat$ | async)">
+            </msg-current-chat-header>
+          </div>
+          <div class="col-auto">
+            <msg-current-user [user]="(user$ | async)"></msg-current-user>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End: Панель заголовка -->
+
+    <!-- Start: Содержимое -->
+    <div class="content d-flex flex-row">
+      <div class="chat-content pl-5 pr-5">
+        <div class="chat-messages mb-4">
+          <msg-message-list [chat]="(selectedChat$ | async)"></msg-message-list>
+        </div>
+        <div class="chat-input pt-4 pb-5">
+          <msg-message-input [user]="(user$ | async)"></msg-message-input>
+        </div>
+      </div>
+      <div class="chat-details">details</div>
+    </div>
+    <!-- End: Содержимое -->
+  </mat-drawer-content>
+</mat-drawer-container>

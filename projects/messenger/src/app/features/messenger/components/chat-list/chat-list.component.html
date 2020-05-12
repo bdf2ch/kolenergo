@@ -1,0 +1,25 @@
+<div class="chat-list">
+  <div class="chat"
+       *ngFor="let chat of chats"
+       [ngClass]="{'selected': chat === (selectedChat$ | async)}"
+       (click)="selectChat(chat)">
+    <div class="avatar">
+      <span class="avatar"></span>
+    </div>
+    <div class="details">
+      <div class="title-and-time">
+        <span class="title">{{chat.title}}</span>
+        <span class="time">{{chat.lastMessage?.dateCreated | date:'HH:mm'}}</span>
+      </div>
+      <div class="last-message-and-indicator">
+        <div class="author-and-message" *ngIf="chat.lastMessage">
+          <div class="author">{{chat.getMessageAuthor(chat.lastMessage)?.firstName}}:&nbsp;</div>
+          <div class="message">
+            <span>{{chat.lastMessage.text}}</span>
+          </div>
+        </div>
+        <span class="indicator"></span>
+      </div>
+    </div>
+  </div>
+</div>

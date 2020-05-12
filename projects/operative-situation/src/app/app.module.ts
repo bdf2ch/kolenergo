@@ -16,6 +16,7 @@ import {MatFormFieldModule, MatButtonModule, MatSlideToggleModule} from '@angula
 import {MatInputModule} from '@angular/material/input';
 import {ReportAddDialogComponent} from './features/operative-situation/components/report-add-dialog/report-add-dialog.component';
 import {FormStepComponent} from './features/operative-situation/components/form-step/form-step.component';
+import {ReportEditDialogComponent} from './features/operative-situation/components/report-edit-dialog/report-edit-dialog.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import {FormStepComponent} from './features/operative-situation/components/form-
     AppComponent,
     FormWithStepsComponent,
     FormStepComponent,
-    ReportAddDialogComponent
+    ReportAddDialogComponent,
+    ReportEditDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,7 @@ import {FormStepComponent} from './features/operative-situation/components/form-
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [],
-  entryComponents: [ReportAddDialogComponent],
+  entryComponents: [ReportAddDialogComponent, ReportEditDialogComponent],
   bootstrap: [
     AppComponent
   ]

@@ -1,0 +1,16 @@
+<div class="message-list">
+  <div class="message" *ngFor="let message of chat?.messages">
+
+    <div class="author-and-content">
+      <div class="author">
+        <msg-user-avatar [user]="message.user"></msg-user-avatar>
+      </div>
+      <div class="content">
+        <div class="message-body">{{message.text}}</div>
+        <div class="time">{{message.dateCreated | date:'dd MMM в HH:mm':'ru'}}</div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

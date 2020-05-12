@@ -1,0 +1,52 @@
+@current-chat-header-avatar-width: 40px;
+@current-chat-header-avatar-height: 40px;
+
+@current-chat-header-title-font-family: 'Open Sans Semi Bold';
+@current-chat-header-title-font-size: 14px;
+@current-chat-header-title-color: #546e7a;
+
+@current-chat-header-status-font-family: 'Open Sans Regular';
+@current-chat-header-status-font-size: 13px;
+@current-chat-header-status-color: #535D69;
+
+.current-chat-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  .avatar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: @current-chat-header-avatar-width;
+    height: @current-chat-header-avatar-height;
+    border-radius: 50%;
+    background: #e0f2f1;
+  }
+
+  .title-and-status {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 15px;
+
+    .title {
+      display: flex;
+      align-items: center;
+      font-family: @current-chat-header-title-font-family;
+      font-size: @current-chat-header-title-font-size;
+      color: @current-chat-header-title-color;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      font-family: @current-chat-header-status-font-family;
+      font-size: @current-chat-header-status-font-size;
+      color: @current-chat-header-status-color;
+    }
+  }
+}

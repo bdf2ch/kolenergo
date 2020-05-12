@@ -1147,6 +1147,158 @@
           }
         }
       }
+    },
+    "messenger": {
+      "root": "projects/messenger/",
+      "sourceRoot": "projects/messenger/src",
+      "projectType": "application",
+      "prefix": "msg",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "less",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/messenger",
+            "index": "projects/messenger/src/index.html",
+            "main": "projects/messenger/src/main.ts",
+            "polyfills": "projects/messenger/src/polyfills.ts",
+            "tsConfig": "projects/messenger/tsconfig.app.json",
+            "assets": [
+              "projects/messenger/src/favicon.ico",
+              "projects/messenger/src/assets"
+            ],
+            "styles": [
+              "projects/messenger/src/custom-theme.scss",
+              "projects/messenger/src/styles.less"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/messenger/src/environments/environment.ts",
+                  "with": "projects/messenger/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "messenger:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "messenger:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "messenger:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/messenger/src/test.ts",
+            "polyfills": "projects/messenger/src/polyfills.ts",
+            "tsConfig": "projects/messenger/tsconfig.spec.json",
+            "karmaConfig": "projects/messenger/karma.conf.js",
+            "styles": [
+              "projects/messenger/src/styles.less"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/messenger/src/favicon.ico",
+              "projects/messenger/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/messenger/tsconfig.app.json",
+              "projects/messenger/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "messenger-e2e": {
+      "root": "projects/messenger-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/messenger-e2e/protractor.conf.js",
+            "devServerTarget": "messenger:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "messenger:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/messenger-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "kolenergo-core"

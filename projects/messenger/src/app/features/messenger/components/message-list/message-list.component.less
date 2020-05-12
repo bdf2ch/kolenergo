@@ -1,0 +1,68 @@
+@content-font-family: 'Open Sans Regular';
+@content-font-size: 14px;
+@content-color: white;
+
+@time-font-family: 'Open Sans Regular';
+@time-font-size: 13px;
+@time-color: #313A47;
+
+&:host {
+  display: block;
+  height: 100%;
+}
+
+.message-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+
+  .message {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    .author-and-content {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-start;
+
+      msg-user-avatar {
+        margin-right: 20px;
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        .message-body {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 15px;
+          font-family: @content-font-family;
+          font-size: @content-font-size;
+          color: @content-color;
+          background: #01579b;
+          border-radius: 5px;
+        }
+
+        .time {
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+          margin-top: 5px;
+          font-family: @time-font-family;
+          font-size: @time-font-size;
+          color: @time-color;
+        }
+      }
+    }
+  }
+}

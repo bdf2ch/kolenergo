@@ -14,6 +14,5 @@ export interface IAppInitData {
   reports: IReportSummary;      // Сводка с отчетами по оперативной обстановке
   consumption: IConsumption;    // Максимум потребления за прошедшие сутки
   date: string;                 // Текущая дата
-  time: string;                 // Текущее время
   user?: IUser;                 // Текущий пользователь
 }

@@ -1,0 +1,28 @@
+<div class="chat-search">
+  <div class="input-container">
+    <div class="icon">
+      <mat-icon>search</mat-icon>
+    </div>
+    <input type="text" #search placeholder="Поиск беседы" (keyup)="searchChanged(search.value)">
+    <div class="controls">
+
+      <!-- Start: Кнопка открытия диалогового окна начала новой беседы -->
+      <mat-icon matTooltip="Начать беседу"
+                matTooltipPosition="below"
+                class="add-chat"
+                *ngIf="!query">
+        add_circle
+      </mat-icon>
+      <!-- End: Кнопка открытия диалогового окна начала новой беседы -->
+
+      <!-- Start: Кнопка очистки результатов поиска -->
+      <mat-icon matTooltip="Очистить поиск"
+                matTooltipPosition="below"
+                *ngIf="query"
+                (click)="searchCleared()">
+        clear
+      </mat-icon>
+      <!-- End: Кнопка очистки результатов поиска -->
+    </div>
+  </div>
+</div>
