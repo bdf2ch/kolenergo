@@ -168,6 +168,7 @@ export class ExportReport implements Action {
  */
 export class ExportReportSuccess implements Action {
   readonly type = OperativeSituationActionTypes.EXPORT_REPORT_SUCCESS;
+  constructor(public payload: Blob) {}
 }
 
 /**

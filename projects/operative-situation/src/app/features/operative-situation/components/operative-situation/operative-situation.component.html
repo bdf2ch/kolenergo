@@ -28,6 +28,7 @@
         </mat-menu>
         <!-- End: Выпадающее меню выбора организации -->
 
+        <!-- Start: Кнопка загрузки аккумулятивного отчета по текущей организации -->
         <button mat-stroked-button
                 class="w-100 mb-4"
                 color="primary"
@@ -35,6 +36,7 @@
                 (click)="loadReportByCompany()">
           {{(selectedCompany$ | async)?.shortTitle}}
         </button>
+        <!-- End: Кнопка загрузки аккумулятивного отчета по текущей организации -->
       </div>
     </div>
 
@@ -64,6 +66,8 @@
 
         <div class="col-auto">
           <div class="application-controls pt-3">
+
+            <!-- Start: Кнопка изменения отчета -->
             <button mat-stroked-button
                     class="mr-2"
                     color="primary"
@@ -73,13 +77,20 @@
                     (click)="openEditReportDialog()">
               <mat-icon>edit</mat-icon>
             </button>
+            <!-- End: Кнопка изменения отчета -->
+
+            <!-- Start: Кнопка выгрузки отчета -->
             <button mat-stroked-button
                     class="mr-2"
                     color="primary"
                     matTooltip="Экспорт в Excel"
-                    matTooltipPosition="below">
+                    matTooltipPosition="below"
+                    (click)="exportReport()">
               <mat-icon>save_alt</mat-icon>
             </button>
+            <!-- End: Кнопка выгрузки отчета -->
+
+            <!-- Start: Выпадающее меню рользователя -->
             <button mat-stroked-button
                     class="ml-2"
                     color="primary"
@@ -95,6 +106,8 @@
                 Выйти из приложения
               </button>
             </mat-menu>
+            <!-- End: Выпадающее меню рользователя -->
+
           </div>
         </div>
       </div>

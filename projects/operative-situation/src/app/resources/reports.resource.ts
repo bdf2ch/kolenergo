@@ -62,5 +62,5 @@ export class ReportsResource extends Resource {
     withCredentials: true,
     responseBodyType: ResourceResponseBodyType.Blob
   })
-  export: IResourceMethodStrict<void, {date: string, period: string}, void, Blob>;
+  export: IResourceMethodStrict<void, {time: string}, void, Blob>;
 }

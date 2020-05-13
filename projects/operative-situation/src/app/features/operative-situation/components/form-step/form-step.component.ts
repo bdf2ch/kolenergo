@@ -25,7 +25,6 @@ export class FormStepComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('element', this.element.nativeElement);
     if (this.form) {
       this.form.registerStep(this);
     }

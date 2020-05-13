@@ -184,6 +184,27 @@ export function reducer(
       };
     }
 
+    case OperativeSituationActionTypes.EXPORT_REPORT: {
+      return {
+        ...state,
+        isLoadingInProgress: true
+      };
+    }
+
+    case OperativeSituationActionTypes.EXPORT_REPORT_SUCCESS: {
+      return {
+        ...state,
+        isLoadingInProgress: false
+      };
+    }
+
+    case OperativeSituationActionTypes.EXPORT_REPORT_FAIL: {
+      return {
+        ...state,
+        isLoadingInProgress: false
+      };
+    }
+
     case OperativeSituationActionTypes.ADD_CONSUMPTION: {
       return {
         ...state,

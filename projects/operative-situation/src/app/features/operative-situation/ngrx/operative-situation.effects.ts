@@ -6,6 +6,7 @@ import { catchError, map, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
 import { EMPTY, of } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import * as saver from 'file-saver';
 
 import { actionTypes, IServerResponse, AuthenticationSignInSuccess } from '@kolenergo/core';
 import {
@@ -24,7 +25,7 @@ import {
   AddReportFail,
   AddConsumptionReport,
   AddConsumptionReportFail,
-  AddConsumptionReportSuccess, EditReport, EditReportFail, EditReportSuccess
+  AddConsumptionReportSuccess, EditReport, EditReportFail, EditReportSuccess, ExportReportFail, ExportReportSuccess
 } from './operative-situation.actions';
 import { OperativeSituationService } from '../../../services/operative-situation.service';
 import { IApplicationState } from '../../../ngrx';
@@ -196,6 +197,45 @@ export class OperativeSituationEffects {
     tap(() => {
       this.snackBar.open(
         'При изменении отчета произошла ошибка',
+        'Закрыть',
+        {horizontalPosition: 'left', verticalPosition: 'bottom', duration: 3000}
+      );
+    }),
+    mergeMap(() => EMPTY)
+  );
+
+  @Effect()
+  exportReport$ = this.actions$.pipe(
+    ofType(OperativeSituationActionTypes.EXPORT_REPORT),
+    withLatestFrom(
+      this.store.pipe(select(selectSelectedTime))
+    ),
+    mergeMap(([action, time]) => this.osr.exportReport(time.time.replace(':', ''))
+      .pipe(
+        map((response: Blob) => new ExportReportSuccess(response)),
+        catchError(() => of(new ExportReportFail()))
+      )
+    )
+  );
+
+  @Effect()
+  exportReportSuccess$ = this.actions$.pipe(
+    ofType(OperativeSituationActionTypes.EXPORT_REPORT_SUCCESS),
+    withLatestFrom(
+      this.store.pipe(select(selectSelectedTime))
+    ),
+    tap(([action, time]) => {
+      saver.saveAs((action as ExportReportSuccess).payload, `Оперативная обстановка на ${time.time}.xlsx`);
+    }),
+    mergeMap(() => EMPTY)
+  );
+
+  @Effect()
+  exportReportFail$ = this.actions$.pipe(
+    ofType(OperativeSituationActionTypes.EXPORT_REPORT_FAIL),
+    tap(() => {
+      this.snackBar.open(
+        'При экспорте отчета произошла ошибка',
         'Закрыть',
         {horizontalPosition: 'left', verticalPosition: 'bottom', duration: 3000}
       );

@@ -7,6 +7,7 @@ import { select, Store } from '@ngrx/store';
 import { AuthenticationSignOut, ICompany, User } from '@kolenergo/core';
 import { IApplicationState } from '../../../../ngrx';
 import {
+  ExportReport,
   selectCompanies,
   SelectCompany,
   selectDate, selectLoadingInProgress,
@@ -72,8 +73,8 @@ export class OperativeSituationComponent implements OnInit {
     this.dialog.open(ReportAddDialogComponent, {
       id: 'add-report-dialog',
       width: '850px',
-      // height: '580px',
-      panelClass: 'form-step-dialog'
+      panelClass: 'form-step-dialog',
+      backdropClass: 'add-report-backdrop'
     });
   }
 
@@ -84,12 +85,20 @@ export class OperativeSituationComponent implements OnInit {
     this.dialog.open(ReportEditDialogComponent, {
       id: 'edit-report-dialog',
       width: '850px',
-      panelClass: 'form-step-dialog'
+      panelClass: 'form-step-dialog',
+      backdropClass: 'edit-report-backdrop'
     });
   }
 
   loadReportByCompany() {
     this.store.dispatch(new SelectCompany(this.selectedCompany));
+  }
+
+  /**
+   * Экспорт текущего отчета об оперативной обстановке в Excel
+   */
+  exportReport() {
+    this.store.dispatch(new ExportReport());
   }
 
   /**

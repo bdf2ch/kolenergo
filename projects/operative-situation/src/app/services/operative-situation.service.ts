@@ -57,10 +57,21 @@ export class OperativeSituationService {
    * Изменение отчета об оперативной обстановке
    * @param report - Изменяемый отчет об оперативной обстановке
    */
-  editReport(report: Report): Observable<IServerResponse<IReportSummary>> {
+  editReport(report: IReport): Observable<IServerResponse<IReportSummary>> {
     return from(this.reports.edit(report, null, {id: report.id}))
       .pipe(
         map((response: IServerResponse<IReportSummary>) => response)
+      );
+  }
+
+  /**
+   * Экспорт отчета об оперативной обстановке в Excel
+   * @param time - Время
+   */
+  exportReport(time: string): Observable<Blob> {
+    return from(this.reports.export(null, {time}, null))
+      .pipe(
+        map((response: Blob) => response)
       );
   }
 

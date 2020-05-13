@@ -51,7 +51,7 @@ export interface IReport {
   violations_04_greater_3?: number;                // Нарушений в сети 0,4 кВ более 3 часов
   violations_population_04_srez?: number;          // Население в стеи 0,4 кВ на срез
   violations_population_04_greater_3?: number;     // Население в сети 0,4 кВ более 3 часов
-  // consumption: number;                            // Максимум потребления за прошедшие сутки
+  consumption?: number;                            // Максимум потребления за прошедшие сутки
   // consumption: IOperativeSituationConsumption;    // Максимум потребления за прошедшие сутки
   weatherSummary?: IWeatherSummary;                // Погодная сводка
 }

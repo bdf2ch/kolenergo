@@ -9,12 +9,12 @@
 @form-with-steps-control-panel-caption-font-size: 18px;
 @form-with-steps-control-panel-caption-line-height: 18px;
 @form-with-steps-control-panel-caption-font-color: #607d8b;
-@form-with-steps-control-panel-steps-step-height: 60px;
+@form-with-steps-control-panel-steps-step-height: 66px;
 @form-with-steps-control-panel-steps-step-padding: 15px;
 @form-with-steps-control-panel-steps-step-background-color: #f5f5f5;
 @form-with-steps-control-panel-steps-step-background-color-active: #fafafa;
 @form-with-steps-control-panel-steps-step-border-color: #e0e0e0;
-@form-with-steps-control-panel-steps-step-border-radius: 2.5px;
+@form-with-steps-control-panel-steps-step-border-radius: 4px;
 @form-with-steps-control-panel-steps-step-icon-font-size: 25px;
 @form-with-steps-control-panel-steps-step-icon-font-color: @form-with-steps-control-panel-steps-step-caption-color;
 @form-with-steps-control-panel-steps-step-icon-font-color-active: @form-with-steps-control-panel-steps-step-caption-color-selected;
@@ -39,6 +39,8 @@
   // border: 1px solid lightgray;
 
   .form-control-panel {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -69,7 +71,7 @@
         .step {
           display: flex;
           flex-direction: row;
-          margin-bottom: 2px;
+          margin-bottom: 4px;
           height: @form-with-steps-control-panel-steps-step-height;
           padding: @form-with-steps-control-panel-steps-step-padding;
           background: @form-with-steps-control-panel-steps-step-background-color;
@@ -88,6 +90,8 @@
           &.active {
             background: @form-with-steps-control-panel-steps-step-background-color-active;
             border-right: 1px solid @form-with-steps-content-background-color;
+            border-bottom: 1px solid transparent;
+            box-shadow: 0 12px 24px 0 rgba(5,5,5,.06), 0 1px 0 0 rgba(0,0,0,.08), 0 1px 4px 0 rgba(0,0,0,.05);
 
             .icon-and-status {
               .i {
@@ -173,6 +177,8 @@
   }
 
   .form-content {
+    position: relative;
+    z-index: 2;
     overflow-x: hidden;
     overflow-y: auto;
     display: flex;
