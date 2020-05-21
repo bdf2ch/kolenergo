@@ -116,14 +116,14 @@ export class Report extends Backup {
       tp_6_20: config ? config.tp_6_20_count : 0,
       effect : {
         population: config ? config.population_count_effect_raspr : 0,
-        power: config ? (Math.round(config.power_effect_raspr * 10) / 10) : 0,
+        power: config ? (Math.round(config.power_effect_raspr * 100) / 100) : 0,
         szo: config ? config.szo_count_effect_raspr : 0
       }
     };
     this.total = {
       tp_6_20: (config ? config.tp_6_20_count_effect_35_150 : 0) + (config ? config.tp_6_20_count : 0),
       population: (config ? config.population_count_effect_35_150 : 0) + (config ? config.population_count_effect_raspr : 0),
-      power: (config ? (Math.round(config.power_effect_35_150 * 10) / 10) : 0) + (config ? (Math.round(config.power_effect_raspr * 10) / 10) : 0),
+      power: (config ? (Math.round(config.power_effect_35_150 * 100) / 100) : 0) + (config ? (Math.round(config.power_effect_raspr * 100) / 100) : 0),
       szo: (config ? config.szo_count_effect_35_150 : 0) + (config ? config.szo_count_effect_raspr : 0)
     };
     this.weather = {

@@ -1,74 +1,88 @@
 <mat-progress-bar mode="indeterminate" *ngIf="isLoadingInProgress$ | async"></mat-progress-bar>
-<mat-drawer-container class="application-sidebar">
-  <mat-drawer mode="side" opened>
-  <div class="container-fluid p-4 overflow-hidden">
+<mat-drawer-container class="application-sidebar" hasBackdrop="{{(isMobileMode$ | async) ? true : false}}" (backdropClick)="closeSideBar()">
+  <mat-drawer mode="{{(isMobileMode$| async) ? 'over' : 'side'}}" [opened]="isSidebarOpened$ | async">
+    <div class="d-flex flex-column">
+      <div class="container-fluid p-4 overflow-hidden">
 
-    <div class="row">
-      <div class="col-12">
+        <div class="row">
+          <div class="col-12">
+            <!-- Start: Выпадающее меню выбора организации -->
+            <button mat-button
+                    class="w-100 mb-4"
+                    color="primary"
+                    *ngIf="(user$ | async).company.id === 8"
+                    [matMenuTriggerFor]="companiesMenu">
+              {{(selectedCompany$ | async)?.shortTitle}}
+              <mat-icon>arrow_drop_down</mat-icon>
+            </button>
+            <mat-menu #companiesMenu="matMenu" yPosition="below" [style.width]="'261px'">
+              <button mat-menu-item
+                      class="pl-4 pr-4"
+                      *ngFor="let company of (companies$ | async)"
+                      (click)="selectCompany(company)">
+                <div class="pl-4 pr-4">
+                  <mat-icon color="primary" class="mr-4 pr-4">business</mat-icon>
+                  <span class="ml-2">{{company.shortTitle}}</span>
+                </div>
+              </button>
+            </mat-menu>
+            <!-- End: Выпадающее меню выбора организации -->
 
-        <!-- Start: Выпадающее меню выбора организации -->
-        <button mat-stroked-button
-                class="w-100 mb-4"
-                color="primary"
-                *ngIf="(user$ | async).company.id === 8"
-                [matMenuTriggerFor]="companiesMenu">
-          {{(selectedCompany$ | async)?.shortTitle}}
-          <mat-icon>arrow_drop_down</mat-icon>
-        </button>
-        <mat-menu #companiesMenu="matMenu" yPosition="below" [style.width]="'261px'">
-          <button mat-menu-item
-                  class="pl-4 pr-4"
-                  *ngFor="let company of (companies$ | async)"
-                  (click)="selectCompany(company)">
-            <div class="pl-4 pr-4">
-              <mat-icon color="primary" class="mr-4 pr-4">business</mat-icon>
-              <span class="ml-2">{{company.shortTitle}}</span>
-            </div>
-          </button>
-        </mat-menu>
-        <!-- End: Выпадающее меню выбора организации -->
+            <!-- Start: Кнопка загрузки аккумулятивного отчета по текущей организации -->
+            <button mat-stroked-button
+                    class="w-100 mb-4"
+                    color="primary"
+                    *ngIf="(user$ | async).company.id != 8"
+                    (click)="loadReportByCompany()">
+              {{(selectedCompany$ | async)?.shortTitle}}
+            </button>
+            <!-- End: Кнопка загрузки аккумулятивного отчета по текущей организации -->
+          </div>
+        </div>
 
-        <!-- Start: Кнопка загрузки аккумулятивного отчета по текущей организации -->
-        <button mat-stroked-button
-                class="w-100 mb-4"
-                color="primary"
-                *ngIf="(user$ | async).company.id != 8"
-                (click)="loadReportByCompany()">
-          {{(selectedCompany$ | async)?.shortTitle}}
-        </button>
-        <!-- End: Кнопка загрузки аккумулятивного отчета по текущей организации -->
+        <div class="row">
+          <div class="col-12 overflow-auto">
+            <app-division-tree></app-division-tree>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-12 overflow-auto">
-        <app-division-tree></app-division-tree>
-      </div>
-    </div>
-  </div>
+
   </mat-drawer>
 
   <mat-drawer-content>
-    <div class="container-fluid d-flex flex-column pt-3 pl-4 pr-4 pb-4 h-100">
-      <div class="row mb-2">
+    <div class="container-fluid d-flex flex-column p-4 h-100">
+      <div class="row">
 
-        <div class="col">
+        <div class="col-auto" *ngIf="(isMobileMode$ | async)">
+          <button mat-icon-button color="primary" (click)="openSideBar()">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </div>
+
+        <div class="col d-flex flex-column justify-content-center" style="height: 40px">
           <div class="application-header">
-            <span class="application-title">Оперативная обстановка</span>
+            <span class="application-title">
+              {{(selectedDivision$ | async) ? (selectedDivision$ | async)?.title : (selectedCompany$ | async)?.shortTitle}},
+              {{(selectedTime$ | async)?.time}}
+            </span>
+            <!--
             <span class="application-subtitle">
               на {{(date$| async) | date:"dd.MM.yyyy"}}
               <span *ngIf="selectedTime$ | async">, {{(selectedTime$ | async)?.time}} </span>
               <span *ngIf="selectedCompany$ | async">в {{(selectedCompany$ | async)?.shortTitle}}</span>
               <span *ngIf="selectedDivision$ | async">&nbsp;&rarr;&nbsp; {{(selectedDivision$ | async)?.title}}</span>
             </span>
+            -->
           </div>
         </div>
 
         <div class="col-auto">
-          <div class="application-controls pt-3">
+          <div class="application-controls">
 
             <!-- Start: Кнопка изменения отчета -->
-            <button mat-stroked-button
+            <button mat-icon-button
                     class="mr-2"
                     color="primary"
                     matTooltip="Изменить отчет"
@@ -80,8 +94,8 @@
             <!-- End: Кнопка изменения отчета -->
 
             <!-- Start: Кнопка выгрузки отчета -->
-            <button mat-stroked-button
-                    class="mr-2"
+            <button mat-icon-button
+                    class="mr-4"
                     color="primary"
                     matTooltip="Экспорт в Excel"
                     matTooltipPosition="below"
@@ -91,7 +105,7 @@
             <!-- End: Кнопка выгрузки отчета -->
 
             <!-- Start: Выпадающее меню рользователя -->
-            <button mat-stroked-button
+            <button mat-button
                     class="ml-2"
                     color="primary"
                     [matMenuTriggerFor]="userMenu">
@@ -114,7 +128,7 @@
 
       <div class="row flex-fill">
         <div class="col-12 pt-5">
-          <app-timeline class="mb-3 mt-5"></app-timeline>
+          <app-timeline class="mb-3 mt-3"></app-timeline>
           <app-reports-time-table></app-reports-time-table>
           <!-- <app-report-add-dialog></app-report-add-dialog> -->
         </div>

@@ -7,7 +7,7 @@ import { IServerResponse } from '@kolenergo/core';
 import { ApplicationResource } from '../resources/application.resource';
 import { ReportsResource } from '../resources/reports.resource';
 import { ConsumptionResource } from '../resources/consumption.resource';
-import {IAppInitData, IReport, IReportSummary} from '../interfaces';
+import { IAppInitData, IReportSummary } from '../interfaces';
 import { Report} from '../models';
 
 @Injectable({
@@ -57,7 +57,7 @@ export class OperativeSituationService {
    * Изменение отчета об оперативной обстановке
    * @param report - Изменяемый отчет об оперативной обстановке
    */
-  editReport(report: IReport): Observable<IServerResponse<IReportSummary>> {
+  editReport(report: Report): Observable<IServerResponse<IReportSummary>> {
     return from(this.reports.edit(report, null, {id: report.id}))
       .pipe(
         map((response: IServerResponse<IReportSummary>) => response)

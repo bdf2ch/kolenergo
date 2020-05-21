@@ -1,13 +1,11 @@
-import { IReport, IReportSummary, IWeatherSummary } from '../interfaces';
+import { IReport, IReportSummary } from '../interfaces';
 import { WeatherSummary } from './weather-summary.model';
 import { Report} from './report.model';
 
-export class ReportSummary implements IReportSummary {
-  date: string;                                                                // Текущая дата
-  // reports: {[interval: string]: {[time: string]: IReport | IWeatherSummary}};  // Отчеты, агрегированные по временному периоду
-  reports: Report[];
-  consumption: number;                                                         // Максимум потребления за прошедшие сутки
-  // weather?: IWeatherSummary;                                                   // Погодная сводка
+export class ReportSummary {
+  date: string;             // Текущая дата
+  reports: Report[];        // Отчеты об оперативной обстановке
+  consumption: number;      // Максимум потребления за прошедшие сутки
 
   /**
    * Конструктор
@@ -17,23 +15,6 @@ export class ReportSummary implements IReportSummary {
     this.date = config ? config.date : null;
     this.reports = config ? config.reports.map((item: IReport) => new Report(item)) : [];
     this.consumption = config ? config.consumption : null;
-    // this.weather = config && config.weather ? new WeatherSummary(config.weather) : null;
-    if (config) {
-      /*
-      for (const interval in config.reports) {
-        console.log('interval', config.reports[interval]);
-        this.reports[interval] = {};
-        for (const time in config.reports[interval]) {
-          if (config.reports[interval][time].hasOwnProperty('periodId')) {
-            this.reports[interval][time] = new Report(config.reports[interval][time] as IReport);
-          } else {
-            console.log('weather key', time, config.reports[interval][time]);
-            this.reports[interval][time] = new WeatherSummary(config.reports[interval][time] as IWeatherSummary);
-          }
-        }
-      }
-      */
-    }
   }
 
   /**

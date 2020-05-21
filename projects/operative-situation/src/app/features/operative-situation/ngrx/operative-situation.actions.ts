@@ -34,7 +34,10 @@ export enum OperativeSituationActionTypes {
   SELECT_DIVISION = '[Application] Select current division',
   SELECT_PERIOD = '[Application] Select time period',
   SELECT_TIME = '[Application] Select report time',
-  SELECT_REPORT = '[Application] Select report'
+  SELECT_REPORT = '[Application] Select report',
+  SWITCH_TO_MOBILE_MODE = '[Application] Switch application mode',
+  OPEN_SIDEBAR = '[Application] Open sidebar',
+  CLOSE_SIDEBAR = '[Application] Close sidebar'
 }
 
 /**
@@ -242,6 +245,28 @@ export class SelectReport implements Action {
 }
 
 /**
+ * Переключение на мобильный режим
+ */
+export class SwitchToMobileMode implements Action {
+  readonly type = OperativeSituationActionTypes.SWITCH_TO_MOBILE_MODE;
+  constructor(public payload: boolean) {}
+}
+
+/**
+ * Открытие боковой панели
+ */
+export class OpenSidebar implements Action {
+  readonly type = OperativeSituationActionTypes.OPEN_SIDEBAR;
+}
+
+/**
+ * Закрытие боковой панели
+ */
+export class CloseSidebar implements Action {
+  readonly type = OperativeSituationActionTypes.CLOSE_SIDEBAR;
+}
+
+/**
  * Действия в разделе отчетов по оперативной обстановке
  */
 export type OperativeSituationActions =
@@ -271,4 +296,7 @@ export type OperativeSituationActions =
   SelectDivision |
   SelectPeriod |
   SelectTime |
-  SelectReport;
+  SwitchToMobileMode |
+  SelectReport |
+  OpenSidebar |
+  CloseSidebar;

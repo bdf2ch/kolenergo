@@ -1,14 +1,47 @@
 @application-header-title-font-family: 'Open Sans Light';
-@application-header-title-font-size: 45px;
-@application-header-title-line-height: @application-header-title-font-size + 4px;
+@application-header-title-font-size: 33px;
+@application-header-title-text-transform: normal;
+@application-header-title-line-height: 40px;
 @application-header-title-font-color: #546e7a;
 @application-header-subtitle-font-family: 'Open Sans Light';
 @application-header-subtitle-font-size: 15px;
 @application-header-subtitle-font-color: #546e7a;
 
+
+@application-header-height: 60px;
+@application-header-background-color: #4db6ac;
+@application-header-border: 2px solid #e0e0e0;
+
 .mat-progress-bar {
   position: fixed;
   z-index: 100;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: @application-header-height;
+  background: @application-header-background-color;
+  border-bottom: @application-header-border;
+
+  .mat-button {
+    // height: 40px;
+    color: white;
+    background: #80cbc4;
+  }
+
+  .mat-stroked-button {
+    color: #00897b;
+    border-color: #00897b;
+  }
+}
+
+.content {
+  overflow: auto;
+  display: flex;
+  flex: 1;
 }
 
 
@@ -19,9 +52,11 @@
   align-items: flex-start;
 
   .application-title {
+    height: 40px;
     font-family: @application-header-title-font-family;
     font-size: @application-header-title-font-size;
     line-height: @application-header-title-line-height;
+    text-transform: @application-header-title-text-transform;
     color: @application-header-title-font-color;
   }
 
@@ -37,6 +72,11 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+
+  .mat-button {
+    height: 40px;
+    background: #e0e0e0;
+  }
 }
 
 #add-report-button {

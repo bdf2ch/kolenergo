@@ -7,18 +7,24 @@ import { select, Store } from '@ngrx/store';
 import { AuthenticationSignOut, ICompany, User } from '@kolenergo/core';
 import { IApplicationState } from '../../../../ngrx';
 import {
-  ExportReport,
+  CloseSidebar,
+  ExportReport, OpenSidebar,
   selectCompanies,
   SelectCompany,
-  selectDate, selectLoadingInProgress,
+  selectDate,
+  selectLoadingInProgress,
+  selectMobileMode,
   selectSelectedCompany,
-  selectSelectedDivision, selectSelectedReport, selectSelectedTime,
+  selectSelectedDivision,
+  selectSelectedReport,
+  selectSelectedTime,
+  selectSidebarOpened,
   selectUser
 } from '../../ngrx';
 import { IDivision } from '../../../../interfaces';
-import {Report, TimeMark} from '../../../../models';
+import { Report, TimeMark } from '../../../../models';
 import { ReportAddDialogComponent } from '../report-add-dialog/report-add-dialog.component';
-import {ReportEditDialogComponent} from "../report-edit-dialog/report-edit-dialog.component";
+import { ReportEditDialogComponent } from '../report-edit-dialog/report-edit-dialog.component';
 
 @Component({
   selector: 'app-operative-situation',
@@ -34,6 +40,8 @@ export class OperativeSituationComponent implements OnInit {
   public selectedTime$: Observable<TimeMark>;
   public selectedReport$: Observable<Report>;
   public isLoadingInProgress$: Observable<boolean>;
+  public isMobileMode$: Observable<boolean>;
+  public isSidebarOpened$: Observable<boolean>;
   public selectedCompany: ICompany;
 
   constructor(
@@ -48,6 +56,8 @@ export class OperativeSituationComponent implements OnInit {
     this.selectedTime$ = this.store.pipe(select(selectSelectedTime));
     this.selectedReport$ = this.store.pipe(select(selectSelectedReport));
     this.isLoadingInProgress$ = this.store.pipe(select(selectLoadingInProgress));
+    this.isMobileMode$ = this.store.pipe(select(selectMobileMode));
+    this.isSidebarOpened$ = this.store.pipe(select(selectSidebarOpened));
   }
 
   ngOnInit() {
@@ -99,6 +109,20 @@ export class OperativeSituationComponent implements OnInit {
    */
   exportReport() {
     this.store.dispatch(new ExportReport());
+  }
+
+  /**
+   * Открытие боковой панели
+   */
+  openSideBar() {
+    this.store.dispatch(new OpenSidebar());
+  }
+
+  /**
+   * Закрытие боковой панели
+   */
+  closeSideBar() {
+    this.store.dispatch(new CloseSidebar());
   }
 
   /**

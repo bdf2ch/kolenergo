@@ -25,7 +25,14 @@ import {
   AddReportFail,
   AddConsumptionReport,
   AddConsumptionReportFail,
-  AddConsumptionReportSuccess, EditReport, EditReportFail, EditReportSuccess, ExportReportFail, ExportReportSuccess
+  AddConsumptionReportSuccess,
+  EditReport,
+  EditReportFail,
+  EditReportSuccess,
+  ExportReportFail,
+  ExportReportSuccess,
+  SwitchToMobileMode,
+  CloseSidebar, OpenSidebar
 } from './operative-situation.actions';
 import { OperativeSituationService } from '../../../services/operative-situation.service';
 import { IApplicationState } from '../../../ngrx';
@@ -295,4 +302,11 @@ export class OperativeSituationEffects {
     ofType(OperativeSituationActionTypes.SELECT_DIVISION),
     mergeMap(() => of(new LoadReportsByDivision()))
   );
+
+  @Effect()
+  switchToMobileMode$ = this.actions$.pipe(
+    ofType(OperativeSituationActionTypes.SWITCH_TO_MOBILE_MODE),
+    map((action: SwitchToMobileMode) => action.payload === true ? new CloseSidebar() : new OpenSidebar())
+  );
+
 }

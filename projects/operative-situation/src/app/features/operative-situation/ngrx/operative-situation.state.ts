@@ -1,6 +1,6 @@
 import { ICompany } from '@kolenergo/core';
 import { IDivision, IPeriod } from '../../../interfaces';
-import {  Period, Report, ReportSummary, TimeMark } from '../../../models';
+import { Period, Report, ReportSummary, TimeMark } from '../../../models';
 
 /**
  * Интерфейс, описывающий состояние раздела отчетов по оперативной обстановке
@@ -9,6 +9,8 @@ export interface IOperativeSituationState {
   isLoadingInProgress: boolean;                   // Выполняется ли загрузка данных с сервера
   isConsumptionLoadingInProgress: boolean;        // Выполняется ли загрузка данных о потреблении
   isApplicationInitialized: boolean;              // Инициализировано ли приложение
+  isSidebarOpened: boolean;                       // Открыта ли боковая панель интерфейса
+  isMobileMode: boolean;                          // Находится ли приложение в мобильном режиме
   date: Date;                                     // Текущая дата
   companies: ICompany[];                          // Список организаций
   divisions: IDivision[];                         // Список структурных подразделений
@@ -29,6 +31,8 @@ export const operativeSituationInitialState: IOperativeSituationState = {
   isLoadingInProgress: false,
   isConsumptionLoadingInProgress: false,
   isApplicationInitialized: false,
+  isSidebarOpened: true,
+  isMobileMode: false,
   date: null,
   companies: [],
   divisions: [],

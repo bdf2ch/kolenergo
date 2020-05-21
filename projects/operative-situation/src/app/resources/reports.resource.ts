@@ -12,7 +12,7 @@ import {
 } from '@ngx-resource/core';
 
 import { IServerResponse } from '@kolenergo/core';
-import { IReport, IReportSummary } from '../interfaces';
+import { IReportSummary } from '../interfaces';
 import { Report } from '../models';
 import { environment } from '../../environments/environment';
 
@@ -47,7 +47,7 @@ export class ReportsResource extends Resource {
     method: ResourceRequestMethod.Patch,
     withCredentials: true
   })
-  edit: IResourceMethodStrict<IReport, void, {id: number}, IServerResponse<IReportSummary>>;
+  edit: IResourceMethodStrict<Report, void, {id: number}, IServerResponse<IReportSummary>>;
 
   @ResourceAction({
     path: '/{!id}',

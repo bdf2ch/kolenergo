@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
 import { IApplicationState } from '../../../../ngrx';
-import { selectNestedDivisionsByDivisionId, selectSelectedDivision, SelectDivision } from '../../ngrx';
+import {selectNestedDivisionsByDivisionId, selectSelectedDivision, SelectDivision, CloseSidebar, selectMobileMode} from '../../ngrx';
 import { IDivision } from '../../../../interfaces';
 
 @Component({
@@ -14,11 +14,13 @@ import { IDivision } from '../../../../interfaces';
 })
 export class DivisionTreeItemComponent implements OnInit {
   @Input() division: IDivision;
+  public mobileMode$: Observable<boolean>;
   public nestedDivisions$: Observable<IDivision[]>;
   public selectedDivision$: Observable<IDivision>;
   private selectedDivision: IDivision;
   public isExpanded: boolean;
   public isSelected: boolean;
+  public mobileMode: boolean;
 
   constructor(private readonly store: Store<IApplicationState>) {
     this.isExpanded = false;
@@ -26,6 +28,10 @@ export class DivisionTreeItemComponent implements OnInit {
     this.selectedDivision$ = this.store.pipe(select(selectSelectedDivision));
     this.selectedDivision$.subscribe((value: IDivision) => {
       this.selectedDivision = value;
+    });
+    this.mobileMode$ = this.store.pipe(select(selectMobileMode));
+    this.mobileMode$.subscribe((value: boolean) => {
+      this.mobileMode = value;
     });
   }
 
@@ -42,6 +48,9 @@ export class DivisionTreeItemComponent implements OnInit {
       this.isExpanded = !this.isExpanded;
     } else {
       this.store.dispatch(new SelectDivision(this.division));
+      if (this.mobileMode) {
+        // this.store.dispatch(new CloseSidebar());
+      }
       this.isExpanded = true;
     }
   }

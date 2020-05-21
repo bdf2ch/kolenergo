@@ -164,6 +164,23 @@ export const selectSelectedReportWeatherSummary = createSelector(
 );
  */
 
+/**
+ * Селектор состояния мобильного режима
+ */
+export const selectMobileMode = createSelector(
+  selectOSR,
+  (state: IOperativeSituationState) => state.isMobileMode
+);
+
+
+/**
+ * Селектор состояния отображения боковой панели
+ */
+export const selectSidebarOpened = createSelector(
+  selectOSR,
+  (state: IOperativeSituationState) => state.isSidebarOpened
+);
+
 
 
 

@@ -1,15 +1,15 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-import {BreakpointObserver, BreakpointState, MediaMatcher} from '@angular/cdk/layout';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { BreakpointObserver, BreakpointState, MediaMatcher } from '@angular/cdk/layout';
 
-import {select, Store} from '@ngrx/store';
-import {Observable} from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 import {
   IApplicationState,
   PhoneBookHideSidebarToggleButton,
   PhoneBookSetViewMode,
   PhoneBookShowSidebarToggleButton,
-  selectFetchingInProgress
+  selectFetchingInProgress,
 } from './ngrx';
 import {EViewMode} from './enums';
 
@@ -49,6 +49,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isFetchingInProgress$ = this.store.pipe(select(selectFetchingInProgress));
+    this.isSidebarOpened$ = this.store.pipe(select(selectSidebarOpened));
   }
 
   ngOnDestroy(): void {

@@ -272,6 +272,27 @@ export function reducer(
       };
     }
 
+    case OperativeSituationActionTypes.SWITCH_TO_MOBILE_MODE: {
+      return {
+        ...state,
+        isMobileMode: action.payload
+      };
+    }
+
+    case OperativeSituationActionTypes.CLOSE_SIDEBAR: {
+      return {
+        ...state,
+        isSidebarOpened: false
+      };
+    }
+
+    case OperativeSituationActionTypes.OPEN_SIDEBAR: {
+      return {
+        ...state,
+        isSidebarOpened: true
+      };
+    }
+
     default: {
       return state;
     }
