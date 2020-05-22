@@ -47,16 +47,20 @@
 
 .application-header {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 
   .application-title {
+    overflow: hidden;
     height: 40px;
     font-family: @application-header-title-font-family;
     font-size: @application-header-title-font-size;
     line-height: @application-header-title-line-height;
     text-transform: @application-header-title-text-transform;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     color: @application-header-title-font-color;
   }
 

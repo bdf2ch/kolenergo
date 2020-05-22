@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { BreakpointObserver, BreakpointState, MediaMatcher } from '@angular/cdk/layout';
+import { MatDialog, MatSelectChange } from '@angular/material';
 
 import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
@@ -8,21 +9,25 @@ import { AuthenticationSignOut, ICompany, User } from '@kolenergo/core';
 import { IApplicationState } from '../../../../ngrx';
 import {
   CloseSidebar,
-  ExportReport, OpenSidebar,
+  ExportReport,
+  OpenSidebar,
   selectCompanies,
   SelectCompany,
   selectDate,
   selectLoadingInProgress,
   selectMobileMode,
+  selectReports,
   selectSelectedCompany,
   selectSelectedDivision,
   selectSelectedReport,
   selectSelectedTime,
   selectSidebarOpened,
-  selectUser
+  SelectTime,
+  selectUser,
+  SwitchToMobileMode
 } from '../../ngrx';
 import { IDivision } from '../../../../interfaces';
-import { Report, TimeMark } from '../../../../models';
+import { Report, ReportSummary, TimeMark } from '../../../../models';
 import { ReportAddDialogComponent } from '../report-add-dialog/report-add-dialog.component';
 import { ReportEditDialogComponent } from '../report-edit-dialog/report-edit-dialog.component';
 
@@ -32,9 +37,12 @@ import { ReportEditDialogComponent } from '../report-edit-dialog/report-edit-dia
   styleUrls: ['./operative-situation.component.less']
 })
 export class OperativeSituationComponent implements OnInit {
+  public mobileQuery: MediaQueryList;
+  private readonly  mobileQueryListener: () => void;
   public user$: Observable<User>;
   public date$: Observable<Date>;
   public companies$: Observable<ICompany[]>;
+  public reports$: Observable<ReportSummary>;
   public selectedCompany$: Observable<ICompany>;
   public selectedDivision$: Observable<IDivision>;
   public selectedTime$: Observable<TimeMark>;
@@ -46,11 +54,15 @@ export class OperativeSituationComponent implements OnInit {
 
   constructor(
     private readonly dialog: MatDialog,
-    private readonly store: Store<IApplicationState>
+    private readonly store: Store<IApplicationState>,
+    private breakpoint: BreakpointObserver,
+    private readonly detector: ChangeDetectorRef,
+    private readonly media: MediaMatcher,
   ) {
     this.user$ = this.store.pipe(select(selectUser));
     this.date$ = this.store.pipe(select(selectDate));
     this.companies$ = this.store.pipe(select(selectCompanies));
+    this.reports$ = this.store.pipe(select(selectReports));
     this.selectedCompany$ = this.store.pipe(select(selectSelectedCompany));
     this.selectedDivision$ = this.store.pipe(select(selectSelectedDivision));
     this.selectedTime$ = this.store.pipe(select(selectSelectedTime));
@@ -58,6 +70,13 @@ export class OperativeSituationComponent implements OnInit {
     this.isLoadingInProgress$ = this.store.pipe(select(selectLoadingInProgress));
     this.isMobileMode$ = this.store.pipe(select(selectMobileMode));
     this.isSidebarOpened$ = this.store.pipe(select(selectSidebarOpened));
+
+    this.mobileQuery = media.matchMedia('(max-width: 991.98px)');
+    this.mobileQueryListener = () => this.detector.detectChanges();
+    this.mobileQuery.addListener(this.mobileQueryListener);
+    this.breakpoint.observe('(max-width: 1485px)').subscribe((result: BreakpointState) => {
+      this.store.dispatch(new SwitchToMobileMode(result.matches ? true : false));
+    });
   }
 
   ngOnInit() {
@@ -74,6 +93,15 @@ export class OperativeSituationComponent implements OnInit {
    */
   selectCompany(company: ICompany) {
     this.store.dispatch(new SelectCompany(company));
+  }
+
+  /**
+   * Выбор времени отчета
+   * @param event - Событие выбора элемента выпадающего списка
+   */
+  selectTime(event: MatSelectChange) {
+    console.log(event);
+    this.store.dispatch(new SelectTime(new TimeMark(0, event.value, false)));
   }
 
   /**
@@ -100,6 +128,9 @@ export class OperativeSituationComponent implements OnInit {
     });
   }
 
+  /**
+   * Загрузка отчета по организации
+   */
   loadReportByCompany() {
     this.store.dispatch(new SelectCompany(this.selectedCompany));
   }
@@ -131,5 +162,4 @@ export class OperativeSituationComponent implements OnInit {
   signOut() {
     this.store.dispatch(new AuthenticationSignOut());
   }
-
 }

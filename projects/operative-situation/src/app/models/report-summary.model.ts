@@ -50,15 +50,6 @@ export class ReportSummary {
     return result;
   }
 
-  /**
-   * Получение отчета об оперативнйо обстановке по заданному интервалу и времени отчета
-   * @param interval - Временной интервал
-   * @param time - Время отчета
-   */
-  getReportByIntervalAndTime(interval: string, time: string): IReport | null {
-    return this.reports[interval] && this.reports[interval][time] ? this.reports[interval][time] as IReport : null;
-  }
-
   getWeatherSummaryByInterval(interval: string): WeatherSummary | null {
     return this.reports[interval] ? this.reports[interval].weatherSummary as WeatherSummary : null;
   }

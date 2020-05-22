@@ -55,18 +55,16 @@
     <div class="container-fluid d-flex flex-column p-4 h-100">
       <div class="row">
 
-        <div class="col-auto" *ngIf="(isMobileMode$ | async)">
+        <div class="col-auto pl-0" *ngIf="(isMobileMode$ | async)">
           <button mat-icon-button color="primary" (click)="openSideBar()">
             <mat-icon>menu</mat-icon>
           </button>
         </div>
 
-        <div class="col d-flex flex-column justify-content-center" style="height: 40px">
+        <div class="col d-flex flex-column justify-content-center overflow-hidden" style="height: 40px;">
           <div class="application-header">
-            <span class="application-title">
-              {{(selectedDivision$ | async) ? (selectedDivision$ | async)?.title : (selectedCompany$ | async)?.shortTitle}},
-              {{(selectedTime$ | async)?.time}}
-            </span>
+            <span class="application-title">{{(selectedDivision$ | async) ? (selectedDivision$ | async)?.title : (selectedCompany$ | async)?.shortTitle}}</span>
+            <span class="application-title d-none d-md-flex" *ngIf="(selectedTime$ | async)">, {{(selectedTime$ | async)?.time}}</span>
             <!--
             <span class="application-subtitle">
               на {{(date$| async) | date:"dd.MM.yyyy"}}
@@ -95,10 +93,11 @@
 
             <!-- Start: Кнопка выгрузки отчета -->
             <button mat-icon-button
-                    class="mr-4"
+                    class=""
                     color="primary"
                     matTooltip="Экспорт в Excel"
                     matTooltipPosition="below"
+                    *ngIf="(selectedTime$ | async)"
                     (click)="exportReport()">
               <mat-icon>save_alt</mat-icon>
             </button>
@@ -106,7 +105,7 @@
 
             <!-- Start: Выпадающее меню рользователя -->
             <button mat-button
-                    class="ml-2"
+                    class="ml-5 d-none d-md-block"
                     color="primary"
                     [matMenuTriggerFor]="userMenu">
               <span *ngIf="user$ | async">{{(user$ | async)?.firstName + ' ' + (user$ | async)?.lastName}}</span>
@@ -128,7 +127,16 @@
 
       <div class="row flex-fill">
         <div class="col-12 pt-5">
-          <app-timeline class="mb-3 mt-3"></app-timeline>
+          <mat-form-field class="w-100 d-block d-md-none">
+            <mat-label>Выберите время отчета</mat-label>
+            <mat-select [ngModel]="(selectedReport$ | async)?.periodTime" (selectionChange)="selectTime($event)">
+              <mat-option *ngFor="let report of (reports$ | async)?.reports"
+                          [value]="report.periodTime">
+                {{report.periodTime}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <app-timeline class="mb-3 mt-3 d-none d-md-block"></app-timeline>
           <app-reports-time-table></app-reports-time-table>
           <!-- <app-report-add-dialog></app-report-add-dialog> -->
         </div>

@@ -9,8 +9,11 @@ import {
   MatProgressBarModule,
   MatFormFieldModule,
   MatInputModule,
+  MatSelectModule,
   MatTooltipModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatDialogModule
 } from '@angular/material';
 
 import { StoreModule } from '@ngrx/store';
@@ -33,9 +36,7 @@ import { WeatherSummaryComponent } from './components/weather-summary/weather-su
 import { IndicatorComponent } from './components/indicator/indicator.component';
 import { ConsumptionComponent } from './components/consumption/consumption.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
-import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { ReportEditDialogComponent } from './components/report-edit-dialog/report-edit-dialog.component';
-import {MatDialogModule} from "@angular/material/dialog";
 import { SpritzComponent } from './components/spritz/spritz.component';
 
 @NgModule({
@@ -74,7 +75,8 @@ import { SpritzComponent } from './components/spritz/spritz.component';
     MatTooltipModule,
     MatSlideToggleModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ],
   exports: [
     // ReportAddDialogComponent

@@ -1,10 +1,10 @@
 import * as moment from 'moment';
 
-import {actionTypes, authenticationActionTypes, Company, ICompany} from '@kolenergo/core';
-import {IDivision, IPeriod} from '../../../interfaces';
-import {Division, Period, Report, ReportSummary, TimeMark} from '../../../models';
-import {IOperativeSituationState, operativeSituationInitialState} from './operative-situation.state';
-import {OperativeSituationActions, OperativeSituationActionTypes} from './operative-situation.actions';
+import { actionTypes, authenticationActionTypes, Company, ICompany } from '@kolenergo/core';
+import { IDivision, IPeriod } from '../../../interfaces';
+import { Division, Period, Report, ReportSummary, TimeMark } from '../../../models';
+import { IOperativeSituationState, operativeSituationInitialState } from './operative-situation.state';
+import { OperativeSituationActions, OperativeSituationActionTypes } from './operative-situation.actions';
 
 /**
  * Редуктор раздела отчетов по оперативной обстановке
