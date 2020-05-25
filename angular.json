@@ -1036,7 +1036,8 @@
             "tsConfig": "projects/operative-situation/tsconfig.app.json",
             "assets": [
               "projects/operative-situation/src/favicon.ico",
-              "projects/operative-situation/src/assets"
+              "projects/operative-situation/src/assets",
+              "projects/operative-situation/src/manifest.json"
             ],
             "styles": [
               "projects/operative-situation/src/custom-theme.scss",
@@ -1068,7 +1069,9 @@
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "projects/operative-situation/ngsw-config.json"
             }
           }
         },
@@ -1102,7 +1105,8 @@
             "scripts": [],
             "assets": [
               "projects/operative-situation/src/favicon.ico",
-              "projects/operative-situation/src/assets"
+              "projects/operative-situation/src/assets",
+              "projects/operative-situation/src/manifest.json"
             ]
           }
         },
