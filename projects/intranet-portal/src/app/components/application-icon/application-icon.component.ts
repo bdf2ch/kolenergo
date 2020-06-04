@@ -1,14 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-application-icon',
   templateUrl: './application-icon.component.html',
   styleUrls: ['./application-icon.component.less']
 })
-export class ApplicationIconComponent implements OnInit {
+export class ApplicationIconComponent implements OnInit, OnChanges {
   @Input() color: string;
   @Input() label: string;
   @Input() indicator: string;
+  public colorLighten: string;
+  public colorDarken: string;
 
   constructor() { }
 
@@ -31,6 +33,13 @@ export class ApplicationIconComponent implements OnInit {
     let g = (num & 0x0000FF) + amt;
     if (g > 255) {g = 255;} else if (g < 0) {g = 0}
     return (usePound ? '#' : '') + (g | (b << 8) | (r << 16)).toString(16);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.color) {
+      this.colorLighten = this.LightenDarkenColor(this.color, 60);
+      this.colorDarken = this.LightenDarkenColor(this.color, -50);
+    }
   }
 
 }
