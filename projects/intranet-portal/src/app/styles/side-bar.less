@@ -1,0 +1,25 @@
+@side-bar-side-width: 330px;
+@side-bar-side-background-color: #FAFAFA !important;
+
+@side-bar-content-background-color: white;
+
+mat-drawer-container {
+  height: 100%;
+
+  mat-drawer {
+    width: @side-bar-side-width;
+    background: @side-bar-side-background-color;
+    border-right: none !important;
+
+    .application-icons {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  mat-drawer-content {
+    background: @side-bar-content-background-color;
+  }
+}

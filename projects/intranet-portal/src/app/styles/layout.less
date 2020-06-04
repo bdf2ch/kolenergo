@@ -1,0 +1,20 @@
+@header-height: 60px;
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    height: @header-height;
+  }
+
+  .content {
+    overflow-y: auto;
+    overflow-x: visible;
+    flex: 1;
+  }
+}

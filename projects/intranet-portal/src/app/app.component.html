@@ -1,0 +1,48 @@
+<mat-drawer-container class="example-container">
+
+  <!-- Start: Боковая панель -->
+  <mat-drawer mode="side" opened>
+    <div class="layout p-4">
+      <div class="header">
+        <app-search-bar [placeholder]="'Поиск абонентов'"></app-search-bar>
+      </div>
+      <div class="content pt-5">
+        <div class="d-flex flex-column">
+
+          <div class="side-bar-block-title">Наши сервисы</div>
+          <div class="application-icons mt-3">
+            <app-application-icon [label]="'Заявки УКиТАСУ'" [indicator]="'2'"></app-application-icon>
+            <app-application-icon [label]="'Заявки транспорт'"></app-application-icon>
+            <app-application-icon [label]="'Заявки АХО'" [indicator]="'3'"></app-application-icon>
+          </div>
+          <div class="application-icons mt-3">
+            <app-application-icon [label]="'Телефонный справочник'"></app-application-icon>
+            <app-application-icon [label]="'Расчетные листки'"></app-application-icon>
+            <app-application-icon [label]="'Оперативная обстановка'"></app-application-icon>
+          </div>
+
+          <div class="side-bar-block-title mt-5">Полезные ресурсы</div>
+          <div class="application-icons mt-3">
+            <app-application-icon [label]="'Заявки УКиТАСУ'"></app-application-icon>
+            <app-application-icon [label]="'Заявки транспорт'"></app-application-icon>
+            <app-application-icon [label]="'Заявки АХО'"></app-application-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-drawer>
+  <!-- End: Боковая панель -->
+
+  <!-- Start: Содержание -->
+  <mat-drawer-content>
+    <div class="layout p-4">
+      <div class="header">header</div>
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </mat-drawer-content>
+  <!-- End: Содержание -->
+
+</mat-drawer-container>
+
