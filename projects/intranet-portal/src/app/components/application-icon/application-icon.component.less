@@ -12,6 +12,7 @@
 @indicator-font-color: white;
 @indicator-border: 2px solid #FAFAFA;
 
+@label-padding: 20px 7px;
 @label-font-family: 'Open Sans Light';
 @label-font-size: 11px;
 @label-font-color: white;
@@ -23,7 +24,13 @@
   width: @width;
   height: @height;
   border-radius: 27px;
-  box-shadow: 0px 2px 12px 0px rgba(171,171,171,0.66);
+  box-shadow: 0px 2px 12px 0px rgba(171, 171, 171, 0.66);
+
+  &:hover {
+    .image {
+      bottom: -2% !important;
+    }
+  }
 
   .indicator {
     position: absolute;
@@ -47,9 +54,10 @@
   .application-icon {
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: @width;
     height: @height;
-    padding: @padding;
+    // padding: @padding;
 
     // background: linear-gradient(#26a69a, lighten(color(#26a69a), 30%));
     // -webkit-box-shadow: 0px 3px 8px 1px rgba(171,171,171,0.66);
@@ -60,12 +68,28 @@
     .border-squircle(50%, 50%);
 
     .label {
-      padding-top: 12px;
+      min-height: 47px;
+      padding: @label-padding;
+      padding-bottom: 5px !important;
       font-family: @label-font-family;
       font-size: @label-font-size;
       line-height: @label-font-size;
       color: @label-font-color;
       text-align: center;
+    }
+
+    .image {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 90%;
+      height: 60%;
+      bottom: -6%;
+      background-size: 80% !important;
+      background-repeat: no-repeat !important;
+      background-position: top center !important;
+      transition: bottom linear 0.1s;
     }
   }
 }

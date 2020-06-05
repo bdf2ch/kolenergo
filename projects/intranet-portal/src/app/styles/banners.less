@@ -1,0 +1,14 @@
+@import './border-radius';
+
+.banner {
+  display: flex;
+  height: 80px;
+  box-shadow: 0px 2px 12px 0px rgba(171, 171, 171, 0.66);
+  .border-squircle(10%, 50%);
+
+  &.full-width {
+    width: 100%;
+    background: url('/assets/images/together-brighter.png');
+    background-size: cover;
+  }
+}

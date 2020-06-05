@@ -1,8 +1,9 @@
-<div class="application-icon-wrapper">
+<div class="application-icon-wrapper"
+     (mouseover)="hover(true)"
+     (mouseleave)="hover(false)">
   <div *ngIf="indicator" class="indicator">{{indicator}}</div>
-  <div class="application-icon"
-       [ngStyle]="{'background': 'linear-gradient(' + color +  ', ' + colorLighten + ')'}">
+  <div #icon class="application-icon">
     <div class="label">{{label}}</div>
-    <div class="icon"></div>
+    <div #image class="image"></div>
   </div>
 </div>

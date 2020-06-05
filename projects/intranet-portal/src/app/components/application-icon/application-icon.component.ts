@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-application-icon',
@@ -8,13 +8,37 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 export class ApplicationIconComponent implements OnInit, OnChanges {
   @Input() color: string;
   @Input() label: string;
+  @Input() imageUrl: string;
   @Input() indicator: string;
+  @ViewChild('icon') icon: ElementRef;
+  @ViewChild('image') image: ElementRef;
+  public colorHover: string;
   public colorLighten: string;
-  public colorDarken: string;
+  public colorLightenHover: string;
 
   constructor() { }
 
   ngOnInit() {
+    if (this.icon.nativeElement) {
+        this.icon.nativeElement.style.background = `linear-gradient(${this.color}, ${this.colorLighten})`;
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.color) {
+      this.colorHover = this.LightenDarkenColor(this.color, -30);
+      this.colorLighten = this.LightenDarkenColor(this.color, 60);
+      this.colorLightenHover = this.LightenDarkenColor(this.color, 40);
+
+      if (this.icon.nativeElement) {
+        this.icon.nativeElement.style.background = `linear-gradient(${this.color}, ${this.colorLighten})`;
+      }
+    }
+    if (changes.imageUrl) {
+      if (this.image.nativeElement) {
+        this.image.nativeElement.style.background = `url(${changes.imageUrl.currentValue})`;
+      }
+    }
   }
 
   LightenDarkenColor(col, amt) {
@@ -35,10 +59,15 @@ export class ApplicationIconComponent implements OnInit, OnChanges {
     return (usePound ? '#' : '') + (g | (b << 8) | (r << 16)).toString(16);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.color) {
-      this.colorLighten = this.LightenDarkenColor(this.color, 60);
-      this.colorDarken = this.LightenDarkenColor(this.color, -50);
+  hover(isActive: boolean) {
+    console.log('hover', isActive);
+    console.log('color hover', this.colorHover, 'lightenHover', this.colorLightenHover);
+    if (this.icon.nativeElement) {
+      if (isActive) {
+        this.icon.nativeElement.style.background = `linear-gradient(${this.colorHover}, ${this.colorLightenHover})`;
+      } else {
+        this.icon.nativeElement.style.background = `linear-gradient(${this.color}, ${this.colorLighten})`;
+      }
     }
   }
 
