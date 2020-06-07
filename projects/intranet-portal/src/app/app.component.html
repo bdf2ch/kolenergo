@@ -3,14 +3,14 @@
   <!-- Start: Боковая панель -->
   <mat-drawer mode="side" opened>
     <div class="layout">
-      <div class="header pl-4 pr-4">
+      <div class="header pl-5 pr-5">
         <app-search-bar [placeholder]="'Поиск абонентов'"></app-search-bar>
       </div>
-      <div class="content pl-4 pr-4">
+      <div class="content pl-5 pr-5">
         <div class="d-flex flex-column">
 
           <!-- Start: Сервисы -->
-          <div class="side-bar-block-title">Наши сервисы</div>
+          <div class="side-bar-block-title">Приложения и сервисы</div>
           <div class="application-icons mt-3">
             <app-application-icon
               [color]="'#42a5f5'"
@@ -110,7 +110,7 @@
   <!-- Start: Содержание -->
   <mat-drawer-content>
     <div class="layout">
-      <div class="header pl-4 pr-4">
+      <div class="header pl-5 pr-5">
         <div class="d-flex flex-row justify-content-between w-100">
           <div class="logos">
             <img src="/assets/images/rosseti_logo.jpg" class="mr-3">
@@ -127,7 +127,7 @@
           </div>
         </div>
       </div>
-      <div class="content pl-4 pr-4">
+      <div class="content pl-5 pr-5">
         <router-outlet></router-outlet>
       </div>
     </div>

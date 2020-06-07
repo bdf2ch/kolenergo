@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material';
 
 import { StartRoutingModule } from './start-routing.module';
 import { StartComponent } from './components/start/start.component';
@@ -14,6 +15,7 @@ import { ArticlesBlockComponent } from './components/articles-block/articles-blo
   ],
   imports: [
     CommonModule,
+    MatIconModule,
     StartRoutingModule
   ]
 })

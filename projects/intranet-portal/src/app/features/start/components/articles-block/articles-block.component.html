@@ -1,16 +1,62 @@
 <div class="articles-block">
   <div [ngSwitch]="layout">
-    <div *ngSwitchCase="blockLayout.FOUR_QUARTER">
+
+    <div class="articles four-quarter" *ngSwitchCase="blockLayout.FOUR_QUARTER">
       <div class="container-fluid">
-        <div class="row">
-          <div class="col-6">1</div>
-          <div class="col-6">2</div>
+        <div class="row no-gutters pb-2">
+          <div class="col mr-2">
+            <a href="" class="article" style="background: url('assets/temp/kupit-bilet-bez-pasporta-678x381.jpg')">
+              <div class="details">
+                <div class="date-and-attachments">
+                  <div class="date">12 марта 2020</div>
+                </div>
+                <div class="title">Изменился режим работы кассы</div>
+              </div>
+            </a>
+          </div>
+          <div class="col ml-2">
+            <a href="" class="article" style="background: url('assets/temp/r700.jpg')">
+              <div class="details">
+                <div class="date-and-attachments">
+                  <div class="date">2 марта 2020</div>
+                  <div class="attachments">
+                    <mat-icon>attach_file</mat-icon>
+                    <span class="counter">1</span>
+                  </div>
+                </div>
+                <div class="title">Конкурс Российской Академии Наук</div>
+              </div>
+            </a>
+          </div>
         </div>
-        <div class="row">
-          <div class="col-6">3</div>
-          <div class="col-6">4</div>
+        <div class="row no-gutters pt-2">
+          <div class="col mr-2">
+            <a href="" class="article" style="background: url('assets/temp/minenergo.jpg')">
+              <div class="details">
+                <div class="date-and-attachments">
+                  <div class="date">24 января 2020</div>
+                </div>
+                <div class="title">Внимание! Конкурс!</div>
+              </div>
+            </a>
+          </div>
+          <div class="col ml-2">
+            <a href="" class="article" style="background: url('assets/temp/_magazine.png')">
+              <div class="details">
+                <div class="date-and-attachments">
+                  <div class="date">10 июля 2019</div>
+                  <div class="attachments">
+                    <mat-icon>attach_file</mat-icon>
+                    <span class="counter">1</span>
+                  </div>
+                </div>
+                <div class="title">Обозреватель энергетической отрасли, июль 2019</div>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
     </div>
+
   </div>
 </div>
