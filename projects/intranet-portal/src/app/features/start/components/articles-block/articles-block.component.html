@@ -1,11 +1,12 @@
 <div class="articles-block">
   <div [ngSwitch]="layout">
 
-    <div class="articles four-quarter" *ngSwitchCase="blockLayout.FOUR_QUARTER">
+    <div class="articles equals" *ngSwitchCase="blockLayout.EQUALS">
       <div class="container-fluid">
-        <div class="row no-gutters pb-2">
-          <div class="col mr-2">
-            <a href="" class="article" style="background: url('assets/temp/kupit-bilet-bez-pasporta-678x381.jpg')">
+        <div class="row no-gutters">
+          <div class="col">
+            <a href="" class="article">
+              <div class="background"style="background: url('assets/temp/kupit-bilet-bez-pasporta-678x381.jpg')"></div>
               <div class="details">
                 <div class="date-and-attachments">
                   <div class="date">12 марта 2020</div>
@@ -14,8 +15,9 @@
               </div>
             </a>
           </div>
-          <div class="col ml-2">
-            <a href="" class="article" style="background: url('assets/temp/r700.jpg')">
+          <div class="col">
+            <a href="" class="article">
+              <div class="background"style="background: url('assets/temp/r700.jpg')"></div>
               <div class="details">
                 <div class="date-and-attachments">
                   <div class="date">2 марта 2020</div>
@@ -29,9 +31,10 @@
             </a>
           </div>
         </div>
-        <div class="row no-gutters pt-2">
-          <div class="col mr-2">
-            <a href="" class="article" style="background: url('assets/temp/minenergo.jpg')">
+        <div class="row no-gutters">
+          <div class="col">
+            <a href="" class="article">
+              <div class="background"style="background: url('assets/temp/minenergo.jpg')"></div>
               <div class="details">
                 <div class="date-and-attachments">
                   <div class="date">24 января 2020</div>
@@ -40,8 +43,9 @@
               </div>
             </a>
           </div>
-          <div class="col ml-2">
-            <a href="" class="article" style="background: url('assets/temp/_magazine.png')">
+          <div class="col">
+            <a href="" class="article">
+              <div class="background"style="background: url('assets/temp/_magazine.png')"></div>
               <div class="details">
                 <div class="date-and-attachments">
                   <div class="date">10 июля 2019</div>
@@ -53,6 +57,85 @@
                 <div class="title">Обозреватель энергетической отрасли, июль 2019</div>
               </div>
             </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="articles one-lead-with-equals" *ngSwitchCase="blockLayout.ONE_LEAD_AND_EQUALS">
+      <div class="container-fluid">
+        <div class="row no-gutters">
+          <div class="col-auto">
+            <a href="" class="article lead">
+              <div class="background"style="background: url('assets/images/zaborshikova.jpg')"></div>
+              <div class="details">
+                <!--
+                <div class="date-and-attachments">
+                  <div class="date">12 марта 2020</div>
+                </div>
+                -->
+                <div class="title">Елена заборщикова</div>
+                <div class="preview">Спорт - моя вторая жизнь</div>
+              </div>
+            </a>
+          </div>
+          <div class="col">
+            <div class="row no-gutters">
+              <div class="col">
+                <a href="" class="article">
+                  <div class="background" style="background: url('assets/images/cikota.jpg')"></div>
+                  <div class="details">
+                    <!--
+                    <div class="date-and-attachments">
+                      <div class="date">12 марта 2020</div>
+                    </div>
+                    -->
+                    <div class="title">Вера Цикота</div>
+                  </div>
+                </a>
+              </div>
+              <div class="col">
+                <a href="" class="article equal">
+                  <div class="background" style="background: url('assets/images/govorov.jpg')"></div>
+                  <div class="details">
+                    <!--
+                    <div class="date-and-attachments">
+                      <div class="date">12 марта 2020</div>
+                    </div>
+                    -->
+                    <div class="title">Александр Говоров</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="row no-gutters">
+              <div class="col">
+                <a href="" class="article">
+                  <div class="background" style="background: url('assets/images/chuprov.jpg')"></div>
+                  <div class="details">
+                    <!--
+                    <div class="date-and-attachments">
+                      <div class="date">12 марта 2020</div>
+                    </div>
+                    -->
+                    <div class="title">Алексей Чупров</div>
+                  </div>
+                </a>
+              </div>
+              <div class="col">
+                <a href="" class="article">
+                  <div class="background" style="background: url('assets/images/yatskovskaya.jpg')"></div>
+                  <div class="details">
+                    <!--
+                    <div class="date-and-attachments">
+                      <div class="date">12 марта 2020</div>
+                    </div>
+                    -->
+                    <div class="title">Наталья Яцковская</div>
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>

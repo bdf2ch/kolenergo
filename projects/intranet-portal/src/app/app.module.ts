@@ -12,7 +12,7 @@ import { ApplicationIconComponent } from './components/application-icon/applicat
   declarations: [
     AppComponent,
     SearchBarComponent,
-    ApplicationIconComponent,
+    ApplicationIconComponent
   ],
   imports: [
     BrowserModule,

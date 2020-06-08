@@ -6,12 +6,14 @@ import { StartRoutingModule } from './start-routing.module';
 import { StartComponent } from './components/start/start.component';
 import { StartWrapperComponent } from './components/start-wrapper/start-wrapper.component';
 import { ArticlesBlockComponent } from './components/articles-block/articles-block.component';
+import { WeatherComponent } from './components/weather/weather.component';
 
 @NgModule({
   declarations: [
     StartComponent,
     StartWrapperComponent,
-    ArticlesBlockComponent
+    ArticlesBlockComponent,
+    WeatherComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,61 @@
+@icon-width: 55px;
+@icon-height: 55px;
+
+@location-font-family: 'Open Sans Light';
+@location-font-size: 16px;
+@location-font-color: black;
+
+@temperature-font-family: 'Open Sans Light';
+@temperature-font-size: 30px;
+@temperature-font-color: #616161;
+
+@precipitations-and-wind-font-family: 'Open Sans Light';
+@precipitations-and-wind-font-size: 12px;
+@precipitations-and-wind-font-color: #757575;
+
+.weather {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  .icon {
+    width: @icon-width;
+    height: @icon-height;
+    margin-right: 10px;
+    background: url('/assets/images/weather.png');
+    background-size: cover;
+  }
+
+  .summary {
+    .location {
+      font-family: @location-font-family;
+      font-size: @location-font-size;
+      line-height: @location-font-size + 1px;
+      color: @location-font-color;
+    }
+    .details {
+      display: flex;
+      flex-direction: row;
+
+      .temperature {
+        font-family: @temperature-font-family;
+        font-size: @temperature-font-size;
+        color: @temperature-font-color;
+      }
+      .precipitations-and-wind {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 15px;
+        font-family: @precipitations-and-wind-font-family;
+        font-size: @precipitations-and-wind-font-size;
+        line-height: @precipitations-and-wind-font-size + 1px;
+        color: @precipitations-and-wind-font-color;
+
+        .precipitations {}
+        .wind {}
+      }
+    }
+  }
+}
