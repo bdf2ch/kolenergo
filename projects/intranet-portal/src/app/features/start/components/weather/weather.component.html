@@ -1,12 +1,12 @@
 <div class="weather">
   <div class="icon"></div>
   <div class="summary">
-    <div class="location">Мурманск</div>
+    <div class="location">{{location ? location : 'Мурманск'}}</div>
     <div class="details">
-      <span class="temperature">12&deg;</span>
+      <span class="temperature">{{temperature ? temperature : '12'}}&deg;</span>
       <div class="precipitations-and-wind">
-        <span class="precipitations">Небольшой дождь</span>
-        <span class="wind">Ветер: 6-10 м/с</span>
+        <span class="precipitations">{{precipitations ? precipitations :'Небольшой дождь'}}</span>
+        <span class="wind">Ветер: {{wind ? wind + ' м/с' : '6-10 м/с'}}</span>
       </div>
     </div>
   </div>

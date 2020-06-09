@@ -1,9 +1,10 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-application-icon',
   templateUrl: './application-icon.component.html',
-  styleUrls: ['./application-icon.component.less']
+  styleUrls: ['./application-icon.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ApplicationIconComponent implements OnInit, OnChanges {
   @Input() color: string;

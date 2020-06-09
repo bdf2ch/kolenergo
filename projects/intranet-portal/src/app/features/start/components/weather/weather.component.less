@@ -2,45 +2,57 @@
 @icon-height: 55px;
 
 @location-font-family: 'Open Sans Light';
-@location-font-size: 16px;
-@location-font-color: black;
+@location-font-size: 15px;
+@location-font-color: #424242;
 
 @temperature-font-family: 'Open Sans Light';
-@temperature-font-size: 30px;
+@temperature-font-size: 32px;
 @temperature-font-color: #616161;
 
 @precipitations-and-wind-font-family: 'Open Sans Light';
-@precipitations-and-wind-font-size: 12px;
+@precipitations-and-wind-font-size: 13px;
 @precipitations-and-wind-font-color: #757575;
+
+&:host {
+  display: block;
+}
 
 .weather {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-
   .icon {
+    display: flex;
+    flex-shrink: 0;
     width: @icon-width;
     height: @icon-height;
     margin-right: 10px;
-    background: url('/assets/images/weather.png');
     background-size: cover;
+    background: url('http://openweathermap.org/img/wn/10d@2x.png') center;
   }
 
   .summary {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: @icon-height;
     .location {
       font-family: @location-font-family;
       font-size: @location-font-size;
-      line-height: @location-font-size + 1px;
+      line-height: @location-font-size;
       color: @location-font-color;
     }
     .details {
       display: flex;
       flex-direction: row;
-
       .temperature {
+        width: 50px;
         font-family: @temperature-font-family;
         font-size: @temperature-font-size;
+        line-height: @temperature-font-size;
+        text-align: center;
         color: @temperature-font-color;
       }
       .precipitations-and-wind {
@@ -52,9 +64,6 @@
         font-size: @precipitations-and-wind-font-size;
         line-height: @precipitations-and-wind-font-size + 1px;
         color: @precipitations-and-wind-font-color;
-
-        .precipitations {}
-        .wind {}
       }
     }
   }
