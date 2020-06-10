@@ -1,5 +1,7 @@
 export enum EViewMode {
-  MOBILE_VIEW,
-  TABLET_VIEW,
-  DESKTOP_VIEW
+  SMALL,
+  MEDIUM,
+  LARGE,
+  EXTRA_LARGE,
+  EXTRA_EXTRA_LARGE
 }

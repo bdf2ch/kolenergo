@@ -1,5 +1,7 @@
 import { Action } from '@ngrx/store';
 
+import { EViewMode } from '../enums/view-mode.enum';
+
 /**
  * Множество типов действий приложения
  */
@@ -14,7 +16,7 @@ export enum EApplicationActionTypes {
  */
 export class ApplicationChangeViewMode implements Action {
   readonly type = EApplicationActionTypes.APPLICATION_CHANGE_VIEW_MODE;
-  constructor(public payload: EApplicationActionTypes) {}
+  constructor(public payload: EViewMode) {}
 }
 
 /**

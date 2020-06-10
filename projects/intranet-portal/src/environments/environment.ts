@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  appCode: 'PORTAL',
+  apiUrl: 'http://10.50.4.7:3000'
 };
 
 /*
