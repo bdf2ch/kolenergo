@@ -19,8 +19,6 @@ import {EViewMode} from '../../../../enums/view-mode.enum';
   styleUrls: ['./portal-wrapper.component.less']
 })
 export class PortalWrapperComponent implements OnInit {
-  public mobileQuery: MediaQueryList;
-  private readonly  mobileQueryListener: () => void;
   public sideBarOpened$: Observable<boolean>;
 
   constructor(
@@ -30,73 +28,42 @@ export class PortalWrapperComponent implements OnInit {
     private readonly store: Store<IApplicationState>
   ) {
     this.sideBarOpened$ = this.store.pipe(select(selectSidebarOpened));
-    //this.mobileQuery = media.matchMedia('(max-width: 991.98px)');
-    //this.mobileQueryListener = () => this.detector.detectChanges();
-    //this.mobileQuery.addListener(this.mobileQueryListener);
     this.breakpoint.observe(
       [
-        '(min-width: 576px)',
-        '(min-width: 768px)',
-        '(min-width: 992px)',
-        '(min-width: 1200px)',
-        '(min-width: 1700px)',
-        '(max-width: 1700px)'
-      ])
-      .subscribe((result: BreakpointState) => {
-        // this.store.dispatch(new SwitchToMobileMode(result.matches ? true : false));
+        '(min-width: 500px)',  '(max-width: 576px)',
+        '(min-width: 576px)',  '(max-width: 768px)',
+        '(min-width: 768px)',  '(max-width: 992px)',
+        '(min-width: 992px)',  '(max-width: 1200px)',
+        '(min-width: 1200px)', '(max-width: 1700px)',
+        '(min-width: 1700px)'
+      ]
+    ).subscribe((result: BreakpointState) => {
         console.log(result.breakpoints);
-
-        if (
-          result.breakpoints['(min-width: 576px)'] === false &&
-          result.breakpoints['(min-width: 768px)'] === false &&
-          result.breakpoints['(min-width: 992px)'] === false &&
-          result.breakpoints['(min-width: 1200px)'] === false
-        ) {
+        if (result.breakpoints['(min-width: 500px)'] === true && result.breakpoints['(max-width: 576px)'] === true) {
           console.log('S');
           this.store.dispatch(new ApplicationChangeViewMode(EViewMode.SMALL));
         }
-
-        if (
-          result.breakpoints['(min-width: 576px)'] === true &&
-          result.breakpoints['(min-width: 768px)'] === false &&
-          result.breakpoints['(min-width: 992px)'] === false &&
-          result.breakpoints['(min-width: 1200px)'] === false
-        ) {
+        if (result.breakpoints['(min-width: 576px)'] === true && result.breakpoints['(max-width: 768px)'] === true) {
           console.log('M');
           this.store.dispatch(new ApplicationChangeViewMode(EViewMode.MEDIUM));
         }
-
-        if (
-          result.breakpoints['(min-width: 576px)'] === true &&
-          result.breakpoints['(min-width: 768px)'] === true &&
-          result.breakpoints['(min-width: 992px)'] === false &&
-          result.breakpoints['(min-width: 1200px)'] === false
-        ) {
+        if (result.breakpoints['(min-width: 768px)'] === true && result.breakpoints['(max-width: 992px)'] === true) {
           console.log('L');
           this.store.dispatch(new ApplicationChangeViewMode(EViewMode.LARGE));
         }
-
-        if (
-          result.breakpoints['(min-width: 768px)'] &&
-          result.breakpoints['(max-width: 1200px)'] === true
-        ) {
+        if (result.breakpoints['(min-width: 992px)'] === true && result.breakpoints['(max-width: 1200px)'] === true) {
           console.log('XL');
           this.store.dispatch(new ApplicationChangeViewMode(EViewMode.EXTRA_LARGE));
         }
-
-        if (
-          //result.breakpoints['(min-width: 576px)'] === true &&
-          //result.breakpoints['(min-width: 768px)'] === true &&
-          result.breakpoints['(min-width: 1700px)'] === false
-        ) {
-          console.log('XXL');
-          this.store.dispatch(new ApplicationChangeViewMode(EViewMode.EXTRA_EXTRA_LARGE));
+      if (result.breakpoints['(min-width: 1200px)'] === true && result.breakpoints['(max-width: 1700px)'] === true) {
+        console.log('XXL');
+        this.store.dispatch(new ApplicationChangeViewMode(EViewMode.EXTRA_EXTRA_LARGE));
+      }
+        if (result.breakpoints['(min-width: 1700px)'] === true) {
+          console.log('XXXL');
+          this.store.dispatch(new ApplicationChangeViewMode(EViewMode.EXTRA_EXTRA_EXTRA_LARGE));
         }
-
-
       });
-
-
   }
 
   ngOnInit() {}

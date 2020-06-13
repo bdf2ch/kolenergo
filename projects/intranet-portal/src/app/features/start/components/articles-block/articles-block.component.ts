@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { EArticleBlockLayout } from '../../../../enums';
+import { EArticleBlockLayout, EViewMode } from '../../../../enums';
 
 @Component({
   selector: 'app-articles-block',
@@ -9,6 +9,7 @@ import { EArticleBlockLayout } from '../../../../enums';
 })
 export class ArticlesBlockComponent implements OnInit {
   @Input() layout: EArticleBlockLayout;
+  @Input() viewMode: EViewMode;
   public blockLayout = EArticleBlockLayout;
 
   constructor() { }

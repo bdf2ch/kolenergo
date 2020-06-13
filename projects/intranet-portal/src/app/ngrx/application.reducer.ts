@@ -15,6 +15,7 @@ export function portalReducer(
     case EApplicationActionTypes.APPLICATION_CHANGE_VIEW_MODE: {
       return {
         ...state,
+        viewMode: action.payload
       };
     }
 
