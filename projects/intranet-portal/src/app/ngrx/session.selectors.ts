@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { IAuthenticationState } from '@kolenergo/core';
-import { IApplicationState } from '../';
+import { IApplicationState } from './index';
 
 /**
  * Селектор раздела с отчетами по оперативной обстановке

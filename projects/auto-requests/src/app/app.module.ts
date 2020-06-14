@@ -28,7 +28,7 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     ResourceModule.forRoot(),
     StoreModule.forRoot({}),
-    // EffectsModule.forRoot([ApplicationEffects]),
+    // EffectsModule.forRoot([PortalEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     MatSnackBarModule
   ],

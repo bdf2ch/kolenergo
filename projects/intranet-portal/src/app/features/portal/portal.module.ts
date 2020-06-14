@@ -10,11 +10,8 @@ import { PortalRoutingModule } from './portal-routing.module';
 import { PortalWrapperComponent } from './components/portal-wrapper/portal-wrapper.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { ApplicationIconComponent } from './components/application-icon/application-icon.component';
-import { portalReducer } from '../../ngrx';
+import { PortalEffects, portalReducer } from './ngrx';
 import { environment } from '../../../environments/environment';
-
-
-
 
 @NgModule({
   declarations: [
@@ -28,7 +25,7 @@ import { environment } from '../../../environments/environment';
     MatIconModule,
     MatButtonModule,
     StoreModule.forFeature('portal', portalReducer),
-    EffectsModule.forFeature([]),
+    EffectsModule.forFeature([PortalEffects]),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
     PortalRoutingModule
   ]

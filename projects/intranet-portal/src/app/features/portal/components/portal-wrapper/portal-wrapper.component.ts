@@ -1,16 +1,12 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {BreakpointObserver, BreakpointState, MediaMatcher} from '@angular/cdk/layout';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { BreakpointObserver, BreakpointState, MediaMatcher } from '@angular/cdk/layout';
 
-import {select, Store} from '@ngrx/store';
-import {
-  ApplicationChangeViewMode,
-  ApplicationCloseSidebar,
-  ApplicationOpenSidebar,
-  IApplicationState,
-  selectSidebarOpened
-} from '../../../../ngrx';
-import {Observable} from 'rxjs';
-import {EViewMode} from '../../../../enums/view-mode.enum';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
+import { EViewMode } from '../../../../enums';
+import { IApplicationState } from '../../../../ngrx';
+import { PortalChangeViewMode, PortalToggleSidebar, selectSidebarOpened } from '../../ngrx';
 
 
 @Component({
@@ -38,32 +34,40 @@ export class PortalWrapperComponent implements OnInit {
         '(min-width: 1700px)'
       ]
     ).subscribe((result: BreakpointState) => {
-        console.log(result.breakpoints);
-        if (result.breakpoints['(min-width: 500px)'] === true && result.breakpoints['(max-width: 576px)'] === true) {
-          console.log('S');
-          this.store.dispatch(new ApplicationChangeViewMode(EViewMode.SMALL));
-        }
-        if (result.breakpoints['(min-width: 576px)'] === true && result.breakpoints['(max-width: 768px)'] === true) {
-          console.log('M');
-          this.store.dispatch(new ApplicationChangeViewMode(EViewMode.MEDIUM));
-        }
-        if (result.breakpoints['(min-width: 768px)'] === true && result.breakpoints['(max-width: 992px)'] === true) {
-          console.log('L');
-          this.store.dispatch(new ApplicationChangeViewMode(EViewMode.LARGE));
-        }
-        if (result.breakpoints['(min-width: 992px)'] === true && result.breakpoints['(max-width: 1200px)'] === true) {
-          console.log('XL');
-          this.store.dispatch(new ApplicationChangeViewMode(EViewMode.EXTRA_LARGE));
-        }
+      console.log(result.breakpoints);
+      if (result.breakpoints['(min-width: 500px)'] === true && result.breakpoints['(max-width: 576px)'] === true) {
+        console.log('S');
+        this.store.dispatch(new PortalChangeViewMode(EViewMode.SMALL));
+      }
+      if (result.breakpoints['(min-width: 576px)'] === true && result.breakpoints['(max-width: 768px)'] === true) {
+        console.log('M');
+        this.store.dispatch(new PortalChangeViewMode(EViewMode.MEDIUM));
+      }
+      if (result.breakpoints['(min-width: 768px)'] === true && result.breakpoints['(max-width: 992px)'] === true) {
+        console.log('L');
+        this.store.dispatch(new PortalChangeViewMode(EViewMode.LARGE));
+      }
+      if (result.breakpoints['(min-width: 992px)'] === true && result.breakpoints['(max-width: 1200px)'] === true) {
+        console.log('XL');
+        this.store.dispatch(new PortalChangeViewMode(EViewMode.EXTRA_LARGE));
+      }
       if (result.breakpoints['(min-width: 1200px)'] === true && result.breakpoints['(max-width: 1700px)'] === true) {
         console.log('XXL');
-        this.store.dispatch(new ApplicationChangeViewMode(EViewMode.EXTRA_EXTRA_LARGE));
+        this.store.dispatch(new PortalChangeViewMode(EViewMode.EXTRA_EXTRA_LARGE));
+        this.store.dispatch(new PortalToggleSidebar());
       }
-        if (result.breakpoints['(min-width: 1700px)'] === true) {
-          console.log('XXXL');
-          this.store.dispatch(new ApplicationChangeViewMode(EViewMode.EXTRA_EXTRA_EXTRA_LARGE));
-        }
-      });
+      if (result.breakpoints['(min-width: 1700px)'] === true) {
+        console.log('XXXL');
+        this.store.dispatch(new PortalChangeViewMode(EViewMode.EXTRA_EXTRA_EXTRA_LARGE));
+      }
+      /*
+      if (result.breakpoints['(max-width: 1200px)'] === true) {
+        console.log('side bar');
+        this.store.dispatch(new PortalToggleSidebar());
+      }
+
+       */
+    });
   }
 
   ngOnInit() {}

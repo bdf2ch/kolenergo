@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { IApplicationState, IPortalState } from '../application.state';
+import { IApplicationState} from '../../../ngrx/application.state';
+import { IPortalState } from './portal.state';
 
 /**
  * Селектор раздела с отчетами по оперативной обстановке

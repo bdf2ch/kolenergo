@@ -1,5 +1,5 @@
-import { IPortalState, portalInitialState } from './application.state';
-import { ApplicationActions, EApplicationActionTypes } from './application.actions';
+import { IPortalState, portalInitialState } from './portal.state';
+import { PortalActions, EPortalActionTypes } from './portal.actions';
 
 /**
  * Редуктор состояния приложения
@@ -8,25 +8,25 @@ import { ApplicationActions, EApplicationActionTypes } from './application.actio
  */
 export function portalReducer(
   state: IPortalState = portalInitialState,
-  action: ApplicationActions
+  action: PortalActions
 ): IPortalState {
   switch (action.type) {
 
-    case EApplicationActionTypes.APPLICATION_CHANGE_VIEW_MODE: {
+    case EPortalActionTypes.PORTAL_CHANGE_VIEW_MODE: {
       return {
         ...state,
         viewMode: action.payload
       };
     }
 
-    case EApplicationActionTypes.APPLICATION_OPEN_SIDEBAR: {
+    case EPortalActionTypes.PORTAL_OPEN_SIDEBAR: {
       return {
         ...state,
         isSidebarOpened: true
       };
     }
 
-    case EApplicationActionTypes.APPLICATION_CLOSE_SIDEBAR: {
+    case EPortalActionTypes.PORTAL_CLOSE_SIDEBAR: {
       return {
         ...state,
         isSidebarOpened: false
