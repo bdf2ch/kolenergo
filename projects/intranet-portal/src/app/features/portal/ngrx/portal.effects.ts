@@ -6,7 +6,7 @@ import { map, withLatestFrom } from 'rxjs/operators';
 
 import { IApplicationState } from '../../../ngrx/application.state';
 import { PortalCloseSidebar, PortalOpenSidebar, EPortalActionTypes } from './portal.actions';
-import { selectSidebarOpened } from './portal.selectors';
+import { selectIsSidebarOpened } from './portal.selectors';
 
 
 @Injectable()
@@ -19,7 +19,7 @@ export class PortalEffects {
   @Effect()
   toggleSidebar$ = this.actions.pipe(
     ofType(EPortalActionTypes.PORTAL_TOGGLE_SIDEBAR),
-    withLatestFrom(this.store.pipe(select(selectSidebarOpened))),
+    withLatestFrom(this.store.pipe(select(selectIsSidebarOpened))),
     map(([action, isSideBarOpened]) => {
       return isSideBarOpened ? new PortalCloseSidebar() : new PortalOpenSidebar();
     })

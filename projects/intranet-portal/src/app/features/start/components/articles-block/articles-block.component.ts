@@ -11,6 +11,7 @@ export class ArticlesBlockComponent implements OnInit {
   @Input() layout: EArticleBlockLayout;
   @Input() viewMode: EViewMode;
   public blockLayout = EArticleBlockLayout;
+  public view = EViewMode;
 
   constructor() { }
 

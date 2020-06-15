@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-import { EArticleBlockLayout } from '../../../../enums';
+import {EArticleBlockLayout, EViewMode} from '../../../../enums';
+import {Observable} from 'rxjs';
+import {IApplicationState} from '../../../../ngrx';
+import {select, Store} from '@ngrx/store';
+import {selectViewMode} from '../../../portal/ngrx';
 
 
 @Component({
@@ -10,8 +14,11 @@ import { EArticleBlockLayout } from '../../../../enums';
 })
 export class StartComponent implements OnInit {
   public articlesLayout = EArticleBlockLayout;
+  public viewMode$: Observable<EViewMode>;
 
-  constructor() {}
+  constructor(private readonly store: Store<IApplicationState>) {
+    this.viewMode$ = this.store.pipe(select(selectViewMode));
+  }
 
   ngOnInit() {
   }

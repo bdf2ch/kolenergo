@@ -32,7 +32,7 @@ export class ApplicationEffects {
     }),
     withLatestFrom(
       this.store.pipe(select(state.selectCurrentUser)),
-      this.store.pipe(select(state.selectApplicationInitialized))
+      this.store.pipe(select(state.selectIsInitialized))
     ),
     mergeMap(([action, user, isInitialized]) => {
       if (isInitialized === false) {

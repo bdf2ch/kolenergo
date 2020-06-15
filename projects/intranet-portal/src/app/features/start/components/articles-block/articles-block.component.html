@@ -30,8 +30,7 @@
               </div>
             </a>
           </div>
-          <!--
-          <div class="col">
+          <div class="col" *ngIf="viewMode === view.EXTRA_EXTRA_EXTRA_LARGE">
             <a href="" class="article">
               <div class="background"style="background: url('assets/temp/r700.jpg')"></div>
               <div class="details">
@@ -46,7 +45,7 @@
               </div>
             </a>
           </div>
-          -->
+
         </div>
         <div class="row d-none d-md-flex no-gutters">
           <div class="col">
@@ -75,8 +74,7 @@
               </div>
             </a>
           </div>
-          <!--
-          <div class="col">
+          <div class="col" *ngIf="viewMode === view.EXTRA_EXTRA_EXTRA_LARGE">
             <a href="" class="article">
               <div class="background"style="background: url('assets/temp/_magazine.png')"></div>
               <div class="details">
@@ -91,7 +89,6 @@
               </div>
             </a>
           </div>
-          -->
         </div>
       </div>
     </div>
@@ -141,6 +138,32 @@
                   </div>
                 </a>
               </div>
+              <div class="col" *ngIf="viewMode === view.EXTRA_EXTRA_EXTRA_LARGE">
+                <a href="" class="article">
+                  <div class="background" style="background: url('assets/images/cikota.jpg')"></div>
+                  <div class="details">
+                    <!--
+                    <div class="date-and-attachments">
+                      <div class="date">12 марта 2020</div>
+                    </div>
+                    -->
+                    <div class="title">Вера Цикота</div>
+                  </div>
+                </a>
+              </div>
+              <div class="col" *ngIf="viewMode === view.EXTRA_EXTRA_EXTRA_LARGE">
+                <a href="" class="article equal">
+                  <div class="background" style="background: url('assets/images/govorov.jpg')"></div>
+                  <div class="details">
+                    <!--
+                    <div class="date-and-attachments">
+                      <div class="date">12 марта 2020</div>
+                    </div>
+                    -->
+                    <div class="title">Александр Говоров</div>
+                  </div>
+                </a>
+              </div>
             </div>
             <div class="row no-gutters">
               <div class="col">
@@ -157,6 +180,32 @@
                 </a>
               </div>
               <div class="col">
+                <a href="" class="article">
+                  <div class="background" style="background: url('assets/images/yatskovskaya.jpg')"></div>
+                  <div class="details">
+                    <!--
+                    <div class="date-and-attachments">
+                      <div class="date">12 марта 2020</div>
+                    </div>
+                    -->
+                    <div class="title">Наталья Яцковская</div>
+                  </div>
+                </a>
+              </div>
+              <div class="col" *ngIf="viewMode === view.EXTRA_EXTRA_EXTRA_LARGE">
+                <a href="" class="article">
+                  <div class="background" style="background: url('assets/images/chuprov.jpg')"></div>
+                  <div class="details">
+                    <!--
+                    <div class="date-and-attachments">
+                      <div class="date">12 марта 2020</div>
+                    </div>
+                    -->
+                    <div class="title">Алексей Чупров</div>
+                  </div>
+                </a>
+              </div>
+              <div class="col" *ngIf="viewMode === view.EXTRA_EXTRA_EXTRA_LARGE">
                 <a href="" class="article">
                   <div class="background" style="background: url('assets/images/yatskovskaya.jpg')"></div>
                   <div class="details">

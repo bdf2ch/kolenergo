@@ -11,7 +11,7 @@ export const selectPortal = createFeatureSelector<IApplicationState, IPortalStat
 /**
  * Селектор состояния загрузки данных с сервера
  */
-export const selectLoadingInProgress = createSelector(
+export const selectIsLoading = createSelector(
   selectPortal,
   (state: IPortalState) => state.isLoading
 );
@@ -19,7 +19,7 @@ export const selectLoadingInProgress = createSelector(
 /**
  * Селектор состояния инициализации приложения
  */
-export const selectApplicationInitialized = createSelector(
+export const selectIsInitialized = createSelector(
   selectPortal,
   (state: IPortalState) => state.isInitialised
 );
@@ -27,10 +27,19 @@ export const selectApplicationInitialized = createSelector(
 /**
  * Селектор состояния боковой панели
  */
-export const selectSidebarOpened = createSelector(
+export const selectIsSidebarOpened = createSelector(
   selectPortal,
   (state: IPortalState) => state.isSidebarOpened
 );
+
+/**
+ * Селектор режима отображения
+ */
+export const selectViewMode = createSelector(
+  selectPortal,
+  (state: IPortalState) => state.viewMode
+);
+
 
 
 

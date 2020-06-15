@@ -8,7 +8,7 @@
       </div>
       <div class="row mt-3">
         <div class="col-12 pl-0">
-          <app-articles-block [layout]="articlesLayout.EQUALS"></app-articles-block>
+          <app-articles-block [viewMode]="viewMode$ | async" [layout]="articlesLayout.EQUALS"></app-articles-block>
         </div>
       </div>
     </div>
