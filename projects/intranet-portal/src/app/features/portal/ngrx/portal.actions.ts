@@ -39,6 +39,7 @@ export class PortalOpenSidebar implements Action {
  */
 export class PortalToggleSidebar implements Action {
   readonly type = EPortalActionTypes.PORTAL_TOGGLE_SIDEBAR;
+  constructor(public payload: boolean) {}
 }
 
 /**

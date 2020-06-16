@@ -10,6 +10,7 @@ import { EArticleBlockLayout, EViewMode } from '../../../../enums';
 export class ArticlesBlockComponent implements OnInit {
   @Input() layout: EArticleBlockLayout;
   @Input() viewMode: EViewMode;
+  @Input() sideBarOpened: boolean;
   public blockLayout = EArticleBlockLayout;
   public view = EViewMode;
 

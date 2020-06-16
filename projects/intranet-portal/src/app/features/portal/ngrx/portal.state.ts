@@ -17,5 +17,5 @@ export const portalInitialState: IPortalState = {
   isLoading: false,
   isInitialised: false,
   isSidebarOpened: true,
-  viewMode: EViewMode.LARGE
+  viewMode: EViewMode.L
 };

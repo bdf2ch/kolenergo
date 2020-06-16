@@ -5,7 +5,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { map, withLatestFrom } from 'rxjs/operators';
 
 import { IApplicationState } from '../../../ngrx/application.state';
-import { PortalCloseSidebar, PortalOpenSidebar, EPortalActionTypes } from './portal.actions';
+import {PortalCloseSidebar, PortalOpenSidebar, EPortalActionTypes, PortalToggleSidebar} from './portal.actions';
 import { selectIsSidebarOpened } from './portal.selectors';
 
 
@@ -21,7 +21,8 @@ export class PortalEffects {
     ofType(EPortalActionTypes.PORTAL_TOGGLE_SIDEBAR),
     withLatestFrom(this.store.pipe(select(selectIsSidebarOpened))),
     map(([action, isSideBarOpened]) => {
-      return isSideBarOpened ? new PortalCloseSidebar() : new PortalOpenSidebar();
+      console.log('action = ', (action as PortalToggleSidebar).payload);
+      return (action as PortalToggleSidebar).payload === true ? new PortalCloseSidebar() : new PortalOpenSidebar();
     })
   );
 }

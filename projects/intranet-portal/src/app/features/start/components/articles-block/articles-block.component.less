@@ -1,6 +1,8 @@
 @import '../../../../styles/border-radius';
 
-@equals-article-width: 300px;
+// @equals-article-width: 300px;
+@equals-article-width: 100%;
+//@equals-article-width-xxxl: 100% !important;
 @equals-article-height: 200px;
 @equals-article-details-height: 90px;
 @equals-article-details-height-hover: 100px;
@@ -35,7 +37,23 @@
   50% { transform:scale(1.2)}
 }
 
+.responsive(@minWidth; @rules) {
+  @media only screen and (min-width: @minWidth) {
+    @rules();
+  }
+}
+
 .articles-block {
+
+  .responsive(1650px, {
+    .article {
+      width: @equals-article-width;
+      //height: 350% !important;
+      //margin-bottom: 120% !important;
+    }
+  });
+
+
   .articles {
 
     &.equals {
@@ -56,7 +74,9 @@
         flex-direction: column;
         justify-content: flex-end;
         width: @equals-article-width;
-        height: @equals-article-height;
+        //height: @equals-article-height;
+        height: 23vh;
+        min-height: 200px;
         text-decoration: none;
         border: 1px solid #ECEFF1;
         // .border-squircle(12%, 12%);

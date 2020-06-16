@@ -4,7 +4,7 @@ import {EArticleBlockLayout, EViewMode} from '../../../../enums';
 import {Observable} from 'rxjs';
 import {IApplicationState} from '../../../../ngrx';
 import {select, Store} from '@ngrx/store';
-import {selectViewMode} from '../../../portal/ngrx';
+import {selectIsSidebarOpened, selectViewMode} from '../../../portal/ngrx';
 
 
 @Component({
@@ -15,9 +15,12 @@ import {selectViewMode} from '../../../portal/ngrx';
 export class StartComponent implements OnInit {
   public articlesLayout = EArticleBlockLayout;
   public viewMode$: Observable<EViewMode>;
+  public sideBarOpened$: Observable<boolean>;
+
 
   constructor(private readonly store: Store<IApplicationState>) {
     this.viewMode$ = this.store.pipe(select(selectViewMode));
+    this.sideBarOpened$ = this.store.pipe(select(selectIsSidebarOpened));
   }
 
   ngOnInit() {

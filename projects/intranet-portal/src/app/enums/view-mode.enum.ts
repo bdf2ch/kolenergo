@@ -1,8 +1,10 @@
 export enum EViewMode {
-  SMALL,
-  MEDIUM,
-  LARGE,
-  EXTRA_LARGE,
-  EXTRA_EXTRA_LARGE,
-  EXTRA_EXTRA_EXTRA_LARGE
+  XXS,
+  XS,
+  S,
+  M,
+  L,
+  XL,
+  XXL,
+  XXXL
 }
