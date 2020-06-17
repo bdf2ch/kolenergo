@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid pr-0">
 
   <!-- Start: Объявления -->
   <div class="row flex-column-reverse flex-lg-row">
@@ -17,9 +17,8 @@
         </div>
       </div>
     </div>
-
-    <div class="col-auto pt-3 pl-0 pl-md-0 d-flex flex-column align-items-end" style="margin-top: 24px;">
-      <div class="weather-block d-flex flex-md-row flex-lg-column align-items-start">
+    <div class="col-auto pt-3 pl-0 pl-md-0 pr-0 d-flex flex-column align-items-end" style="margin-top: 24px;">
+      <div class="side-block d-flex flex-md-row flex-lg-column align-items-start">
         <app-weather location="Мурманск" temperature="14" precipitations="Небольшой дождь" wind="10-12"></app-weather>
         <app-weather class="mt-3" location="Мурмаши" temperature="10" precipitations="Ясно" wind="8-10"></app-weather>
         <app-weather class="mt-3" location="Апатиты" temperature="8" precipitations="Солнечно" wind="6-8"></app-weather>
@@ -38,6 +37,9 @@
           <app-articles-block [viewMode]="viewMode$ | async" [layout]="articlesLayout.ONE_LEAD_AND_EQUALS"></app-articles-block>
         </div>
       </div>
+    </div>
+    <div class="col-auto pl-0 pl-md-0">
+      <div class="side-block"></div>
     </div>
   </div>
 </div>

@@ -123,7 +123,7 @@
     </div>
 
     <div class="articles one-lead-with-equals" *ngSwitchCase="blockLayout.ONE_LEAD_AND_EQUALS">
-      <div class="container-fluid">
+      <div class="container-fluid pr-0">
         <div class="row no-gutters">
           <div class="col">
             <a href="" class="article lead">
@@ -140,8 +140,8 @@
             </a>
           </div>
           <div class="col">
-            <div class="row no-gutters">
-              <div class="col">
+            <div class="row h-50 no-gutters">
+              <div class="col d-flex align-items-start">
                 <a href="" class="article">
                   <div class="background" style="background: url('assets/images/cikota.jpg')"></div>
                   <div class="details">
@@ -154,7 +154,7 @@
                   </div>
                 </a>
               </div>
-              <div class="col">
+              <div class="col d-flex align-items-start">
                 <a href="" class="article equal">
                   <div class="background" style="background: url('assets/images/govorov.jpg')"></div>
                   <div class="details">
@@ -167,7 +167,7 @@
                   </div>
                 </a>
               </div>
-              <div class="col" *ngIf="viewMode === view.XXXL">
+              <div class="col d-flex align-items-start" *ngIf="(!sideBarOpened && viewMode === view.L) || viewMode === view.XXL || viewMode === view.XXXL">
                 <a href="" class="article">
                   <div class="background" style="background: url('assets/images/cikota.jpg')"></div>
                   <div class="details">
@@ -180,7 +180,7 @@
                   </div>
                 </a>
               </div>
-              <div class="col" *ngIf="viewMode === view.XXXL">
+              <div class="col d-flex align-items-start" *ngIf="viewMode === view.XXXL">
                 <a href="" class="article equal">
                   <div class="background" style="background: url('assets/images/govorov.jpg')"></div>
                   <div class="details">
@@ -194,8 +194,8 @@
                 </a>
               </div>
             </div>
-            <div class="row no-gutters">
-              <div class="col">
+            <div class="row h-50 no-gutters">
+              <div class="col d-flex align-items-end">
                 <a href="" class="article">
                   <div class="background" style="background: url('assets/images/chuprov.jpg')"></div>
                   <div class="details">
@@ -208,7 +208,7 @@
                   </div>
                 </a>
               </div>
-              <div class="col">
+              <div class="col d-flex align-items-end">
                 <a href="" class="article">
                   <div class="background" style="background: url('assets/images/yatskovskaya.jpg')"></div>
                   <div class="details">
@@ -221,7 +221,7 @@
                   </div>
                 </a>
               </div>
-              <div class="col" *ngIf="viewMode === view.XXXL">
+              <div class="col d-flex align-items-end" *ngIf="(!sideBarOpened && viewMode === view.L) || viewMode === view.XXL || viewMode === view.XXXL">
                 <a href="" class="article">
                   <div class="background" style="background: url('assets/images/chuprov.jpg')"></div>
                   <div class="details">
@@ -234,7 +234,7 @@
                   </div>
                 </a>
               </div>
-              <div class="col" *ngIf="viewMode === view.XXXL">
+              <div class="col d-flex align-items-end" *ngIf="viewMode === view.XXXL">
                 <a href="" class="article">
                   <div class="background" style="background: url('assets/images/yatskovskaya.jpg')"></div>
                   <div class="details">
