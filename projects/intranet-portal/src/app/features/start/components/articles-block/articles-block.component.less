@@ -189,11 +189,13 @@
               height: @equals-article-details-height-hover;
             }
           }
-          .background {
-            -webkit-backface-visibility: hidden;
-            -webkit-transform: translateZ(0) scale(1.0, 1.0);
-            transform: translateZ(0);
-            animation: grow 20s linear 10ms infinite;
+          &.animated {
+            .background {
+              -webkit-backface-visibility: hidden;
+              -webkit-transform: translateZ(0) scale(1.0, 1.0);
+              transform: translateZ(0);
+              animation: grow 20s linear 10ms infinite;
+            }
           }
           .details {
             height: @one-lead-and-equals-article-lead-details-height;

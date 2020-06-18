@@ -126,6 +126,34 @@
       <div class="container-fluid pr-0">
         <div class="row no-gutters">
           <div class="col">
+            <a href="" class="article lead animated">
+              <div class="background"style="background: url('assets/images/zaborshikova.jpg')"></div>
+              <div class="details">
+                <!--
+                <div class="date-and-attachments">
+                  <div class="date">12 марта 2020</div>
+                </div>
+                -->
+                <div class="title">Елена заборщикова</div>
+                <div class="preview">Спорт - моя вторая жизнь</div>
+              </div>
+            </a>
+          </div>
+          <div class="col" *ngIf="viewMode === view.XXXL">
+          <a href="" class="article lead">
+            <div class="background"style="background: url('assets/images/zaborshikova.jpg')"></div>
+            <div class="details">
+              <!--
+              <div class="date-and-attachments">
+                <div class="date">12 марта 2020</div>
+              </div>
+              -->
+              <div class="title">Елена заборщикова</div>
+              <div class="preview">Спорт - моя вторая жизнь</div>
+            </div>
+          </a>
+        </div>
+          <div class="col" *ngIf="viewMode === view.XXXL">
             <a href="" class="article lead">
               <div class="background"style="background: url('assets/images/zaborshikova.jpg')"></div>
               <div class="details">
@@ -139,7 +167,22 @@
               </div>
             </a>
           </div>
-          <div class="col">
+          <div class="col" *ngIf="viewMode === view.XXXL">
+            <a href="" class="article lead">
+              <div class="background"style="background: url('assets/images/zaborshikova.jpg')"></div>
+              <div class="details">
+                <!--
+                <div class="date-and-attachments">
+                  <div class="date">12 марта 2020</div>
+                </div>
+                -->
+                <div class="title">Елена заборщикова</div>
+                <div class="preview">Спорт - моя вторая жизнь</div>
+              </div>
+            </a>
+          </div>
+
+          <div class="col" *ngIf="viewMode === view.XXL">
             <div class="row h-50 no-gutters">
               <div class="col d-flex align-items-start">
                 <a href="" class="article">
@@ -155,32 +198,6 @@
                 </a>
               </div>
               <div class="col d-flex align-items-start">
-                <a href="" class="article equal">
-                  <div class="background" style="background: url('assets/images/govorov.jpg')"></div>
-                  <div class="details">
-                    <!--
-                    <div class="date-and-attachments">
-                      <div class="date">12 марта 2020</div>
-                    </div>
-                    -->
-                    <div class="title">Александр Говоров</div>
-                  </div>
-                </a>
-              </div>
-              <div class="col d-flex align-items-start" *ngIf="(!sideBarOpened && viewMode === view.L) || viewMode === view.XXL || viewMode === view.XXXL">
-                <a href="" class="article">
-                  <div class="background" style="background: url('assets/images/cikota.jpg')"></div>
-                  <div class="details">
-                    <!--
-                    <div class="date-and-attachments">
-                      <div class="date">12 марта 2020</div>
-                    </div>
-                    -->
-                    <div class="title">Вера Цикота</div>
-                  </div>
-                </a>
-              </div>
-              <div class="col d-flex align-items-start" *ngIf="viewMode === view.XXXL">
                 <a href="" class="article equal">
                   <div class="background" style="background: url('assets/images/govorov.jpg')"></div>
                   <div class="details">
@@ -221,7 +238,40 @@
                   </div>
                 </a>
               </div>
-              <div class="col d-flex align-items-end" *ngIf="(!sideBarOpened && viewMode === view.L) || viewMode === view.XXL || viewMode === view.XXXL">
+            </div>
+          </div>
+
+          <div class="col" *ngIf="viewMode === view.XL || viewMode === view.XXL">
+            <div class="row h-50 no-gutters">
+              <div class="col d-flex align-items-start">
+                <a href="" class="article">
+                  <div class="background" style="background: url('assets/images/cikota.jpg')"></div>
+                  <div class="details">
+                    <!--
+                    <div class="date-and-attachments">
+                      <div class="date">12 марта 2020</div>
+                    </div>
+                    -->
+                    <div class="title">Вера Цикота</div>
+                  </div>
+                </a>
+              </div>
+              <div class="col d-flex align-items-start">
+                <a href="" class="article equal">
+                  <div class="background" style="background: url('assets/images/govorov.jpg')"></div>
+                  <div class="details">
+                    <!--
+                    <div class="date-and-attachments">
+                      <div class="date">12 марта 2020</div>
+                    </div>
+                    -->
+                    <div class="title">Александр Говоров</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="row h-50 no-gutters">
+              <div class="col d-flex align-items-end">
                 <a href="" class="article">
                   <div class="background" style="background: url('assets/images/chuprov.jpg')"></div>
                   <div class="details">
@@ -234,7 +284,7 @@
                   </div>
                 </a>
               </div>
-              <div class="col d-flex align-items-end" *ngIf="viewMode === view.XXXL">
+              <div class="col d-flex align-items-end">
                 <a href="" class="article">
                   <div class="background" style="background: url('assets/images/yatskovskaya.jpg')"></div>
                   <div class="details">
