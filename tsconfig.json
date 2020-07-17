@@ -28,6 +28,9 @@
       "@kolenergo/core": [
         "dist/kolenergo-core"
       ],
+      "@kolenergo/osr": [
+        "projects/operative-situation/src/exports.ts"
+      ],
       "@kolenergo/core/*": [
         "dist/kolenergo-core/*"
       ]

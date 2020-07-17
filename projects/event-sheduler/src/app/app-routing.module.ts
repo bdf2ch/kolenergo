@@ -7,7 +7,7 @@ import { WelcomeGuard } from './guards/welcome.guard';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: './event-sheduler/event-sheduler.module#EventShedulerModule',
+    loadChildren: './event-scheduler/event-scheduler.module#EventShedulerModule',
     resolve: [SessionGuard]
   },
   {

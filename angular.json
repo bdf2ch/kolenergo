@@ -1455,6 +1455,157 @@
           }
         }
       }
+    },
+    "copters": {
+      "root": "projects/copters/",
+      "sourceRoot": "projects/copters/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "less",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/copters",
+            "index": "projects/copters/src/index.html",
+            "main": "projects/copters/src/main.ts",
+            "polyfills": "projects/copters/src/polyfills.ts",
+            "tsConfig": "projects/copters/tsconfig.app.json",
+            "assets": [
+              "projects/copters/src/favicon.ico",
+              "projects/copters/src/assets"
+            ],
+            "styles": [
+              "projects/copters/src/styles.less"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/copters/src/environments/environment.ts",
+                  "with": "projects/copters/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "copters:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "copters:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "copters:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/copters/src/test.ts",
+            "polyfills": "projects/copters/src/polyfills.ts",
+            "tsConfig": "projects/copters/tsconfig.spec.json",
+            "karmaConfig": "projects/copters/karma.conf.js",
+            "styles": [
+              "projects/copters/src/styles.less"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/copters/src/favicon.ico",
+              "projects/copters/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/copters/tsconfig.app.json",
+              "projects/copters/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "copters-e2e": {
+      "root": "projects/copters-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/copters-e2e/protractor.conf.js",
+            "devServerTarget": "copters:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "copters:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/copters-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "kolenergo-core"
