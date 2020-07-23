@@ -7,7 +7,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { ApplicationsRoutingModule } from './applications-routing.module';
 import { ApplicationsEffects, reducer } from './ngrx';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { ApplicationsComponent } from './components/applications/applications.component';
 
 

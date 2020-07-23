@@ -10,7 +10,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 
 import { IServerResponse } from '@kolenergo/core';
 import { IApplication } from '../interfaces';
-import { IApplicationState } from '../../ngrx/application.state';
+import { IApplicationState } from '../../../ngrx/application.state';
 import { ApplicationsActionTypes, ApplicationsLoadApplicationsSuccess } from './applications.actions';
 import { ApplicationsService } from '../services/applications.service';
 

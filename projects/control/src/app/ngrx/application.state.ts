@@ -1,4 +1,4 @@
-import { applicationsInitialState, IApplicationsState } from '../applications/ngrx';
+import { applicationsInitialState, IApplicationsState } from '../features/applications/ngrx';
 
 /**
  * Интерфейс, описывающий состояние приложения

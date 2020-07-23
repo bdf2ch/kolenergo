@@ -1,2 +1,2 @@
-export * from './app/applications/interfaces';
-export * from './app/applications/models';
+export * from './app/features/applications/interfaces';
+export * from './app/features/applications/models';

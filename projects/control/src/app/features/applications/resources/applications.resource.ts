@@ -12,7 +12,7 @@ import {
 
 import { IServerResponse } from '@kolenergo/core';
 import { IApplication } from '../interfaces';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
