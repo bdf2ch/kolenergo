@@ -2,9 +2,9 @@
 @import '~@fortawesome/fontawesome-free/css/all.css';
 @import '~bootstrap/dist/css/bootstrap.css';
 
-html, body {
-  background: #fafafa;
-}
+@import '../src/app/styles/fonts';
+@import '../src/app/styles/application';
+@import '../src/app/styles/sidebar';
 
 @kol-button-height-small: 32px;
 @kol-button-height-regular: 44px;
@@ -189,3 +189,6 @@ html, body {
     display: none;
   }
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

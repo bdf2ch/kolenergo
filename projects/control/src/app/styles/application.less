@@ -1,0 +1,32 @@
+@current-section-title-font-family: 'Open Sans Light';
+@current-section-title-font-size: 25px;
+@current-section-title-font-color: #546E7A;
+
+.application {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  margin-top: -4px;
+
+  .content {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    .header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      .section-title {
+        font-family: @current-section-title-font-family;
+        font-size: @current-section-title-font-size;
+        color: @current-section-title-font-color;
+      }
+
+      .user-menu {}
+    }
+  }
+}

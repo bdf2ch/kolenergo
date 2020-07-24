@@ -8,11 +8,13 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ApplicationsRoutingModule } from './applications-routing.module';
 import { ApplicationsEffects, reducer } from './ngrx';
 import { environment } from '../../../environments/environment';
-import { ApplicationsComponent } from './components/applications/applications.component';
+import { ApplicationsWrapperComponent } from './components/applications-wrapper/applications-wrapper.component';
+import { ApplicationsListComponent } from './components/applications-list/applications-list.component';
+import { ApplicationDetailsComponent } from './components/application-details/application-details.component';
 
 
 @NgModule({
-  declarations: [ApplicationsComponent],
+  declarations: [ApplicationsWrapperComponent, ApplicationsListComponent, ApplicationDetailsComponent],
   imports: [
     CommonModule,
     ApplicationsRoutingModule,

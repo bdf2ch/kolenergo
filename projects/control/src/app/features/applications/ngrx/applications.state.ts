@@ -1,4 +1,4 @@
-import { Application } from '../models';
+import { Application } from '../../../models';
 
 /**
  * Интерфейс, описывающий состояние раздела с приложениями

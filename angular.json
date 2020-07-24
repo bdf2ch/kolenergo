@@ -620,6 +620,7 @@
               "projects/control/src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "projects/control/src/styles.less"
             ],
             "scripts": [],
@@ -677,6 +678,7 @@
             "tsConfig": "projects/control/tsconfig.spec.json",
             "karmaConfig": "projects/control/karma.conf.js",
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "projects/control/src/styles.less"
             ],
             "scripts": [],

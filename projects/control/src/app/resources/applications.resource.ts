@@ -12,16 +12,16 @@ import {
 
 import { IServerResponse } from '@kolenergo/core';
 import { IApplication } from '../interfaces';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 @ResourceParams({
-  pathPrefix: environment.apiUrl + 'cp/applications',
+  pathPrefix: environment.apiUrl + 'cp/applications-wrapper',
   withCredentials: true
 })
-export class ApplicationsResource extends Resource {
+export class ApplicationResource extends Resource {
 
   constructor(handler: ResourceHandler) {
     super(handler);

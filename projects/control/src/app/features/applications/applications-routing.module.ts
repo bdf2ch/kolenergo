@@ -1,20 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ApplicationsComponent } from './components/applications/applications.component';
+import { ApplicationsWrapperComponent } from './components/applications-wrapper/applications-wrapper.component';
+import { ApplicationsListComponent } from './components/applications-list/applications-list.component';
+import { ApplicationDetailsComponent } from './components/application-details/application-details.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ApplicationsComponent,
+    component: ApplicationsWrapperComponent,
     children: [
       {
         path: '',
-        loadChildren: './application-list/application-list.module#ApplicationListModule'
+        component: ApplicationsListComponent
       },
       {
         path: ':id',
-        loadChildren: './application-details/application-details.module#ApplicationDetailsModule'
+        component: ApplicationDetailsComponent
       }
     ]
   }
