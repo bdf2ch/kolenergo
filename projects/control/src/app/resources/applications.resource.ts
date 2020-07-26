@@ -21,7 +21,7 @@ import { environment } from '../../environments/environment';
   pathPrefix: environment.apiUrl + 'cp/applications-wrapper',
   withCredentials: true
 })
-export class ApplicationResource extends Resource {
+export class ApplicationsResource extends Resource {
 
   constructor(handler: ResourceHandler) {
     super(handler);

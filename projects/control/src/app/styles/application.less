@@ -1,5 +1,6 @@
+@header-height: 50px;
 @current-section-title-font-family: 'Open Sans Light';
-@current-section-title-font-size: 25px;
+@current-section-title-font-size: 20px;
 @current-section-title-font-color: #546E7A;
 
 .application {
@@ -19,6 +20,7 @@
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+      min-height: @header-height;
 
       .section-title {
         font-family: @current-section-title-font-family;
@@ -29,4 +31,20 @@
       .user-menu {}
     }
   }
+}
+
+.mat-progress-bar {
+  display: flex;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+}
+
+input, button, .mat-button {
+  outline: none !important;
+}
+
+.mat-stroked-button {
+  font-family: 'Open Sans Regular' !important;
+  border-color: #673ab7 !important;
 }

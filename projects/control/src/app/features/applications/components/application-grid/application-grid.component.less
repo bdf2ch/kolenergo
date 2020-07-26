@@ -1,0 +1,67 @@
+@application-background-color-odd: #FAFAFA;
+@application-background-color-hover: #eeeeee;
+@icon-width: 32px;
+@icon-height: 32px;
+@title-font-family: 'Open Sans Regular';
+@title-font-size: 13px;
+@title-color: black;
+@description-font-family: 'Open Sans Light';
+@description-font-size: 13px;
+@description-color: #616161;
+
+:host {
+  display: block;
+}
+
+.applications {
+  display: flex;
+  flex-direction: column;
+
+  .application {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+
+    &:nth-of-type(odd) {
+      background: @application-background-color-odd;
+    }
+
+    &:hover {
+      background: @application-background-color-hover;
+    }
+
+    .icon {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .mat-icon {
+        width: @icon-width;
+        height: @icon-height;
+        font-size: @icon-height;
+      }
+    }
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .title {
+        font-family: @title-font-family;
+        font-size: @title-font-size;
+        line-height: @title-font-size + 2px;
+        color: @title-color;
+      }
+
+      .description {
+        font-family: @description-font-family;
+        font-size: @description-font-size;
+        line-height: @description-font-size + 2px;;
+        color: @description-color;
+      }
+    }
+  }
+}

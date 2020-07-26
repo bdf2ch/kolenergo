@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 // import { MatDialog } from '@angular/material';
 
-import {map, mergeMap, switchMap, tap, withLatestFrom} from 'rxjs/operators';
+import { map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { EMPTY, of } from 'rxjs';
 
 import { Store, select } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
 import { IServerResponse } from '@kolenergo/core';
-import { IApplication } from '../interfaces';
+import { IApplication } from '../../../interfaces';
 import { IApplicationState } from '../../../ngrx/application.state';
 import { ApplicationsActionTypes, ApplicationsLoadApplicationsSuccess } from './applications.actions';
 import { ApplicationsService } from '../../../services/applications.service';

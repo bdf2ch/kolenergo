@@ -12,7 +12,7 @@ import { ApplicationResource } from '../resources/application.resource';
 @Injectable({
   providedIn: 'root'
 })
-export class ApplicationsService {
+export class ApplicationService {
 
   constructor(private readonly resource: ApplicationResource) {}
 

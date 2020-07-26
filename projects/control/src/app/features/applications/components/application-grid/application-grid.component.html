@@ -1,0 +1,11 @@
+<div class="applications">
+  <a class="application p-3" [routerLink]="[application.id]" *ngFor="let application of applications">
+    <div class="icon mr-3" *ngIf="application.icon">
+      <mat-icon [ngStyle]="{'color': application.color}">{{application.icon}}</mat-icon>
+    </div>
+    <div class="details">
+      <div class="title">{{application.title}}</div>
+      <div class="description">{{application.description}}</div>
+    </div>
+  </a>
+</div>

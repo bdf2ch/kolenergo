@@ -1,13 +1,21 @@
-<mat-progress-bar mode="indeterminate" color="primary"></mat-progress-bar>
+<mat-progress-bar mode="indeterminate" color="primary" *ngIf="isLoading$ | async"></mat-progress-bar>
 <div class="application">
-  <div class="sidebar p-4">side</div>
+  <div class="sidebar p-4">
+    <div class="sidebar-header mb-5">
+      <div class="icon mr-2">
+        <mat-icon color="primary">settings</mat-icon>
+      </div>
+      <div class="title">Панель управления</div>
+    </div>
+    <div class="sidebar-content">vxcv</div>
+  </div>
   <div class="content p-4">
-    <div class="header">
+    <div class="header mb-5">
       <div class="current-section">
         <div class="section-title">Приложения</div>
       </div>
       <div class="user-menu">
-        <button mat-stroked-button color="primary">
+        <button mat-button color="primary">
           Вася Ложкин
           <mat-icon color="primary">expand_more</mat-icon>
         </button>

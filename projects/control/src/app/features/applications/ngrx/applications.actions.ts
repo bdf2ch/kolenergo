@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { IServerResponse } from '@kolenergo/core';
-import { IApplication } from '../interfaces';
+import { IApplication } from '../../../interfaces';
 
 /**
  * Типы действий раздела приложений
