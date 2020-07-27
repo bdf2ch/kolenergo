@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [{
   path: '',
-  loadChildren: './features/scheduler/scheduler.module#SchedulerModule'
+  loadChildren: () => import('./features/scheduler/scheduler.module').then(m => m.SchedulerModule)
 }];
 
 @NgModule({

@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [{
   path: '',
-  loadChildren: './features/messenger/messenger.module#MessengerModule'
+  loadChildren: () => import('./features/messenger/messenger.module').then(m => m.MessengerModule)
 }];
 
 @NgModule({

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Application } from '../../../../models';
 
 @Component({
@@ -8,10 +8,20 @@ import { Application } from '../../../../models';
 })
 export class ApplicationGridComponent implements OnInit {
   @Input() applications: Application[];
+  @Output() select: EventEmitter<Application>;
 
-  constructor() { }
+  constructor() {
+    this.select = new EventEmitter<Application>();
+  }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  /**
+   * Выбор приложения
+   * @param application
+   */
+  onSelect(application: Application) {
+    this.select.emit(application);
   }
 
 }

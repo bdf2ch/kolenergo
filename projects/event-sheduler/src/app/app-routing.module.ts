@@ -7,12 +7,12 @@ import { WelcomeGuard } from './guards/welcome.guard';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: './event-scheduler/event-scheduler.module#EventShedulerModule',
+    loadChildren: () => import('./event-scheduler/event-scheduler.module').then(m => m.EventShedulerModule),
     resolve: [SessionGuard]
   },
   {
     path: 'welcome',
-    loadChildren: './authorization/authorization.module#AuthorizationModule',
+    loadChildren: () => import('./authorization/authorization.module').then(m => m.AuthorizationModule),
     canActivate: [WelcomeGuard],
   }
 ];

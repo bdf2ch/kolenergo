@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [{
   path: '',
-  loadChildren: './features/portal/portal.module#PortalModule'
+  loadChildren: () => import('./features/portal/portal.module').then(m => m.PortalModule)
 }];
 
 @NgModule({

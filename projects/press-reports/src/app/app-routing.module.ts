@@ -6,14 +6,14 @@ import { SessionGuard } from './guards/session-guard.service';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: './press-reports/press-reports.module#PressReportsModule',
+    loadChildren: () => import('./press-reports/press-reports.module').then(m => m.PressReportsModule),
     resolve: [
       SessionGuard
     ]
   },
   {
     path: 'sign-in',
-    loadChildren: './authorization/authorization.module#AuthorizationModule'
+    loadChildren: () => import('./authorization/authorization.module').then(m => m.AuthorizationModule)
   }
 ];
 

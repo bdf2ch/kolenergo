@@ -34,6 +34,7 @@ export class ApplicationLoadInitialDataFail implements Action {
   readonly type = EApplicationActions.APPLICATION_LOAD_INITIAL_DATA_FAIL;
 }
 
+
 /**
  * Составной тип действий приложения
  */

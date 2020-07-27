@@ -2,13 +2,15 @@ import { Action } from '@ngrx/store';
 
 import { IServerResponse } from '@kolenergo/core';
 import { IApplication } from '../../../interfaces';
+import {Application} from '../../../models';
 
 /**
  * Типы действий раздела приложений
  */
 export enum ApplicationsActionTypes {
   LOAD_APPLICATIONS = '[Applications API] Load applications',
-  LOAD_APPLICATIONS_SUCCESS = '[Applications API] Applications loaded successfully'
+  LOAD_APPLICATIONS_SUCCESS = '[Applications API] Applications loaded successfully',
+  SELECT_APPLICATION = '[Applications UI] Select application'
 }
 
 /**
@@ -27,8 +29,17 @@ export class ApplicationsLoadApplicationsSuccess implements Action {
 }
 
 /**
+ * Выбор приложения
+ */
+export class ApplicationsSelectApplication implements Action {
+  readonly type = ApplicationsActionTypes.SELECT_APPLICATION;
+  constructor(public payload: Application) {}
+}
+
+/**
  * Действия раздела приложений
  */
 export type ApplicationsActions =
   ApplicationsLoadApplications |
-  ApplicationsLoadApplicationsSuccess;
+  ApplicationsLoadApplicationsSuccess |
+  ApplicationsSelectApplication;

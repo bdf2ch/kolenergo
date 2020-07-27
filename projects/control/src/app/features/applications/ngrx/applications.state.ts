@@ -5,7 +5,7 @@ import { Application } from '../../../models';
  */
 export interface IApplicationsState {
   applications: Application[];
-  fetchingInProgress: boolean;            // Выполняется ли загрузка данных с сервера
+  selectedApplication: Application;
 }
 
 /**
@@ -13,5 +13,5 @@ export interface IApplicationsState {
  */
 export const applicationsInitialState: IApplicationsState = {
   applications: [],
-  fetchingInProgress: false
+  selectedApplication: null
 };

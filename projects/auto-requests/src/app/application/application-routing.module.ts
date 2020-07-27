@@ -10,15 +10,15 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: './features/requests/requests.module#RequestsModule'
+        loadChildren: () => import('./features/requests/requests.module').then(m => m.RequestsModule)
       },
       {
         path: 'transport',
-        loadChildren: './features/transport/transport.module#TransportModule'
+        loadChildren: () => import('./features/transport/transport.module').then(m => m.TransportModule)
       },
       {
         path: 'drivers',
-        loadChildren: './features/drivers/drivers.module#DriversModule'
+        loadChildren: () => import('./features/drivers/drivers.module').then(m => m.DriversModule)
       }
     ]
   }

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { IApplicationState, selectApplications } from '../../../../ngrx';
 import { Application } from '../../../../models';
+import { ApplicationsSelectApplication } from '../../ngrx';
 
 @Component({
   selector: 'app-application-list',
@@ -18,7 +19,13 @@ export class ApplicationsListComponent implements OnInit {
     this.applications$ = this.store.pipe(select(selectApplications));
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
+  /**
+   * Выбор приложения
+   * @param application - Текущее приложение
+   */
+  onSelectApplication(application: Application) {
+    this.store.dispatch(new ApplicationsSelectApplication(application));
+  }
 }

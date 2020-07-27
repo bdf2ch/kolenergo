@@ -6,9 +6,9 @@ import { IApplicationState } from '../../../ngrx';
 const applications = createFeatureSelector<IApplicationState, IApplicationsState>('applications');
 
 /**
- * Селектор состояние загрузки данных с сервера
+ * Селектор выбранного приложения
  */
-export const selectFetchingInProgress = createSelector(
+export const selectSelectedApplication = createSelector(
   applications,
-  (state: IApplicationsState) => state.fetchingInProgress
+  (state: IApplicationsState) => state.selectedApplication
 );

@@ -6,12 +6,12 @@ import { InitializationGuard } from './guards/initialization.guard';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: './features/operative-situation/operative-situation.module#OperativeSituationModule',
+    loadChildren: () => import('./features/operative-situation/operative-situation.module').then(m => m.OperativeSituationModule),
     resolve: [InitializationGuard]
   },
   {
     path: 'sign-in',
-    loadChildren: './features/sign-in/sign-in.module#SignInModule'
+    loadChildren: () => import('./features/sign-in/sign-in.module').then(m => m.SignInModule)
   }
 ];
 

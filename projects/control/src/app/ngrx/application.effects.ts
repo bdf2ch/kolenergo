@@ -1,21 +1,19 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import { ROUTER_NAVIGATED } from '@ngrx/router-store';
 import { EMPTY, of } from 'rxjs';
-import { catchError, map, mergeMap, tap } from 'rxjs/operators';
-
-import { IApplicationState } from './application.state';
-import {
-  ApplicationLoadInitialDataFail,
-  ApplicationLoadInitialDataSuccess,
-  EApplicationActions
-} from './application.actions';
+import { catchError, map, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
 
 import { IServerResponse } from '@kolenergo/core';
 import { ApplicationService } from '../services/application.service';
 import { IInitialData } from '../interfaces';
+import { IApplicationState } from './application.state';
+import { ApplicationLoadInitialDataFail, ApplicationLoadInitialDataSuccess, EApplicationActions } from './application.actions';
+import { selectMenu } from './application.selectors';
+
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +26,13 @@ export class ApplicationEffects {
     private readonly snackBar: MatSnackBar,
     private readonly application: ApplicationService
   ) {}
+
+  @Effect()
+  routerNavigated$ = this.actions.pipe(
+    ofType(ROUTER_NAVIGATED),
+    withLatestFrom(this.store.pipe(select(selectMenu))),
+    mergeMap(([action, menu]) => EMPTY)
+  );
 
   @Effect()
   loadInitialData$ = this.actions.pipe(
@@ -48,6 +53,6 @@ export class ApplicationEffects {
         duration: 5000
       });
     }),
-    map(() => EMPTY)
+    mergeMap(() => EMPTY)
   );
 }

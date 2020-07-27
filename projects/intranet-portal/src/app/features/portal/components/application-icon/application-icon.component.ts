@@ -11,8 +11,8 @@ export class ApplicationIconComponent implements OnInit, OnChanges {
   @Input() label: string;
   @Input() imageUrl: string;
   @Input() indicator: string;
-  @ViewChild('icon') icon: ElementRef;
-  @ViewChild('image') image: ElementRef;
+  @ViewChild('icon', { static: true }) icon: ElementRef;
+  @ViewChild('image', { static: true }) image: ElementRef;
   public colorHover: string;
   public colorLighten: string;
   public colorLightenHover: string;

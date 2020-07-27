@@ -1,7 +1,8 @@
-import { appInitialState, applicationInitialState, IApplicationState, IAppState} from './application.state';
-import { ApplicationActions, EApplicationActions } from './application.actions';
-import {IApplication} from "../interfaces";
-import {Application} from "../models";
+import {appInitialState, IAppState} from './application.state';
+import {ApplicationActions, EApplicationActions} from './application.actions';
+import {IApplication} from '../interfaces';
+import {Application, MenuItem} from '../models';
+import {ICompany} from '@kolenergo/core';
 
 /**
  * Редуктор приложения
@@ -32,7 +33,27 @@ export function ApplicationReducer(
         ...state,
         isLoading: false,
         isInitialized: true,
-        applications: action.payload.data.applications.map((item: IApplication) => new Application(item))
+        applications: action.payload.data.applications.map((item: IApplication) => new Application(item)),
+        menu: [
+          new MenuItem(
+            'Приложения',
+            '/applications',
+            [...action.payload.data.applications.map((app: IApplication) => new MenuItem(app.title, `/applications/${app.id}`, []))],
+            'apps'
+          ),
+          new MenuItem(
+            'Организации',
+            '/companies',
+            [...action.payload.data.companies.map((com: ICompany) => new MenuItem(com.shortTitle, `companies/${com.id}`, []))],
+            'business'
+          ),
+          new MenuItem(
+            'Пользователи',
+            '/users',
+            [],
+            'account_circle'
+          )
+        ]
       };
     }
 

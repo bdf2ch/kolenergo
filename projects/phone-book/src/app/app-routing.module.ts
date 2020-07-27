@@ -13,19 +13,19 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: './features/contact-list/contact-list.module#ContactListModule'
+        loadChildren: () => import('./features/contact-list/contact-list.module').then(m => m.ContactListModule)
       },
       {
         path: 'favorites',
-        loadChildren: './features/favorite-contacts/favorite-contacts.module#FavoriteContactsModule'
+        loadChildren: () => import('./features/favorite-contacts/favorite-contacts.module').then(m => m.FavoriteContactsModule)
       },
       {
         path: 'account',
-        loadChildren: './features/user-account/user-account.module#UserAccountModule'
+        loadChildren: () => import('./features/user-account/user-account.module').then(m => m.UserAccountModule)
       },
       {
         path: 'help',
-        loadChildren: './features/help/help.module#HelpModule'
+        loadChildren: () => import('./features/help/help.module').then(m => m.HelpModule)
       }
     ]
   }

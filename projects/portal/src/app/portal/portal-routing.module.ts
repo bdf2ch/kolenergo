@@ -20,11 +20,11 @@ const routes: Routes = [
       },
       {
         path: 'adverts',
-        loadChildren: '../adverts/adverts.module#AdvertsModule'
+        loadChildren: () => import('../adverts/adverts.module').then(m => m.AdvertsModule)
       },
       {
         path: 'our-people',
-        loadChildren: '../articles/articles.module#ArticlesModule',
+        loadChildren: () => import('../articles/articles.module').then(m => m.ArticlesModule),
         resolve: [
           OurPeopleResolveGuard
         ]

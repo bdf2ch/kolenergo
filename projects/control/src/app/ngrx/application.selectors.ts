@@ -24,6 +24,14 @@ export const selectInitialized = createSelector(
 );
 
 /**
+ * Селектор меню
+ */
+export const selectMenu = createSelector(
+  selectApp,
+  (app: IAppState) => app.menu
+);
+
+/**
  * Селектор списка приложений
  */
 export const selectApplications = createSelector(

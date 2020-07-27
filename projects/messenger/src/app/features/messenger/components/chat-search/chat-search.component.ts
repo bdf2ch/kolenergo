@@ -9,7 +9,7 @@ export class ChatSearchComponent implements OnInit {
   @Input() query: string;
   @Output() searchChange: EventEmitter<string>;
   @Output() searchClear: EventEmitter<void>;
-  @ViewChild('search') search: ElementRef;
+  @ViewChild('search', { static: true }) search: ElementRef;
 
   constructor() {
     this.searchChange = new EventEmitter();

@@ -1,0 +1,28 @@
+<div class="menu">
+  <div class="menu-item" *ngFor="let item of items">
+    <div class="label">
+      <a [routerLink]="[item.url]"
+         [state]="{title: item.title}"
+         routerLinkActive="selected"
+         (click)="item.toggleRoot()">
+        <div class="icon" *ngIf="item.icon">
+          <mat-icon>{{item.icon}}</mat-icon>
+        </div>
+        <div class="title">{{item.title}}</div>
+      </a>
+      <div class="sub-menu" *ngIf="item.children.length > 0 && item.isExpanded">
+        <a [routerLink]="[child.url]"
+           [state]="{subtitle: child.title}"
+           routerLinkActive="selected"
+           class="sub-menu-item"
+           *ngFor="let child of item.children">
+          {{child.title}}
+        </a>
+      </div>
+    </div>
+    <div class="expander" *ngIf="item.children.length > 0" (click)="item.toggle()">
+      <mat-icon *ngIf="item.isExpanded">expand_more</mat-icon>
+      <mat-icon *ngIf="!item.isExpanded">keyboard_arrow_right</mat-icon>
+    </div>
+  </div>
+</div>

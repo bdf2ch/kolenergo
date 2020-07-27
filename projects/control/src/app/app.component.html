@@ -7,12 +7,17 @@
       </div>
       <div class="title">Панель управления</div>
     </div>
-    <div class="sidebar-content">vxcv</div>
+    <div class="sidebar-content">
+      <app-menu [items]="menu$ | async"></app-menu>
+    </div>
   </div>
   <div class="content p-4">
     <div class="header mb-5">
       <div class="current-section">
-        <div class="section-title">Приложения</div>
+        <div class="section-title">
+          <span>{{sectionTitle}}</span>
+          <span>{{sectionSubtitle}}</span>
+        </div>
       </div>
       <div class="user-menu">
         <button mat-button color="primary">

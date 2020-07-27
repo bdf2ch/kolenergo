@@ -8,7 +8,7 @@ const routes: Routes = [{
   children: [
     {
       path: '',
-      loadChildren: '../start/start.module#StartModule'
+      loadChildren: () => import('../start/start.module').then(m => m.StartModule)
     }
   ]
 }];

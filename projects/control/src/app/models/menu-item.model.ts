@@ -5,10 +5,24 @@ export class MenuItem {
   isExpanded: boolean;
   children: MenuItem[];
 
-  constructor(title: string, icon: string, url: string, children: MenuItem[]) {
+  constructor(title: string, url: string, children: MenuItem[], icon?: string) {
     this.title = title;
-    this.icon = icon;
     this.url = url;
     this.children = children;
+    this.icon = icon ? icon : null;
+  }
+
+  /**
+   * Открытие / закрытие подменю
+   */
+  toggle() {
+    this.isExpanded = !this.isExpanded;
+  }
+
+  /**
+   * Открытие подменю
+   */
+  toggleRoot() {
+    this.isExpanded = true;
   }
 }

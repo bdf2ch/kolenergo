@@ -7,12 +7,12 @@ import { WelcomeGuard } from './aho-requests/guards/welcome.guard';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: './aho-requests/aho-requests.module#AhoRequestsModule',
+    loadChildren: () => import('./aho-requests/aho-requests.module').then(m => m.AhoRequestsModule),
     resolve: [SessionGuard]
   },
   {
     path: 'welcome',
-    loadChildren: './authorization/authorization.module#AuthorizationModule',
+    loadChildren: () => import('./authorization/authorization.module').then(m => m.AuthorizationModule),
     canActivate: [WelcomeGuard],
   }
 ];

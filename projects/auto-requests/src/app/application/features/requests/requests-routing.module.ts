@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [{
   path: '',
-  loadChildren: './pages/request-list/request-list.module#RequestListModule'
+  loadChildren: () => import('./pages/request-list/request-list.module').then(m => m.RequestListModule)
 }];
 
 @NgModule({

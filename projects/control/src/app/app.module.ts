@@ -14,11 +14,14 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { ApplicationReducer, ApplicationEffects } from './ngrx';
 import { MenuItemComponent } from './components/menu-item/menu-item.component';
+import { MenuComponent } from './components/menu/menu.component';
+import {routerReducer, StoreRouterConnectingModule} from '@ngrx/router-store';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuItemComponent
+    MenuItemComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -26,8 +29,12 @@ import { MenuItemComponent } from './components/menu-item/menu-item.component';
     HttpClientModule,
     AppRoutingModule,
     ResourceModule.forRoot(),
-    StoreModule.forRoot({app: ApplicationReducer}),
+    StoreModule.forRoot({
+      app: ApplicationReducer,
+      router: routerReducer
+    }),
     EffectsModule.forRoot([ApplicationEffects]),
+    StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({maxAge: 25, logOnly: environment.production}),
     MatProgressBarModule,
     MatButtonModule,
