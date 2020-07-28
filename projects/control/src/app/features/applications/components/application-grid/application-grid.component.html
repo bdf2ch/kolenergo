@@ -1,6 +1,7 @@
 <div class="applications">
   <a class="application p-3"
      [routerLink]="[application.id]"
+     [state]="{child: application.title}"
      *ngFor="let application of applications"
      (click)="onSelect(application)">
     <div class="icon mr-3" *ngIf="application.icon">

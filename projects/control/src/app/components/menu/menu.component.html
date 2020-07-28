@@ -2,7 +2,6 @@
   <div class="menu-item" *ngFor="let item of items">
     <div class="label">
       <a [routerLink]="[item.url]"
-         [state]="{title: item.title}"
          routerLinkActive="selected"
          (click)="item.toggleRoot()">
         <div class="icon" *ngIf="item.icon">
@@ -12,7 +11,6 @@
       </a>
       <div class="sub-menu" *ngIf="item.children.length > 0 && item.isExpanded">
         <a [routerLink]="[child.url]"
-           [state]="{subtitle: child.title}"
            routerLinkActive="selected"
            class="sub-menu-item"
            *ngFor="let child of item.children">

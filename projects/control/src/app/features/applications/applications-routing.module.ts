@@ -12,7 +12,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: ApplicationsListComponent
+        component: ApplicationsListComponent,
+        data: {
+          root: 'Приложения',
+          child: null
+        }
       },
       {
         path: ':id',

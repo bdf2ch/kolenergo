@@ -38,13 +38,17 @@ export function ApplicationReducer(
           new MenuItem(
             'Приложения',
             '/applications',
-            [...action.payload.data.applications.map((app: IApplication) => new MenuItem(app.title, `/applications/${app.id}`, []))],
+            [
+              ...action.payload.data.applications.map((app: IApplication) => new MenuItem(app.title, `/applications/${app.id}`, []))
+            ],
             'apps'
           ),
           new MenuItem(
             'Организации',
             '/companies',
-            [...action.payload.data.companies.map((com: ICompany) => new MenuItem(com.shortTitle, `companies/${com.id}`, []))],
+            [
+              ...action.payload.data.companies.map((com: ICompany) => new MenuItem(com.shortTitle, `/companies/${com.id}`, []))
+            ],
             'business'
           ),
           new MenuItem(
@@ -64,6 +68,13 @@ export function ApplicationReducer(
       return {
         ...state,
         isLoading: false
+      };
+    }
+
+    case EApplicationActions.APPLICATION_SET_BREADCRUMB: {
+      return {
+        ...state,
+        breadcrumb: [...action.payload]
       };
     }
 

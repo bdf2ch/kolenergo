@@ -32,6 +32,14 @@ export const selectMenu = createSelector(
 );
 
 /**
+ * Селектор пути к текущему разделу приложения
+ */
+export const selectBreadcrumb = createSelector(
+  selectApp,
+  (app: IAppState) => app.breadcrumb
+);
+
+/**
  * Селектор списка приложений
  */
 export const selectApplications = createSelector(

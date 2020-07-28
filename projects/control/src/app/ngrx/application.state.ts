@@ -7,13 +7,15 @@ export interface IAppState {
   isInitialized: boolean;                 // Выполнена ли инициализация приложения
   applications: Application[];            // Список приложений
   menu: MenuItem[];                       // Меню приложению
+  breadcrumb: MenuItem[];                 // Путь к текущему разделу приложения
 }
 
 export const appInitialState: IAppState = {
   isLoading: false,
   isInitialized: false,
   applications: [],
-  menu: []
+  menu: [],
+  breadcrumb: []
 };
 
 /**

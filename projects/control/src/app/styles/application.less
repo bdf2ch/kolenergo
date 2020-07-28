@@ -2,6 +2,9 @@
 @current-section-title-font-family: 'Open Sans Light';
 @current-section-title-font-size: 20px;
 @current-section-title-font-color: #546E7A;
+@expander-icon-font-size: 20px;
+@expander-icon-color: #B0BEC5;
+@expander-icon-color-selected: #546E7A;
 
 .application {
   display: flex;
@@ -23,9 +26,37 @@
       min-height: @header-height;
 
       .section-title {
-        font-family: @current-section-title-font-family;
-        font-size: @current-section-title-font-size;
-        color: @current-section-title-font-color;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        a {
+          text-decoration: none;
+          font-family: @current-section-title-font-family;
+          font-size: @current-section-title-font-size;
+          color: @current-section-title-font-color;
+
+          &:hover {
+
+          }
+        }
+
+        .mat-icon {
+          width: @expander-icon-font-size;
+          height: @expander-icon-font-size;
+          font-size: @expander-icon-font-size;
+          color: @expander-icon-color;
+          padding-left: 12px;
+          padding-right: 12px;
+        }
+
+        .separator {
+          padding-left: 10px;
+          padding-right: 10px;
+          font-family: @current-section-title-font-family;
+          font-size: @current-section-title-font-size;
+          color: @current-section-title-font-color;
+        }
       }
 
       .user-menu {}

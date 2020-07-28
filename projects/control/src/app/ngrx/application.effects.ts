@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material';
 
 import { select, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { ROUTER_NAVIGATED } from '@ngrx/router-store';
+import {ROUTER_NAVIGATED, RouterNavigatedAction} from '@ngrx/router-store';
 import { EMPTY, of } from 'rxjs';
 import { catchError, map, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
 
@@ -11,8 +11,14 @@ import { IServerResponse } from '@kolenergo/core';
 import { ApplicationService } from '../services/application.service';
 import { IInitialData } from '../interfaces';
 import { IApplicationState } from './application.state';
-import { ApplicationLoadInitialDataFail, ApplicationLoadInitialDataSuccess, EApplicationActions } from './application.actions';
+import {
+  ApplicationLoadInitialDataFail,
+  ApplicationLoadInitialDataSuccess,
+  ApplicationSetBreadcrumb,
+  EApplicationActions
+} from './application.actions';
 import { selectMenu } from './application.selectors';
+import {MenuItem} from '../models';
 
 
 @Injectable({
@@ -31,7 +37,24 @@ export class ApplicationEffects {
   routerNavigated$ = this.actions.pipe(
     ofType(ROUTER_NAVIGATED),
     withLatestFrom(this.store.pipe(select(selectMenu))),
-    mergeMap(([action, menu]) => EMPTY)
+    mergeMap(([action, menu]) => {
+      console.log('router action', (action as RouterNavigatedAction).payload.event.urlAfterRedirects);
+      const breadcrumb = [];
+      menu.forEach((item: MenuItem) => {
+        if (item.url === (action as RouterNavigatedAction).payload.event.urlAfterRedirects) {
+          breadcrumb.push(item);
+        }
+        if (breadcrumb.length === 0) {
+          item.children.forEach((child: MenuItem) => {
+            if (child.url === (action as RouterNavigatedAction).payload.event.urlAfterRedirects) {
+              breadcrumb.push(item);
+              breadcrumb.push(child);
+            }
+          });
+        }
+      });
+      return of(new ApplicationSetBreadcrumb(breadcrumb));
+    })
   );
 
   @Effect()

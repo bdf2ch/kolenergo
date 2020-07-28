@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 
 import { IServerResponse } from '@kolenergo/core';
 import { IInitialData } from '../interfaces';
+import { MenuItem } from '../models';
 
 /**
  * Множество действий приложения
@@ -9,7 +10,8 @@ import { IInitialData } from '../interfaces';
 export enum EApplicationActions {
   APPLICATION_LOAD_INITIAL_DATA = '[Application API] Load application initial data',
   APPLICATION_LOAD_INITIAL_DATA_SUCCESS = '[Application API] Application initial data successfully loaded',
-  APPLICATION_LOAD_INITIAL_DATA_FAIL = '[Application API] Failed to load application initial data'
+  APPLICATION_LOAD_INITIAL_DATA_FAIL = '[Application API] Failed to load application initial data',
+  APPLICATION_SET_BREADCRUMB = '[Application] Set current section breadcrumb'
 }
 
 /**
@@ -34,6 +36,13 @@ export class ApplicationLoadInitialDataFail implements Action {
   readonly type = EApplicationActions.APPLICATION_LOAD_INITIAL_DATA_FAIL;
 }
 
+/**
+ * Генерация пути к текущему разделу приложения
+ */
+export class ApplicationSetBreadcrumb implements Action {
+  readonly type = EApplicationActions.APPLICATION_SET_BREADCRUMB;
+  constructor(public payload: MenuItem[]) {}
+}
 
 /**
  * Составной тип действий приложения
@@ -41,4 +50,5 @@ export class ApplicationLoadInitialDataFail implements Action {
 export type ApplicationActions =
   ApplicationLoadInitialData |
   ApplicationLoadInitialDataSuccess |
-  ApplicationLoadInitialDataFail;
+  ApplicationLoadInitialDataFail |
+  ApplicationSetBreadcrumb;
