@@ -1,0 +1,38 @@
+@sidebar-width: 40%;
+@title-font-family: 'Open Sans Light';
+@title-font-size: 24px;
+@title-color: #546e7a;
+
+.tiny-modal {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    width: @sidebar-width;
+
+    .icon-and-title {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .icon {}
+
+      .title {
+        font-family: @title-font-family;
+        font-size: @title-font-size;
+        line-height: @title-font-size;
+        color: @title-color;
+        word-spacing: 60px;
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+}

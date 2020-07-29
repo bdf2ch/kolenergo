@@ -19,6 +19,7 @@ import {
 } from './application.actions';
 import { selectMenu } from './application.selectors';
 import {MenuItem} from '../models';
+import {ApplicationsActionTypes} from '../features/applications/ngrx';
 
 
 @Injectable({
@@ -38,7 +39,6 @@ export class ApplicationEffects {
     ofType(ROUTER_NAVIGATED),
     withLatestFrom(this.store.pipe(select(selectMenu))),
     mergeMap(([action, menu]) => {
-      console.log('router action', (action as RouterNavigatedAction).payload.event.urlAfterRedirects);
       const breadcrumb = [];
       menu.forEach((item: MenuItem) => {
         if (item.url === (action as RouterNavigatedAction).payload.event.urlAfterRedirects) {

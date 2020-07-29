@@ -16,12 +16,14 @@ import { ApplicationReducer, ApplicationEffects } from './ngrx';
 import { MenuItemComponent } from './components/menu-item/menu-item.component';
 import { MenuComponent } from './components/menu/menu.component';
 import {routerReducer, StoreRouterConnectingModule} from '@ngrx/router-store';
+import { TinyModalComponent } from './components/tiny-modal/tiny-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuItemComponent,
-    MenuComponent
+    MenuComponent,
+    // TinyModalComponent
   ],
   imports: [
     BrowserModule,

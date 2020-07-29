@@ -3,6 +3,7 @@ import {ApplicationActions, EApplicationActions} from './application.actions';
 import {IApplication} from '../interfaces';
 import {Application, MenuItem} from '../models';
 import {ICompany} from '@kolenergo/core';
+import {ApplicationsActions, ApplicationsActionTypes} from '../features/applications/ngrx/applications.actions';
 
 /**
  * Редуктор приложения
@@ -11,7 +12,7 @@ import {ICompany} from '@kolenergo/core';
  */
 export function ApplicationReducer(
   state: IAppState = appInitialState,
-  action: ApplicationActions
+  action: ApplicationActions | ApplicationsActions
 ): IAppState {
   switch (action.type) {
 
@@ -75,6 +76,33 @@ export function ApplicationReducer(
       return {
         ...state,
         breadcrumb: [...action.payload]
+      };
+    }
+
+    /**
+     * Добавление нового приложения
+     */
+    case ApplicationsActionTypes.ADD_APPLICATION: {
+      return {
+        ...state,
+        isLoading: true
+      };
+    }
+
+    /**
+     * Новое приложение успешно добавлено
+     */
+    case ApplicationsActionTypes.ADD_APPLICATION_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false
+      };
+    }
+
+    case ApplicationsActionTypes.ADD_APPLICATION_FAIL: {
+      return {
+        ...state,
+        isLoading: false
       };
     }
 

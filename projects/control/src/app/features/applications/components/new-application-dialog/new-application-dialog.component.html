@@ -1,0 +1,45 @@
+<app-tiny-modal [sidebarColor]="'#ede7f6'"
+                [sidebarTitle]="'Новое приложение'"
+                [sidebarControlDisabled]="newApplicationForm.invalid"
+                (controlAction)="addApplication()">
+  <form [formGroup]="newApplicationForm"
+        class="w-100 h-100 d-flex flex-column justify-content-between">
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Наименование приложения</mat-label>
+      <input matInput placeholder="Введите наименование" formControlName="title">
+      <mat-icon class="valid-form-icon" matSuffix *ngIf="newApplicationForm.controls.title.valid">done</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Описание приложения</mat-label>
+      <input matInput placeholder="Введите описание" formControlName="description">
+      <mat-icon class="valid-form-icon" matSuffix *ngIf="newApplicationForm.controls.description.valid">done</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100">
+      <mat-label>Код приложения</mat-label>
+      <input matInput placeholder="Введите код" formControlName="code">
+      <mat-icon class="valid-form-icon" matSuffix *ngIf="newApplicationForm.controls.code.valid">done</mat-icon>
+      <mat-hint>Например: KUSOK_GOVNA_APP</mat-hint>
+    </mat-form-field>
+
+    <div class="row">
+      <div class="col-6">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Иконка</mat-label>
+          <input matInput placeholder="Введите иконку" formControlName="icon">
+          <mat-hint>Иконка приложения</mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Цвет</mat-label>
+          <input matInput placeholder="Введите цвет" formControlName="color">
+          <mat-hint>Цвет приложения</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </form>
+</app-tiny-modal>

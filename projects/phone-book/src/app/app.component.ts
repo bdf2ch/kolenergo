@@ -57,12 +57,12 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   sideBarOpened() {
-    console.log('sidebar opened');
+    console.log('sidebarEl opened');
     this.store.dispatch(new PhoneBookHideSidebarToggleButton());
   }
 
   sidebarClosed() {
-    console.log('sidebar closed');
+    console.log('sidebarEl closed');
     this.store.dispatch(new PhoneBookShowSidebarToggleButton());
   }
 }

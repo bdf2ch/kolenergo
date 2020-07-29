@@ -13,12 +13,13 @@ import {
 import { IServerResponse } from '@kolenergo/core';
 import { IApplication } from '../interfaces';
 import { environment } from '../../environments/environment';
+import {Application} from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
 @ResourceParams({
-  pathPrefix: environment.apiUrl + 'cp/applications-wrapper',
+  pathPrefix: environment.apiUrl + 'cp/applications',
   withCredentials: true
 })
 export class ApplicationsResource extends Resource {
@@ -33,6 +34,13 @@ export class ApplicationsResource extends Resource {
     withCredentials: true
   })
   getApplications: IResourceMethod<void, IServerResponse<IApplication[]>>;
+
+  @ResourceAction({
+    path: '/',
+    method: ResourceRequestMethod.Post,
+    withCredentials: true
+  })
+  add: IResourceMethod<Application, IServerResponse<IApplication>>;
 
   /*
   @ResourceAction({

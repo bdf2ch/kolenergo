@@ -1,0 +1,20 @@
+<div class="tiny-modal h-100">
+  <div class="sidebar p-5" #sidebar>
+    <div class="icon-and-title">
+      <!--
+      <div class="icon" #icon>
+        <mat-icon>{{sidebarIcon}}</mat-icon>
+      </div>
+      -->
+      <div class="title"#title>{{sidebarTitle}}</div>
+    </div>
+    <div class="controls">
+      <button mat-raised-button color="primary" class="w-100 pt-3 pb-3" [disabled]="sidebarControlDisabled" (click)="action()">
+        Добавить
+      </button>
+    </div>
+  </div>
+  <div class="content p-5">
+    <ng-content></ng-content>
+  </div>
+</div>

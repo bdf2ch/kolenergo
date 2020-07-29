@@ -1,16 +1,17 @@
 @width: 300px;
 @header-height: 50px;
-@icon-width: 22px;
-@icon-height: 22px;
-@icon-color: @title-color;
-@title-font-family: 'Open Sans Light';
-@title-font-size: 20px;
-@title-color: #546E7A;
+@icon-width: 45px;
+@icon-height: 45px;
+@icon-color: #e0e0e0;
+@title-font-family: 'Open Sans Regular';
+@title-font-size: 18px;
+@title-color: #78909c;
 @background-color: #FAF9F8;
 
 .sidebar {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: @width;
   background: @background-color;
 
@@ -25,6 +26,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      margin-right: 15px;
 
       .mat-icon {
         width: @icon-width;
