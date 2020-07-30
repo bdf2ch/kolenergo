@@ -1,7 +1,7 @@
 import {appInitialState, IAppState} from './application.state';
 import {ApplicationActions, EApplicationActions} from './application.actions';
 import {IApplication} from '../interfaces';
-import {Application, MenuItem} from '../models';
+import {Application, Menu, MenuItem} from '../models';
 import {ICompany} from '@kolenergo/core';
 import {ApplicationsActions, ApplicationsActionTypes} from '../features/applications/ngrx/applications.actions';
 
@@ -35,30 +35,31 @@ export function ApplicationReducer(
         isLoading: false,
         isInitialized: true,
         applications: action.payload.data.applications.map((item: IApplication) => new Application(item)),
-        menu: [
-          new MenuItem(
-            'Приложения',
-            '/applications',
-            [
-              ...action.payload.data.applications.map((app: IApplication) => new MenuItem(app.title, `/applications/${app.id}`, []))
-            ],
-            'apps'
-          ),
-          new MenuItem(
-            'Организации',
-            '/companies',
-            [
-              ...action.payload.data.companies.map((com: ICompany) => new MenuItem(com.shortTitle, `/companies/${com.id}`, []))
-            ],
-            'business'
-          ),
-          new MenuItem(
-            'Пользователи',
-            '/users',
-            [],
-            'account_circle'
-          )
-        ]
+        menu: new Menu([
+            new MenuItem(
+              'Приложения',
+              '/applications',
+              [
+                ...action.payload.data.applications.map((app: IApplication) => new MenuItem(app.title, `/applications/${app.id}`, []))
+              ],
+              'apps'
+            ),
+            new MenuItem(
+              'Организации',
+              '/companies',
+              [
+                ...action.payload.data.companies.map((com: ICompany) => new MenuItem(com.shortTitle, `/companies/${com.id}`, []))
+              ],
+              'business'
+            ),
+            new MenuItem(
+              'Пользователи',
+              '/users',
+              [],
+              'account_circle'
+            )
+          ]
+        )
       };
     }
 
@@ -95,7 +96,15 @@ export function ApplicationReducer(
     case ApplicationsActionTypes.ADD_APPLICATION_SUCCESS: {
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
+        menu: state.menu.add(
+          new MenuItem(
+            action.payload.data.title,
+            `/applications/${action.payload.data.id}`,
+            []
+          ),
+          '/applications'
+        )
       };
     }
 

@@ -17,7 +17,7 @@ import {
   ApplicationSetBreadcrumb,
   EApplicationActions
 } from './application.actions';
-import { selectMenu } from './application.selectors';
+import {selectApplications, selectMenu} from './application.selectors';
 import {MenuItem} from '../models';
 import {ApplicationsActionTypes} from '../features/applications/ngrx';
 
@@ -37,10 +37,10 @@ export class ApplicationEffects {
   @Effect()
   routerNavigated$ = this.actions.pipe(
     ofType(ROUTER_NAVIGATED),
-    withLatestFrom(this.store.pipe(select(selectMenu))),
+    withLatestFrom(this.store.pipe(select(selectMenu)),),
     mergeMap(([action, menu]) => {
       const breadcrumb = [];
-      menu.forEach((item: MenuItem) => {
+      menu.items.forEach((item: MenuItem) => {
         if (item.url === (action as RouterNavigatedAction).payload.event.urlAfterRedirects) {
           breadcrumb.push(item);
         }

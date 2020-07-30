@@ -1,12 +1,12 @@
 import { AuthenticationInitialState, IAuthenticationState } from '@kolenergo/core';
 import { applicationsInitialState, IApplicationsState } from '../features/applications/ngrx';
-import { Application, MenuItem } from '../models';
+import { Application, Menu, MenuItem } from '../models';
 
 export interface IAppState {
   isLoading: boolean;                     // Выполняется ли загрузка данных с сервера
   isInitialized: boolean;                 // Выполнена ли инициализация приложения
   applications: Application[];            // Список приложений
-  menu: MenuItem[];                       // Меню приложению
+  menu: Menu;                             // Меню приложению
   breadcrumb: MenuItem[];                 // Путь к текущему разделу приложения
 }
 
@@ -14,7 +14,7 @@ export const appInitialState: IAppState = {
   isLoading: false,
   isInitialized: false,
   applications: [],
-  menu: [],
+  menu: null,
   breadcrumb: []
 };
 

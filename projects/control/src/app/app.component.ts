@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { IApplicationState, selectBreadcrumb, selectLoading, selectMenu } from './ngrx';
-import { Application, MenuItem } from './models';
+import {Application, Menu, MenuItem} from './models';
 import { selectSelectedApplication } from './features/applications/ngrx';
 
 @Component({
@@ -14,7 +14,7 @@ import { selectSelectedApplication } from './features/applications/ngrx';
 })
 export class AppComponent implements OnInit {
   isLoading$: Observable<boolean>;
-  menu$: Observable<MenuItem[]>;
+  menu$: Observable<Menu>;
   breadcrumb$: Observable<MenuItem[]>;
   selectedApplication$: Observable<Application>;
 

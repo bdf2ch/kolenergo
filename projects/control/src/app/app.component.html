@@ -8,7 +8,7 @@
       <div class="title">Панель<br>управления</div>
     </div>
     <div class="sidebar-content">
-      <app-menu [items]="menu$ | async"></app-menu>
+      <app-menu [items]="(menu$ | async)?.items"></app-menu>
     </div>
   </div>
   <div class="content p-4">

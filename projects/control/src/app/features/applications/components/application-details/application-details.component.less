@@ -1,0 +1,37 @@
+@label-font-family: 'Open Sans Light';
+@label-font-size: 14px;
+@label-color: #37474F;
+
+.application-details {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    box-sizing: border-box;
+
+    &:nth-child(n+2) {
+      border-left: 1px solid #ECEFF1;
+    }
+
+    .details-section {
+      display: flex;
+      flex-direction: column;
+
+      .section-label{
+        display: flex;
+        flex-direction: row;
+        height: 30px;
+        align-items: center;
+        font-family: @label-font-family;
+        font-size: @label-font-size;
+        color: @label-color;
+      }
+
+      .section-content {}
+    }
+  }
+}
