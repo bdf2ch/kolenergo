@@ -8,9 +8,12 @@ import { EMPTY } from 'rxjs';
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { IServerResponse, User } from '@kolenergo/core';
-import { ApplicationService } from '../../services/application.service';
-import { IApplicationState, ApplicationActionTypes, ApplicationLoadInitialDataSuccess, selectUser } from './';
-import { IAutoRequestsInitialData } from '../../interfaces';
+import { ApplicationService } from '../services/application.service';
+import { IApplicationState  } from './application.state';
+import { ApplicationActionTypes, ApplicationLoadInitialDataSuccess } from './application.actions';
+import { selectUser } from './selectors';
+import { IAutoRequestsInitialData } from '../interfaces';
+
 
 @Injectable()
 export class ApplicationEffects {

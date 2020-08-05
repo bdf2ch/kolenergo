@@ -5,7 +5,7 @@ import { StoreModule } from '@ngrx/store';
 
 import { ApplicationRoutingModule } from './application-routing.module';
 import { ApplicationWrapperComponent } from './components/application-wrapper/application-wrapper.component';
-import { reducer } from './ngrx/application.reducer';
+import { applicationReducer } from '../ngrx/application.reducer';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,7 @@ import { reducer } from './ngrx/application.reducer';
   ],
   imports: [
     CommonModule,
-    StoreModule.forFeature('application', reducer),
+    StoreModule.forFeature('application', applicationReducer),
     ApplicationRoutingModule
   ]
 })

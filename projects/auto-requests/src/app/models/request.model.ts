@@ -1,4 +1,4 @@
-import { IUser, IDepartment, User, Department } from '@kolenergo/core';
+import { IUser, User } from '@kolenergo/core';
 import { IRequest } from '../interfaces/request.interface';
 import { ITransportType } from '../interfaces/transport-type.interface';
 import { ITransport } from '../interfaces/transport.interface';
@@ -20,7 +20,6 @@ import { RequestComment } from './request-comment.model';
  */
 export class Request implements IRequest {
   id: number;                     // Идентификатор
-  department: IDepartment;        // Подразделение организации
   type: ITransportType;           // Тип автотранспорта
   transport: ITransport;          // Транспортное средство
   driver: IDriver;                // Водитель
@@ -46,7 +45,6 @@ export class Request implements IRequest {
    */
   constructor(config?: IRequest) {
     this.id = config ? config.id : null;
-    this.department = config ? new Department(config.department) : null;
     this.type = config ? new TransportType(config.type) : null;
     this.transport = config && config.transport ? new Transport(config.transport) : null;
     this.driver = config && config.driver ? new Driver(config.driver) : null;

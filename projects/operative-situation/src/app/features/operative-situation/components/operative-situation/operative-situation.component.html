@@ -66,7 +66,7 @@
             <span class="application-title">{{(selectedDivision$ | async) ? (selectedDivision$ | async)?.title : (selectedCompany$ | async)?.shortTitle}}</span>
             <span class="application-title d-none d-md-flex" *ngIf="(selectedTime$ | async)">, {{(selectedTime$ | async)?.time}}</span>
             <!--
-            <span class="application-subtitle">
+            <span class="app-subtitle">
               на {{(date$| async) | date:"dd.MM.yyyy"}}
               <span *ngIf="selectedTime$ | async">, {{(selectedTime$ | async)?.time}} </span>
               <span *ngIf="selectedCompany$ | async">в {{(selectedCompany$ | async)?.shortTitle}}</span>

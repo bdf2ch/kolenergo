@@ -56,7 +56,7 @@ export class ApplicationsEffects {
   addApplicationSuccess$ = this.actions$.pipe(
     ofType(ApplicationsActionTypes.ADD_APPLICATION_SUCCESS),
     tap(() => {
-      this.dialog.getDialogById('add-application-dialog').close();
+      this.dialog.getDialogById('add-app-dialog').close();
       this.snackBar.open('Приложение добавлено', 'Закрыть', {
         duration: 5000,
         horizontalPosition: 'right',

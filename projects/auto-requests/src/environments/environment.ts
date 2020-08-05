@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  appCode: 'AUTO_REQUESTS_MRSK',
   apiUrl: 'http://127.0.0.1:3000'
 };
 

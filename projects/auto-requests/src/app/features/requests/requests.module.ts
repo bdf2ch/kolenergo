@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { StoreModule } from '@ngrx/store';
-
 import { RequestsRoutingModule } from './requests-routing.module';
-import { reducer } from '../../../features/requests/ngrx/requests.reducer';
+import { RequestsWrapperComponent } from './components/requests-wrapper/requests-wrapper.component';
+import { RequestsListComponent } from './components/requests-list/requests-list.component';
+
 
 @NgModule({
-  declarations: [],
+  declarations: [RequestsWrapperComponent, RequestsListComponent],
   imports: [
     CommonModule,
-    StoreModule.forFeature('requests', reducer),
     RequestsRoutingModule
   ]
 })

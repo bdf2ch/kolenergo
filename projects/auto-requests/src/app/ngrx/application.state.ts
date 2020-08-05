@@ -4,24 +4,24 @@ import { requestsInitialState, IRequestsState } from '../features/requests/ngrx'
 /**
  * Интерфейс, описывающий состояние ядра приложения
  */
-export interface IBasicApplicationState {
+export interface IAppState {
   isInitialized: boolean;
-  isFetchingInProgress: boolean;
+  isLoading: boolean;
 }
 
 /**
  * Начальное состояние ядра приложения
  */
-export const basicApplicationInitialState: IBasicApplicationState = {
+export const appInitialState: IAppState = {
   isInitialized: false,
-  isFetchingInProgress: false
+  isLoading: false
 };
 
 /**
  * Интерфейс, описывающий состояние приложения
  */
 export interface IApplicationState {
-  application: IBasicApplicationState;
+  app: IAppState;
   requests: IRequestsState;
   session: IAuthenticationState;
 }
@@ -30,7 +30,7 @@ export interface IApplicationState {
  * Начальноке состояние приложения
  */
 export const applicationInitialState: IApplicationState = {
-  application: basicApplicationInitialState,
+  app: appInitialState,
   requests: requestsInitialState,
   session: AuthenticationInitialState
 };

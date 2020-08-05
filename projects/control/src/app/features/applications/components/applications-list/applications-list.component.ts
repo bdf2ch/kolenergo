@@ -37,7 +37,7 @@ export class ApplicationsListComponent implements OnInit {
 
   openNewApplicationDialog() {
     this.dialog.open(NewApplicationDialogComponent, {
-      id: 'add-application-dialog',
+      id: 'add-app-dialog',
       width: '800px',
       height: '500px',
       panelClass: 'tiny-dialog',

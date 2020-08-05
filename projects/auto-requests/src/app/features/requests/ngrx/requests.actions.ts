@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { IServerResponse } from '@kolenergo/core';
-import { IRequest } from '../../../../interfaces';
+import { IRequest } from '../../../interfaces';
 
 /**
  * Типы действий раздела заявок на автотранспорт

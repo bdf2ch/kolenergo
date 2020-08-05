@@ -1,4 +1,4 @@
-import { IUser, IDepartment } from '@kolenergo/core';
+import { IUser } from '@kolenergo/core';
 import { ITransportType } from './transport-type.interface';
 import { ITransport } from './transport.interface';
 import { IRequestStatus } from './request-status.interface';
@@ -12,7 +12,6 @@ import { IRequestComment } from './request-comment.interface';
  */
 export interface IRequest {
   id: number;                     // Идентификатор
-  department: IDepartment;        // Подразделение организации
   type: ITransportType;           // Тип автотранспорта
   transport?: ITransport;         // Транспортное средство
   driver?: IDriver;               // Водитель
