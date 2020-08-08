@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { MatSnackBarModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule, MatSidenavModule, MatButtonModule, MatProgressBarModule, MatIconModule, MatTooltipModule } from '@angular/material';
 
 import { ResourceModule } from '@ngx-resource/handler-ngx-http';
 import { StoreModule } from '@ngrx/store';
@@ -15,12 +16,15 @@ import { ApplicationResource } from './resources/application.resource';
 import { ApplicationService } from './services/application.service';
 import { applicationReducer } from './ngrx/application.reducer';
 import { ApplicationEffects } from './ngrx/application.effects';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '../environments/environment';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CalendarComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,12 @@ import { environment } from '../environments/environment';
       appCode: environment.appCode,
       pathPrefix: '/authentication'
     }),
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatProgressBarModule,
+    MatIconModule,
+    MatTooltipModule
   ],
   providers: [
     ApplicationResource,

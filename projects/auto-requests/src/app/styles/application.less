@@ -1,0 +1,122 @@
+@sidebar-width: 420px;
+@sidebar-background-color: #ECEFF1;
+@content-background-color: #FAFAFA;
+@header-height: 50px;
+@app-title-font-family: 'Open Sans Regular';
+@app-title-font-size: 24px;
+@app-title-line-height: 25px;
+@app-title-color: #37474F;
+@control-icon-width: 26px;
+@control-icon-height: 26px;
+@control-icon-font-size: 26px;
+@control-icon-color: rgba(84, 110, 122, 0.4);
+@control-icon-color-hover: rgba(84, 110, 122, 0.5);
+@control-icon-color-active: #546E7A;
+
+.mat-progress-bar {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 5;
+}
+
+.application-container {
+  height: 100%;
+  margin-top: -4px;
+
+  .mat-drawer {
+    display: flex;
+    flex-direction: column;
+    width: @sidebar-width;
+    background: @sidebar-background-color;
+    border-right: none !important;
+
+    .mat-drawer-inner-container {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .mat-drawer-content {
+    display: flex;
+    flex-direction: column;
+    background: @content-background-color;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: @header-height;
+
+    .app-title {
+      height: @header-height;
+      font-family: @app-title-font-family;
+      font-size: @app-title-font-size;
+      line-height: @app-title-line-height;
+      color: @app-title-color;
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: row;
+      flex-grow: 0;
+
+      .control {
+
+        &.active {
+          &:hover {
+            .mat-icon {
+              color: @control-icon-color-active;
+            }
+          }
+
+          .mat-icon {
+            color: @control-icon-color-active;
+          }
+        }
+
+        &:hover {
+          .mat-icon {
+            color: @control-icon-color-hover;
+          }
+        }
+
+        .mat-icon {
+          width: @control-icon-width;
+          height: @control-icon-height;
+          font-size: @control-icon-font-size;
+          line-height: @control-icon-font-size;
+          color: @control-icon-color;
+        }
+      }
+    }
+
+    .search {
+      display: flex;
+      flex-direction: row;
+      flex: 1;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex: 1;
+
+    .app-calendar {
+      flex: 1;
+    }
+
+    .app-controls {
+      .mat-raised-button {
+        height: 60px;
+        font-family: 'Open Sans Regular';
+      }
+    }
+  }
+}
+
+input, button {
+  outline: none !important;
+}

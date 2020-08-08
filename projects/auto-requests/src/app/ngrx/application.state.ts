@@ -1,5 +1,6 @@
-import { IAuthenticationState, AuthenticationInitialState } from '@kolenergo/core';
-import { requestsInitialState, IRequestsState } from '../features/requests/ngrx';
+import { AuthenticationInitialState, IAuthenticationState } from '@kolenergo/core';
+import { IRequestsState, requestsInitialState } from '../features/requests/ngrx';
+import { EViewMode } from '../enums';
 
 /**
  * Интерфейс, описывающий состояние ядра приложения
@@ -7,6 +8,7 @@ import { requestsInitialState, IRequestsState } from '../features/requests/ngrx'
 export interface IAppState {
   isInitialized: boolean;
   isLoading: boolean;
+  viewMode: EViewMode;
 }
 
 /**
@@ -14,7 +16,8 @@ export interface IAppState {
  */
 export const appInitialState: IAppState = {
   isInitialized: false,
-  isLoading: false
+  isLoading: false,
+  viewMode: EViewMode.VIEW_LIST
 };
 
 /**

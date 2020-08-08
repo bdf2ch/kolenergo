@@ -1,6 +1,11 @@
 import { appInitialState, IAppState } from './application.state';
 import { ApplicationActions, ApplicationActionTypes } from './application.actions';
 
+/**
+ * Редуктор состояния приложения
+ * @param state - Состояние
+ * @param action - Действие
+ */
 export function applicationReducer(
   state: IAppState = appInitialState,
   action: ApplicationActions): IAppState {
@@ -34,6 +39,16 @@ export function applicationReducer(
       return {
         ...state,
         isLoading: false
+      };
+    }
+
+    /**
+     * Выбор режима отображения заявок
+     */
+    case ApplicationActionTypes.APPLICATION_SELECT_VIEW_MODE: {
+      return {
+        ...state,
+        viewMode: action.payload
       };
     }
 

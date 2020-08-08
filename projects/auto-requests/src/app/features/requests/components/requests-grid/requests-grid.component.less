@@ -1,0 +1,179 @@
+@request-min-height: 80px;
+@request-background-color: white;
+@label-font-family: 'Open Sans Regular';
+@label-font-size: 10px;
+@label-color: #90a4ae;
+@primary-data-font-family: 'Open Sans Regular';
+@primary-data-font-size: 14px;
+@primary-data-color: #455A64;
+@secondary-data-font-family: 'Open Sans Light';
+@secondary-data-font-size: 14px;
+@secondary-data-color: #90a4ae;
+@status-icon-width: 30px;
+@status-icon-height: 30px;
+@time-font-family: 'Open Sans Light';
+@time-font-size: 14px;
+@time-color: @secondary-data-color;
+@route-marker-width: 14px;
+@route-marker-height: 14px;
+@route-marker-background-color: #FFCA28;
+@route-marker-primary-width: 14px;
+@route-marker-primary-height: 14px;
+@route-marker-primary-background-color: #9fa8da;
+@route-label-font-family: 'Open Sans Light';
+@route-label-font-size: 14px;
+@route-label-color: #263238;
+
+.grid {
+  display: flex;
+  flex-direction: column;
+
+  .request {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: @request-min-height;
+    margin-bottom: 8px;
+    padding: 20px;
+    background: @request-background-color;
+    border-bottom: 1px solid #eeeeee;
+    border-radius: 4px;
+
+    &:last-of-type {
+      margin-bottom: 0px;
+    }
+
+    .data-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-right: 30px;
+
+      &:last-of-type {
+        padding-right: 0px;
+      }
+
+      .label {
+        font-family: @label-font-family;
+        font-size: @label-font-size;
+        color: @label-color;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      .details {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+        &:nth-of-type(even) {
+          padding-top: 5px;
+          margin-top: 5px;
+          border-top: 1px dotted #e0e0e0;
+        }
+
+        .primary-data {
+          margin-bottom: 3px;
+          font-family: @primary-data-font-family;
+          font-size: @primary-data-font-size;
+          line-height: @primary-data-font-size;
+          color: @primary-data-color;
+          white-space: nowrap;
+        }
+
+        .secondary-data {
+          // margin-top: 5px;
+          font-family: @secondary-data-font-family;
+          font-size: @secondary-data-font-size;
+          line-height: @secondary-data-font-size + 2px;
+          color: @secondary-data-color;
+        }
+
+        .route-path {
+          display: flex;
+          flex-direction: row;
+
+          .timeline {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-right: 10px;
+
+            .time {
+              font-family: @time-font-family;
+              font-size: @time-font-size;
+              line-height: @time-font-size;
+              color: @time-color;
+            }
+          }
+
+          .routes {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .route {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              margin-top: 3px;
+              margin-bottom: 3px;
+
+              &:first-of-type {
+                margin-top: 0px;
+                .label {
+                  align-items: flex-start;
+                }
+              }
+
+              &:last-of-type {
+                margin-bottom: 0px;
+                //.label {
+                  align-items: flex-end;
+                //}
+              }
+
+              .marker {
+                display: flex;
+                width: @route-marker-width;
+                height: @route-marker-height;
+                margin-right: 10px;
+                background: @route-marker-background-color;
+                border: 3px solid white;
+                border-radius: 50%;
+
+                &.primary {
+                  width: @route-marker-primary-width;
+                  height: @route-marker-primary-height;
+                  background: transparent;
+                  border: 3px solid @route-marker-primary-background-color;
+                }
+              }
+
+              .label {
+                display: flex;
+                height: @route-label-font-size;
+                margin-bottom: 0px;
+                font-family: @route-label-font-family;
+                font-size: @route-label-font-size;
+                line-height: @route-label-font-size;
+                white-space: nowrap;
+                color: @route-label-color;
+                text-transform: none;
+              }
+            }
+          }
+        }
+      }
+
+      .mat-icon {
+        width: @status-icon-width;
+        height: @status-icon-height;
+        font-size: @status-icon-width;
+        color: #4caf50;
+      }
+    }
+  }
+}

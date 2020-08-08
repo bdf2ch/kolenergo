@@ -6,3 +6,4 @@ export { RequestStatus } from './request-status.model';
 export { RejectReason } from './reject-reason.model';
 export { Request } from './request.model';
 export { RequestComment } from './request-comment.model';
+export { CalendarDay } from './calendar-day.model';

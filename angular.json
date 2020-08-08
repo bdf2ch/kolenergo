@@ -754,7 +754,7 @@
               "projects/auto-requests/src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
+              "projects/auto-requests/src/custom-theme.scss",
               "projects/auto-requests/src/styles.less"
             ],
             "scripts": [],

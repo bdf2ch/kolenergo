@@ -1,1 +1,57 @@
-<router-outlet></router-outlet>
+<mat-progress-bar mode="indeterminate" color="primary"></mat-progress-bar>
+<mat-drawer-container class="application-container">
+  <mat-drawer mode="side" opened>
+    <div class="header p-5">
+      <div class="app-title">Заявки<br>на автотранспорт</div>
+    </div>
+    <div class="content pt-5 d-flex flex-column justify-content-between">
+      <div class="app-calendar pl-5 pr-5 pb-5">
+        <app-calendar [date]="date" [selected]="date"></app-calendar>
+      </div>
+
+      <div class="app-controls p-5">
+        <button mat-raised-button
+                color="primary"
+                class="w-100 pt-2 pb-2">
+          Подать заявку
+        </button>
+      </div>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div class="header p-5">
+      <div class="controls">
+        <button mat-icon-button
+                matTooltip="Список"
+                matTooltipPosition="below"
+                [ngClass]="{'active': (viewMode$ | async) === viewModes.VIEW_LIST}"
+                (click)="selectViewMode(viewModes.VIEW_LIST)"
+                class="mr-4 control">
+          <mat-icon>list_alt</mat-icon>
+        </button>
+        <button mat-icon-button
+                matTooltip="Календарь"
+                matTooltipPosition="below"
+                [ngClass]="{'active': (viewMode$ | async) === viewModes.VIEW_CALENDAR}"
+                (click)="selectViewMode(viewModes.VIEW_CALENDAR)"
+                class="control">
+          <mat-icon>event_note</mat-icon>
+        </button>
+      </div>
+      <div class="search pl-5 pr-5">
+        <app-search></app-search>
+      </div>
+      <div class="controls">
+        <button mat-icon-button
+                matTooltip="Войти"
+                matTooltipPosition="below"
+                class="control active">
+          <mat-icon>login</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="content p-5">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

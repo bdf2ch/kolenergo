@@ -10,7 +10,7 @@ export const selectApplication = createFeatureSelector<IApplicationState, IAppSt
 /**
  * Селектор состояния инициализации приложения
  */
-export const selectIsApplicationInitialized = createSelector(
+export const selectIsInitialized = createSelector(
   selectApplication,
   (state: IAppState) => state.isInitialized
 );
@@ -18,7 +18,16 @@ export const selectIsApplicationInitialized = createSelector(
 /**
  * Селектор состояния загрузки данных с сервера
  */
-export const selectIsFetchingInProgress = createSelector(
+export const selectIsLoading = createSelector(
   selectApplication,
   (state: IAppState) => state.isLoading
 );
+
+/**
+ * Селектор режима отображения заявок
+ */
+export const selectViewMode = createSelector(
+  selectApplication,
+  (state: IAppState) => state.viewMode
+);
+
