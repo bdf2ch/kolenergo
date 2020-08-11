@@ -1,4 +1,4 @@
-<mat-progress-bar mode="indeterminate" color="primary"></mat-progress-bar>
+<mat-progress-bar mode="indeterminate" color="primary" *ngIf="idLoading$ | async"></mat-progress-bar>
 <mat-drawer-container class="application-container">
   <mat-drawer mode="side" opened>
     <div class="header p-5">
@@ -43,14 +43,20 @@
       </div>
       <div class="controls">
         <button mat-icon-button
-                matTooltip="Войти"
+                matTooltip="Вход в приложение"
                 matTooltipPosition="below"
-                class="control active">
+                class="control active"
+                *ngIf="!(user$ | async)"
+                (click)="openSignInDialog()">
           <mat-icon>login</mat-icon>
         </button>
+        <app-current-user
+          [user]="(user$ | async)"
+          *ngIf="(user$ | async)">
+        </app-current-user>
       </div>
     </div>
-    <div class="content p-5">
+    <div class="content pt-5">
       <router-outlet></router-outlet>
     </div>
   </mat-drawer-content>

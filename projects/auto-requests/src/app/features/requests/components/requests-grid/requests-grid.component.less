@@ -24,6 +24,11 @@
 @route-label-font-size: 14px;
 @route-label-color: #263238;
 
+&:host {
+  display: block;
+  width: 100%;
+}
+
 .grid {
   display: flex;
   flex-direction: column;
@@ -38,6 +43,7 @@
     background: @request-background-color;
     border-bottom: 1px solid #eeeeee;
     border-radius: 4px;
+    cursor: pointer;
 
     &:last-of-type {
       margin-bottom: 0px;
@@ -48,7 +54,7 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: flex-start;
-      padding-right: 30px;
+      padding-right: 40px;
 
       &:last-of-type {
         padding-right: 0px;

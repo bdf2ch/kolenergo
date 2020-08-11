@@ -1,4 +1,4 @@
-export { IAutoRequestsInitialData } from './app.initial.interface';
+export { IInitialData } from './initial-data.interface';
 export { ITransportType } from './transport-type.interface';
 export { ITransport } from './transport.interface';
 export { IDriver } from './driver.interface';

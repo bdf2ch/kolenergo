@@ -1,8 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSnackBarModule, MatSidenavModule, MatButtonModule, MatProgressBarModule, MatIconModule, MatTooltipModule } from '@angular/material';
+import {
+  MatSnackBarModule,
+  MatSidenavModule,
+  MatButtonModule,
+  MatProgressBarModule,
+  MatIconModule,
+  MatTooltipModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatMenuModule
+} from '@angular/material';
 
 import { ResourceModule } from '@ngx-resource/handler-ngx-http';
 import { StoreModule } from '@ngrx/store';
@@ -19,17 +30,23 @@ import { ApplicationEffects } from './ngrx/application.effects';
 import { environment } from '../environments/environment';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { SearchComponent } from './components/search/search.component';
+import { SignInModalComponent } from './components/sign-in-modal/sign-in-modal.component';
+import { CurrentUserComponent } from './components/current-user/current-user.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CalendarComponent,
-    SearchComponent
+    SearchComponent,
+    SignInModalComponent,
+    CurrentUserComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     ResourceModule.forRoot(),
     StoreModule.forRoot({app: applicationReducer}),
@@ -45,11 +62,17 @@ import { SearchComponent } from './components/search/search.component';
     MatButtonModule,
     MatProgressBarModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatMenuModule
   ],
   providers: [
     ApplicationResource,
     ApplicationService
+  ],
+  entryComponents: [
+    SignInModalComponent
   ],
   bootstrap: [
     AppComponent

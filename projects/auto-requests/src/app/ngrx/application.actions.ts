@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { IServerResponse } from '@kolenergo/core';
-import { IAutoRequestsInitialData } from '../interfaces';
+import { IInitialData } from '../interfaces';
 import { EViewMode } from '../enums';
 
 /**
@@ -11,7 +11,8 @@ export const enum ApplicationActionTypes {
   APPLICATION_LOAD_INITIAL_DATA = '[Auto API] Load application initial data',
   APPLICATION_LOAD_INITIAL_DATA_SUCCESS = '[Auto API] Application initial data loaded successfully',
   APPLICATION_LOAD_INITIAL_DATA_FAIL = '[Auto API] Failed to load application initial data',
-  APPLICATION_SELECT_VIEW_MODE = '[Application UI] Select requests view mode'
+  APPLICATION_SELECT_VIEW_MODE = '[Application UI] Select requests view mode',
+  APPLICATION_OPEN_SIGN_IN_DIALOG = '[Application UI]Open sign in dialog'
 }
 
 /**
@@ -26,7 +27,7 @@ export class ApplicationLoadInitialData implements Action {
  */
 export class ApplicationLoadInitialDataSuccess implements Action {
   readonly type = ApplicationActionTypes.APPLICATION_LOAD_INITIAL_DATA_SUCCESS;
-  constructor(public payload: IServerResponse<IAutoRequestsInitialData>) {}
+  constructor(public payload: IServerResponse<IInitialData>) {}
 }
 
 /**
@@ -44,9 +45,17 @@ export class ApplicationSelectViewMode implements Action {
   constructor(public payload: EViewMode) {}
 }
 
+/**
+ * Открытие диалогового окна авторизации пользователя
+ */
+export class ApplicationOpenSignInDialog implements Action {
+  readonly type = ApplicationActionTypes.APPLICATION_OPEN_SIGN_IN_DIALOG;
+}
+
 
 export type ApplicationActions =
   ApplicationLoadInitialData |
   ApplicationLoadInitialDataSuccess |
   ApplicationLoadInitialDataFail |
-  ApplicationSelectViewMode;
+  ApplicationSelectViewMode |
+  ApplicationOpenSignInDialog;

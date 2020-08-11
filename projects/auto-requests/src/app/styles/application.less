@@ -14,15 +14,17 @@
 @control-icon-color-active: #546E7A;
 
 .mat-progress-bar {
-  position: fixed;
+  position: fixed !important;
   top: 0px;
   left: 0px;
   z-index: 5;
 }
 
 .application-container {
+  position: relative;
+  z-index: 1;
   height: 100%;
-  margin-top: -4px;
+
 
   .mat-drawer {
     display: flex;
@@ -103,6 +105,7 @@
   .content {
     display: flex;
     flex: 1;
+    overflow: hidden;
 
     .app-calendar {
       flex: 1;

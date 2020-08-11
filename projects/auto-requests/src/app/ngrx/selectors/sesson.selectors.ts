@@ -10,6 +10,15 @@ import { IApplicationState } from '../application.state';
 export const selectSession = createFeatureSelector<IApplicationState, IAuthenticationState>('session');
 
 /**
+ * Селектор состояния авторизации
+ */
+export const selectAuthenticationInProgress = createSelector(
+  selectSession,
+  (state: IAuthenticationState) => state.isAuthenticationInProgress
+);
+
+
+/**
  * Селектор текущего пользователя приложения
  */
 export const selectUser = createSelector(

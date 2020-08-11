@@ -16,61 +16,76 @@
 
 &:host {
   display: flex;
+  flex-direction: column;
   width: 100%;
+  overflow: auto;
 }
 
 .tabs {
   display: flex;
   flex-direction: row;
   width: 100%;
-  border-bottom: @border-bottom;
+  box-sizing: border-box;
 
-  .tab {
+  .tabs-container {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 0px 30px 10px;
-    border-bottom: @tab-border-bottom;
-    cursor: pointer;
+    width: 100%;
+    border-bottom: @border-bottom;
 
-    &.selected {
-      border-bottom: @tab-border-bottom-selected;
-
-      &:hover {
-        border-bottom: @tab-border-bottom-selected;
-      }
-
-      .title {
-        font-family: @title-font-family-selected;
-        color: @title-color-selected;
-      }
-    }
-
-    &:hover {
-      border-bottom: @tab-border-bottom-hover;
-    }
-
-    .title {
-      font-family: @title-font-family;
-      font-size: @title-font-size;
-      color: @title-color;
-    }
-
-    .indicator {
+    .tab {
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      width: @indicator-width;
-      height: @indicator-height;
-      margin-left: 10px;
-      font-family: @indicator-font-family;
-      font-size: @indicator-font-size;
-      line-height: @indicator-height;
-      color: @indicator-color;
-      background: @indicator-background-color;
-      border-radius: 50%;
+      padding: 0px 30px 10px;
+      border-bottom: @tab-border-bottom;
+      cursor: pointer;
+
+      &.selected {
+        border-bottom: @tab-border-bottom-selected;
+
+        &:hover {
+          border-bottom: @tab-border-bottom-selected;
+        }
+
+        .title {
+          font-family: @title-font-family-selected;
+          color: @title-color-selected;
+        }
+      }
+
+      &:hover {
+        border-bottom: @tab-border-bottom-hover;
+      }
+
+      .title {
+        font-family: @title-font-family;
+        font-size: @title-font-size;
+        color: @title-color;
+      }
+
+      .indicator {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: @indicator-width;
+        height: @indicator-height;
+        margin-left: 10px;
+        font-family: @indicator-font-family;
+        font-size: @indicator-font-size;
+        line-height: @indicator-height;
+        color: @indicator-color;
+        background: @indicator-background-color;
+        border-radius: 50%;
+      }
     }
   }
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  overflow: auto;
 }

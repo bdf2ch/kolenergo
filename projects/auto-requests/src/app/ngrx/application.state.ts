@@ -16,7 +16,7 @@ export interface IAppState {
  */
 export const appInitialState: IAppState = {
   isInitialized: false,
-  isLoading: false,
+  isLoading: true,
   viewMode: EViewMode.VIEW_LIST
 };
 

@@ -1,0 +1,60 @@
+<div class="sign-in-container">
+
+  <div class="side">
+    <div class="label p-4">
+      <div class="subtitle">МРСК Северо-Запада</div>
+      <div class="title">Заявки<br>на автотранспорт</div>
+    </div>
+    <img src="/assets/images/car.png" class="image ml-3">
+  </div>
+
+  <div class="content p-4">
+
+    <form [formGroup]="signInForm">
+
+      <caption class="w-75 mb-3">Вход в приложение</caption>
+
+       <!-- Start: Учетная запись -->
+      <mat-form-field appearance="fill" class="w-75">
+        <mat-label>Учетная запись</mat-label>
+        <input matInput
+               placeholder="Введите учетную запись"
+               formControlName="account">
+      </mat-form-field>
+      <!-- End: Учетная запись -->
+
+      <!-- Start: Пароль -->
+      <mat-form-field appearance="fill" class="w-75 mt-2">
+        <mat-label>Пароль</mat-label>
+        <input matInput
+               type="{{showPassword ? 'text' : 'password'}}"
+               placeholder="Введите пароль"
+               formControlName="password">
+        <mat-icon matSuffix
+                  color="primary"
+                  matTooltip="{{showPassword ? 'Скрыть пароль' : 'Показать пароль'}}"
+                  matTooltipPosition="above"
+                  (click)="showPassword = !showPassword">
+          {{showPassword ? 'visibility' : 'visibility_off'}}
+        </mat-icon>
+      </mat-form-field>
+      <!-- End: Пароль -->
+
+      <!-- Start: Отправка данных формы -->
+      <button type="submit"
+              mat-raised-button
+              color="primary"
+              class="w-75 mt-2"
+              [disabled]="(authenticationInProgress$ | async)"
+              (click)="signIn()">
+        Войти
+      </button>
+      <!-- End: Отправка данных формы -->
+
+      <!-- Start: Примечание -->
+      <div class="info w-75 mt-4">Для входа в приложение используйте Вашу учетную запись Active Directory</div>
+      <!-- End: Примечание -->
+
+    </form>
+  </div>
+</div>
