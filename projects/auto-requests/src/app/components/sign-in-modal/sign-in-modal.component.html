@@ -4,6 +4,9 @@
     <div class="label p-4">
       <div class="subtitle">МРСК Северо-Запада</div>
       <div class="title">Заявки<br>на автотранспорт</div>
+      <div class="comment" *ngIf="data.fromAddRequestDialog === true">
+        Для подачи заявки необходимо авторизоваться в приложении
+      </div>
     </div>
     <img src="/assets/images/car.png" class="image ml-3">
   </div>

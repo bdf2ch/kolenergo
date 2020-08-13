@@ -1,0 +1,104 @@
+<div class="add-request-container">
+
+  <div class="side p-4">
+    <div class="label">
+      <!--<div class="subtitle">Заявки на автостранспорт</div>-->
+      <div class="title">Новая заявка</div>
+      <div class="comment">
+        Если Вы оформляете заявку по поручению другого сотрудника, необходимо указать инициатора поездки.<br><br>
+        При наличии каких-либо дополнительных требований к поездке их следует указать в подробностях о поездке.
+      </div>
+    </div>
+    <!--<img src="/assets/images/car2.png" class="image ml-3">-->
+    <button mat-raised-button
+            color="primary"
+            class="pt-2 pb-2"
+            [disabled]="(isLoading$ | async) || addRequestForm.invalid">
+      Отправить
+    </button>
+  </div>
+
+  <div class="content p-4">
+    <form class="row w-100" [formGroup]="addRequestForm">
+
+      <div class="col-6 h-100 d-flex flex-column justify-content-between">
+
+        <caption class="mb-3">Детали поездки</caption>
+
+        <!-- Start: Инициатор -->
+        <mat-form-field appearance="fill" class="w-100 pr-3" floatLabel="always">
+          <mat-label>Инициатор поездки</mat-label>
+          <!--<mat-icon matPrefix>face</mat-icon>-->
+          <input matInput formControlName="initiator">
+          <!--<mat-icon class="done" matSuffix>done</mat-icon>-->
+          <mat-hint align="end">Заполните, если инициатор поездки не Вы</mat-hint>
+        </mat-form-field>
+        <!-- End: Инициатор -->
+
+        <!-- Start: Дата поездки -->
+        <mat-form-field appearance="fill" class="w-100 mt-3 pr-3" floatLabel="always">
+          <mat-label>Дата поездки</mat-label>
+          <!--<mat-icon class="clickable" matPrefix>today</mat-icon>-->
+          <input matInput formControlName="date">
+          <!--<mat-icon class="done" matSuffix>done</mat-icon>-->
+        </mat-form-field>
+        <!-- End: Дата поездки -->
+
+        <div class="row pr-3">
+          <div class="col">
+            <!-- Start: Время начала поездки -->
+            <mat-form-field appearance="fill" class="w-100 mt-3" floatLabel="always">
+              <mat-label>Отправление</mat-label>
+              <!--<mat-icon class="clickable" matPrefix>schedule</mat-icon>-->
+              <input matInput type="time" formControlName="startTime">
+              <!--<mat-icon class="done" matSuffix>done</mat-icon>-->
+            </mat-form-field>
+            <!-- End: Время начала поездки -->
+          </div>
+          <div class="col-auto d-flex flex-column justify-content-center align-items-center">&mdash;</div>
+          <div class="col">
+            <!-- Start: Время окончания поездки -->
+            <mat-form-field appearance="fill" class="w-100 mt-3" floatLabel="always">
+              <mat-label>Прибытие</mat-label>
+              <!--<mat-icon class="clickable" matPrefix>schedule</mat-icon>-->
+              <input matInput type="time" formControlName="endTime">
+              <!--<mat-icon class="done" matSuffix>done</mat-icon>-->
+            </mat-form-field>
+            <!-- End: Время окончания поездки -->
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <!-- Start: О поездке -->
+            <mat-form-field appearance="fill" class="w-100 mt-3 pr-3" floatLabel="always">
+              <mat-label>О поездке</mat-label>
+              <!--<mat-icon matPrefix>notes</mat-icon>-->
+              <textarea matInput rows="2" formControlName="description"></textarea>
+              <mat-hint align="end">Цель поездки, кол-во пассажиров и т.д.</mat-hint>
+              <!--<mat-icon class="done" matSuffix>done</mat-icon>-->
+            </mat-form-field>
+            <!-- End: О поездке-->
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-6 route h-100 d-flex flex-column">
+        <caption class="mb-3 pl-3">Маршрут</caption>
+
+        <!-- Start: Инициатор -->
+        <mat-form-field appearance="fill" class="w-100 pl-3">
+          <mat-label>Пункт назначения</mat-label>
+          <!--<mat-icon matPrefix>place</mat-icon>-->
+          <input matInput
+                 maxRows="1"
+                 placeholder="Введите пункт назначения"
+                 formControlName="initiator">
+        </mat-form-field>
+        <!-- End: Инициатор -->
+
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-import {select, Store} from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { AuthenticationSignIn } from '@kolenergo/core';
-import { IApplicationState } from '../../ngrx';
+import { AuthenticationSignIn, IUser } from '@kolenergo/core';
+import { ApplicationOpenAddRequestDialog } from '../../ngrx/application.actions';
+import { IApplicationState } from '../../ngrx/application.state';
+import { selectUser } from '../../ngrx/selectors';
 import { selectAuthenticationInProgress } from '../../ngrx/selectors';
 
 @Component({
@@ -14,14 +17,22 @@ import { selectAuthenticationInProgress } from '../../ngrx/selectors';
   styleUrls: ['./sign-in-modal.component.less']
 })
 export class SignInModalComponent implements OnInit {
+  user$: Observable<IUser>;
+  user: IUser;
   showPassword: boolean;
   authenticationInProgress$: Observable<boolean>;
   signInForm: FormGroup;
 
   constructor(
     private readonly builder: FormBuilder,
+    private readonly dialog: MatDialogRef<SignInModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public readonly data: {fromAddRequestDialog: boolean},
     private readonly store: Store<IApplicationState>
   ) {
+    this.user$ = this.store.pipe(select(selectUser));
+    this.user$.subscribe((user: IUser) => {
+      this.user = user;
+    });
     this.showPassword = false;
     this.authenticationInProgress$ = this.store.pipe(select(selectAuthenticationInProgress));
     this.signInForm = this.builder.group({
@@ -30,7 +41,13 @@ export class SignInModalComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.dialog.afterClosed().subscribe(() => {
+      if (this.data.fromAddRequestDialog === true && this.user) {
+        this.store.dispatch(new ApplicationOpenAddRequestDialog());
+      }
+    });
+  }
 
   /**
    * Аутентификация пользователя
@@ -45,5 +62,4 @@ export class SignInModalComponent implements OnInit {
       );
     }
   }
-
 }

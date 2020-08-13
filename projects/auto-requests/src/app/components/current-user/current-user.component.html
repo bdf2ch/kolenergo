@@ -1,8 +1,10 @@
 <div class="current-user" [matMenuTriggerFor]="userMenu">
   <div class="initials">{{user.firstName[0] + user.lastName[0]}}</div>
+  <!--
   <div class="expander">
     <mat-icon>arrow_drop_down</mat-icon>
   </div>
+-->
 </div>
 <mat-menu #userMenu="matMenu">
   <button mat-menu-item (click)="signOut()">

@@ -1,10 +1,10 @@
 @width: 45px;
 @height: 45px;
-@background-color: rgba(207, 216, 220, 0.5);
+@background-color: #E5E9EB;
 @background-color-hover: rgba(176, 190, 197, 0.4);
 @initials-font-family: 'Open Sans Regular';
 @initials-font-size: 20px;
-@initials-color: #546E7A;
+@initials-color: #90A4AE;
 @expander-width: 20px;
 @expander-height: 20px;
 @icon-font-size: 14px;
@@ -17,12 +17,14 @@
   flex-grow: 0;
   width: @width;
   height: @height;
-  background: @background-color;
+  // background: @background-color;
+  border: 3px solid @background-color;
   border-radius: 50%;
   cursor: pointer;
 
   &:hover {
-    background: @background-color-hover;
+    //background: @background-color-hover;
+    border-color: @background-color-hover;
 
     .expander {
       background: @background-color-hover;
@@ -30,20 +32,20 @@
   }
 
   .initials {
-    margin-left: (@expander-width / 2) + 6px;
     font-family: @initials-font-family;
     font-size: @initials-font-size;
     color: @initials-color;
   }
 
   .expander {
+    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     width: @expander-width;
     height: @expander-height;
     margin-top: 32px;
-    margin-right: -4px;
+    margin-right: -35px;
     background: @background-color;
     border: 3px solid #FAFAFA;
     border-radius: 50%;

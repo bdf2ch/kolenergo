@@ -10,11 +10,17 @@ import {catchError, map, mergeMap, switchMap, tap, withLatestFrom} from 'rxjs/op
 import {actionTypes, AuthenticationSignInSuccess, IServerResponse, User} from '@kolenergo/core';
 import { ApplicationService } from '../services/application.service';
 import { IApplicationState  } from './application.state';
-import { ApplicationActionTypes, ApplicationLoadInitialDataSuccess } from './application.actions';
+import {
+  ApplicationActionTypes,
+  ApplicationLoadInitialDataSuccess,
+  ApplicationOpenAddRequestDialog,
+  ApplicationOpenSignInDialog
+} from './application.actions';
 import { selectUser } from './selectors';
 import { IInitialData } from '../interfaces';
 import {SignInModalComponent} from '../components/sign-in-modal/sign-in-modal.component';
 import {ApplicationsLoadApplicationsSuccess} from '../../../../control/src/app/features/applications/ngrx';
+import {AddRequestDialogComponent} from '../components/add-request-dialog/add-request-dialog.component';
 
 
 @Injectable()
@@ -61,15 +67,35 @@ export class ApplicationEffects {
   @Effect()
   openSignInDialog$ = this.actions$.pipe(
     ofType(ApplicationActionTypes.APPLICATION_OPEN_SIGN_IN_DIALOG),
-    tap(() => {
+    tap((action) => {
       this.dialog.open(SignInModalComponent, {
         id: 'sign-in-dialog',
         width: '800px',
         height: '500px',
-        panelClass: 'sign-in-dialog'
+        panelClass: 'sign-in-dialog',
+        data: {
+          fromAddRequestDialog: (action as ApplicationOpenSignInDialog).payload
+        }
       });
     }),
     mergeMap(() => EMPTY)
+  );
+
+  @Effect()
+  openAddRequestDialog$ = this.actions$.pipe(
+    ofType(ApplicationActionTypes.APPLICATION_OPEN_ADD_REQUEST_DIALOG),
+    withLatestFrom(this.store.pipe(select(selectUser))),
+    tap(([action, user]) => {
+      if (user) {
+        this.dialog.open(AddRequestDialogComponent, {
+          id: 'add-request-dialog',
+          width: '1000px',
+          height: '500px',
+          panelClass: 'sign-in-dialog'
+        });
+      }
+    }),
+    mergeMap(([action, user]) => user ? EMPTY : of(new ApplicationOpenSignInDialog(true)))
   );
 
   @Effect()

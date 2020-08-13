@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { IUser } from '@kolenergo/core';
 import {
+  ApplicationOpenAddRequestDialog,
   ApplicationOpenSignInDialog,
   ApplicationSelectViewMode,
   IApplicationState,
@@ -45,6 +46,13 @@ export class AppComponent {
    * Открытие диалогового окна авторизации пользователя
    */
   openSignInDialog() {
-    this.store.dispatch(new ApplicationOpenSignInDialog());
+    this.store.dispatch(new ApplicationOpenSignInDialog(false));
+  }
+
+  /**
+   * Открытие диалогового окна добавления новой заявки
+   */
+  openAddRequestDialog() {
+    this.store.dispatch(new ApplicationOpenAddRequestDialog());
   }
 }

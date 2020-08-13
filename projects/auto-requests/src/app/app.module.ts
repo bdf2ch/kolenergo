@@ -32,6 +32,7 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { SearchComponent } from './components/search/search.component';
 import { SignInModalComponent } from './components/sign-in-modal/sign-in-modal.component';
 import { CurrentUserComponent } from './components/current-user/current-user.component';
+import { AddRequestDialogComponent } from './components/add-request-dialog/add-request-dialog.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { CurrentUserComponent } from './components/current-user/current-user.com
     CalendarComponent,
     SearchComponent,
     SignInModalComponent,
-    CurrentUserComponent
+    CurrentUserComponent,
+    AddRequestDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +74,8 @@ import { CurrentUserComponent } from './components/current-user/current-user.com
     ApplicationService
   ],
   entryComponents: [
-    SignInModalComponent
+    SignInModalComponent,
+    AddRequestDialogComponent
   ],
   bootstrap: [
     AppComponent

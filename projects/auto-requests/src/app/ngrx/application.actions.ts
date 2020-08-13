@@ -12,7 +12,8 @@ export const enum ApplicationActionTypes {
   APPLICATION_LOAD_INITIAL_DATA_SUCCESS = '[Auto API] Application initial data loaded successfully',
   APPLICATION_LOAD_INITIAL_DATA_FAIL = '[Auto API] Failed to load application initial data',
   APPLICATION_SELECT_VIEW_MODE = '[Application UI] Select requests view mode',
-  APPLICATION_OPEN_SIGN_IN_DIALOG = '[Application UI]Open sign in dialog'
+  APPLICATION_OPEN_SIGN_IN_DIALOG = '[Application UI] Open sign in dialog',
+  APPLICATION_OPEN_ADD_REQUEST_DIALOG = '[Application UI] Open add request dialog'
 }
 
 /**
@@ -50,12 +51,23 @@ export class ApplicationSelectViewMode implements Action {
  */
 export class ApplicationOpenSignInDialog implements Action {
   readonly type = ApplicationActionTypes.APPLICATION_OPEN_SIGN_IN_DIALOG;
+  constructor(public payload: boolean) {}
 }
 
+/**
+ * Открытие диалогового окна добавления новой заявки
+ */
+export class ApplicationOpenAddRequestDialog implements Action {
+  readonly type = ApplicationActionTypes.APPLICATION_OPEN_ADD_REQUEST_DIALOG;
+}
 
+/**
+ * Составной тип всех действий в приложении
+ */
 export type ApplicationActions =
   ApplicationLoadInitialData |
   ApplicationLoadInitialDataSuccess |
   ApplicationLoadInitialDataFail |
   ApplicationSelectViewMode |
-  ApplicationOpenSignInDialog;
+  ApplicationOpenSignInDialog |
+  ApplicationOpenAddRequestDialog;
