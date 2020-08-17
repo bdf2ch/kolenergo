@@ -28,7 +28,8 @@ export function applicationReducer(
       return {
         ...state,
         isInitialized: true,
-        isLoading: false
+        isLoading: false,
+        date: new Date(action.payload.data.date)
       };
     }
 

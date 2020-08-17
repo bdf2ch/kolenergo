@@ -31,3 +31,12 @@ export const selectViewMode = createSelector(
   (state: IAppState) => state.viewMode
 );
 
+/**
+ * Селектор текущей даты
+ */
+export const selectDate = createSelector(
+  selectApplication,
+  (state: IAppState) => state.date
+);
+
+

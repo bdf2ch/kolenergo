@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MatMomentDateModule } from '@angular/material-moment-adapter';
 import {
   MatSnackBarModule,
   MatSidenavModule,
@@ -12,7 +13,11 @@ import {
   MatTooltipModule,
   MatFormFieldModule,
   MatInputModule,
-  MatMenuModule
+  MatMenuModule,
+  MatDatepickerModule,
+  MatAutocompleteModule,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE
 } from '@angular/material';
 
 import { ResourceModule } from '@ngx-resource/handler-ngx-http';
@@ -20,7 +25,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { AuthenticationModule } from '@kolenergo/core';
+import { AuthenticationModule, UserSearchModule } from '@kolenergo/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ApplicationResource } from './resources/application.resource';
@@ -33,6 +38,19 @@ import { SearchComponent } from './components/search/search.component';
 import { SignInModalComponent } from './components/sign-in-modal/sign-in-modal.component';
 import { CurrentUserComponent } from './components/current-user/current-user.component';
 import { AddRequestDialogComponent } from './components/add-request-dialog/add-request-dialog.component';
+import { RouteTypeaheadComponent } from './components/route-typeahead/route-typeahead.component';
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'LL',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @NgModule({
   declarations: [
@@ -41,7 +59,8 @@ import { AddRequestDialogComponent } from './components/add-request-dialog/add-r
     SearchComponent,
     SignInModalComponent,
     CurrentUserComponent,
-    AddRequestDialogComponent
+    AddRequestDialogComponent,
+    RouteTypeaheadComponent
   ],
   imports: [
     BrowserModule,
@@ -67,11 +86,20 @@ import { AddRequestDialogComponent } from './components/add-request-dialog/add-r
     MatTooltipModule,
     MatFormFieldModule,
     MatInputModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDatepickerModule,
+    MatAutocompleteModule,
+    MatMomentDateModule,
+    UserSearchModule.forRoot({apiUrl: 'http://127.0.0.1:3000', pathPrefix: '/users'})
   ],
   providers: [
     ApplicationResource,
-    ApplicationService
+    ApplicationService,
+    { provide: LOCALE_ID, useValue: 'ru-RU' },
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } },
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' }
   ],
   entryComponents: [
     SignInModalComponent,

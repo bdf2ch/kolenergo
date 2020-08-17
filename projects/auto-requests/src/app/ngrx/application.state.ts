@@ -9,6 +9,7 @@ export interface IAppState {
   isInitialized: boolean;
   isLoading: boolean;
   viewMode: EViewMode;
+  date: Date;
 }
 
 /**
@@ -17,7 +18,8 @@ export interface IAppState {
 export const appInitialState: IAppState = {
   isInitialized: false,
   isLoading: true,
-  viewMode: EViewMode.VIEW_LIST
+  viewMode: EViewMode.VIEW_LIST,
+  date: null
 };
 
 /**

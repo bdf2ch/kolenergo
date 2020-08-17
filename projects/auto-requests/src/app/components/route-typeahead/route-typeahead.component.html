@@ -1,0 +1,12 @@
+<div class="route-typeahead">
+  <mat-form-field appearance="fill" class="w-100" floatLabel="always">
+    <mat-label>Элемент маршрута</mat-label>
+    <input matInput [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of [1, 2, 3, 4, 5]" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-hint align="end">Поочередно укажите элементы маршрута</mat-hint>
+  </mat-form-field>
+</div>
