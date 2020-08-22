@@ -1,6 +1,7 @@
 import { AuthenticationInitialState, IAuthenticationState } from '@kolenergo/core';
 import { IRequestsState, requestsInitialState } from '../features/requests/ngrx';
 import { EViewMode } from '../enums';
+import {RoutePoint} from '../models';
 
 /**
  * Интерфейс, описывающий состояние ядра приложения
@@ -10,6 +11,7 @@ export interface IAppState {
   isLoading: boolean;
   viewMode: EViewMode;
   date: Date;
+  routes: RoutePoint[];
 }
 
 /**
@@ -19,7 +21,8 @@ export const appInitialState: IAppState = {
   isInitialized: false,
   isLoading: true,
   viewMode: EViewMode.VIEW_LIST,
-  date: null
+  date: null,
+  routes: []
 };
 
 /**

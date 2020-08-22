@@ -39,4 +39,12 @@ export const selectDate = createSelector(
   (state: IAppState) => state.date
 );
 
+/**
+ * Селектор элементов маршрута
+ */
+export const selectRoutes = createSelector(
+  selectApplication,
+  (state: IAppState) => state.routes
+);
+
 

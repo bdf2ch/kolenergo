@@ -39,6 +39,8 @@ import { SignInModalComponent } from './components/sign-in-modal/sign-in-modal.c
 import { CurrentUserComponent } from './components/current-user/current-user.component';
 import { AddRequestDialogComponent } from './components/add-request-dialog/add-request-dialog.component';
 import { RouteTypeaheadComponent } from './components/route-typeahead/route-typeahead.component';
+import { RoutePathComponent } from './components/route-path/route-path.component';
+import { UserSearchComponent } from './components/user-search/user-search.component';
 
 export const MY_FORMATS = {
   parse: {
@@ -60,7 +62,9 @@ export const MY_FORMATS = {
     SignInModalComponent,
     CurrentUserComponent,
     AddRequestDialogComponent,
-    RouteTypeaheadComponent
+    RouteTypeaheadComponent,
+    RoutePathComponent,
+    UserSearchComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,8 @@
-import { appInitialState, IAppState } from './application.state';
-import { ApplicationActions, ApplicationActionTypes } from './application.actions';
+import {appInitialState, IAppState} from './application.state';
+import {ApplicationActions, ApplicationActionTypes} from './application.actions';
+import {IRoutePoint} from '../interfaces';
+import {RoutePoint} from '../models';
+import {RequestsActions, RequestsActionTypes} from '../features/requests/ngrx';
 
 /**
  * Редуктор состояния приложения
@@ -8,7 +11,8 @@ import { ApplicationActions, ApplicationActionTypes } from './application.action
  */
 export function applicationReducer(
   state: IAppState = appInitialState,
-  action: ApplicationActions): IAppState {
+  action: ApplicationActions | RequestsActions
+): IAppState {
   switch (action.type) {
 
     /**
@@ -29,7 +33,8 @@ export function applicationReducer(
         ...state,
         isInitialized: true,
         isLoading: false,
-        date: new Date(action.payload.data.date)
+        date: new Date(action.payload.data.date),
+        routes: action.payload.data.routes.map((item: IRoutePoint) => new RoutePoint(item))
       };
     }
 
@@ -50,6 +55,30 @@ export function applicationReducer(
       return {
         ...state,
         viewMode: action.payload
+      };
+    }
+
+    /**
+     * Добавление новой заявки
+     */
+    case RequestsActionTypes.ADD_REQUEST: {
+      return {
+        ...state,
+        isLoading: true
+      };
+    }
+
+    case RequestsActionTypes.ADD_REQUEST_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        routes: action.payload.data.routes.length > 0
+          ? [
+            ...state.routes,
+            ...action.payload.data.routes
+              .map((route) => new RoutePoint(route))]
+              .sort((a, b) => a.title < b.title ? -1 : 1)
+          : state.routes
       };
     }
 

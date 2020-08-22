@@ -13,7 +13,8 @@
     <button mat-raised-button
             color="primary"
             class="pt-2 pb-2"
-            [disabled]="(isLoading$ | async) || addRequestForm.invalid">
+            [disabled]="(isLoading$ | async) || addRequestForm.invalid || request.route.length < 2"
+            (click)="addRequest()">
       Отправить
     </button>
   </div>
@@ -23,26 +24,21 @@
 
       <div class="col-6 h-100 d-flex flex-column justify-content-between">
 
-        <caption class="mb-3">Детали поездки</caption>
+        <caption class="w-100 mb-3">Детали поездки</caption>
 
         <!-- Start: Инициатор -->
-        <mat-form-field appearance="fill" class="w-100 pr-3" floatLabel="always">
-          <mat-label>Инициатор поездки</mat-label>
-          <!--<mat-icon matPrefix>face</mat-icon>-->
-          <input matInput formControlName="initiator">
-          <!--<mat-icon class="done" matSuffix>done</mat-icon>-->
-          <mat-hint align="end">Заполните, если инициатор поездки не Вы</mat-hint>
-        </mat-form-field>
+        <app-user-search class="pr-3"
+                         (select)="selectInitiator($event)"
+                         (clear)="clearInitiator()">
+        </app-user-search>
         <!-- End: Инициатор -->
 
         <!-- Start: Дата поездки -->
         <mat-form-field appearance="fill" class="w-100 mt-3 pr-3" floatLabel="always">
           <mat-label>Дата поездки</mat-label>
-          <!--<mat-icon class="clickable" matPrefix>today</mat-icon>-->
           <input matInput formControlName="date" [min]="(date$ | async)" [matDatepicker]="picker">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-          <!--<mat-icon class="done" matSuffix>done</mat-icon>-->
         </mat-form-field>
         <!-- End: Дата поездки -->
 
@@ -51,9 +47,7 @@
             <!-- Start: Время начала поездки -->
             <mat-form-field appearance="fill" class="w-100 mt-3" floatLabel="always">
               <mat-label>Отправление</mat-label>
-              <!--<mat-icon class="clickable" matPrefix>schedule</mat-icon>-->
               <input matInput type="time" formControlName="startTime">
-              <!--<mat-icon class="done" matSuffix>done</mat-icon>-->
             </mat-form-field>
             <!-- End: Время начала поездки -->
           </div>
@@ -62,9 +56,7 @@
             <!-- Start: Время окончания поездки -->
             <mat-form-field appearance="fill" class="w-100 mt-3" floatLabel="always">
               <mat-label>Прибытие</mat-label>
-              <!--<mat-icon class="clickable" matPrefix>schedule</mat-icon>-->
               <input matInput type="time" formControlName="endTime">
-              <!--<mat-icon class="done" matSuffix>done</mat-icon>-->
             </mat-form-field>
             <!-- End: Время окончания поездки -->
           </div>
@@ -75,10 +67,8 @@
             <!-- Start: О поездке -->
             <mat-form-field appearance="fill" class="w-100 mt-3 pr-3" floatLabel="always">
               <mat-label>О поездке</mat-label>
-              <!--<mat-icon matPrefix>notes</mat-icon>-->
               <textarea matInput rows="2" formControlName="description"></textarea>
-              <mat-hint align="end">Цель поездки, кол-во пассажиров и т.д.</mat-hint>
-              <!--<mat-icon class="done" matSuffix>done</mat-icon>-->
+              <mat-hint align="start">Цель поездки, кол-во пассажиров и т.д.</mat-hint>
             </mat-form-field>
             <!-- End: О поездке-->
           </div>
@@ -87,10 +77,13 @@
       </div>
 
       <div class="col-6 route h-100 d-flex flex-column">
-        <caption class="mb-3 pl-3">Маршрут</caption>
-
-        <app-route-typeahead></app-route-typeahead>
-
+        <div class="pl-3 pt-1">
+          <caption class="d-block w-100 mb-3">Маршрут поездки</caption>
+          <app-route-typeahead [routes]="routes$ | async" (select)="selectRoute($event)"></app-route-typeahead>
+        </div>
+        <div class="d-flex flex-grow-1 pl-3 pt-4">
+          <app-route-path [routes]="request.route" [extended]="true"></app-route-path>
+        </div>
       </div>
     </form>
   </div>

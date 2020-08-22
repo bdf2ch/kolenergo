@@ -1,0 +1,33 @@
+<div class="route-path">
+  <div class="markers">
+    <div class="line" *ngIf="routes && routes.length > 0"></div>
+    <div class="marker" *ngFor="let route of routes; first as isFirst; last as isLast"
+         [ngClass]="{'primary': isFirst === true || isLast === true, 'extended': extended === true}">
+      <div class="dot"></div>
+    </div>
+  </div>
+  <div class="labels">
+    <ng-container *ngIf="extended === true">
+      <div *ngFor="let route of routes; first as isFirst; last as isLast; index as $index">
+        <div class="label extended" [matMenuTriggerFor]="menu">{{route.title}}</div>
+        <mat-menu #menu="matMenu" xPosition="after" yPosition="below">
+          <button mat-menu-item *ngIf="!isFirst" (click)="moveUp($index)">
+            <mat-icon color="primary">arrow_upward</mat-icon>
+            <span>Переместить вверх</span>
+          </button>
+          <button mat-menu-item *ngIf="!isLast" (click)="moveDown($index)">
+            <mat-icon color="primary">arrow_downward</mat-icon>
+            <span>Переместить вниз</span>
+          </button>
+          <button mat-menu-item (click)="remove($index)">
+            <mat-icon color="warn">delete</mat-icon>
+            <span>Удалить</span>
+          </button>
+        </mat-menu>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="extended === false">
+      <div class="label" *ngFor="let route of routes">{{route.title}}</div>
+    </ng-container>
+  </div>
+</div>

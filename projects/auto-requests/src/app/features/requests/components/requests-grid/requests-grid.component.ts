@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+import { Request } from '../../../../models';
 
 @Component({
   selector: 'app-requests-grid',
@@ -6,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./requests-grid.component.less']
 })
 export class RequestsGridComponent implements OnInit {
+  @Input() requests: Request[];
 
   constructor() { }
 

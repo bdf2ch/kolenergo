@@ -1,14 +1,18 @@
 import { Action } from '@ngrx/store';
 
 import { IServerResponse } from '@kolenergo/core';
-import { IRequest } from '../../../interfaces';
+import { IRequest, IRoutePoint } from '../../../interfaces';
+import { Request } from '../../../models';
 
 /**
  * Типы действий раздела заявок на автотранспорт
  */
 export enum RequestsActionTypes {
   REQUESTS_LOAD_REQUESTS = '[Requests API] Load requests',
-  REQUESTS_LOAD_REQUESTS_SUCCESS = '[Requests API] Requests loaded successfully'
+  REQUESTS_LOAD_REQUESTS_SUCCESS = '[Requests API] Requests loaded successfully',
+  ADD_REQUEST = '[Requests API] Add request',
+  ADD_REQUEST_SUCCESS = '[Requests API] Request added successfully',
+  ADD_REQUEST_FAIL = '[Requests API] Failed to add request'
 }
 
 /**
@@ -26,6 +30,35 @@ export class RequestsLoadRequestsSuccess implements Action {
   constructor(public payload: IServerResponse<IRequest[]>) {}
 }
 
+/**
+ * Добавление новой заявки
+ */
+export class RequestsAddRequest implements Action {
+  readonly type = RequestsActionTypes.ADD_REQUEST;
+  constructor(public payload: Request) {}
+}
+
+/**
+ * Добавление новой заявки выполнено успешно
+ */
+export class RequestsAddRequestSuccess implements Action {
+  readonly type = RequestsActionTypes.ADD_REQUEST_SUCCESS;
+  constructor(public payload: IServerResponse<{request: IRequest, routes: IRoutePoint[]}>) {}
+}
+
+/**
+ * Не удалось добавить новую заявку
+ */
+export class RequestsAddRequestFail implements Action {
+  readonly type = RequestsActionTypes.ADD_REQUEST_FAIL;
+}
+
+/**
+ * Множество действий раздела управления заявками
+ */
 export type RequestsActions =
   RequestsLoadRequests |
-  RequestsLoadRequestsSuccess;
+  RequestsLoadRequestsSuccess |
+  RequestsAddRequest |
+  RequestsAddRequestSuccess |
+  RequestsAddRequestFail;

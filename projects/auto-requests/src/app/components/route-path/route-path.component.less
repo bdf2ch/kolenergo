@@ -1,0 +1,98 @@
+@marker-width: 18px;
+@marker-height: 18px;
+@marker-background-color: #FFCA28;
+@marker-border: 2.5px solid white;
+@marker-primary-width: 16px;
+@marker-primary-height: 16px;
+@marker-primary-border: 3px solid #9fa8da;
+@label-font-family: 'Open Sans Light';
+@label-font-size: 14px;
+@label-color: #263238;
+
+.route-path {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+
+  .markers {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .line {
+      z-index: 1;
+      position: absolute;
+      top: 5px;
+      bottom: 15px;
+      display: block;
+      width: 4px;
+      // height: 100%;
+      background: #FFCA28;
+    }
+
+    .marker {
+      z-index: 2;
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      width: @marker-width;
+      height: @marker-height;
+      margin-bottom: 5px;
+      // border: @marker-border;
+      border-radius: 50%;
+
+      &.extended {
+        margin-bottom: 12px;
+      }
+
+      &.primary {
+        border: @marker-primary-border;
+
+        .dot {
+          width: 8px;
+          height: 8px;
+          border: 2px solid white;
+        }
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        box-sizing: content-box;
+        background: #FFCA28;
+        border: 2px solid white;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    // height: 100%;
+
+    .label {
+      // height: 30px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      margin-left: 10px;
+      margin-bottom: 5px;
+      font-family: @label-font-family;
+      font-size: @label-font-size;
+      line-height: @label-font-size;
+      color: @label-color;
+
+      &.extended {
+        margin-bottom: 12px;
+        cursor: pointer;
+      }
+    }
+  }
+}

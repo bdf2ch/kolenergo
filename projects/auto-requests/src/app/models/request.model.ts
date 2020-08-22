@@ -61,7 +61,7 @@ export class Request implements IRequest {
     this.startTimeD = config ? new Date(config.startTime) : null;
     this.endTime = config ? config.endTime : null;
     this.endTimeD = config ? new Date(config.endTime) : null;
-    this.route = config ? config.route.map((item: IRoutePoint) => new RoutePoint(item)) : [];
+    this.route = config ? config.route.map((item: IRoutePoint) => new RoutePoint(item)) : new Array();
     this.description = config && config.description ? config.description : null;
     this.dateCreated = config ? config.dateCreated : null;
     this.dateCreatedD = config ? new Date(config.dateCreated) : null;
