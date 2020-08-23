@@ -1,45 +1,58 @@
 <div class="grid">
 
+  <div class="header">
+    <div class="column number-and-status">#</div>
+    <div class="column initiator-and-user">Инициатор / заказчик</div>
+    <div class="column description">О поездке</div>
+    <div class="column time-and-route">Время / маршрут</div>
+    <div class="column transport-and-driver">Транспорт / водитель</div>
+  </div>
+
   <div class="request" *ngFor="let request of requests">
 
     <!-- Start: Номер заявки и статус -->
-    <div class="data-block">
+    <div class="data-block number-and-status">
       <!--<div class="label">#349</div>-->
       <div class="details justify-content-between">
-        <span class="secondary-data">#1354</span>
-        <mat-icon class="mt-2 align-self-center">check_circle</mat-icon>
+        <span class="secondary-data">#{{request.id}}</span>
+        <mat-icon class="mt-2" [ngStyle]="{'color': request.status.color}">{{request.status.icon}}</mat-icon>
       </div>
     </div>
     <!-- End: Номер заявки и статус -->
 
     <!-- Start: Инициатор / заказчик -->
-    <div class="data-block">
+    <div class="data-block initiator-and-user">
       <!--<div class="label">Заказчик</div>-->
       <div class="details">
-        <span class="primary-data">Дмитрий Афанасьев</span>
+        <span class="primary-data">{{request.user.firstName + ' ' + request.user.lastName}}</span>
+        <span class="primary-data" *ngIf="request.initiator">
+          {{request.initiator.id ? request.initiator.firstName + ' ' + request.initiator.lastName : request.initiator}}
+        </span>
       </div>
     </div>
     <!-- End: Инициатор / заказчик -->
 
     <!-- Start: О поездке -->
-    <div class="data-block">
+    <div class="data-block description">
       <!--<div class="label">О поездке</div>-->
       <div class="details">
-        <span class="secondary-data">Участие в судебном заседании. Совещание в администрации.</span>
+        <span class="secondary-data">{{request.description}}</span>
       </div>
     </div>
     <!-- End: О поездке -->
 
     <!-- Start: Время / маршрут -->
-    <div class="data-block">
+    <div class="data-block time-and-route">
       <!--<div class="label">Длительность / маршрут</div>-->
       <div class="details">
         <div class="route-path">
           <div class="timeline">
-            <span class="time">13:30</span>
-            <span class="time">16:00</span>
+            <span class="time">{{request.startTimeD | date:'hh:mm'}}</span>
+            <span class="time">{{request.endTimeD | date: 'hh:mm'}}</span>
           </div>
           <div class="routes">
+            <app-route-path [routes]="request.route" [extended]="false"></app-route-path>
+            <!--
             <div class="route">
               <span class="marker primary"></span>
               <span class="label">МРСК Северо-Запада</span>
@@ -56,6 +69,7 @@
               <span class="marker primary"></span>
               <span class="label">МРСК Северо-Запада</span>
             </div>
+            -->
           </div>
         </div>
       </div>
@@ -63,7 +77,7 @@
     <!-- End: Время / маршрут -->
 
     <!-- Start: Автомобиль -->
-    <div class="data-block">
+    <div class="data-block transport-and-driver">
       <!--<div class="label">Автомобиль / водитель</div>-->
       <div class="details">
         <span class="primary-data">Wolkswagen Polo</span>

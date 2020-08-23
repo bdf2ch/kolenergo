@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import {RoutePoint} from '../../models';
+import {RoutePoint} from '../../../../models';
 
 @Component({
   selector: 'app-route-path',

@@ -3,6 +3,7 @@ import {IApplicationState} from '../../../../ngrx';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import { selectRequests } from '../../ngrx';
+import { Request } from '../../../../models';
 
 @Component({
   selector: 'app-requests-list',

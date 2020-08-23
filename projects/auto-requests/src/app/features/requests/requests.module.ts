@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material';
+import { MatIconModule, MatMenuModule } from '@angular/material';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -11,7 +11,7 @@ import { RequestsWrapperComponent } from './components/requests-wrapper/requests
 import { RequestsListComponent } from './components/requests-list/requests-list.component';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { RequestsGridComponent } from './components/requests-grid/requests-grid.component';
-
+import { RoutePathComponent } from './components/route-path/route-path.component';
 import { environment } from '../../../environments/environment';
 import { RequestsEffects, requestsReducer } from './ngrx';
 
@@ -21,7 +21,8 @@ import { RequestsEffects, requestsReducer } from './ngrx';
     RequestsWrapperComponent,
     RequestsListComponent,
     TabsComponent,
-    RequestsGridComponent
+    RequestsGridComponent,
+    RoutePathComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +30,11 @@ import { RequestsEffects, requestsReducer } from './ngrx';
     StoreModule.forFeature('requests', requestsReducer),
     EffectsModule.forFeature([RequestsEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    MatIconModule
+    MatIconModule,
+    MatMenuModule
+  ],
+  exports: [
+    RoutePathComponent
   ]
 })
 export class RequestsModule { }

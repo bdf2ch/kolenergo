@@ -1,9 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {LOCALE_ID, NgModule} from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MatMomentDateModule } from '@angular/material-moment-adapter';
+import { registerLocaleData } from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+
 import {
   MatSnackBarModule,
   MatSidenavModule,
@@ -26,6 +29,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AuthenticationModule, UserSearchModule } from '@kolenergo/core';
+import { RequestsModule } from './features/requests/requests.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ApplicationResource } from './resources/application.resource';
@@ -39,7 +43,6 @@ import { SignInModalComponent } from './components/sign-in-modal/sign-in-modal.c
 import { CurrentUserComponent } from './components/current-user/current-user.component';
 import { AddRequestDialogComponent } from './components/add-request-dialog/add-request-dialog.component';
 import { RouteTypeaheadComponent } from './components/route-typeahead/route-typeahead.component';
-import { RoutePathComponent } from './components/route-path/route-path.component';
 import { UserSearchComponent } from './components/user-search/user-search.component';
 
 export const MY_FORMATS = {
@@ -63,7 +66,6 @@ export const MY_FORMATS = {
     CurrentUserComponent,
     AddRequestDialogComponent,
     RouteTypeaheadComponent,
-    RoutePathComponent,
     UserSearchComponent
   ],
   imports: [
@@ -94,7 +96,8 @@ export const MY_FORMATS = {
     MatDatepickerModule,
     MatAutocompleteModule,
     MatMomentDateModule,
-    UserSearchModule.forRoot({apiUrl: 'http://127.0.0.1:3000', pathPrefix: '/users'})
+    UserSearchModule.forRoot({apiUrl: 'http://127.0.0.1:3000', pathPrefix: '/users'}),
+    RequestsModule
   ],
   providers: [
     ApplicationResource,
@@ -113,4 +116,8 @@ export const MY_FORMATS = {
     AppComponent
   ]
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    registerLocaleData(localeRu);
+  }
+}
