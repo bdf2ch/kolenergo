@@ -16,10 +16,8 @@ export class ApplicationService {
 
   /**
    * Получение с сервера данных для инициализации приложения
-   * @param periodStart - Начало периода
-   * @param periodEnd - Окончание периода
    */
-  init(periodStart: number, periodEnd: number): Observable<IServerResponse<IInitialData>> {
+  init(): Observable<IServerResponse<IInitialData>> {
     return from(this.resource.init(null, null))
       .pipe(
         map((response: IServerResponse<IInitialData>) => response)

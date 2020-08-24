@@ -4,14 +4,14 @@
 @request-min-height: 80px;
 @request-background-color: white;
 @label-font-family: 'Open Sans Regular';
-@label-font-size: 10px;
-@label-color: #90a4ae;
+@label-font-size: 13px;
+@label-color: #bdbdbd;
 @primary-data-font-family: 'Open Sans Regular';
 @primary-data-font-size: 14px;
-@primary-data-color: #455A64;
+@primary-data-color: #616161;
 @secondary-data-font-family: 'Open Sans Light';
-@secondary-data-font-size: 14px;
-@secondary-data-color: #90a4ae;
+@secondary-data-font-size: 13px;
+@secondary-data-color: #607d8b;
 @status-icon-width: 30px;
 @status-icon-height: 30px;
 @time-font-family: 'Open Sans Light';
@@ -25,71 +25,270 @@
 @route-marker-primary-background-color: #9fa8da;
 @route-label-font-family: 'Open Sans Light';
 @route-label-font-size: 14px;
-@route-label-color: #263238;
+@route-label-color: #bdbdbd;
 
 &:host {
   display: block;
   width: 100%;
 }
 
-.grid {
-  display: flex;
-  flex-direction: column;
+.request-item {
+  table-layout: auto;
+  width: 100%;
 
-  .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding-left: 20px;
-    padding-right: 20px;
-    align-items: center;
-    font-family: @header-font-family;
-    font-size: @header-font-size;
-    color: @header-color;
+  tbody {
+    background: @request-background-color;
 
-    .column {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-      align-items: center;
-      margin-right: 40px;
+    tr {
+      td {
+        padding: 20px;
 
-      &:last-of-type {
-        margin-right: 0px;
-      }
+        &.user {
+          vertical-align: top;
+        }
 
-      &.number-and-status {
-        width: 45px;
-      }
-
-      &.initiator-and-user {
-        min-width: 170px;
-      }
-
-      &.description {
-        flex: 1;
-      }
-
-      &.time-and-route {
-        flex-shrink: 0;
-        min-width: 200px;
-      }
-
-      &.transport-and-driver {
-        flex-shrink: 0;
-        width: 150px;
+        &.description {
+          width: 100%;
+          vertical-align: top;
+        }
       }
     }
   }
 
+}
+
+table {
+  table-layout: auto;
+  width: 100%;
+
+  thead {
+    font-family: @header-font-family;
+    font-size: @header-font-size;
+    font-weight: normal !important;
+    color: @header-color;
+
+    th {
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-bottom: 30px;
+    }
+  }
+
+  tbody {
+
+    tr {
+      min-height: @request-min-height;
+      margin-bottom: 8px;
+
+      // background: @request-background-color;
+      border-bottom: 1px solid #eeeeee;
+      border-radius: 4px;
+      cursor: pointer;
+
+      td {
+        // padding: 20px;
+        white-space:nowrap;
+
+        &.number-and-status {
+          width: 45px;
+        }
+
+        &.initiator-and-user {
+          min-width: 170px;
+        }
+
+        &.description {
+          width: 100%;
+        }
+
+        &.time-and-route {
+          width: 100%;
+          // min-width: 300px;
+        }
+
+        &.transport-and-driver {
+          // width: 150px;
+        }
+
+        .data-block {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: flex-start;
+          margin-right: 40px;
+          // padding: 20px;
+          box-sizing: border-box;
+
+          &:last-of-type {
+            padding-right: 0px;
+            margin-right: 0px;
+          }
+
+          &.number-and-status {
+            width: 45px;
+          }
+
+          &.initiator-and-user {
+            min-width: 170px;
+          }
+
+          &.description {
+            flex: 1;
+          }
+
+          &.time-and-route {
+            flex-shrink: 0;
+            min-width: 200px;
+          }
+
+          &.transport-and-driver {
+            flex-shrink: 0;
+            width: 150px;
+          }
+
+          .label {
+            font-family: @label-font-family;
+            font-size: @label-font-size;
+            color: @label-color;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+          }
+
+          .details {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            width: 100%;
+
+            &:nth-of-type(even) {
+              padding-top: 5px;
+              margin-top: 5px;
+              border-top: 1px dotted #e0e0e0;
+            }
+
+            .primary-data {
+              margin-bottom: 3px;
+              font-family: @primary-data-font-family;
+              font-size: @primary-data-font-size;
+              line-height: @primary-data-font-size;
+              color: @primary-data-color;
+              white-space: nowrap;
+            }
+
+            .secondary-data {
+              // margin-top: 5px;
+              font-family: @secondary-data-font-family;
+              font-size: @secondary-data-font-size;
+              line-height: @secondary-data-font-size + 2px;
+              color: @secondary-data-color;
+            }
+
+            .route-path {
+              display: flex;
+              flex-direction: row;
+
+              .timeline {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-right: 10px;
+                margin-bottom: 7px;
+                margin-top: 2px;
+
+                .time {
+                  font-family: @time-font-family;
+                  font-size: @time-font-size;
+                  line-height: @time-font-size;
+                  color: @time-color;
+                }
+              }
+
+              .routes {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                .route {
+                  display: flex;
+                  flex-direction: row;
+                  align-items: center;
+                  margin-top: 3px;
+                  margin-bottom: 3px;
+
+                  &:first-of-type {
+                    margin-top: 0px;
+                    .label {
+                      align-items: flex-start;
+                    }
+                  }
+
+                  &:last-of-type {
+                    margin-bottom: 0px;
+                    //.label {
+                    align-items: flex-end;
+                    //}
+                  }
+
+                  .marker {
+                    display: flex;
+                    width: @route-marker-width;
+                    height: @route-marker-height;
+                    margin-right: 10px;
+                    background: @route-marker-background-color;
+                    border: 3px solid white;
+                    border-radius: 50%;
+
+                    &.primary {
+                      width: @route-marker-primary-width;
+                      height: @route-marker-primary-height;
+                      background: transparent;
+                      border: 3px solid @route-marker-primary-background-color;
+                    }
+                  }
+
+                  .label {
+                    display: flex;
+                    height: @route-label-font-size;
+                    margin-bottom: 5px;
+                    font-family: @route-label-font-family;
+                    font-size: @route-label-font-size;
+                    line-height: @route-label-font-size;
+                    white-space: nowrap;
+                    color: @route-label-color;
+                    text-transform: none;
+                  }
+                }
+              }
+            }
+          }
+
+          .mat-icon {
+            width: @status-icon-width;
+            height: @status-icon-height;
+            font-size: @status-icon-width;
+            color: #4caf50;
+          }
+        }
+      }
+    }
+
+  }
+
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+
+
+
   .request {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
-    min-height: @request-min-height;
     margin-bottom: 8px;
-    padding: 20px;
-    background: @request-background-color;
+
     border-bottom: 1px solid #eeeeee;
     border-radius: 4px;
     cursor: pointer;
@@ -98,162 +297,222 @@
       margin-bottom: 0px;
     }
 
-    .data-block {
+    .header {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       justify-content: space-between;
-      align-items: flex-start;
-      margin-right: 40px;
-      box-sizing: border-box;
+      padding-left: 20px;
+      padding-right: 20px;
+      align-items: center;
+      font-family: @header-font-family;
+      font-size: @header-font-size;
+      color: @header-color;
 
-      &:last-of-type {
-        padding-right: 0px;
-        margin-right: 0px;
-      }
-
-      &.number-and-status {
-        width: 45px;
-      }
-
-      &.initiator-and-user {
-        min-width: 170px;
-      }
-
-      &.description {
-        flex: 1;
-      }
-
-      &.time-and-route {
-        flex-shrink: 0;
-        min-width: 200px;
-      }
-
-      &.transport-and-driver {
-        flex-shrink: 0;
-        width: 150px;
-      }
-
-      .label {
-        font-family: @label-font-family;
-        font-size: @label-font-size;
-        color: @label-color;
-        text-transform: uppercase;
-        margin-bottom: 10px;
-      }
-
-      .details {
+      .column {
         display: flex;
-        flex-direction: column;
-        flex: 1;
-        width: 100%;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        margin-right: 40px;
 
-        &:nth-of-type(even) {
-          padding-top: 5px;
-          margin-top: 5px;
-          border-top: 1px dotted #e0e0e0;
+        &:last-of-type {
+          margin-right: 0px;
         }
 
-        .primary-data {
-          margin-bottom: 3px;
-          font-family: @primary-data-font-family;
-          font-size: @primary-data-font-size;
-          line-height: @primary-data-font-size;
-          color: @primary-data-color;
-          white-space: nowrap;
+        &.number-and-status {
+          width: 45px;
         }
 
-        .secondary-data {
-          // margin-top: 5px;
-          font-family: @secondary-data-font-family;
-          font-size: @secondary-data-font-size;
-          line-height: @secondary-data-font-size + 2px;
-          color: @secondary-data-color;
+        &.initiator-and-user {
+          min-width: 170px;
         }
 
-        .route-path {
-          display: flex;
-          flex-direction: row;
-
-          .timeline {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-right: 10px;
-
-            .time {
-              font-family: @time-font-family;
-              font-size: @time-font-size;
-              line-height: @time-font-size;
-              color: @time-color;
-            }
-          }
-
-          .routes {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-
-            .route {
-              display: flex;
-              flex-direction: row;
-              align-items: center;
-              margin-top: 3px;
-              margin-bottom: 3px;
-
-              &:first-of-type {
-                margin-top: 0px;
-                .label {
-                  align-items: flex-start;
-                }
-              }
-
-              &:last-of-type {
-                margin-bottom: 0px;
-                //.label {
-                  align-items: flex-end;
-                //}
-              }
-
-              .marker {
-                display: flex;
-                width: @route-marker-width;
-                height: @route-marker-height;
-                margin-right: 10px;
-                background: @route-marker-background-color;
-                border: 3px solid white;
-                border-radius: 50%;
-
-                &.primary {
-                  width: @route-marker-primary-width;
-                  height: @route-marker-primary-height;
-                  background: transparent;
-                  border: 3px solid @route-marker-primary-background-color;
-                }
-              }
-
-              .label {
-                display: flex;
-                height: @route-label-font-size;
-                margin-bottom: 0px;
-                font-family: @route-label-font-family;
-                font-size: @route-label-font-size;
-                line-height: @route-label-font-size;
-                white-space: nowrap;
-                color: @route-label-color;
-                text-transform: none;
-              }
-            }
-          }
+        &.description {
+          flex: 1;
         }
-      }
 
-      .mat-icon {
-        width: @status-icon-width;
-        height: @status-icon-height;
-        font-size: @status-icon-width;
-        color: #4caf50;
+        &.time-and-route {
+          flex-shrink: 0;
+          min-width: 200px;
+        }
+
+        &.transport-and-driver {
+          flex-shrink: 0;
+          width: 150px;
+        }
       }
     }
+
+    .request-data {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      min-height: @request-min-height;
+      padding: 15px;
+      background: @request-background-color;
+
+      .data-block {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-right: 40px;
+        box-sizing: border-box;
+
+        &:last-of-type {
+          padding-right: 0px;
+          margin-right: 0px;
+        }
+
+        &.number-and-status {
+          width: 45px;
+        }
+
+        &.initiator-and-user {
+          min-width: 170px;
+        }
+
+        &.description {
+          flex: 1;
+        }
+
+        &.time-and-route {
+          flex-shrink: 0;
+          // min-width: 200px;
+          width: 350px;
+        }
+
+        &.transport-and-driver {
+          flex-shrink: 0;
+          width: 150px;
+        }
+
+        .label {
+          font-family: @label-font-family;
+          font-size: @label-font-size;
+          color: @label-color;
+          // text-transform: uppercase;
+          margin-bottom: 6px;
+        }
+
+        .details {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          width: 100%;
+
+          &:nth-of-type(even) {
+            padding-top: 3px;
+            margin-top: 3px;
+            // border-top: 1px dotted #e0e0e0;
+          }
+
+          .primary-data {
+            margin-bottom: 3px;
+            font-family: @primary-data-font-family;
+            font-size: @primary-data-font-size;
+            line-height: @primary-data-font-size;
+            color: @primary-data-color;
+            white-space: nowrap;
+          }
+
+          .secondary-data {
+            // margin-top: 5px;
+            font-family: @secondary-data-font-family;
+            font-size: @secondary-data-font-size;
+            line-height: @secondary-data-font-size + 2px;
+            color: @secondary-data-color;
+          }
+
+          .route-path {
+            display: flex;
+            flex-direction: row;
+
+            .timeline {
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              align-items: flex-start;
+              margin-right: 10px;
+              margin-bottom: 7px;
+              margin-top: 2px;
+
+              .time {
+                font-family: @time-font-family;
+                font-size: @time-font-size;
+                line-height: @time-font-size;
+                color: @time-color;
+              }
+            }
+
+            .routes {
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+
+              .route {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                margin-top: 3px;
+                margin-bottom: 3px;
+
+                &:first-of-type {
+                  margin-top: 0px;
+                  .label {
+                    align-items: flex-start;
+                  }
+                }
+
+                &:last-of-type {
+                  margin-bottom: 0px;
+                  //.label {
+                  align-items: flex-end;
+                  //}
+                }
+
+                .marker {
+                  display: flex;
+                  width: @route-marker-width;
+                  height: @route-marker-height;
+                  margin-right: 10px;
+                  background: @route-marker-background-color;
+                  border: 3px solid white;
+                  border-radius: 50%;
+
+                  &.primary {
+                    width: @route-marker-primary-width;
+                    height: @route-marker-primary-height;
+                    background: transparent;
+                    border: 3px solid @route-marker-primary-background-color;
+                  }
+                }
+
+                .label {
+                  display: flex;
+                  height: @route-label-font-size;
+                  margin-bottom: 0px;
+                  font-family: @route-label-font-family;
+                  font-size: @route-label-font-size;
+                  line-height: @route-label-font-size;
+                  white-space: nowrap;
+                  color: @route-label-color;
+                  text-transform: none;
+                }
+              }
+            }
+          }
+        }
+
+        .mat-icon {
+          width: @status-icon-width;
+          height: @status-icon-height;
+          font-size: @status-icon-width;
+          color: #4caf50;
+        }
+      }
+    }
+
+
   }
 }

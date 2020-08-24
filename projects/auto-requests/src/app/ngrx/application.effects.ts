@@ -35,10 +35,7 @@ export class ApplicationEffects {
   @Effect()
   loadInitialData$ = this.actions$.pipe(
     ofType(ApplicationActionTypes.APPLICATION_LOAD_INITIAL_DATA),
-    // withLatestFrom(
-    //   this.store.pipe(select(selectUser))
-    // ),
-    switchMap((action) => this.application.init(0, 0)
+    switchMap((action) => this.application.init()
       .pipe(
         map((response: IServerResponse<IInitialData>) => new ApplicationLoadInitialDataSuccess(response)),
         catchError((error: any) => {

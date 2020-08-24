@@ -24,6 +24,7 @@ export class AddRequestDialogComponent implements OnInit {
   date: Date;
   routes$: Observable<RoutePoint[]>;
   request: Request;
+  routes: RoutePoint[];
   addRequestForm: FormGroup;
 
   constructor(
@@ -37,6 +38,7 @@ export class AddRequestDialogComponent implements OnInit {
     });
     this.routes$ = this.store.pipe(select(selectRoutes));
     this.request = new Request();
+    this.routes = [];
     const minutes = moment().add(15, 'minutes').minutes();
     this.request.startTimeD = moment()
       .add(15, 'minutes')
@@ -83,8 +85,9 @@ export class AddRequestDialogComponent implements OnInit {
    * Выбор элемента маршрута
    * @param route - Элемент маршрута
    */
-  selectRoute(route: RoutePoint) {
-    this.request.route.push(route);
+  selectRoute(route: RoutePoint | string) {
+    // this.routes.push(route);
+    this.request.route.push(route as RoutePoint);
   }
 
   /**
@@ -100,6 +103,7 @@ export class AddRequestDialogComponent implements OnInit {
       .minutes(parseInt((this.addRequestForm.controls.endTime.value as string).substr(3, 2), 0))
       .unix() * 1000;
     this.request.description = this.addRequestForm.controls.description.value;
+    this.request.route = this.routes.map((route: RoutePoint) => route.title);
     console.log(this.request);
     this.store.dispatch(new RequestsAddRequest(this.request));
   }

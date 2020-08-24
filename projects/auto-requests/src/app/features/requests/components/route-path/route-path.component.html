@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="labels">
-    <ng-container *ngIf="extended === true">
+    <ng-container *ngIf="extended">
       <div *ngFor="let route of routes; first as isFirst; last as isLast; index as $index">
         <div class="label extended" [matMenuTriggerFor]="menu">{{route.title}}</div>
         <mat-menu #menu="matMenu" xPosition="after" yPosition="below">
@@ -26,8 +26,8 @@
         </mat-menu>
       </div>
     </ng-container>
-    <ng-container *ngIf="extended === false">
-      <div class="label" *ngFor="let route of routes">{{route.title}}</div>
+    <ng-container *ngIf="!extended">
+      <div class="label" *ngFor="let route of routes">{{route.id ? route.title : route}}</div>
     </ng-container>
   </div>
 </div>

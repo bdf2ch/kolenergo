@@ -9,7 +9,7 @@ import {RoutePoint} from '../../../../models';
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RoutePathComponent implements OnInit {
-  @Input() routes: RoutePoint[];
+  @Input() routes: RoutePoint[] | string[];
   @Input() extended: boolean;
 
   constructor() {}
