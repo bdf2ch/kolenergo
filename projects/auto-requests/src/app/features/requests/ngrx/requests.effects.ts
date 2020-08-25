@@ -6,19 +6,20 @@ import { select, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { EMPTY, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import * as moment from 'moment';
 
 import { IServerResponse } from '@kolenergo/core';
 import {
   RequestsActionTypes,
   RequestsAddRequest,
   RequestsAddRequestFail,
-  RequestsAddRequestSuccess
+  RequestsAddRequestSuccess, RequestsLoadRequests, RequestsLoadRequestsSuccess
 } from './requests.actions';
-import {IRequest, IRoutePoint} from '../../../interfaces';
-import { Request } from '../../../models';
-import { IApplicationState } from '../../../ngrx';
+import { IRequest, IRoutePoint } from '../../../interfaces';
+import { IApplicationState } from '../../../ngrx/application.state';
+import { selectSelectedDate } from '../../../ngrx/selectors';
 import { RequestsService } from '../../../services/requests.service';
-import { selectNewRequest } from './requests.selectors';
+import { ApplicationActionTypes } from '../../../ngrx';
 
 @Injectable()
 export class RequestsEffects {
@@ -31,11 +32,36 @@ export class RequestsEffects {
   ) {}
 
   @Effect()
+  selectDate$ = this.actions$.pipe(
+    ofType(ApplicationActionTypes.APPLICATION_SELECT_DATE),
+    mergeMap(() => of(new RequestsLoadRequests()))
+  );
+
+  @Effect()
+  loadRequests$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.REQUESTS_LOAD_REQUESTS),
+    withLatestFrom(this.store.pipe(select(selectSelectedDate))),
+    mergeMap(([action, date]) => this.requests.get(
+      moment(date as Date).format('DD.MM.YYYY'), 0, 0, 0, 0, null)
+      .pipe(
+        map((response: IServerResponse<IRequest[]>) => new RequestsLoadRequestsSuccess(response))
+      )
+    )
+  );
+
+  @Effect()
   addRequest$ = this.actions$.pipe(
     ofType(RequestsActionTypes.ADD_REQUEST),
     mergeMap((action) => this.requests.add((action as RequestsAddRequest).payload)
       .pipe(
-        map((response: IServerResponse<{request: IRequest, routes: IRoutePoint[]}>) => new RequestsAddRequestSuccess(response)),
+        map((response: IServerResponse<{
+          requests: IRequest[],
+          userRequests: IRequest[],
+          calendarRequests: {date: string, count: number}[],
+          routes: IRoutePoint[]
+        }>) => {
+          return new RequestsAddRequestSuccess(response);
+        }),
         catchError(() => {
           return of(new RequestsAddRequestFail());
         })

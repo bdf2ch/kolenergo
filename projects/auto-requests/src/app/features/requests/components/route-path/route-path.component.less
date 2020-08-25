@@ -9,10 +9,16 @@
 @label-font-size: 14px;
 @label-color: #263238;
 
+:host {
+  display: block;
+  // height: 100%;
+}
+
 .route-path {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  height: 100%;
 
 
   .markers {
@@ -20,6 +26,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
 
     .line {
       z-index: 1;
@@ -44,6 +51,10 @@
       margin-bottom: 5px;
       // border: @marker-border;
       border-radius: 50%;
+
+      &:last-of-type {
+        margin-bottom: 0px;
+      }
 
       &.extended {
         margin-bottom: 12px;
@@ -88,6 +99,10 @@
       font-size: @label-font-size;
       line-height: @label-font-size;
       color: @label-color;
+
+      &:last-of-type {
+        margin-bottom: 2px;
+      }
 
       &.extended {
         margin-bottom: 12px;

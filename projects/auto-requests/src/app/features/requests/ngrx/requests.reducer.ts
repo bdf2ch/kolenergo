@@ -1,8 +1,8 @@
-import { IRequestsState, requestsInitialState } from './requests.state';
-import { RequestsActions, RequestsActionTypes } from './requests.actions';
-import { ApplicationActions, ApplicationActionTypes } from '../../../ngrx';
-import { IRequest } from '../../../interfaces';
-import { Request } from '../../../models';
+import {IRequestsState, requestsInitialState} from './requests.state';
+import {RequestsActions, RequestsActionTypes} from './requests.actions';
+import {ApplicationActions, ApplicationActionTypes} from '../../../ngrx';
+import {IRequest} from '../../../interfaces';
+import {Request} from '../../../models';
 
 export function requestsReducer(
   state: IRequestsState = requestsInitialState,
@@ -10,16 +10,46 @@ export function requestsReducer(
 ): IRequestsState {
   switch (action.type) {
 
+    /**
+     * Загрузка данных для инициализации прилрожения выполнена успешно
+     */
     case ApplicationActionTypes.APPLICATION_LOAD_INITIAL_DATA_SUCCESS: {
       return {
         ...state,
-        requests: action.payload.data.requests.map((item: IRequest) => new Request(item))
+        requests: action.payload.data.requests.map((item: IRequest) => new Request(item)),
+        userRequests: action.payload.data.userRequests.map((item: IRequest) => new Request(item)),
+        calendarRequests: action.payload.data.calendarRequests
       };
     }
 
+    /**
+     * Загрузка заявок
+     */
     case RequestsActionTypes.REQUESTS_LOAD_REQUESTS: {
       return {
         ...state
+      };
+    }
+
+    /**
+     * Загрузка заявок выполнена успешно
+     */
+    case RequestsActionTypes.REQUESTS_LOAD_REQUESTS_SUCCESS: {
+      return {
+        ...state,
+        requests: action.payload.data.map((item: IRequest) => new Request(item))
+      };
+    }
+
+    /**
+     * Новая заявка успешно добавлена
+     */
+    case RequestsActionTypes.ADD_REQUEST_SUCCESS: {
+      return {
+        ...state,
+        requests: action.payload.data.requests.map((item: IRequest) => new Request(item)),
+        userRequests: action.payload.data.userRequests.map((item: IRequest) => new Request(item)),
+        calendarRequests: action.payload.data.calendarRequests
       };
     }
 

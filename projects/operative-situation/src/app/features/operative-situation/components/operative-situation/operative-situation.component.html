@@ -67,7 +67,7 @@
             <span class="application-title d-none d-md-flex" *ngIf="(selectedTime$ | async)">, {{(selectedTime$ | async)?.time}}</span>
             <!--
             <span class="app-subtitle">
-              на {{(date$| async) | date:"dd.MM.yyyy"}}
+              на {{(selectedDate$$| async) | selectedDate$:"dd.MM.yyyy"}}
               <span *ngIf="selectedTime$ | async">, {{(selectedTime$ | async)?.time}} </span>
               <span *ngIf="selectedCompany$ | async">в {{(selectedCompany$ | async)?.shortTitle}}</span>
               <span *ngIf="selectedDivision$ | async">&nbsp;&rarr;&nbsp; {{(selectedDivision$ | async)?.title}}</span>

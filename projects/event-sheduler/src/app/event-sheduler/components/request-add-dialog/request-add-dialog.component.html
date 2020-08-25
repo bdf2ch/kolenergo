@@ -119,7 +119,7 @@
                  required>
           <mat-icon matPrefix class="prefix" color="primary">calendar_today</mat-icon>
           <mat-icon matSuffix class="valid-field" *ngIf="addRequestFormDuration.get('date').valid">done</mat-icon>
-          <!--<mat-datepicker-toggle matPrefix [for]="date"></mat-datepicker-toggle>-->
+          <!--<mat-datepicker-toggle matPrefix [for]="selectedDate$"></mat-datepicker-toggle>-->
           <mat-datepicker #date></mat-datepicker>
           <mat-error *ngIf="!request.date">Вы не указали дату проведения мероприятия</mat-error>
         </mat-form-field>

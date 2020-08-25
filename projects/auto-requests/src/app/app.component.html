@@ -6,7 +6,11 @@
     </div>
     <div class="content pt-5 d-flex flex-column justify-content-between">
       <div class="app-calendar pl-5 pr-5 pb-5">
-        <app-calendar [date]="date" [selected]="date"></app-calendar>
+        <app-calendar [date]="date$ | async"
+                      [selected]="selectedDate$ | async"
+                      [requests]="calendarRequests$ | async"
+                      (select)="selectDate($event)">
+        </app-calendar>
       </div>
 
       <div class="app-controls p-5">

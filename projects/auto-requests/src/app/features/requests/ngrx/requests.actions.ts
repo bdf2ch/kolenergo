@@ -43,7 +43,14 @@ export class RequestsAddRequest implements Action {
  */
 export class RequestsAddRequestSuccess implements Action {
   readonly type = RequestsActionTypes.ADD_REQUEST_SUCCESS;
-  constructor(public payload: IServerResponse<{request: IRequest, routes: IRoutePoint[]}>) {}
+  constructor(
+    public payload: IServerResponse<{
+      requests: IRequest[],
+      userRequests: IRequest[],
+      calendarRequests: {date: string, count: number}[],
+      routes: IRoutePoint[]
+    }>
+  ) {}
 }
 
 /**

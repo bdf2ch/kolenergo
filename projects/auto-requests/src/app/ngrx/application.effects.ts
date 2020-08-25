@@ -11,7 +11,7 @@ import {actionTypes, AuthenticationSignInSuccess, IServerResponse, User} from '@
 import { ApplicationService } from '../services/application.service';
 import { IApplicationState  } from './application.state';
 import {
-  ApplicationActionTypes,
+  ApplicationActionTypes, ApplicationLoadInitialDataFail,
   ApplicationLoadInitialDataSuccess,
   ApplicationOpenAddRequestDialog,
   ApplicationOpenSignInDialog
@@ -39,16 +39,23 @@ export class ApplicationEffects {
       .pipe(
         map((response: IServerResponse<IInitialData>) => new ApplicationLoadInitialDataSuccess(response)),
         catchError((error: any) => {
-          console.error('error occurred: ', error);
-          this.snackBar.open('При загрузке данных с сервера произошла ошибка', 'Закрыть', {
-            verticalPosition: 'bottom',
-            horizontalPosition: 'right',
-            duration: 3000
-          });
-          return EMPTY;
+          return of(new ApplicationLoadInitialDataFail());
         })
       )
     )
+  );
+
+  @Effect()
+  loadInitialDataFail$ = this.actions$.pipe(
+    ofType(ApplicationActionTypes.APPLICATION_LOAD_INITIAL_DATA_FAIL),
+    tap(() => {
+      this.snackBar.open('При загрузке данных с сервера произошла ошибка', null, {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+        duration: 3000
+      });
+    }),
+    mergeMap(() => EMPTY)
   );
 
   @Effect()

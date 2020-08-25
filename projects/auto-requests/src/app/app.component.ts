@@ -6,14 +6,15 @@ import { Observable } from 'rxjs';
 import { IUser } from '@kolenergo/core';
 import {
   ApplicationOpenAddRequestDialog,
-  ApplicationOpenSignInDialog,
+  ApplicationOpenSignInDialog, ApplicationSelectDate,
   ApplicationSelectViewMode,
-  IApplicationState,
-  selectIsLoading,
+  IApplicationState, selectDate,
+  selectIsLoading, selectSelectedDate,
   selectUser,
   selectViewMode
 } from './ngrx';
 import { EViewMode } from './enums';
+import {selectCalendarRequests} from './features/requests/ngrx';
 
 @Component({
   selector: 'app-root',
@@ -25,13 +26,17 @@ export class AppComponent {
   user$: Observable<IUser>;
   viewMode$: Observable<EViewMode>;
   viewModes = EViewMode;
-  date: Date;
+  date$: Observable<Date>;
+  selectedDate$: Observable<Date>;
+  calendarRequests$: Observable<{date: string, count: number}[]>;
 
   constructor(private readonly store: Store<IApplicationState>) {
-    this.date = new Date();
+    this.date$ = this.store.pipe(select(selectDate));
+    this.selectedDate$ = this.store.pipe(select(selectSelectedDate));
     this.idLoading$ = this.store.pipe(select(selectIsLoading));
     this.user$ = this.store.pipe(select(selectUser));
     this.viewMode$ = this.store.pipe(select(selectViewMode));
+    this.calendarRequests$ = this.store.pipe(select(selectCalendarRequests));
   }
 
   /**
@@ -54,5 +59,13 @@ export class AppComponent {
    */
   openAddRequestDialog() {
     this.store.dispatch(new ApplicationOpenAddRequestDialog());
+  }
+
+  /**
+   * Выбор даты
+   * @param date - Выбранная дата
+   */
+  selectDate(date: Date) {
+    this.store.dispatch(new ApplicationSelectDate(date));
   }
 }

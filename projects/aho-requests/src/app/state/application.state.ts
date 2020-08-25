@@ -48,8 +48,8 @@ export const ahoInitialState: IAhoState = {
   requestRejectReasons: [],
   employees: [],
   filters: new FilterManager([
-    new SearchFilter<Date>('start-date', 'Начальная дата', null, (value: Date) => `с ${moment(value).format('DD.MM.YYYY')}`),
-    new SearchFilter<Date>('end-date', 'Конечная дата', null, (value: Date) => `по ${moment(value).format('DD.MM.YYYY')}`),
+    new SearchFilter<Date>('start-selectedDate$', 'Начальная дата', null, (value: Date) => `с ${moment(value).format('DD.MM.YYYY')}`),
+    new SearchFilter<Date>('end-selectedDate$', 'Конечная дата', null, (value: Date) => `по ${moment(value).format('DD.MM.YYYY')}`),
     new SearchFilter<User>('request-employee', 'Исполнитель', null, (value: User) => `${value.firstName} ${value.lastName}`, null),
     new SearchFilter<AhoRequestType>('request-type', 'Категория заявки', null, (value: AhoRequestType) => value.title, null),
     new SearchFilter<AhoRequestStatus>('request-status', 'Статус заявки', null, (value: AhoRequestStatus) => value.title, null)

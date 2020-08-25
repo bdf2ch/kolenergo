@@ -20,6 +20,14 @@
 @day-line-height: 25px;
 @day-color: #bdbdbd;
 @day-color-active: #263238;
+@day-color-active-selected: #bf360c;
+@notification-width: 24px;
+@notification-height: 24px;
+@notification-font-family: 'Open Sans Semi bold';
+@notification-font-size: 10px;
+@notification-color: #263238;
+@notification-background-color: #FFCA28;
+@notification-border: 4px solid #ECEFF1;
 
 .calendar {
   display: flex;
@@ -84,6 +92,7 @@
     flex-wrap: wrap;
 
     .day {
+      position: relative;
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -110,11 +119,31 @@
 
       &.selected {
         font-family: @day-font-family-selected;
+        color: @day-color-active-selected;
         background: @day-background-color-selected;
 
         &:hover {
           background: @day-background-color-selected;
         }
+      }
+
+      .notification {
+        position: absolute;
+        top: -10px;
+        right: -6px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: @notification-width;
+        height: @notification-height;
+        font-family: @notification-font-family;
+        font-size: @notification-font-size;
+        line-height: @notification-font-size;
+        color: @notification-color !important;
+        background: @notification-background-color;
+        border: @notification-border;
+        border-radius: 50%;
       }
     }
   }

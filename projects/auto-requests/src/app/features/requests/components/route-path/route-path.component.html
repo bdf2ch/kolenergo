@@ -1,4 +1,4 @@
-<div class="route-path">
+<div class="route-path" [ngStyle]="{'height': extended ? 'auto' : '100%'}">
   <div class="markers">
     <div class="line" *ngIf="routes && routes.length > 0"></div>
     <div class="marker" *ngFor="let route of routes; first as isFirst; last as isLast"

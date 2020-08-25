@@ -6,7 +6,7 @@
     <mat-form-field class="w-100">
       <input matInput
              [matDatepicker]="startDate"
-             [value]="(filters$ | async).getFilterById('start-date').getValue()"
+             [value]="(filters$ | async).getFilterById('start-selectedDate$').getValue()"
              [min]="minStartDate"
              [max]="maxStartDate"
              (dateChange)="startDateChange($event)"
@@ -22,7 +22,7 @@
     <mat-form-field class="w-100">
       <input matInput
              [matDatepicker]="endDate"
-             [value]="(filters$ | async).getFilterById('end-date').getValue()"
+             [value]="(filters$ | async).getFilterById('end-selectedDate$').getValue()"
              [min]="minEndDate"
              [max]="maxEndDate"
              (dateChange)="endDateChange($event)"

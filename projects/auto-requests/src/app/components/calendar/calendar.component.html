@@ -2,7 +2,7 @@
 
   <!-- Start: Текущий месяц, элементы управления -->
   <div class="month-selector">
-    <div class="month">{{startOfMonth.format('MMMM YYYY')}}</div>
+    <div class="month">{{startOfMonth?.format('MMMM YYYY')}}</div>
     <div class="controls">
       <span class="control" (click)="prevMonth()">
         <mat-icon>chevron_left</mat-icon>
@@ -17,8 +17,10 @@
   <div class="month-content">
     <div class="day"
          *ngFor="let day of days"
-         [ngClass]="{'active': day.isActive === true, 'selected': day.date.isSame(selected, 'day')}">
+         [ngClass]="{'active': day.isActive === true, 'selected': day.date.isSame(selected, 'day')}"
+         (click)="selectDate(day.date)">
       {{day.date.date()}}
+      <span class="notification" *ngIf="day.notification">{{day.notification}}</span>
     </div>
   </div>
 </div>

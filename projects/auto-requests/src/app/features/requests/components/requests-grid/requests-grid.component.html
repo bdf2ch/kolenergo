@@ -1,213 +1,33 @@
-<div class="grid">
-
-  <table>
-    <!--
-    <thead>
-      <th class="number-and-status">#</th>
-      <th class="initiator-and-user">Инициатор / заказчик</th>
-      <th class="description">О поездке</th>
-      <th class="time-and-route">Время / маршрут</th>
-      <th class="transport-and-driver">Транспорт / водитель</th>
-    </thead>
-    -->
-    <tbody>
-    <tr *ngFor="let request of requests">
-      <td>
-        <table class="request-item">
-          <thead>
-            <th class="number-and-status">#</th>
-            <th class="initiator-and-user">Инициатор / заказчик</th>
-            <th class="description">О поездке</th>
-            <th class="time-and-route">Время / маршрут</th>
-            <th class="transport-and-driver">Транспорт / водитель</th>
-          </thead>
-          <tbody>
-            <tr>
-              <!-- Start: Номер заявки -->
-              <td>
-                <div class="data-block number-and-status">
-                  <div class="details justify-content-between">
-                    <span class="secondary-data">#{{request.id}}</span>
-                  </div>
-                </div>
-              </td>
-              <!-- End: Номер заявки -->
-
-              <td rowspan="1" *ngIf="request.initiator">initiator</td>
-              <td class="user" rowspan="2" *ngIf="!request.initiator">
-                <div class="details">
-                  <span class="primary-data">{{request.user.firstName + ' ' + request.user.lastName}}</span>
-                </div>
-              </td>
-
-              <td class="description" rowspan="2">
-                <div class="data-block">
-                  <div class="details">
-                    <span class="secondary-data">{{request.description}}</span>
-                  </div>
-                </div>
-              </td>
-
-              <td rowspan="2">
-                <div class="data-block time-and-route">
-                  <div class="details">
-                    <div class="route-path">
-                      <div class="timeline">
-                        <span class="time">{{request.startTimeD | date:'hh:mm'}}</span>
-                        <span class="time">{{request.endTimeD | date: 'hh:mm'}}</span>
-                      </div>
-                      <div class="routes">
-                        <app-route-path [routes]="request.route" [extended]="false"></app-route-path>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
-
-              <td>
-                <div class="data-block transport-and-driver">
-                  <div class="details">
-                    <span class="primary-data">Wolkswagen Polo</span>
-                    <span class="secondary-data">Т561МХ</span>
-                  </div>
-                </div>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <div class="data-block number-and-status">
-                  <div class="details">
-                    <mat-icon class="mt-2" [ngStyle]="{'color': request.status.color}">{{request.status.icon}}</mat-icon>
-                  </div>
-                </div>
-              </td>
-
-
-              <td *ngIf="request.initiator">user</td>
-
-              <td>
-                <div class="data-block transport-and-driver">
-                  <div class="details">
-                    <span class="primary-data">Микка Хаккинен</span>
-                    <span class="secondary-data">+7(921)555-66-77</span>
-                  </div>
-                </div>
-              </td>
-
-            </tr>
-          </tbody>
-        </table>
-      </td>
-
-
-      <!--
-      <td class="number-and-status">
-        <div class="data-block number-and-status">
-          <div class="details justify-content-between">
-            <span class="secondary-data">#{{request.id}}</span>
-            <mat-icon class="mt-2" [ngStyle]="{'color': request.status.color}">{{request.status.icon}}</mat-icon>
-          </div>
-        </div>
-      </td>
-
-      <td class="initiator-and-user d-flex flex-column justify-content-between align-items-start">
-        <div class="details">
-          <span class="primary-data">{{request.user.firstName + ' ' + request.user.lastName}}</span>
-          <span class="primary-data" *ngIf="request.initiator">
-            {{request.initiator.id ? request.initiator.firstName + ' ' + request.initiator.lastName : request.initiator}}
-          </span>
-        </div>
-      </td>
-
-      <td class="description">
-        <div class="data-block description">
-          <div class="details">
-            <span class="secondary-data">{{request.description}}</span>
-          </div>
-        </div>
-      </td>
-
-      <td class="time-and-route">
-        <div class="data-block time-and-route">
-          <div class="details">
-            <div class="route-path">
-              <div class="timeline">
-                <span class="time">{{request.startTimeD | date:'hh:mm'}}</span>
-                <span class="time">{{request.endTimeD | date: 'hh:mm'}}</span>
-              </div>
-              <div class="routes">
-                <app-route-path [routes]="request.route" [extended]="false"></app-route-path>
-              </div>
-            </div>
-          </div>
-        </div>
-      </td>
-
-      <td class="transport-and-driver">
-        <div class="data-block transport-and-driver">
-          <div class="details">
-            <span class="primary-data">Wolkswagen Polo</span>
-            <span class="secondary-data">Т561МХ</span>
-          </div>
-          <div class="details">
-            <span class="primary-data">Микка Хаккинен</span>
-            <span class="secondary-data">+7(921)555-66-77</span>
-          </div>
-        </div>
-      </td>
-      -->
-
-    </tr>
-    </tbody>
-  </table>
-
-
-<!--
-  <div class="header">
-    <div class="column number-and-status">#</div>
-    <div class="column initiator-and-user">Инициатор / заказчик</div>
-    <div class="column description">О поездке</div>
-    <div class="column time-and-route">Время / маршрут</div>
-    <div class="column transport-and-driver">Транспорт / водитель</div>
-  </div>
-  -->
-
-
-
+<div class="grid pb-5">
 
 
   <div class="request" *ngFor="let request of requests, index as index$">
 
-    <div class="header" *ngIf="index$ === 0">
-      <div class="column number-and-status">#</div>
-      <div class="column initiator-and-user">Инициатор / заказчик</div>
-      <div class="column description">О поездке</div>
-      <div class="column time-and-route">Время / маршрут</div>
-      <div class="column transport-and-driver">Транспорт / водитель</div>
-    </div>
-
-    <div class="request-data">
       <!-- Start: Номер заявки и статус -->
-      <div class="data-block number-and-status">
+      <div class="data-block number-and-status" [ngStyle]="{'background': request.status.foregroundColor}">
         <!--<div class="label">#349</div>-->
-        <div class="details justify-content-between">
+        <div class="details justify-content-between align-items-center">
           <span class="secondary-data">#{{request.id}}</span>
-          <mat-icon class="mt-2" [ngStyle]="{'color': request.status.color}">{{request.status.icon}}</mat-icon>
+          <mat-icon class="mt-2"
+                    [ngStyle]="{'color': request.status.color}"
+                    matTooltip="{{request.status.title}}"
+                    matTooltipPosition="above">
+            {{request.status.icon}}
+          </mat-icon>
         </div>
       </div>
       <!-- End: Номер заявки и статус -->
 
       <!-- Start: Инициатор / заказчик -->
       <div class="data-block initiator-and-user">
-        <div class="details h-50 justify-content-start" *ngIf="request.initiator">
+        <div class="details" *ngIf="request.initiator">
           <div class="label">Инициатор</div>
           <span class="primary-data">
             {{request.initiator.id ? request.initiator.firstName + ' ' + request.initiator.lastName : request.initiator}}
           </span>
         </div>
 
-        <div class="details h-50 justify-content-end" [ngClass]="{'justify-content-start': !request.initiator, 'justify-content-end': request.initiator}">
+        <div class="details d-flex flex-column justify-content-end" [ngClass]="{'justify-content-end': request.initiator}">
           <div class="label">Заказчик</div>
           <span class="primary-data">{{request.user.firstName + ' ' + request.user.lastName}}</span>
         </div>
@@ -217,9 +37,14 @@
       <!-- Start: О поездке -->
       <div class="data-block description">
         <!--<div class="label">О поездке</div>-->
-        <div class="details">
+        <div class="details mb-1">
+          <div class="label">Дата и время поездки</div>
+          <span class="primary-data">{{request.startTimeD | date:'dd MMM hh:mm'}} &mdash; {{request.endTimeD | date:'hh:mm'}}</span>
+        </div>
+
+        <div class="details d-flex flex-column justify-content-end">
           <div class="label">О поездке</div>
-          <span class="primary-data">{{request.description}}</span>
+          <span class="secondary-data">{{request.description}}</span>
         </div>
       </div>
       <!-- End: О поездке -->
@@ -227,8 +52,8 @@
       <!-- Start: Время / маршрут -->
       <div class="data-block time-and-route">
         <!--<div class="label">Длительность / маршрут</div>-->
-        <div class="details">
-          <div class="label">Время и маршрут поездки</div>
+        <div class="details h-100">
+          <div class="label">Маршрут поездки</div>
           <div class="route-path">
             <div class="timeline">
               <span class="time">{{request.startTimeD | date:'hh:mm'}}</span>
@@ -236,24 +61,6 @@
             </div>
             <div class="routes">
               <app-route-path [routes]="request.route" [extended]="false"></app-route-path>
-              <!--
-              <div class="route">
-                <span class="marker primary"></span>
-                <span class="label">МРСК Северо-Запада</span>
-              </div>
-              <div class="route">
-                <span class="marker"></span>
-                <span class="label">Арбитражный суд</span>
-              </div>
-              <div class="route">
-                <span class="marker"></span>
-                <span class="label">Администрация</span>
-              </div>
-              <div class="route">
-                <span class="marker primary"></span>
-                <span class="label">МРСК Северо-Запада</span>
-              </div>
-              -->
             </div>
           </div>
         </div>
@@ -265,31 +72,22 @@
         <!--<div class="label">Автомобиль / водитель</div>-->
         <div class="details mb-1">
           <div class="label">Транспорт</div>
-          <span class="primary-data">Wolkswagen Polo</span>
-          <span class="secondary-data">Т561МХ</span>
+          <ng-container *ngIf="request.transport">
+            <span class="primary-data">{{request.transport.model}}</span>
+            <span class="secondary-data">{{request.transport.registrationNumber}}</span>
+          </ng-container>
+          <span class="primary-data empty" *ngIf="!request.transport">Не назначен</span>
         </div>
-        <div class="details">
+        <div class="details d-flex flex-column justify-content-end">
           <div class="label">Водитель</div>
-          <span class="primary-data">Микка Хаккинен</span>
-          <span class="secondary-data">+7(921)555-66-77</span>
+          <ng-container *ngIf="request.driver">
+            <span class="primary-data">{{request.driver.firstName + ' ' + request.driver.lastName}}</span>
+            <span class="secondary-data" *ngIf="request.driver.phone">{{request.driver.phone}}</span>
+          </ng-container>
+          <span class="primary-data empty" *ngIf="!request.driver">Не назначен</span>
         </div>
       </div>
       <!-- End: Автомобиль -->
     </div>
-
-
-    <!-- Start: Водитель -->
-    <!--
-    <div class="data-block">
-      <div class="label">Водитель</div>
-      <div class="details">
-        <span class="primary-data">Микка Хаккинен</span>
-        <span class="secondary-data">+7(921)555-66-77</span>
-      </div>
-    </div>
-    -->
-    <!-- End: Водитель -->
-
-  </div>
 
 </div>

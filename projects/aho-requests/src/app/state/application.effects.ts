@@ -104,8 +104,8 @@ export class ApplicationEffects {
     mergeMap(([action, user, filters, page, itemsOnPage]) =>
       this.aho.fetchRequests(
         [user.department.id],
-        filters.getFilterById('start-date').getValue() ? filters.getFilterById('start-date').getValue().getTime() : 0,
-        filters.getFilterById('end-date').getValue() ? filters.getFilterById('end-date').getValue().getTime() : 0,
+        filters.getFilterById('start-selectedDate$').getValue() ? filters.getFilterById('start-selectedDate$').getValue().getTime() : 0,
+        filters.getFilterById('end-selectedDate$').getValue() ? filters.getFilterById('end-selectedDate$').getValue().getTime() : 0,
         user.permissions.getRoleByCode('aho_requests_administrator') ? 0 : user.id,
         filters.getFilterById('request-employee').getValue() ? filters.getFilterById('request-employee').getValue().id : 0,
         filters.getFilterById('request-type').getValue() ? filters.getFilterById('request-type').getValue().id : 0,

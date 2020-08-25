@@ -32,11 +32,27 @@ export const selectViewMode = createSelector(
 );
 
 /**
+ * Селектор режима отображения списка заявок
+ */
+export const selectListMode = createSelector(
+  selectApplication,
+  (state: IAppState) => state.listMode
+);
+
+/**
  * Селектор текущей даты
  */
 export const selectDate = createSelector(
   selectApplication,
   (state: IAppState) => state.date
+);
+
+/**
+ * Селектор выбранной даты
+ */
+export const selectSelectedDate = createSelector(
+  selectApplication,
+  (state: IAppState) => state.selectedDate
 );
 
 /**

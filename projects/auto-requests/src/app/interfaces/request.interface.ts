@@ -5,7 +5,7 @@ import { IRequestStatus } from './request-status.interface';
 import { IDriver } from './driver.interface';
 import { IRejectReason } from './reject-reason.interface';
 import { IRequestComment } from './request-comment.interface';
-import { RoutePoint } from '../models';
+import { IRoutePoint } from './route-point.interface';
 
 /**
  * Интерфейс, описывающий заявку на автотранспорт
@@ -21,7 +21,7 @@ export interface IRequest {
   rejectReason?: IRejectReason;       // Причина отказа в заявке
   startTime: number;                  // Дата и время начала поездки в формате Unix
   endTime: number;                    // Дата и время окончания поездки в формате Unix
-  route: RoutePoint[] | string[];     // Маршрут
+  route: IRoutePoint[];               // Маршрут
   description?: string;               // Детали поездки
   dateCreated: number;                // Дата и время создания заявки в формате Unix
   dateModified?: number;              // Дата и время изменения заявки в формате Unix

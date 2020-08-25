@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatIconModule, MatMenuModule } from '@angular/material';
+import { MatIconModule, MatMenuModule, MatTooltipModule } from '@angular/material';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -31,7 +31,8 @@ import { RequestsEffects, requestsReducer } from './ngrx';
     EffectsModule.forFeature([RequestsEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTooltipModule
   ],
   exports: [
     RoutePathComponent

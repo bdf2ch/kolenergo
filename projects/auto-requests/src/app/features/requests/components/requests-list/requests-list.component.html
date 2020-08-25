@@ -1,6 +1,11 @@
 <div class="tabs"></div>
 <div class="content">
-  <app-tabs>
-    <app-requests-grid class="mt-2" [requests]="requests$ | async"></app-requests-grid>
+  <app-tabs [listMode]="listMode$ | async"
+            [userRequests]="userRequests$ | async"
+            [filteredRequests]="filteredRequests$ | async"
+            (select)="selectListMode($event)">
+    <app-requests-grid class="mt-2"
+                       [requests]="(listMode$ | async) === listModes.ALL_REQUESTS ? (requests$ | async) : (userRequests$ | async)">
+    </app-requests-grid>
   </app-tabs>
 </div>

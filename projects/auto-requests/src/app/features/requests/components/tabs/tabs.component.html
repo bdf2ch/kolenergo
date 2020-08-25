@@ -1,15 +1,23 @@
 <div class="tabs pl-5 pr-5">
   <div class="tabs-container">
-    <div class="tab selected">
+    <div class="tab"
+         [ngClass]="{'selected': listMode === listModes.ALL_REQUESTS}"
+         (click)="selectTab(listModes.ALL_REQUESTS)">
       <div class="title">Все заявки</div>
     </div>
-    <div class="tab">
+    <div class="tab"
+         *ngIf="userRequests.length > 0"
+         [ngClass]="{'selected': listMode === listModes.USER_REQUESTS}"
+         (click)="selectTab(listModes.USER_REQUESTS)">
       <div class="title">Мои заявки</div>
-      <div class="indicator">12</div>
+      <div class="indicator">{{userRequests.length}}</div>
     </div>
-    <div class="tab">
+    <div class="tab"
+         *ngIf="filteredRequests.length > 0"
+         [ngClass]="{'selected': listMode === listModes.FILTERED_REQUESTS}"
+         (click)="selectTab(listModes.FILTERED_REQUESTS)">
       <div class="title">Найденные</div>
-      <div class="indicator">9</div>
+      <div class="indicator">{{filteredRequests.length}}</div>
     </div>
   </div>
 </div>

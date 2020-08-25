@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 
 import {RoutePoint} from '../../../../models';
 
@@ -8,11 +8,11 @@ import {RoutePoint} from '../../../../models';
   styleUrls: ['./route-path.component.less'],
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RoutePathComponent implements OnInit {
-  @Input() routes: RoutePoint[] | string[];
+export class RoutePathComponent implements OnInit, OnChanges {
+  @Input() routes: RoutePoint[];
   @Input() extended: boolean;
 
-  constructor() {}
+  constructor(private readonly root: ElementRef) {}
 
   ngOnInit() {}
 
@@ -42,5 +42,13 @@ export class RoutePathComponent implements OnInit {
    */
   remove(index: number) {
     this.routes.splice(index, 1);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.extended.currentValue !== undefined) {
+      if (this.root.nativeElement) {
+        this.root.nativeElement.style.height = changes.extended.currentValue === true ? 'auto' : '100%';
+      }
+    }
   }
 }

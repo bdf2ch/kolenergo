@@ -34,6 +34,7 @@ export function applicationReducer(
         isInitialized: true,
         isLoading: false,
         date: new Date(action.payload.data.date),
+        selectedDate: new Date(action.payload.data.date),
         routes: action.payload.data.routes.map((item: IRoutePoint) => new RoutePoint(item))
       };
     }
@@ -59,6 +60,26 @@ export function applicationReducer(
     }
 
     /**
+     * Выбор режима отображения списка заявок
+     */
+    case ApplicationActionTypes.APPLICATION_SELECT_LIST_MODE: {
+      return {
+        ...state,
+        listMode: action.payload
+      };
+    }
+
+    /**
+     * Выбор текущей даты
+     */
+    case ApplicationActionTypes.APPLICATION_SELECT_DATE: {
+      return {
+        ...state,
+        selectedDate: action.payload
+      };
+    }
+
+    /**
      * Добавление новой заявки
      */
     case RequestsActionTypes.ADD_REQUEST: {
@@ -68,6 +89,9 @@ export function applicationReducer(
       };
     }
 
+    /**
+     * Новая заявка добавлена успешно
+     */
     case RequestsActionTypes.ADD_REQUEST_SUCCESS: {
       return {
         ...state,

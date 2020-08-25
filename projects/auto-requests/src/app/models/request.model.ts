@@ -11,7 +11,7 @@ import { RequestStatus } from './request-status.model';
 import { RoutePoint } from './route-point.model';
 import { IRejectReason } from '../interfaces/reject-reason.interface';
 import { RejectReason } from './reject-reason.model';
-import { IRequestComment } from '../interfaces';
+import {IRequestComment, IRoutePoint} from '../interfaces';
 import { RequestComment } from './request-comment.model';
 
 /**
@@ -30,7 +30,7 @@ export class Request implements IRequest {
   startTimeD: Date;                   // Дата и время начала поездки
   endTime: number;                    // Дата и время окончания поездки в формате Unix
   endTimeD: Date;                     // Дата и время окончания поездки
-  route: RoutePoint[] | string[];     // Маршрут
+  route: RoutePoint[];                // Маршрут
   description: string;                // Детали поездки
   dateCreated: number;                // Дата и время создания заявки в формате Unix
   dateCreatedD: Date;                 // Дата и время создания заявки
@@ -60,7 +60,7 @@ export class Request implements IRequest {
     this.startTimeD = config ? new Date(config.startTime) : null;
     this.endTime = config ? config.endTime : null;
     this.endTimeD = config ? new Date(config.endTime) : null;
-    this.route = config ? config.route : [];
+    this.route = config ? config.route.map((route: IRoutePoint) => new RoutePoint(route)) : [];
     this.description = config && config.description ? config.description : null;
     this.dateCreated = config ? config.dateCreated : null;
     this.dateCreatedD = config ? new Date(config.dateCreated) : null;

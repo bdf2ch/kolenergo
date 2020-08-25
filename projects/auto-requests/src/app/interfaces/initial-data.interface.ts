@@ -11,14 +11,16 @@ import {IRoutePoint} from './route-point.interface';
  * Интерфейс, описывающий структуру данных для инициализации приложения
  */
 export interface IInitialData {
-  date: Date;                         // Текущая дата
-  departments: IDepartment[];         // Подразделения организации
-  types: ITransportType[];            // Типы транспорта
-  routes: IRoutePoint[];              // Элементы маршрута
-  statuses: IRequestStatus[];         // Статусы заявок
-  rejectReasons: IRejectReason[];     // Причины отказа в заявке
-  transport: ITransport[];            // Транспортные средства
-  drivers: IDriver[];                 // Водители
-  requests: IRequest[];               // Заявки на автотранспорт
-  user?: IUser;                       // Текущий пользователь
+  date: Date;                                           // Текущая дата
+  departments: IDepartment[];                           // Подразделения организации
+  types: ITransportType[];                              // Типы транспорта
+  routes: IRoutePoint[];                                // Элементы маршрута
+  statuses: IRequestStatus[];                           // Статусы заявок
+  rejectReasons: IRejectReason[];                       // Причины отказа в заявке
+  transport: ITransport[];                              // Транспортные средства
+  drivers: IDriver[];                                   // Водители
+  requests: IRequest[];                                 // Заявки на автотранспорт
+  userRequests: IRequest[];                             // Заявки текущего пользователя
+  calendarRequests: {date: string, count: number}[];    // Календарные индикаторы заявок
+  user?: IUser;                                         // Текущий пользователь
 }

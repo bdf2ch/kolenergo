@@ -83,8 +83,8 @@
                          [ngClass]="{'no-image': !similar.image}"
                          [routerLink]="['/adverts', similar.id]"
                          [ngStyle]="{'background': similar.image ? 'url(' + similar.image + ')' : ''}">
-                        <div class="advert-date">
-                          <span class="date">{{ similar.dateCreatedD | date: 'dd MMMM' }}</span>
+                        <div class="advert-selectedDate$">
+                          <span class="selectedDate$">{{ similar.dateCreatedD | selectedDate$: 'dd MMMM' }}</span>
                           <div class="attachments" *ngIf="similar.attachments.length > 0">
                             <mat-icon>attach_file</mat-icon>
                             <span class="attachments-count">{{similar.attachments.length}}</span>

@@ -64,7 +64,7 @@ export class FiltersDialogComponent implements OnInit {
    */
   startDateChange(event: MatDatepickerInputEvent<Moment>) {
     this.minEndDate = event.value.toDate();
-    this.manager.getFilterById('start-date').setValue(event.value.toDate());
+    this.manager.getFilterById('start-selectedDate$').setValue(event.value.toDate());
   }
 
   /**
@@ -73,7 +73,7 @@ export class FiltersDialogComponent implements OnInit {
    */
   endDateChange(event: MatDatepickerInputEvent<Moment>) {
     this.maxStartDate = event.value.toDate();
-    this.manager.getFilterById('end-date').setValue(event.value.hours(23).minutes(59).seconds(59).toDate());
+    this.manager.getFilterById('end-selectedDate$').setValue(event.value.hours(23).minutes(59).seconds(59).toDate());
   }
 
   /**

@@ -24,3 +24,28 @@ export const selectRequests = createSelector(
   (state: IRequestsState) => state.requests
 );
 
+/**
+ * Селектор списка заявок текущего пользователя
+ */
+export const selectUserRequests = createSelector(
+  requests,
+  (state: IRequestsState) => state.userRequests
+);
+
+/**
+ * Селектор списка отфильтрованных заявок
+ */
+export const selectFilteredRequests = createSelector(
+  requests,
+  (state: IRequestsState) => state.filteredRequests
+);
+
+/**
+ * Селектор календарных индикаторов заявок
+ */
+export const selectCalendarRequests = createSelector(
+  requests,
+  (state: IRequestsState) => state.calendarRequests
+);
+
+

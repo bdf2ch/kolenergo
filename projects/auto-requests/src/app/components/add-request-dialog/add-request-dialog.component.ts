@@ -86,7 +86,6 @@ export class AddRequestDialogComponent implements OnInit {
    * @param route - Элемент маршрута
    */
   selectRoute(route: RoutePoint | string) {
-    // this.routes.push(route);
     this.request.route.push(route as RoutePoint);
   }
 
@@ -103,7 +102,6 @@ export class AddRequestDialogComponent implements OnInit {
       .minutes(parseInt((this.addRequestForm.controls.endTime.value as string).substr(3, 2), 0))
       .unix() * 1000;
     this.request.description = this.addRequestForm.controls.description.value;
-    this.request.route = this.routes.map((route: RoutePoint) => route.title);
     console.log(this.request);
     this.store.dispatch(new RequestsAddRequest(this.request));
   }
