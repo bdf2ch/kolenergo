@@ -3,6 +3,7 @@ import {ApplicationActions, ApplicationActionTypes} from './application.actions'
 import {IRoutePoint} from '../interfaces';
 import {RoutePoint} from '../models';
 import {RequestsActions, RequestsActionTypes} from '../features/requests/ngrx';
+import {EListMode} from "../enums";
 
 /**
  * Редуктор состояния приложения
@@ -76,6 +77,37 @@ export function applicationReducer(
       return {
         ...state,
         selectedDate: action.payload
+      };
+    }
+
+    /**
+     * Загрузка заявок
+     */
+    case RequestsActionTypes.REQUESTS_LOAD_REQUESTS: {
+      return {
+        ...state,
+        isLoading: true
+      };
+    }
+
+    /**
+     * Загрузка заявок выполнена успешно
+     */
+    case RequestsActionTypes.REQUESTS_LOAD_REQUESTS_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        listMode: EListMode.ALL_REQUESTS
+      };
+    }
+
+    /**
+     * Не удалось загрузить заявки
+     */
+    case RequestsActionTypes.REQUESTS_LOAD_REQUESTS_FAIL: {
+      return {
+        ...state,
+        isLoading: false
       };
     }
 

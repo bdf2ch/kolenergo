@@ -10,6 +10,7 @@ import { Request } from '../../../models';
 export enum RequestsActionTypes {
   REQUESTS_LOAD_REQUESTS = '[Requests API] Load requests',
   REQUESTS_LOAD_REQUESTS_SUCCESS = '[Requests API] Requests loaded successfully',
+  REQUESTS_LOAD_REQUESTS_FAIL = '[Requests API] Failed to load requests',
   ADD_REQUEST = '[Requests API] Add request',
   ADD_REQUEST_SUCCESS = '[Requests API] Request added successfully',
   ADD_REQUEST_FAIL = '[Requests API] Failed to add request'
@@ -28,6 +29,13 @@ export class RequestsLoadRequests implements Action {
 export class RequestsLoadRequestsSuccess implements Action {
   readonly type = RequestsActionTypes.REQUESTS_LOAD_REQUESTS_SUCCESS;
   constructor(public payload: IServerResponse<IRequest[]>) {}
+}
+
+/**
+ * Не удалось загрузить заявки
+ */
+export class RequestsLoadRequestsFail implements Action {
+  readonly type = RequestsActionTypes.REQUESTS_LOAD_REQUESTS_FAIL;
 }
 
 /**
@@ -66,6 +74,7 @@ export class RequestsAddRequestFail implements Action {
 export type RequestsActions =
   RequestsLoadRequests |
   RequestsLoadRequestsSuccess |
+  RequestsLoadRequestsFail |
   RequestsAddRequest |
   RequestsAddRequestSuccess |
   RequestsAddRequestFail;

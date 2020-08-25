@@ -42,11 +42,25 @@ export class RequestsEffects {
     ofType(RequestsActionTypes.REQUESTS_LOAD_REQUESTS),
     withLatestFrom(this.store.pipe(select(selectSelectedDate))),
     mergeMap(([action, date]) => this.requests.get(
-      moment(date as Date).format('DD.MM.YYYY'), 0, 0, 0, 0, null)
+      moment(date as Date).format('DD.MM.YYYY'), 0, 0, 0, 0, '')
       .pipe(
         map((response: IServerResponse<IRequest[]>) => new RequestsLoadRequestsSuccess(response))
       )
     )
+  );
+
+  @Effect()
+  loadRequestsFail$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.REQUESTS_LOAD_REQUESTS_FAIL),
+    tap(() => {
+      this.snackBar.open('При загрузке заявок произошла ошибка', null, {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center',
+        panelClass: 'message-snack-bar',
+        duration: 3000
+      });
+    }),
+    mergeMap(() => EMPTY)
   );
 
   @Effect()

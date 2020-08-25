@@ -8,4 +8,9 @@
                        [requests]="(listMode$ | async) === listModes.ALL_REQUESTS ? (requests$ | async) : (userRequests$ | async)">
     </app-requests-grid>
   </app-tabs>
+
+  <div class="no-requests-placeholder"
+       *ngIf="(requests$ | async).length === 0 && (listMode$ | async) === listModes.ALL_REQUESTS && !(loading$ | async)">
+    Заявки на {{(selectedDate$ | async) | date: 'dd MMMM'}}<br> отсутствуют
+  </div>
 </div>

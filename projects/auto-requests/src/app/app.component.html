@@ -1,11 +1,11 @@
 <mat-progress-bar mode="indeterminate" color="primary" *ngIf="idLoading$ | async"></mat-progress-bar>
 <mat-drawer-container class="application-container">
   <mat-drawer mode="side" opened>
-    <div class="header p-5">
+    <div class="header pl-5 pr-5 pt-5 pb-0">
       <div class="app-title">Заявки<br>на автотранспорт</div>
     </div>
     <div class="content pt-5 d-flex flex-column justify-content-between">
-      <div class="app-calendar pl-5 pr-5 pb-5">
+      <div class="app-calendar pl-5 pr-5 pb-5 pt-4">
         <app-calendar [date]="date$ | async"
                       [selected]="selectedDate$ | async"
                       [requests]="calendarRequests$ | async"
@@ -61,7 +61,7 @@
         </app-current-user>
       </div>
     </div>
-    <div class="content pt-5">
+    <div class="content pt-4">
       <router-outlet></router-outlet>
     </div>
   </mat-drawer-content>
