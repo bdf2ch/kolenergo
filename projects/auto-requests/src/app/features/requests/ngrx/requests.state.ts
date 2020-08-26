@@ -10,7 +10,7 @@ export interface IRequestsState {
   userRequests: Request[];                              // Заявки текущего пользователя
   filteredRequests: Request[];                          // Отфильтрованные заявки
   calendarRequests: {date: string, count: number}[];    // Календарные индикаторы заявок
-  newRequest: Request;                                  // Новая заявка
+  selectedRequest: Request;                             // Текущая заявка
 }
 
 /**
@@ -23,5 +23,5 @@ export const requestsInitialState: IRequestsState = {
   userRequests: [],
   filteredRequests: [],
   calendarRequests: [],
-  newRequest: new Request()
+  selectedRequest: null
 };

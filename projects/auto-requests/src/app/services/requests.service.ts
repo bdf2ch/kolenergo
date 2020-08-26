@@ -38,16 +38,17 @@ export class RequestsService {
   }
 
   /**
-   * Добавление завяки
+   * Добавление заявки
    * @param request - Добавляемая заявка
+   * @param date - Текущая дата
    */
-  add(request: Request): Observable<IServerResponse<{
+  add(request: Request, date: string): Observable<IServerResponse<{
     requests: IRequest[],
     userRequests: IRequest[],
     calendarRequests: {date: string, count: number}[],
     routes: IRoutePoint[]
   }>> {
-    return from(this.resource.add(request))
+    return from(this.resource.add(request, {date}, null))
       .pipe(
         map((response: IServerResponse<{
           requests: IRequest[],

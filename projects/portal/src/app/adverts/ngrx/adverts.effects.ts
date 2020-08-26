@@ -208,7 +208,7 @@ export class AdvertsEffects {
       .pipe(
         map(() => {
           if ((action as AdvertsDeleteAdvert).payload.id !== newAdvert.id) {
-            this.dialog.getDialogById('remove-advert-dialog').close();
+            this.dialog.getDialogById('removeRoute-advert-dialog').close();
             this.router.navigate(['adverts']);
             this.snackBar.open('Объявление удалено', 'Закрыть', {
               verticalPosition: 'bottom',

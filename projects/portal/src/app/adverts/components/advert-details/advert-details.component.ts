@@ -53,7 +53,7 @@ export class AdvertDetailsComponent implements OnInit {
    */
   openRemoveAdvertDialog() {
     this.dialog.open(AdvertDeleteDialogComponent, {
-      id: 'remove-advert-dialog',
+      id: 'removeRoute-advert-dialog',
       width: '350px'
     });
   }

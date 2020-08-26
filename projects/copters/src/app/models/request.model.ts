@@ -30,7 +30,7 @@ export class Request {
     this.id = config ? config.id : null;
     this.start = config ? new Date(config.start) : null;
     this.end = config ? new Date(config.end) : null;
-    this.route = config ? config.route : null;
+    this.route = config ? config.transport : null;
     this.description = config ? config.description : null;
     this.dateCreated = config ? new Date(config.dateCreated) : null;
     this.dateModified = config ? new Date(config.dateModified) : null;

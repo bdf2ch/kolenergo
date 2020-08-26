@@ -16,10 +16,13 @@ import {
   RequestsAddRequestSuccess, RequestsLoadRequests, RequestsLoadRequestsSuccess
 } from './requests.actions';
 import { IRequest, IRoutePoint } from '../../../interfaces';
+import { Request } from '../../../models';
 import { IApplicationState } from '../../../ngrx/application.state';
 import { selectSelectedDate } from '../../../ngrx/selectors';
 import { RequestsService } from '../../../services/requests.service';
-import { ApplicationActionTypes } from '../../../ngrx';
+import { ApplicationActionTypes } from '../../../ngrx/application.actions';
+import { EditRequestDialogComponent } from '../../../components/edit-request-dialog/edit-request-dialog.component';
+import {selectSelectedRequest} from './requests.selectors';
 
 @Injectable()
 export class RequestsEffects {
@@ -30,6 +33,21 @@ export class RequestsEffects {
               private readonly snackBar: MatSnackBar,
               private readonly requests: RequestsService
   ) {}
+
+  @Effect()
+  selectRequest$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.REQUESTS_SELECT_REQUEST),
+    withLatestFrom(this.store.pipe(select(selectSelectedRequest))),
+    tap(([action, request]) => {
+      this.dialog.open(EditRequestDialogComponent, {
+        id: 'edit-request-dialog',
+        width: '1050px',
+        height: (request as Request).initiator ? '590px' : '500px',
+        panelClass: 'sign-in-dialog'
+      });
+    }),
+    mergeMap(() => EMPTY)
+  );
 
   @Effect()
   selectDate$ = this.actions$.pipe(
@@ -65,8 +83,9 @@ export class RequestsEffects {
 
   @Effect()
   addRequest$ = this.actions$.pipe(
-    ofType(RequestsActionTypes.ADD_REQUEST),
-    mergeMap((action) => this.requests.add((action as RequestsAddRequest).payload)
+    ofType(RequestsActionTypes.REQUESTS_ADD_REQUEST),
+    withLatestFrom(this.store.pipe(select(selectSelectedDate))),
+    mergeMap(([action, date]) => this.requests.add((action as RequestsAddRequest).payload, moment(date).format('DD.MM.YYYY'))
       .pipe(
         map((response: IServerResponse<{
           requests: IRequest[],
@@ -85,7 +104,7 @@ export class RequestsEffects {
 
   @Effect()
   addRequestSuccess$ = this.actions$.pipe(
-    ofType(RequestsActionTypes.ADD_REQUEST_SUCCESS),
+    ofType(RequestsActionTypes.REQUESTS_ADD_REQUEST_SUCCESS),
     tap(() => {
       this.dialog.getDialogById('add-request-dialog').close();
       this.snackBar.open('Заявка добавлена', null, {
@@ -100,7 +119,7 @@ export class RequestsEffects {
 
   @Effect()
   addRequestFail$ = this.actions$.pipe(
-    ofType(RequestsActionTypes.ADD_REQUEST_FAIL),
+    ofType(RequestsActionTypes.REQUESTS_ADD_REQUEST_FAIL),
     tap(() => {
       this.snackBar.open('При добавлении заявки произошла ошибка', null, {
         verticalPosition: 'bottom',

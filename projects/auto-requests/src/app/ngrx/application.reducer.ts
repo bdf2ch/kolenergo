@@ -1,9 +1,9 @@
-import {appInitialState, IAppState} from './application.state';
-import {ApplicationActions, ApplicationActionTypes} from './application.actions';
-import {IRoutePoint} from '../interfaces';
-import {RoutePoint} from '../models';
-import {RequestsActions, RequestsActionTypes} from '../features/requests/ngrx';
-import {EListMode} from "../enums";
+import { appInitialState, IAppState  } from './application.state';
+import { ApplicationActions, ApplicationActionTypes } from './application.actions';
+import { RequestsActions, RequestsActionTypes } from '../features/requests/ngrx/requests.actions';
+import { IDriver, IRequestStatus, IRoutePoint, ITransport } from '../interfaces';
+import { Driver, RequestStatus, RoutePoint, Transport } from '../models';
+import { EListMode } from '../enums';
 
 /**
  * Редуктор состояния приложения
@@ -36,6 +36,9 @@ export function applicationReducer(
         isLoading: false,
         date: new Date(action.payload.data.date),
         selectedDate: new Date(action.payload.data.date),
+        transport: action.payload.data.transport.map((item: ITransport) => new Transport(item)),
+        drivers: action.payload.data.drivers.map((item: IDriver) => new Driver(item)),
+        statuses: action.payload.data.statuses.map((item: IRequestStatus) => new RequestStatus(item)),
         routes: action.payload.data.routes.map((item: IRoutePoint) => new RoutePoint(item))
       };
     }
@@ -114,7 +117,7 @@ export function applicationReducer(
     /**
      * Добавление новой заявки
      */
-    case RequestsActionTypes.ADD_REQUEST: {
+    case RequestsActionTypes.REQUESTS_ADD_REQUEST: {
       return {
         ...state,
         isLoading: true
@@ -124,10 +127,11 @@ export function applicationReducer(
     /**
      * Новая заявка добавлена успешно
      */
-    case RequestsActionTypes.ADD_REQUEST_SUCCESS: {
+    case RequestsActionTypes.REQUESTS_ADD_REQUEST_SUCCESS: {
       return {
         ...state,
         isLoading: false,
+        listMode: EListMode.ALL_REQUESTS,
         routes: action.payload.data.routes.length > 0
           ? [
             ...state.routes,

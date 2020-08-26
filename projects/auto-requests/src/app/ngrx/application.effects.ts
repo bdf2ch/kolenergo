@@ -93,7 +93,7 @@ export class ApplicationEffects {
       if (user) {
         this.dialog.open(AddRequestDialogComponent, {
           id: 'add-request-dialog',
-          width: '1000px',
+          width: '1050px',
           height: '500px',
           panelClass: 'sign-in-dialog'
         });

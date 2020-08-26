@@ -8,12 +8,24 @@ import { Request } from '../../../models';
  * Типы действий раздела заявок на автотранспорт
  */
 export enum RequestsActionTypes {
+  REQUESTS_SELECT_REQUEST = '[Application UI] Select request',
   REQUESTS_LOAD_REQUESTS = '[Requests API] Load requests',
   REQUESTS_LOAD_REQUESTS_SUCCESS = '[Requests API] Requests loaded successfully',
   REQUESTS_LOAD_REQUESTS_FAIL = '[Requests API] Failed to load requests',
-  ADD_REQUEST = '[Requests API] Add request',
-  ADD_REQUEST_SUCCESS = '[Requests API] Request added successfully',
-  ADD_REQUEST_FAIL = '[Requests API] Failed to add request'
+  REQUESTS_ADD_REQUEST = '[Requests API] Add request',
+  REQUESTS_ADD_REQUEST_SUCCESS = '[Requests API] Request added successfully',
+  REQUESTS_ADD_REQUEST_FAIL = '[Requests API] Failed to add request',
+  REQUESTS_EDIT_REQUEST = '[Requests API] Edit request',
+  REQUESTS_EDIT_REQUEST_SUCCESS = '[Requests API] Changes to request saved successfully',
+  REQUESTS_EDIT_REQUEST_FAIL = '[Requests API] Failed to save changes to request'
+}
+
+/**
+ * Выбор текущей заявки
+ */
+export class RequestsSelectRequest implements Action {
+  readonly type = RequestsActionTypes.REQUESTS_SELECT_REQUEST;
+  constructor(public payload: Request) {}
 }
 
 /**
@@ -42,7 +54,7 @@ export class RequestsLoadRequestsFail implements Action {
  * Добавление новой заявки
  */
 export class RequestsAddRequest implements Action {
-  readonly type = RequestsActionTypes.ADD_REQUEST;
+  readonly type = RequestsActionTypes.REQUESTS_ADD_REQUEST;
   constructor(public payload: Request) {}
 }
 
@@ -50,7 +62,7 @@ export class RequestsAddRequest implements Action {
  * Добавление новой заявки выполнено успешно
  */
 export class RequestsAddRequestSuccess implements Action {
-  readonly type = RequestsActionTypes.ADD_REQUEST_SUCCESS;
+  readonly type = RequestsActionTypes.REQUESTS_ADD_REQUEST_SUCCESS;
   constructor(
     public payload: IServerResponse<{
       requests: IRequest[],
@@ -65,16 +77,42 @@ export class RequestsAddRequestSuccess implements Action {
  * Не удалось добавить новую заявку
  */
 export class RequestsAddRequestFail implements Action {
-  readonly type = RequestsActionTypes.ADD_REQUEST_FAIL;
+  readonly type = RequestsActionTypes.REQUESTS_ADD_REQUEST_FAIL;
+}
+
+/**
+ * Сохранение изменений в заявке
+ */
+export class RequestsEditRequest implements Action {
+  readonly type = RequestsActionTypes.REQUESTS_EDIT_REQUEST;
+}
+
+/**
+ * Изменения в заявке успешно сохранены
+ */
+export class RequestsEditRequestSuccess implements Action {
+  readonly type = RequestsActionTypes.REQUESTS_EDIT_REQUEST_SUCCESS;
+  constructor(public payload: IServerResponse<IRequest>) {}
+}
+
+/**
+ * Не удалось сохранить изменения в заявке
+ */
+export class RequestsEditRequestFail implements Action {
+  readonly type = RequestsActionTypes.REQUESTS_EDIT_REQUEST_FAIL;
 }
 
 /**
  * Множество действий раздела управления заявками
  */
 export type RequestsActions =
+  RequestsSelectRequest |
   RequestsLoadRequests |
   RequestsLoadRequestsSuccess |
   RequestsLoadRequestsFail |
   RequestsAddRequest |
   RequestsAddRequestSuccess |
-  RequestsAddRequestFail;
+  RequestsAddRequestFail |
+  RequestsEditRequest |
+  RequestsEditRequestSuccess |
+  RequestsEditRequestFail;

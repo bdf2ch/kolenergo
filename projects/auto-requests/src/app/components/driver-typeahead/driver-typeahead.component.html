@@ -1,0 +1,28 @@
+<div class="route-typeahead">
+  <form [formGroup]="driverForm">
+    <mat-form-field appearance="fill" class="w-100" floatLabel="always">
+      <mat-label>Водитель</mat-label>
+      <input matInput
+             [matAutocomplete]="auto"
+             formControlName="driver"
+             [readonly]="selectedDriver ? true : false"
+             placeholder="Водитель не назначен">
+      <mat-hint>{{selectedDriver && selectedDriver.phone ? selectedDriver.phone : ''}}</mat-hint>
+      <button mat-icon-button
+              matSuffix
+              *ngIf="selectedDriver"
+              (click)="onClear()"
+              matTooltip="Очистить"
+              matTooltipPosition="above">
+        <mat-icon>close</mat-icon>
+      </button>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelect($event)" [displayWith]="display">
+        <mat-option *ngFor="let driver of filteredDrivers" [value]="driver">
+          <div class="transport-item">
+            <span class="primary-data">{{driver.firstName + ' ' + driver.lastName}}</span>
+          </div>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+</div>

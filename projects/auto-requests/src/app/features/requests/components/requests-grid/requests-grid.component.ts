@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { Request } from '../../../../models';
 
@@ -9,10 +9,19 @@ import { Request } from '../../../../models';
 })
 export class RequestsGridComponent implements OnInit {
   @Input() requests: Request[];
+  @Output() select: EventEmitter<Request>;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
+    this.select = new EventEmitter<Request>();
   }
 
+  ngOnInit() {}
+
+  /**
+   * Выбор текущей заявки
+   * @param request - Выбранная заявка
+   */
+  selectRequest(request: Request) {
+    this.select.emit(request);
+  }
 }

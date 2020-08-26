@@ -1,6 +1,8 @@
-import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {
+  ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
+} from '@angular/core';
 
-import {RoutePoint} from '../../../../models';
+import { RoutePoint } from '../../../../models';
 
 @Component({
   selector: 'app-route-path',
@@ -11,8 +13,11 @@ import {RoutePoint} from '../../../../models';
 export class RoutePathComponent implements OnInit, OnChanges {
   @Input() routes: RoutePoint[];
   @Input() extended: boolean;
+  @Output() remove: EventEmitter<number>;
 
-  constructor(private readonly root: ElementRef) {}
+  constructor(private readonly root: ElementRef) {
+    this.remove = new EventEmitter<number>();
+  }
 
   ngOnInit() {}
 
@@ -40,8 +45,9 @@ export class RoutePathComponent implements OnInit, OnChanges {
    * Удаление элемента маршрута
    * @param index - Индекс удаляемого элемента
    */
-  remove(index: number) {
+  removeRoute(index: number) {
     this.routes.splice(index, 1);
+    this.remove.emit(index);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

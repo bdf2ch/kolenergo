@@ -7,9 +7,9 @@ import * as moment from 'moment';
 
 import { User } from '@kolenergo/core';
 import { IApplicationState } from '../../ngrx/application.state';
-import {selectDate, selectIsLoading, selectRoutes, selectSelectedDate} from '../../ngrx/selectors';
+import { selectDate, selectIsLoading, selectRoutes, selectSelectedDate } from '../../ngrx/selectors';
 import { Request, RoutePoint } from '../../models';
-import { RequestsAddRequest } from '../../features/requests/ngrx';
+import { RequestsAddRequest } from '../../features/requests/ngrx/requests.actions';
 import { endTime } from './end-time.validator';
 import { minTime } from './time.validator';
 
@@ -21,6 +21,8 @@ import { minTime } from './time.validator';
 export class AddRequestDialogComponent implements OnInit {
   isLoading$: Observable<boolean>;
   selectedDate$: Observable<Date>;
+  selectedDate: Date;
+  date$: Observable<Date>;
   date: Date;
   routes$: Observable<RoutePoint[]>;
   request: Request;
@@ -34,6 +36,10 @@ export class AddRequestDialogComponent implements OnInit {
     this.isLoading$ = this.store.pipe(select(selectIsLoading));
     this.selectedDate$ = this.store.pipe(select(selectSelectedDate));
     this.selectedDate$.subscribe((value: Date) => {
+      this.selectedDate = value;
+    });
+    this.date$ = this.store.pipe(select(selectDate));
+    this.date$.subscribe((value: Date) => {
       this.date = value;
     });
     this.routes$ = this.store.pipe(select(selectRoutes));
@@ -49,7 +55,7 @@ export class AddRequestDialogComponent implements OnInit {
       .toDate();
     this.addRequestForm = this.builder.group({
       initiator: new FormControl(null),
-      date: new FormControl(this.date, Validators.required),
+      date: new FormControl(this.selectedDate, Validators.required),
       startTime: new FormControl(
         moment(this.request.startTimeD).format('HH:mm'),
         [Validators.required, minTime(this.date)]

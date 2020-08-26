@@ -5,7 +5,8 @@
             [filteredRequests]="filteredRequests$ | async"
             (select)="selectListMode($event)">
     <app-requests-grid class="mt-2"
-                       [requests]="(listMode$ | async) === listModes.ALL_REQUESTS ? (requests$ | async) : (userRequests$ | async)">
+                       [requests]="(listMode$ | async) === listModes.ALL_REQUESTS ? (requests$ | async) : (userRequests$ | async)"
+                       (select)="selectRequest($event)">
     </app-requests-grid>
   </app-tabs>
 

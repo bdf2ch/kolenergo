@@ -56,6 +56,31 @@ export const selectSelectedDate = createSelector(
 );
 
 /**
+ * Селектор транспорта
+ */
+export const selectTransport = createSelector(
+  selectApplication,
+  (state: IAppState) => state.transport
+);
+
+/**
+ * Селектор водителей
+ */
+export const selectDrivers = createSelector(
+  selectApplication,
+  (state: IAppState) => state.drivers
+);
+
+/**
+ * Селектор статусов заявки
+ */
+export const selectStatuses = createSelector(
+  selectApplication,
+  (state: IAppState) => state.statuses
+);
+
+
+/**
  * Селектор элементов маршрута
  */
 export const selectRoutes = createSelector(

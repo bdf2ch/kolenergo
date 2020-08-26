@@ -45,7 +45,7 @@ export class RequestsResource extends Resource {
     method: ResourceRequestMethod.Post,
     withCredentials: true
   })
-  add: IResourceMethod<Request, IServerResponse<{
+  add: IResourceMethodStrict<Request, {date: string}, void, IServerResponse<{
     requests: IRequest[],
     userRequests: IRequest[],
     calendarRequests: {date: string, count: number}[],

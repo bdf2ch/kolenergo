@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { selectFilteredRequests, selectRequests, selectUserRequests } from '../../ngrx';
+import {RequestsSelectRequest, selectFilteredRequests, selectRequests, selectUserRequests} from '../../ngrx';
 import {
   ApplicationSelectListMode,
   IApplicationState,
@@ -45,5 +45,13 @@ export class RequestsListComponent implements OnInit {
    */
   selectListMode(mode: EListMode) {
     this.store.dispatch(new ApplicationSelectListMode(mode));
+  }
+
+  /**
+   * Выбор текущей заявки
+   * @param request - Выбранная заявка
+   */
+  selectRequest(request: Request) {
+    this.store.dispatch(new RequestsSelectRequest(request));
   }
 }

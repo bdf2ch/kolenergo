@@ -9,14 +9,6 @@ import { IApplicationState } from '../../../ngrx';
 export const requests = createFeatureSelector<IApplicationState, IRequestsState>('requests');
 
 /**
- * Селектор состояния инициализации приложения
- */
-export const selectNewRequest = createSelector(
-  requests,
-  (state: IRequestsState) => state.newRequest
-);
-
-/**
  * Селектор списка заявок
  */
 export const selectRequests = createSelector(
@@ -47,5 +39,14 @@ export const selectCalendarRequests = createSelector(
   requests,
   (state: IRequestsState) => state.calendarRequests
 );
+
+/**
+ * Селектор текущей заявки
+ */
+export const selectSelectedRequest = createSelector(
+  requests,
+  (state: IRequestsState) => state.selectedRequest
+);
+
 
 

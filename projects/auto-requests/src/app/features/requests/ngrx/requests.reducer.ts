@@ -1,8 +1,8 @@
-import {IRequestsState, requestsInitialState} from './requests.state';
-import {RequestsActions, RequestsActionTypes} from './requests.actions';
-import {ApplicationActions, ApplicationActionTypes} from '../../../ngrx';
-import {IRequest} from '../../../interfaces';
-import {Request} from '../../../models';
+import { IRequestsState, requestsInitialState } from './requests.state';
+import { RequestsActions, RequestsActionTypes } from './requests.actions';
+import { ApplicationActions, ApplicationActionTypes } from '../../../ngrx';
+import { IRequest } from '../../../interfaces';
+import { Request } from '../../../models';
 
 export function requestsReducer(
   state: IRequestsState = requestsInitialState,
@@ -19,6 +19,16 @@ export function requestsReducer(
         requests: action.payload.data.requests.map((item: IRequest) => new Request(item)),
         userRequests: action.payload.data.userRequests.map((item: IRequest) => new Request(item)),
         calendarRequests: action.payload.data.calendarRequests
+      };
+    }
+
+    /**
+     * Выбор текущей заявки
+     */
+    case RequestsActionTypes.REQUESTS_SELECT_REQUEST: {
+      return {
+        ...state,
+        selectedRequest: action.payload
       };
     }
 
@@ -44,12 +54,19 @@ export function requestsReducer(
     /**
      * Новая заявка успешно добавлена
      */
-    case RequestsActionTypes.ADD_REQUEST_SUCCESS: {
+    case RequestsActionTypes.REQUESTS_ADD_REQUEST_SUCCESS: {
       return {
         ...state,
         requests: action.payload.data.requests.map((item: IRequest) => new Request(item)),
         userRequests: action.payload.data.userRequests.map((item: IRequest) => new Request(item)),
         calendarRequests: action.payload.data.calendarRequests
+      };
+    }
+
+    case RequestsActionTypes.REQUESTS_EDIT_REQUEST_SUCCESS: {
+      return {
+        ...state,
+        // requests: [...state.requests.]
       };
     }
 

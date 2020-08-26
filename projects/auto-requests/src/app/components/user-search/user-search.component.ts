@@ -56,7 +56,7 @@ export class UserSearchComponent implements OnInit {
    * @param user - Выбранный пользователь
    */
   display(user: User): string {
-    return user ?  `${user.firstName} ${user.lastName}` : '';
+    return user ? `${user.firstName} ${user.lastName}` : '';
   }
 
   /**

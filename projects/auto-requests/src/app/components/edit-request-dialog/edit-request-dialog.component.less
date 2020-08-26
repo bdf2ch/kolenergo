@@ -13,8 +13,8 @@
 @info-font-size: 13px;
 @info-color: #90a4ae;
 @comment-font-family: 'Open Sans Light';
-@comment-font-size: 14px;
-@comment-color: #546e7a;
+@comment-font-size: 13.5px;
+@comment-color: #757575;
 
 &:host {
   display: block;
@@ -22,7 +22,7 @@
   height: 100%;
 }
 
-.sign-in-container {
+.add-request-container {
   display: flex;
   flex-direction: row;
   height: 100%;
@@ -48,6 +48,7 @@
       }
 
       .title {
+        // min-height: 34px;
         font-family: @title-font-family;
         font-size: @title-font-size;
         line-height: @title-font-size;
@@ -55,10 +56,10 @@
       }
 
       .comment {
-        margin-top: 40px;
+        margin-top: 10px;
         font-family: @comment-font-family;
         font-size: @comment-font-size;
-        line-height: @comment-font-size + 1px;
+        line-height: @comment-font-size + 3px;
         color: @comment-color;
       }
     }
@@ -66,6 +67,11 @@
     img {
       height: 240px;
       margin-right: -50px;
+    }
+
+    .mat-raised-button {
+      height: 61px;
+      font-family: 'Open Sans Regular'
     }
   }
 
@@ -75,16 +81,21 @@
     align-items: center;
     flex: 1;
 
+    .route {
+      border-left: 1px dotted #eceff1;
+    }
+
     form {
       display: flex;
-      flex-direction: column;
+      // flex-direction: column;
       justify-content: center;
       align-items: center;
-      width: 90%;
+      // width: 90%;
       height: 100%;
 
       caption {
         width: 90%;
+        padding-top: 0px;
         font-family: @caption-font-family;
         font-size: @caption-font-size;
         line-height: @caption-font-size + 2px;
@@ -92,13 +103,66 @@
         text-align: left;
       }
 
+      input[type=time]::-webkit-inner-spin-button {
+        display: none;
+
+        &::-webkit-calendar-picker-indicator {
+          display: block;
+          float: left;
+          alignment: left;
+          color: red;
+        }
+      }
+
+      input[type="time"]::-webkit-calendar-picker-indicator {
+        color: red !important;
+      }
+
+      input[type='time'] {
+        ::after {
+          display: none;
+          //content: '';
+        }
+        // text-align: center;
+
+        &::-webkit-clear-button {
+          display: none;
+        }
+
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          cursor:pointer;
+          display: block;
+          width:20px;
+          color: red;
+          text-align:center;
+          position:relative;
+        }
+      }
+
       .mat-icon {
-        cursor: pointer;
+        margin-right: 10px;
+        color: #b0bec5;
+
+        &.clickable {
+          cursor: pointer;
+          &:hover {
+            color: #90a4ae;
+          }
+        }
+
+        &.done {
+          color: #66bb6a;
+        }
       }
 
       .mat-raised-button {
         height: 61px;
         font-family: 'Open Sans Regular'
+      }
+
+      .mat-form-field-prefix {
+        margin-right: 10px !important;
       }
     }
 

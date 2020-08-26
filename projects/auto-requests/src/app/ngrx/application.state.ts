@@ -1,7 +1,7 @@
 import { AuthenticationInitialState, IAuthenticationState } from '@kolenergo/core';
-import { IRequestsState, requestsInitialState } from '../features/requests/ngrx';
+import { IRequestsState, requestsInitialState } from '../features/requests/ngrx/requests.state';
 import { EListMode, EViewMode } from '../enums';
-import { RoutePoint } from '../models';
+import { Driver, RequestStatus, RoutePoint, Transport } from '../models';
 
 /**
  * Интерфейс, описывающий состояние ядра приложения
@@ -13,6 +13,9 @@ export interface IAppState {
   listMode: EListMode;        // Режим списка заявок
   date: Date;                 // Текущая дата
   selectedDate: Date;         // Выбранная дата
+  transport: Transport[];     // Транспорт
+  drivers: Driver[];          // Водители
+  statuses: RequestStatus[];  // Статусы заявок
   routes: RoutePoint[];       // Элементы маршрута
 }
 
@@ -26,6 +29,9 @@ export const appInitialState: IAppState = {
   listMode: EListMode.ALL_REQUESTS,
   date: null,
   selectedDate: null,
+  transport: [],
+  drivers: [],
+  statuses: [],
   routes: []
 };
 

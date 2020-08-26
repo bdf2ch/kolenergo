@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MatMomentDateModule } from '@angular/material-moment-adapter';
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
-
 import {
   MatSnackBarModule,
   MatSidenavModule,
@@ -19,6 +18,7 @@ import {
   MatMenuModule,
   MatDatepickerModule,
   MatAutocompleteModule,
+  MatSelectModule,
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE
 } from '@angular/material';
@@ -44,6 +44,9 @@ import { CurrentUserComponent } from './components/current-user/current-user.com
 import { AddRequestDialogComponent } from './components/add-request-dialog/add-request-dialog.component';
 import { RouteTypeaheadComponent } from './components/route-typeahead/route-typeahead.component';
 import { UserSearchComponent } from './components/user-search/user-search.component';
+import { EditRequestDialogComponent } from './components/edit-request-dialog/edit-request-dialog.component';
+import { TransportTypeaheadComponent } from './components/transport-typeahead/transport-typeahead.component';
+import { DriverTypeaheadComponent } from './components/driver-typeahead/driver-typeahead.component';
 
 export const MY_FORMATS = {
   parse: {
@@ -66,7 +69,10 @@ export const MY_FORMATS = {
     CurrentUserComponent,
     AddRequestDialogComponent,
     RouteTypeaheadComponent,
-    UserSearchComponent
+    UserSearchComponent,
+    EditRequestDialogComponent,
+    TransportTypeaheadComponent,
+    DriverTypeaheadComponent
   ],
   imports: [
     BrowserModule,
@@ -96,6 +102,7 @@ export const MY_FORMATS = {
     MatDatepickerModule,
     MatAutocompleteModule,
     MatMomentDateModule,
+    MatSelectModule,
     UserSearchModule.forRoot({apiUrl: 'http://127.0.0.1:3000', pathPrefix: '/users'}),
     RequestsModule
   ],
@@ -110,7 +117,8 @@ export const MY_FORMATS = {
   ],
   entryComponents: [
     SignInModalComponent,
-    AddRequestDialogComponent
+    AddRequestDialogComponent,
+    EditRequestDialogComponent
   ],
   bootstrap: [
     AppComponent
