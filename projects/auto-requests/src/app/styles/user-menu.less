@@ -1,0 +1,34 @@
+@name-font-family: 'Open Sans Regular';
+@name-font-size: 14px;
+@name-color: #37474f;
+@position-font-family: 'Open Sans Light';
+@position-font-size: 13px;
+@position-color: #90a4ae;
+
+.user-menu {
+  .user-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 16px;
+    margin-right: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eeeeee;
+
+    .name {
+      font-family: @name-font-family;
+      font-size: @name-font-size;
+      line-height: @name-font-size + 4px;
+      color: @name-color;
+    }
+
+    .position {
+      font-family: @position-font-family;
+      font-size: @position-font-size;
+      line-height: @position-font-size + 2px;
+      color: @position-color;
+    }
+  }
+}

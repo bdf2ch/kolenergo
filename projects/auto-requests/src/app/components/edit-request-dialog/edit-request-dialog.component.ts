@@ -61,7 +61,7 @@ export class EditRequestDialogComponent implements OnInit {
       date: new FormControl(this.selectedRequest.startTimeD, Validators.required),
       startTime: new FormControl(
         moment(this.selectedRequest.startTimeD).format('HH:mm'),
-        [Validators.required, minTime(this.selectedRequest.startTimeD)]
+        [Validators.required]
       ),
       endTime: new FormControl(
         moment(this.selectedRequest.endTimeD).format('HH:mm'),

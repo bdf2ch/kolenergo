@@ -1,4 +1,4 @@
-<div class="current-user" [matMenuTriggerFor]="userMenu">
+<div class="current-user" [matMenuTriggerFor]="userMenu" [ngStyle]="{'background': user.getAvatarColor(75, 80)}">
   <div class="initials">{{user.firstName[0] + user.lastName[0]}}</div>
   <!--
   <div class="expander">
@@ -6,7 +6,11 @@
   </div>
 -->
 </div>
-<mat-menu #userMenu="matMenu">
+<mat-menu #userMenu="matMenu" class="user-menu">
+  <div class="user-data">
+    <span class="name">{{user.firstName + ' ' + user.lastName}}</span>
+    <span class="position" *ngIf="user.position">{{user.position}}</span>
+  </div>
   <button mat-menu-item (click)="signOut()">
     <mat-icon class="mr-2">exit_to_app</mat-icon>
     Выход из приложения

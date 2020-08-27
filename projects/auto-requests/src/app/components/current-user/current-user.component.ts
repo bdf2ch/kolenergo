@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 
-import { AuthenticationSignOut, IUser } from '@kolenergo/core';
+import { AuthenticationSignOut, User } from '@kolenergo/core';
 import { IApplicationState } from '../../ngrx';
 
 @Component({
@@ -11,7 +11,7 @@ import { IApplicationState } from '../../ngrx';
   styleUrls: ['./current-user.component.less']
 })
 export class CurrentUserComponent implements OnInit {
-  @Input() user: IUser;
+  @Input() user: User;
 
   constructor(private readonly store: Store<IApplicationState>) { }
 
