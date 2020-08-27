@@ -68,4 +68,31 @@ export class Request implements IRequest {
     this.dateModifiedD = config ? new Date(config.dateModified) : null;
     this.comments = config && config.comments ? config.comments.map((item: IRequestComment) => new RequestComment(item)) : [];
   }
+
+  /**
+   * Создание идентичного объека на основе текущего
+   */
+  clone(): Request {
+    const request = new Request();
+    request.id = this.id;
+    request.type = this.type;
+    request.transport = this.transport;
+    request.driver = this.driver;
+    request.user = this.user;
+    request.initiator = this.initiator;
+    request.status = this.status;
+    request.rejectReason = this.rejectReason;
+    request.startTime = this.startTime;
+    request.startTimeD = this.startTimeD;
+    request.endTime = this.endTime;
+    request.endTimeD = this.endTimeD;
+    request.route = this.route;
+    request.description = this.description;
+    request.dateCreated = this.dateCreated;
+    request.dateCreatedD = this.dateCreatedD;
+    request.dateModified = this.dateModified;
+    request.dateModifiedD = this.dateModifiedD;
+    request.comments = this.comments;
+    return  request;
+  }
 }

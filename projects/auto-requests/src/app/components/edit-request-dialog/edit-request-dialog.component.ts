@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSelectChange } from '@angular/material';
+
 
 import * as moment from 'moment';
 import { select, Store } from '@ngrx/store';
@@ -9,6 +11,7 @@ import { User } from '@kolenergo/core';
 import { Driver, Request, RequestStatus, RoutePoint, Transport } from '../../models';
 import { selectSelectedRequest } from '../../features/requests/ngrx/requests.selectors';
 import { IApplicationState, selectDate, selectDrivers, selectIsLoading, selectRoutes, selectStatuses, selectTransport } from '../../ngrx';
+import { RequestsEditRequest } from '../../features/requests/ngrx/requests.actions';
 import { minTime } from '../add-request-dialog/time.validator';
 import { endTime } from '../add-request-dialog/end-time.validator';
 
@@ -19,6 +22,7 @@ import { endTime } from '../add-request-dialog/end-time.validator';
   styleUrls: ['./edit-request-dialog.component.less']
 })
 export class EditRequestDialogComponent implements OnInit {
+  @ViewChild('initiator', {static: true}) initiator: ElementRef;
   isLoading$: Observable<boolean>;
   selectedRequest$: Observable<Request>;
   selectedRequest: Request;
@@ -37,7 +41,7 @@ export class EditRequestDialogComponent implements OnInit {
     this.selectedRequest$ = this.store.pipe(select(selectSelectedRequest));
     this.selectedRequest$.subscribe((request: Request) => {
       if (request) {
-        this.selectedRequest = request;
+        this.selectedRequest = request.clone();
       }
     });
     this.date$ = this.store.pipe(select(selectDate));
@@ -70,13 +74,18 @@ export class EditRequestDialogComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.initiator.nativeElement) {
+      (this.initiator.nativeElement as HTMLInputElement).focus();
+    }
+  }
 
   /**
    * Выбор транспорта
    * @param transport - Выбранный транспорт
    */
   selectTransport(transport: Transport) {
+    this.selectedRequest.transport = transport;
     this.requestForm.markAsDirty();
   }
 
@@ -85,6 +94,7 @@ export class EditRequestDialogComponent implements OnInit {
    * @param driver - Выбранный водитель
    */
   selectDriver(driver: Driver) {
+    this.selectedRequest.driver = driver;
     this.requestForm.markAsDirty();
   }
 
@@ -95,6 +105,14 @@ export class EditRequestDialogComponent implements OnInit {
   selectRoute(route: RoutePoint | string) {
     this.selectedRequest.route.push(route as RoutePoint);
     this.requestForm.markAsDirty();
+  }
+
+  /**
+   * Событие выбора статуса заявки
+   * @param event - Собфтие
+   */
+  selectStatus(event: MatSelectChange) {
+    this.selectedRequest.status = event.value;
   }
 
   /**
@@ -114,8 +132,21 @@ export class EditRequestDialogComponent implements OnInit {
     return option.id === value.id ? true : false;
   }
 
+  /**
+   * Созхранение изменений в заявке
+   */
   editRequest() {
     console.log(this.selectedRequest);
+    this.selectedRequest.startTime = moment(this.requestForm.controls.date.value)
+      .hours(parseInt((this.requestForm.controls.startTime.value as string).substr(0, 2), 0))
+      .minutes(parseInt((this.requestForm.controls.startTime.value as string).substr(3, 2), 0))
+      .unix() * 1000;
+    this.selectedRequest.endTime = moment(this.requestForm.controls.date.value)
+      .hours(parseInt((this.requestForm.controls.endTime.value as string).substr(0, 2), 0))
+      .minutes(parseInt((this.requestForm.controls.endTime.value as string).substr(3, 2), 0))
+      .unix() * 1000;
+    this.selectedRequest.description = this.requestForm.controls.description.value;
+    this.store.dispatch(new RequestsEditRequest(this.selectedRequest));
   }
 
 }

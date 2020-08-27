@@ -5,11 +5,16 @@ import { Observable } from 'rxjs';
 
 import { IUser } from '@kolenergo/core';
 import {
+  ApplicationCalendarPeriodChange,
+  ApplicationLoadCalendarRequests,
   ApplicationOpenAddRequestDialog,
-  ApplicationOpenSignInDialog, ApplicationSelectDate,
+  ApplicationOpenSignInDialog,
+  ApplicationSelectDate,
   ApplicationSelectViewMode,
-  IApplicationState, selectDate,
-  selectIsLoading, selectSelectedDate,
+  IApplicationState,
+  selectDate,
+  selectIsLoading,
+  selectSelectedDate,
   selectUser,
   selectViewMode
 } from './ngrx';
@@ -67,5 +72,22 @@ export class AppComponent {
    */
   selectDate(date: Date) {
     this.store.dispatch(new ApplicationSelectDate(date));
+  }
+
+  /**
+   * Изменение периода календаря
+   * @param period - Период календаря
+   */
+  periodChange(period: {start: number, end: number}) {
+    this.store.dispatch(new ApplicationCalendarPeriodChange(period));
+  }
+
+  /**
+   * Изменение месяца в календаре
+   * @param period - Период от начала до конца текущего календарного периода
+   */
+  monthChange(period: {start: number, end: number}) {
+    this.store.dispatch(new ApplicationCalendarPeriodChange({start: period.start, end: period.end}));
+    this.store.dispatch(new ApplicationLoadCalendarRequests({start: period.start, end: period.end}));
   }
 }

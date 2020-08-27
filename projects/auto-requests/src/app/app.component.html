@@ -9,7 +9,9 @@
         <app-calendar [date]="date$ | async"
                       [selected]="selectedDate$ | async"
                       [requests]="calendarRequests$ | async"
-                      (select)="selectDate($event)">
+                      (select)="selectDate($event)"
+                      (periodChange)="periodChange($event)"
+                      (monthChange)="monthChange($event)">
         </app-calendar>
       </div>
 

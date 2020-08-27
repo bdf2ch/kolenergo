@@ -14,6 +14,8 @@ export class CalendarComponent implements OnInit, OnChanges {
   @Input() selected: Date;
   @Input() requests: {date: string, count: number}[];
   @Output() select: EventEmitter<Date>;
+  @Output() monthChange: EventEmitter<{start: number, end: number}>;
+  @Output() periodChange: EventEmitter<{start: number, end: number}>;
   days: CalendarDay[];
   startOfMonth: moment.Moment;
   endOfMonth: moment.Moment;
@@ -23,10 +25,12 @@ export class CalendarComponent implements OnInit, OnChanges {
 
   constructor() {
     this.select = new EventEmitter<Date>();
+    this.monthChange = new EventEmitter<{start: number, end: number}>();
+    this.periodChange = new EventEmitter<{start: number, end: number}>();
     this.days = [];
     moment.updateLocale('ru', { week: {
         dow: 1, // First day of week is Monday
-        doy: 4  // First week of year must contain 4 January (7 + 1 - 4)
+        doy: 4  // First week of year must contain 4 January (7 + 1 - 4),
       }});
   }
 
@@ -58,6 +62,10 @@ export class CalendarComponent implements OnInit, OnChanges {
       calendarDay.isActive = day.isBetween(this.startOfMonth, this.endOfMonth, undefined, '[]');
       this.days.push(calendarDay);
     }
+    this.periodChange.emit({
+      start: this.days[0].date.unix() * 1000,
+      end: this.days[this.days.length - 1].date.endOf('day').unix() * 1000
+    });
   }
 
   /**
@@ -82,6 +90,10 @@ export class CalendarComponent implements OnInit, OnChanges {
     this.days = [];
     this.generateMonth(firstDayOfNextMonth.toDate(), false);
     this.generateNotifications(this.requests);
+    this.monthChange.emit({
+      start: this.days[0].date.unix() * 1000,
+      end: this.days[this.days.length - 1].date.endOf('day').unix() * 1000
+    });
   }
 
   /**
@@ -92,6 +104,10 @@ export class CalendarComponent implements OnInit, OnChanges {
     this.days = [];
     this.generateMonth(firstDayOfNextMonth.toDate(), false);
     this.generateNotifications(this.requests);
+    this.monthChange.emit({
+      start: this.days[0].date.unix() * 1000,
+      end: this.days[this.days.length - 1].date.endOf('day').unix() * 1000
+    });
   }
 
   /**

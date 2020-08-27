@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import {
-  IResourceMethod, IResourceMethodStrict,
+  IResourceMethod,
+  IResourceMethodStrict,
   Resource,
   ResourceAction,
   ResourceHandler,
@@ -41,13 +42,31 @@ export class RequestsResource extends Resource {
   }, void, IServerResponse<IRequest[]>>;
 
   @ResourceAction({
+    path: '/calendar',
+    method: ResourceRequestMethod.Get,
+    withCredentials: true
+  })
+  getNotifications: IResourceMethodStrict<void, { start: number, end: number}, void, IServerResponse<{date: string, count: number}[]>>;
+
+  @ResourceAction({
     path: '/',
     method: ResourceRequestMethod.Post,
     withCredentials: true
   })
-  add: IResourceMethodStrict<Request, {date: string}, void, IServerResponse<{
+  add: IResourceMethodStrict<Request, {date: string, periodStart: number, periodEnd: number}, void, IServerResponse<{
     requests: IRequest[],
     userRequests: IRequest[],
+    calendarRequests: {date: string, count: number}[],
+    routes: IRoutePoint[]
+  }>>;
+
+  @ResourceAction({
+    path: '/{!:id}',
+    method: ResourceRequestMethod.Patch,
+    withCredentials: true
+  })
+  edit: IResourceMethodStrict<Request, {periodStart: number, periodEnd: number, currentDate: string}, {id: number}, IServerResponse<{
+    requests: IRequest[],
     calendarRequests: {date: string, count: number}[],
     routes: IRoutePoint[]
   }>>;

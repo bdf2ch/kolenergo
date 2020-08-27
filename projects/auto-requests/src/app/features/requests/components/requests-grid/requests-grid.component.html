@@ -39,7 +39,7 @@
       <div class="data-block description">
         <div class="details mb-1">
           <div class="label">Дата и время поездки</div>
-          <span class="primary-data">{{request.startTimeD | date:'dd MMM hh:mm'}} &mdash; {{request.endTimeD | date:'hh:mm'}}</span>
+          <span class="primary-data">{{request.startTimeD | date:'dd MMM HH:mm'}} &mdash; {{request.endTimeD | date:'HH:mm'}}</span>
         </div>
 
         <div class="details d-flex flex-column justify-content-end">
@@ -55,8 +55,8 @@
           <div class="label">Маршрут поездки</div>
           <div class="route-path">
             <div class="timeline">
-              <span class="time">{{request.startTimeD | date:'hh:mm'}}</span>
-              <span class="time">{{request.endTimeD | date: 'hh:mm'}}</span>
+              <span class="time">{{request.startTimeD | date:'HH:mm'}}</span>
+              <span class="time">{{request.endTimeD | date: 'HH:mm'}}</span>
             </div>
             <div class="routes">
               <app-route-path [routes]="request.route" [extended]="false"></app-route-path>

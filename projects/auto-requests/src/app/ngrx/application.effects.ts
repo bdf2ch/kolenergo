@@ -16,7 +16,7 @@ import {
   ApplicationOpenAddRequestDialog,
   ApplicationOpenSignInDialog
 } from './application.actions';
-import { selectUser } from './selectors';
+import {selectCalendarPeriodEnd, selectCalendarPeriodStart, selectUser} from './selectors';
 import { IInitialData } from '../interfaces';
 import {SignInModalComponent} from '../components/sign-in-modal/sign-in-modal.component';
 import {ApplicationsLoadApplicationsSuccess} from '../../../../control/src/app/features/applications/ngrx';
@@ -35,7 +35,7 @@ export class ApplicationEffects {
   @Effect()
   loadInitialData$ = this.actions$.pipe(
     ofType(ApplicationActionTypes.APPLICATION_LOAD_INITIAL_DATA),
-    switchMap((action) => this.application.init()
+    switchMap(() => this.application.init()
       .pipe(
         map((response: IServerResponse<IInitialData>) => new ApplicationLoadInitialDataSuccess(response)),
         catchError((error: any) => {

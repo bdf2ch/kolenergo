@@ -74,6 +74,16 @@ export class TransportTypeaheadComponent implements OnInit, OnChanges {
   }
 
   /**
+   * Сравнение выбранной опции со значением транспорт
+   * @param option - Выбранная опция
+   * @param value - Значение транспорта
+   */
+  transportCompare(option: Transport, value: Transport): boolean {
+    return option.id === value.id ? true : false;
+  }
+
+
+  /**
    * Сброс выбранного пользователя
    */
   onClear() {

@@ -16,6 +16,7 @@ export class User implements IUser {
   secondName: string;               // Отчество
   lastName: string;                 // Фамилия
   position: string;                 // Должность
+  email: string;                    // E-mail
   photo: string;                    // Фотография
   color: string;                    // Цвет автврв
   company: ICompany;                // Организация
@@ -33,6 +34,7 @@ export class User implements IUser {
     this.secondName = config ? config.secondName : null;
     this.lastName = config ? config.lastName : null;
     this.position = config ? config.position : null;
+    this.email = config && config.email ? config.email : null;
     this.photo = config && config.photo ? config.photo : null;
     this.color = this.getAvatarColor(85, 75);
     this.company = config && config.company ? new Company(config.company) : null;

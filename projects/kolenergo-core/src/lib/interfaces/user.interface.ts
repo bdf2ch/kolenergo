@@ -13,6 +13,7 @@ export interface IUser {
   secondName: string;                            // Отчество
   lastName: string;                              // Фамилия
   position: string;                              // Должность
+  email?: string;                                // E-mail
   photo?: string;                                // Фотография
   company?: ICompany;                            // Организация
   department?: IDepartment;                      // Подразделение орагнизации

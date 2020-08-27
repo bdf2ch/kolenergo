@@ -68,7 +68,7 @@ export class RouteTypeaheadComponent implements OnInit, OnChanges {
       const newRoute = new RoutePoint();
       newRoute.title = route;
       this.select.emit(newRoute);
-      this.routeForm.controls.transport.setValue(null);
+      this.routeForm.controls.route.setValue(null);
     }
   }
 

@@ -24,6 +24,22 @@ export const selectIsLoading = createSelector(
 );
 
 /**
+ * Селектор начала периода календаря
+ */
+export const selectCalendarPeriodStart = createSelector(
+  selectApplication,
+  (state: IAppState) => state.calendarPeriodStart
+);
+
+/**
+ * Селектор окончания периода календаря
+ */
+export const selectCalendarPeriodEnd = createSelector(
+  selectApplication,
+  (state: IAppState) => state.calendarPeriodEnd
+);
+
+/**
  * Селектор режима отображения заявок
  */
 export const selectViewMode = createSelector(

@@ -3,6 +3,7 @@ import { AbstractControl, ValidatorFn } from '@angular/forms';
 import * as moment from 'moment';
 
 export function endTime(date: Date, startTime: string): ValidatorFn {
+  console.log(moment(date).format('DD.MM.YYYY'));
   return (control: AbstractControl): {[key: string]: any} | null => {
     const current = moment(date)
       .hours(parseInt((control.value as string).substr(0, 2), null))

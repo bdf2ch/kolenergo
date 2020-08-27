@@ -30,7 +30,7 @@
                     [ngStyle]="{'color': requestForm.controls.status.value.color}">
             {{requestForm.controls.status.value.icon}}
           </mat-icon>
-          <mat-select formControlName="status" [compareWith]="statusCompare">
+          <mat-select formControlName="status" [compareWith]="statusCompare" (selectionChange)="selectStatus($event)" autofocus>
             <mat-select-trigger>
               <!--{{selectedRequest.status.title}}-->
               {{requestForm.controls.status.value.title}}
@@ -74,7 +74,7 @@
         <!-- Start: Заказчик -->
         <mat-form-field appearance="fill" class="w-100 pr-3" floatLabel="always">
           <mat-label>Заказчик</mat-label>
-          <input matInput formControlName="user" readonly="true">
+          <input matInput formControlName="user" readonly="true" #initiator>
           <mat-hint>{{selectedRequest.user.position}}</mat-hint>
         </mat-form-field>
         <!-- End: Заказчик -->

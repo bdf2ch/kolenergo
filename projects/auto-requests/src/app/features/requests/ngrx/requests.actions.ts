@@ -85,6 +85,7 @@ export class RequestsAddRequestFail implements Action {
  */
 export class RequestsEditRequest implements Action {
   readonly type = RequestsActionTypes.REQUESTS_EDIT_REQUEST;
+  constructor(public payload: Request) {}
 }
 
 /**
@@ -92,7 +93,11 @@ export class RequestsEditRequest implements Action {
  */
 export class RequestsEditRequestSuccess implements Action {
   readonly type = RequestsActionTypes.REQUESTS_EDIT_REQUEST_SUCCESS;
-  constructor(public payload: IServerResponse<IRequest>) {}
+  constructor(public payload: IServerResponse<{
+    requests: IRequest[],
+    calendarRequests: {date: string, count: number}[],
+    routes: IRoutePoint[]
+  }>) {}
 }
 
 /**

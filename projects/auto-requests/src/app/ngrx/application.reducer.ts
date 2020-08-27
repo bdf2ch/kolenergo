@@ -1,9 +1,9 @@
-import { appInitialState, IAppState  } from './application.state';
-import { ApplicationActions, ApplicationActionTypes } from './application.actions';
-import { RequestsActions, RequestsActionTypes } from '../features/requests/ngrx/requests.actions';
-import { IDriver, IRequestStatus, IRoutePoint, ITransport } from '../interfaces';
-import { Driver, RequestStatus, RoutePoint, Transport } from '../models';
-import { EListMode } from '../enums';
+import {appInitialState, IAppState} from './application.state';
+import {ApplicationActions, ApplicationActionTypes} from './application.actions';
+import {RequestsActions, RequestsActionTypes} from '../features/requests/ngrx/requests.actions';
+import {IDriver, IRequestStatus, IRoutePoint, ITransport} from '../interfaces';
+import {Driver, RequestStatus, RoutePoint, Transport} from '../models';
+import {EListMode} from '../enums';
 
 /**
  * Редуктор состояния приложения
@@ -50,6 +50,17 @@ export function applicationReducer(
       return {
         ...state,
         isLoading: false
+      };
+    }
+
+    /**
+     * Изменение периода календаря
+     */
+    case ApplicationActionTypes.APPLICATION_CALENDAR_PERIOD_CHANGE: {
+      return {
+        ...state,
+        calendarPeriodStart: action.payload.start,
+        calendarPeriodEnd: action.payload.end
       };
     }
 
@@ -139,6 +150,43 @@ export function applicationReducer(
               .map((route) => new RoutePoint(route))]
               .sort((a, b) => a.title < b.title ? -1 : 1)
           : state.routes
+      };
+    }
+
+    /**
+     * Сохранение изменений в заявке
+     */
+    case RequestsActionTypes.REQUESTS_EDIT_REQUEST: {
+      return {
+        ...state,
+        isLoading: true
+      };
+    }
+
+    /**
+     * Сохранение изменений в заявке выполнено успешно
+     */
+    case RequestsActionTypes.REQUESTS_EDIT_REQUEST_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        routes: action.payload.data.routes.length > 0
+          ? [
+            ...state.routes,
+            ...action.payload.data.routes
+              .map((route) => new RoutePoint(route))]
+            .sort((a, b) => a.title < b.title ? -1 : 1)
+          : state.routes
+      };
+    }
+
+    /**
+     * Не удалось сохранить изменения в заявке
+     */
+    case RequestsActionTypes.REQUESTS_EDIT_REQUEST_FAIL: {
+      return {
+        ...state,
+        isLoading: false
       };
     }
 

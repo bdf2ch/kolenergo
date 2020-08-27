@@ -13,6 +13,8 @@ export interface IAppState {
   listMode: EListMode;        // Режим списка заявок
   date: Date;                 // Текущая дата
   selectedDate: Date;         // Выбранная дата
+  calendarPeriodStart: number;    // Дата и время начала периода в календаре в формате Unix
+  calendarPeriodEnd: number;      // Дата и время окончания периода в календаре в формате Unix
   transport: Transport[];     // Транспорт
   drivers: Driver[];          // Водители
   statuses: RequestStatus[];  // Статусы заявок
@@ -29,6 +31,8 @@ export const appInitialState: IAppState = {
   listMode: EListMode.ALL_REQUESTS,
   date: null,
   selectedDate: null,
+  calendarPeriodStart: 0,
+  calendarPeriodEnd: 0,
   transport: [],
   drivers: [],
   statuses: [],

@@ -108,7 +108,6 @@ export class AddRequestDialogComponent implements OnInit {
       .minutes(parseInt((this.addRequestForm.controls.endTime.value as string).substr(3, 2), 0))
       .unix() * 1000;
     this.request.description = this.addRequestForm.controls.description.value;
-    console.log(this.request);
     this.store.dispatch(new RequestsAddRequest(this.request));
   }
 }

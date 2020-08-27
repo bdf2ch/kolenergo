@@ -18,7 +18,7 @@ export class ApplicationService {
    * Получение с сервера данных для инициализации приложения
    */
   init(): Observable<IServerResponse<IInitialData>> {
-    return from(this.resource.init(null, null))
+    return from(this.resource.init(null))
       .pipe(
         map((response: IServerResponse<IInitialData>) => response)
       );

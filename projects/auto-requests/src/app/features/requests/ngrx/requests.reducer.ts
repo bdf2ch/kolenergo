@@ -1,8 +1,8 @@
-import { IRequestsState, requestsInitialState } from './requests.state';
-import { RequestsActions, RequestsActionTypes } from './requests.actions';
-import { ApplicationActions, ApplicationActionTypes } from '../../../ngrx';
-import { IRequest } from '../../../interfaces';
-import { Request } from '../../../models';
+import {IRequestsState, requestsInitialState} from './requests.state';
+import {RequestsActions, RequestsActionTypes} from './requests.actions';
+import {ApplicationActions, ApplicationActionTypes} from '../../../ngrx';
+import {IRequest} from '../../../interfaces';
+import {Request} from '../../../models';
 
 export function requestsReducer(
   state: IRequestsState = requestsInitialState,
@@ -52,6 +52,16 @@ export function requestsReducer(
     }
 
     /**
+     * Загрузка оповещений о завках для календаря выполнена успешно
+     */
+    case ApplicationActionTypes.APPLICATION_LOAD_CALENDAR_REQUESTS_SUCCESS: {
+      return {
+        ...state,
+        calendarRequests: action.payload.data
+      };
+    }
+
+    /**
      * Новая заявка успешно добавлена
      */
     case RequestsActionTypes.REQUESTS_ADD_REQUEST_SUCCESS: {
@@ -66,7 +76,8 @@ export function requestsReducer(
     case RequestsActionTypes.REQUESTS_EDIT_REQUEST_SUCCESS: {
       return {
         ...state,
-        // requests: [...state.requests.]
+        requests: action.payload.data.requests.map((item: IRequest) => new Request(item)),
+        calendarRequests: action.payload.data.calendarRequests
       };
     }
 
