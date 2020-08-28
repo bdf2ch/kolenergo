@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 import * as moment from 'moment';
 
@@ -12,6 +12,7 @@ import { CalendarDay } from '../../models';
 export class CalendarComponent implements OnInit, OnChanges {
   @Input() date: Date;
   @Input() selected: Date;
+  @Input() showNotifications: boolean;
   @Input() requests: {date: string, count: number}[];
   @Output() select: EventEmitter<Date>;
   @Output() monthChange: EventEmitter<{start: number, end: number}>;
@@ -41,7 +42,9 @@ export class CalendarComponent implements OnInit, OnChanges {
      this.generateMonth(changes.date.currentValue, true);
     }
     if (changes.requests && changes.requests.currentValue) {
-      this.generateNotifications(changes.requests.currentValue);
+      if (this.showNotifications) {
+        this.generateNotifications(changes.requests.currentValue);
+      }
     }
   }
 
@@ -89,7 +92,9 @@ export class CalendarComponent implements OnInit, OnChanges {
     const firstDayOfNextMonth = this.startOfMonth.startOf('day').add(1, 'month');
     this.days = [];
     this.generateMonth(firstDayOfNextMonth.toDate(), false);
-    this.generateNotifications(this.requests);
+    if (this.showNotifications) {
+      this.generateNotifications(this.requests);
+    }
     this.monthChange.emit({
       start: this.days[0].date.unix() * 1000,
       end: this.days[this.days.length - 1].date.endOf('day').unix() * 1000
@@ -103,7 +108,9 @@ export class CalendarComponent implements OnInit, OnChanges {
     const firstDayOfNextMonth = this.startOfMonth.startOf('day').subtract(1, 'month');
     this.days = [];
     this.generateMonth(firstDayOfNextMonth.toDate(), false);
-    this.generateNotifications(this.requests);
+    if (this.showNotifications) {
+      this.generateNotifications(this.requests);
+    }
     this.monthChange.emit({
       start: this.days[0].date.unix() * 1000,
       end: this.days[this.days.length - 1].date.endOf('day').unix() * 1000

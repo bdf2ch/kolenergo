@@ -1,6 +1,6 @@
 <mat-progress-bar mode="indeterminate" color="primary" *ngIf="idLoading$ | async"></mat-progress-bar>
-<mat-drawer-container class="application-container">
-  <mat-drawer mode="side" opened>
+<mat-drawer-container class="application-container" hasBackdrop="{{(isCompactMode$ | async) ? true : false}}" (backdropClick)="closeSidebar()">
+  <mat-drawer mode="{{(isCompactMode$ | async) ? 'over' : 'side'}}" [opened]="(isSidebarOpened$ | async)">
     <div class="header pl-5 pr-5 pt-5 pb-0">
       <div class="app-title">Заявки<br>на автотранспорт</div>
     </div>
@@ -9,6 +9,7 @@
         <app-calendar [date]="date$ | async"
                       [selected]="selectedDate$ | async"
                       [requests]="calendarRequests$ | async"
+                      [showNotifications]="true"
                       (select)="selectDate($event)"
                       (periodChange)="periodChange($event)"
                       (monthChange)="monthChange($event)">
@@ -28,6 +29,14 @@
   <mat-drawer-content>
     <div class="header p-5">
       <div class="controls">
+
+        <button mat-icon-button
+                *ngIf="(isCompactMode$ | async)"
+                (click)="openSidebar()"
+                class="mr-4 control">
+          <mat-icon>menu</mat-icon>
+        </button>
+
         <button mat-icon-button
                 matTooltip="Список"
                 matTooltipPosition="below"
@@ -36,6 +45,7 @@
                 class="mr-4 control">
           <mat-icon>list_alt</mat-icon>
         </button>
+
         <button mat-icon-button
                 matTooltip="Календарь"
                 matTooltipPosition="below"

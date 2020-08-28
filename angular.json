@@ -751,7 +751,8 @@
             "tsConfig": "projects/auto-requests/tsconfig.app.json",
             "assets": [
               "projects/auto-requests/src/favicon.ico",
-              "projects/auto-requests/src/assets"
+              "projects/auto-requests/src/assets",
+              "projects/auto-requests/src/manifest.webmanifest"
             ],
             "styles": [
               "projects/auto-requests/src/custom-theme.scss",
@@ -783,7 +784,9 @@
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "projects/auto-requests/ngsw-config.json"
             }
           }
         },
@@ -818,7 +821,8 @@
             "scripts": [],
             "assets": [
               "projects/auto-requests/src/favicon.ico",
-              "projects/auto-requests/src/assets"
+              "projects/auto-requests/src/assets",
+              "projects/auto-requests/src/manifest.webmanifest"
             ]
           }
         },

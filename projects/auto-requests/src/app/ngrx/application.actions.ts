@@ -8,6 +8,9 @@ import { EListMode, EViewMode } from '../enums';
  * Типы действий приложения
  */
 export const enum ApplicationActionTypes {
+  APPLICATION_SET_COMPACT_MODE = '[Application UI] Set compact mode',
+  APPLICATION_OPEN_SIDEBAR = '[Application UI] Open sidebar',
+  APPLICATION_CLOSE_SIDEBAR = '[Application UI] Close sidebar',
   APPLICATION_LOAD_INITIAL_DATA = '[Auto API] Load application initial data',
   APPLICATION_LOAD_INITIAL_DATA_SUCCESS = '[Auto API] Application initial data loaded successfully',
   APPLICATION_LOAD_INITIAL_DATA_FAIL = '[Auto API] Failed to load application initial data',
@@ -20,6 +23,28 @@ export const enum ApplicationActionTypes {
   APPLICATION_SELECT_DATE = '[Application UI] Select date',
   APPLICATION_OPEN_SIGN_IN_DIALOG = '[Application UI] Open sign in dialog',
   APPLICATION_OPEN_ADD_REQUEST_DIALOG = '[Application UI] Open add request dialog'
+}
+
+/**
+ * Установка режима компактного отображения
+ */
+export class ApplicationSetCompactMode implements Action {
+  readonly type = ApplicationActionTypes.APPLICATION_SET_COMPACT_MODE;
+  constructor(public payload: boolean) {}
+}
+
+/**
+ * Открытие боковой панели
+ */
+export class ApplicationOpenSidebar implements Action {
+  readonly type = ApplicationActionTypes.APPLICATION_OPEN_SIDEBAR;
+}
+
+/**
+ * Закрытие боковой панели
+ */
+export class ApplicationCloseSidebar implements Action {
+  readonly type = ApplicationActionTypes.APPLICATION_CLOSE_SIDEBAR;
 }
 
 /**
@@ -118,6 +143,9 @@ export class ApplicationOpenAddRequestDialog implements Action {
  * Составной тип всех действий в приложении
  */
 export type ApplicationActions =
+  ApplicationSetCompactMode |
+  ApplicationOpenSidebar |
+  ApplicationCloseSidebar |
   ApplicationLoadInitialData |
   ApplicationLoadInitialDataSuccess |
   ApplicationLoadInitialDataFail |

@@ -7,18 +7,20 @@ import { Driver, RequestStatus, RoutePoint, Transport } from '../models';
  * Интерфейс, описывающий состояние ядра приложения
  */
 export interface IAppState {
-  isInitialized: boolean;     // Приложение инициализировано
-  isLoading: boolean;         // Выполняется загрузка
-  viewMode: EViewMode;        // Режим отображения заявок
-  listMode: EListMode;        // Режим списка заявок
-  date: Date;                 // Текущая дата
-  selectedDate: Date;         // Выбранная дата
+  isInitialized: boolean;         // Приложение инициализировано
+  isLoading: boolean;             // Выполняется загрузка
+  isSidebarOpened: boolean;       // Состояние боковой панели
+  isCompactMode: boolean;       // Компаетный режим
+  viewMode: EViewMode;            // Режим отображения заявок
+  listMode: EListMode;            // Режим списка заявок
+  date: Date;                     // Текущая дата
+  selectedDate: Date;             // Выбранная дата
   calendarPeriodStart: number;    // Дата и время начала периода в календаре в формате Unix
   calendarPeriodEnd: number;      // Дата и время окончания периода в календаре в формате Unix
-  transport: Transport[];     // Транспорт
-  drivers: Driver[];          // Водители
-  statuses: RequestStatus[];  // Статусы заявок
-  routes: RoutePoint[];       // Элементы маршрута
+  transport: Transport[];         // Транспорт
+  drivers: Driver[];              // Водители
+  statuses: RequestStatus[];      // Статусы заявок
+  routes: RoutePoint[];           // Элементы маршрута
 }
 
 /**
@@ -27,6 +29,8 @@ export interface IAppState {
 export const appInitialState: IAppState = {
   isInitialized: false,
   isLoading: true,
+  isSidebarOpened: true,
+  isCompactMode: false,
   viewMode: EViewMode.VIEW_LIST,
   listMode: EListMode.ALL_REQUESTS,
   date: null,

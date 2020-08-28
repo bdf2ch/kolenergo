@@ -24,6 +24,22 @@ export const selectIsLoading = createSelector(
 );
 
 /**
+ * Селектор состояния компактного отображения
+ */
+export const selectIsCompactMode = createSelector(
+  selectApplication,
+  (state: IAppState) => state.isCompactMode
+);
+
+/**
+ * Селектор состояния боковой панели
+ */
+export const selectIsSidebarOpened = createSelector(
+  selectApplication,
+  (state: IAppState) => state.isSidebarOpened
+);
+
+/**
  * Селектор начала периода календаря
  */
 export const selectCalendarPeriodStart = createSelector(

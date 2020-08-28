@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { BreakpointObserver, BreakpointState, MediaMatcher } from '@angular/cdk/layout';
 
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -6,20 +7,23 @@ import { Observable } from 'rxjs';
 import { IUser } from '@kolenergo/core';
 import {
   ApplicationCalendarPeriodChange,
+  ApplicationCloseSidebar,
   ApplicationLoadCalendarRequests,
   ApplicationOpenAddRequestDialog,
+  ApplicationOpenSidebar,
   ApplicationOpenSignInDialog,
   ApplicationSelectDate,
-  ApplicationSelectViewMode,
+  ApplicationSelectViewMode, ApplicationSetCompactMode,
   IApplicationState,
-  selectDate,
+  selectDate, selectIsCompactMode,
   selectIsLoading,
+  selectIsSidebarOpened,
   selectSelectedDate,
   selectUser,
   selectViewMode
 } from './ngrx';
 import { EViewMode } from './enums';
-import {selectCalendarRequests} from './features/requests/ngrx';
+import { selectCalendarRequests } from './features/requests/ngrx';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +31,10 @@ import {selectCalendarRequests} from './features/requests/ngrx';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
+  public mobileQuery: MediaQueryList;
+  private readonly  mobileQueryListener: () => void;
+  isCompactMode$: Observable<boolean>;
+  isSidebarOpened$: Observable<boolean>;
   idLoading$: Observable<boolean>;
   user$: Observable<IUser>;
   viewMode$: Observable<EViewMode>;
@@ -35,13 +43,42 @@ export class AppComponent {
   selectedDate$: Observable<Date>;
   calendarRequests$: Observable<{date: string, count: number}[]>;
 
-  constructor(private readonly store: Store<IApplicationState>) {
+  constructor(
+    private breakpoint: BreakpointObserver,
+    private readonly detector: ChangeDetectorRef,
+    private readonly media: MediaMatcher,
+    private readonly store: Store<IApplicationState>
+  ) {
+    this.isCompactMode$ = this.store.pipe(select(selectIsCompactMode));
+    this.isSidebarOpened$ = this.store.pipe(select(selectIsSidebarOpened));
     this.date$ = this.store.pipe(select(selectDate));
     this.selectedDate$ = this.store.pipe(select(selectSelectedDate));
     this.idLoading$ = this.store.pipe(select(selectIsLoading));
     this.user$ = this.store.pipe(select(selectUser));
     this.viewMode$ = this.store.pipe(select(selectViewMode));
     this.calendarRequests$ = this.store.pipe(select(selectCalendarRequests));
+
+    this.mobileQuery = media.matchMedia('(max-width: 1500px)');
+    this.mobileQueryListener = () => this.detector.detectChanges();
+    this.mobileQuery.addListener(this.mobileQueryListener);
+    this.breakpoint.observe('(max-width: 1500px)').subscribe((result: BreakpointState) => {
+      this.store.dispatch(new ApplicationSetCompactMode(result.matches ? true : false));
+      // this.store.dispatch(result.matches ? new ApplicationCloseSidebar() : new ApplicationOpenSidebar());
+    });
+  }
+
+  /**
+   * Открытие боковой панели
+   */
+  openSidebar() {
+    this.store.dispatch(new ApplicationOpenSidebar());
+  }
+
+  /**
+   * закрытие боковой панели
+   */
+  closeSidebar() {
+    this.store.dispatch(new ApplicationCloseSidebar());
   }
 
   /**

@@ -17,6 +17,36 @@ export function applicationReducer(
   switch (action.type) {
 
     /**
+     * Установка режима компактного отображения
+     */
+    case ApplicationActionTypes.APPLICATION_SET_COMPACT_MODE: {
+      return {
+        ...state,
+        isCompactMode: action.payload
+      };
+    }
+
+    /**
+     * Открытие боковой панели
+     */
+    case ApplicationActionTypes.APPLICATION_OPEN_SIDEBAR: {
+      return {
+        ...state,
+        isSidebarOpened: true
+      };
+    }
+
+    /**
+     * Закрытие боковой панели
+     */
+    case ApplicationActionTypes.APPLICATION_CLOSE_SIDEBAR: {
+      return {
+        ...state,
+        isSidebarOpened: false
+      };
+    }
+
+    /**
      * Загрузка данных для инициализации приложения
      */
     case ApplicationActionTypes.APPLICATION_LOAD_INITIAL_DATA: {

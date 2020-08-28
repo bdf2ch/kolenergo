@@ -47,6 +47,7 @@ import { UserSearchComponent } from './components/user-search/user-search.compon
 import { EditRequestDialogComponent } from './components/edit-request-dialog/edit-request-dialog.component';
 import { TransportTypeaheadComponent } from './components/transport-typeahead/transport-typeahead.component';
 import { DriverTypeaheadComponent } from './components/driver-typeahead/driver-typeahead.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 export const MY_FORMATS = {
   parse: {
@@ -104,7 +105,8 @@ export const MY_FORMATS = {
     MatMomentDateModule,
     MatSelectModule,
     UserSearchModule.forRoot({apiUrl: 'http://127.0.0.1:3000', pathPrefix: '/users'}),
-    RequestsModule
+    RequestsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     ApplicationResource,

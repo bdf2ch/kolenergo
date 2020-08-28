@@ -11,10 +11,10 @@ import {actionTypes, AuthenticationSignInSuccess, IServerResponse, User} from '@
 import { ApplicationService } from '../services/application.service';
 import { IApplicationState  } from './application.state';
 import {
-  ApplicationActionTypes, ApplicationLoadInitialDataFail,
+  ApplicationActionTypes, ApplicationCloseSidebar, ApplicationLoadInitialDataFail,
   ApplicationLoadInitialDataSuccess,
-  ApplicationOpenAddRequestDialog,
-  ApplicationOpenSignInDialog
+  ApplicationOpenAddRequestDialog, ApplicationOpenSidebar,
+  ApplicationOpenSignInDialog, ApplicationSetCompactMode
 } from './application.actions';
 import {selectCalendarPeriodEnd, selectCalendarPeriodStart, selectUser} from './selectors';
 import { IInitialData } from '../interfaces';
@@ -25,12 +25,25 @@ import {AddRequestDialogComponent} from '../components/add-request-dialog/add-re
 
 @Injectable()
 export class ApplicationEffects {
-  constructor(private readonly router: Router,
-              private readonly store: Store<IApplicationState>,
-              private readonly actions$: Actions,
-              private readonly dialog: MatDialog,
-              private readonly snackBar: MatSnackBar,
-              private readonly application: ApplicationService) {}
+  constructor(
+    private readonly router: Router,
+    private readonly store: Store<IApplicationState>,
+    private readonly actions$: Actions,
+    private readonly dialog: MatDialog,
+    private readonly snackBar: MatSnackBar,
+    private readonly application: ApplicationService
+  ) {
+  }
+
+  @Effect()
+  setCompactMode$ = this.actions$.pipe(
+    ofType(ApplicationActionTypes.APPLICATION_SET_COMPACT_MODE),
+    mergeMap((action) => {
+      return (action as ApplicationSetCompactMode).payload === true
+        ? of(new ApplicationCloseSidebar())
+        : of(new ApplicationOpenSidebar());
+    })
+  );
 
   @Effect()
   loadInitialData$ = this.actions$.pipe(
