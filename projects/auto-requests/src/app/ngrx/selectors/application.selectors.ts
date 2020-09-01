@@ -56,6 +56,14 @@ export const selectCalendarPeriodEnd = createSelector(
 );
 
 /**
+ * Селектор филтров заявок
+ */
+export const selectFilters = createSelector(
+  selectApplication,
+  (state: IAppState) => state.filters
+);
+
+/**
  * Селектор режима отображения заявок
  */
 export const selectViewMode = createSelector(

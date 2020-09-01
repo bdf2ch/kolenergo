@@ -21,7 +21,6 @@ export class InitializationGuard implements Resolve<any> {
     this.isInitialized$.subscribe((value: boolean) => {
       this.isInitialized = value;
     });
-    console.log('INIT GUARD');
   }
 
   loadInitialData(): Observable<boolean> {
@@ -37,16 +36,7 @@ export class InitializationGuard implements Resolve<any> {
       this.store.dispatch(new ApplicationLoadInitialData());
       return this.loadInitialData()
         .pipe(
-          // withLatestFrom(this.store.pipe(select(selectUser))),
-          // mergeMap(([fetching, user]) => {
-          mergeMap((fetching) => {
-            // if (!user) {
-            //  this.router.navigate(['/sign-in']);
-            //  return of(user);
-            // } else {
-              return of(null);
-            // }
-          }),
+          mergeMap((fetching) => of(null)),
           take(1)
         );
     }

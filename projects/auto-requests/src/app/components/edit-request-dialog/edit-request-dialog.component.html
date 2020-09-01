@@ -10,6 +10,7 @@
 
       <!-- Start: Транспорт -->
       <app-transport-typeahead [transport]="transport$ | async"
+                               [request]="selectedRequest$ | async"
                                (select)="selectTransport($event)">
       </app-transport-typeahead>
       <!-- End: Транспорт -->
@@ -17,6 +18,7 @@
       <!-- Start: Водитель -->
       <app-driver-typeahead class="mt-3"
                             [drivers]="drivers$ | async"
+                            [request]="selectedRequest$ | async"
                             (select)="selectDriver($event)">
       </app-driver-typeahead>
       <!-- End: Водитель -->
@@ -49,7 +51,7 @@
     <button mat-raised-button
             color="primary"
             class="w-100 pt-2 pb-2"
-            [disabled]="(isLoading$ | async) || (requestForm.dirty && requestForm.invalid) || selectedRequest.route.length < 2 || requestForm.pristine"
+            [disabled]="(isLoading$ | async) || requestForm.invalid || selectedRequest.route.length < 2 || requestForm.pristine"
             (click)="editRequest()">
       Сохранить изменения
     </button>

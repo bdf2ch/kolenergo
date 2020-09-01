@@ -4,18 +4,18 @@ import { BreakpointObserver, BreakpointState, MediaMatcher } from '@angular/cdk/
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { IUser } from '@kolenergo/core';
+import { FilterManager, IUser } from '@kolenergo/core';
 import {
   ApplicationCalendarPeriodChange,
   ApplicationCloseSidebar,
   ApplicationLoadCalendarRequests,
-  ApplicationOpenAddRequestDialog,
+  ApplicationOpenAddRequestDialog, ApplicationOpenFiltersDialog,
   ApplicationOpenSidebar,
   ApplicationOpenSignInDialog,
   ApplicationSelectDate,
   ApplicationSelectViewMode, ApplicationSetCompactMode,
   IApplicationState,
-  selectDate, selectIsCompactMode,
+  selectDate, selectFilters, selectIsCompactMode,
   selectIsLoading,
   selectIsSidebarOpened,
   selectSelectedDate,
@@ -42,6 +42,7 @@ export class AppComponent {
   date$: Observable<Date>;
   selectedDate$: Observable<Date>;
   calendarRequests$: Observable<{date: string, count: number}[]>;
+  filters$: Observable<FilterManager>;
 
   constructor(
     private breakpoint: BreakpointObserver,
@@ -57,6 +58,7 @@ export class AppComponent {
     this.user$ = this.store.pipe(select(selectUser));
     this.viewMode$ = this.store.pipe(select(selectViewMode));
     this.calendarRequests$ = this.store.pipe(select(selectCalendarRequests));
+    this.filters$ = this.store.pipe(select(selectFilters));
 
     this.mobileQuery = media.matchMedia('(max-width: 1500px)');
     this.mobileQueryListener = () => this.detector.detectChanges();
@@ -126,5 +128,12 @@ export class AppComponent {
   monthChange(period: {start: number, end: number}) {
     this.store.dispatch(new ApplicationCalendarPeriodChange({start: period.start, end: period.end}));
     this.store.dispatch(new ApplicationLoadCalendarRequests({start: period.start, end: period.end}));
+  }
+
+  /**
+   * Открытие диалогового окна с фильтрами заявок
+   */
+  openFiltersDialog() {
+    this.store.dispatch(new ApplicationOpenFiltersDialog());
   }
 }

@@ -4,7 +4,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material';
 
 import { distinctUntilChanged, tap } from 'rxjs/operators';
 
-import { Driver } from '../../models';
+import { Driver, Request } from '../../models';
 
 @Component({
   selector: 'app-driver-typeahead',
@@ -12,8 +12,8 @@ import { Driver } from '../../models';
   styleUrls: ['./driver-typeahead.component.less']
 })
 export class DriverTypeaheadComponent implements OnInit, OnChanges {
-
   @Input() drivers: Driver[];
+  @Input() request: Request;
   @Output() select: EventEmitter<Driver>;
   @Output() clear: EventEmitter<void>;
   filteredDrivers: Driver[];
@@ -25,12 +25,12 @@ export class DriverTypeaheadComponent implements OnInit, OnChanges {
     this.clear = new EventEmitter<void>();
     this.filteredDrivers = [];
     this.selectedDriver = null;
-    this.driverForm = this.builder.group({
-      driver: new FormControl(null)
-    });
   }
 
   ngOnInit() {
+    this.driverForm = this.builder.group({
+      driver: new FormControl(this.request ? this.request.driver : null)
+    });
     this.driverForm.controls.driver.valueChanges.pipe(
       distinctUntilChanged(),
       tap((value: any) => {
@@ -48,6 +48,9 @@ export class DriverTypeaheadComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.drivers.currentValue) {
       this.filteredDrivers = changes.drivers.currentValue;
+    }
+    if (changes.request && changes.request.currentValue) {
+      this.selectedDriver = changes.request.currentValue.driver;
     }
   }
 
@@ -76,5 +79,13 @@ export class DriverTypeaheadComponent implements OnInit, OnChanges {
     this.selectedDriver = null;
     this.driverForm.controls.driver.setValue('');
     this.clear.emit();
+  }
+
+  /**
+   * Сброс выбранного водителя
+   */
+  clearSelected() {
+    this.selectedDriver = null;
+    this.driverForm.controls.driver.setValue('');
   }
 }

@@ -1,4 +1,6 @@
-import { AuthenticationInitialState, IAuthenticationState } from '@kolenergo/core';
+import * as moment from 'moment';
+
+import {AuthenticationInitialState, FilterManager, IAuthenticationState, SearchFilter, User} from '@kolenergo/core';
 import { IRequestsState, requestsInitialState } from '../features/requests/ngrx/requests.state';
 import { EListMode, EViewMode } from '../enums';
 import { Driver, RequestStatus, RoutePoint, Transport } from '../models';
@@ -10,13 +12,14 @@ export interface IAppState {
   isInitialized: boolean;         // Приложение инициализировано
   isLoading: boolean;             // Выполняется загрузка
   isSidebarOpened: boolean;       // Состояние боковой панели
-  isCompactMode: boolean;       // Компаетный режим
+  isCompactMode: boolean;         // Компаетный режим
   viewMode: EViewMode;            // Режим отображения заявок
   listMode: EListMode;            // Режим списка заявок
   date: Date;                     // Текущая дата
   selectedDate: Date;             // Выбранная дата
   calendarPeriodStart: number;    // Дата и время начала периода в календаре в формате Unix
   calendarPeriodEnd: number;      // Дата и время окончания периода в календаре в формате Unix
+  filters: FilterManager;         // Фильтры заявок
   transport: Transport[];         // Транспорт
   drivers: Driver[];              // Водители
   statuses: RequestStatus[];      // Статусы заявок
@@ -37,6 +40,14 @@ export const appInitialState: IAppState = {
   selectedDate: null,
   calendarPeriodStart: 0,
   calendarPeriodEnd: 0,
+  filters: new FilterManager([
+    new SearchFilter<Date>('startDate', 'Начало периода', null, (val: Date) => `с ${val ? moment(val).format('DD.MM.YYYY') : null}`),
+    new SearchFilter<Date>('endDate', 'Окончание периода', null, (val: Date) => `по ${val ? moment(val).format('DD.MM.YYYY') : null}`),
+    new SearchFilter<RequestStatus>('status', 'Статус заявки', null, (val: RequestStatus) => val ? val.title : ''),
+    new SearchFilter<Transport>('transport', 'Транспорт', null, (val: Transport) => val ?  val.model : ''),
+    new SearchFilter<Driver>('driver', 'Водитель', null, (val: Driver) => val ? `${val.firstName} ${val.lastName}` : ''),
+    new SearchFilter<User>('user', 'Заказчик', null, (val: User) => val ? `${val.firstName} ${val.lastName}` : ''),
+  ]),
   transport: [],
   drivers: [],
   statuses: [],

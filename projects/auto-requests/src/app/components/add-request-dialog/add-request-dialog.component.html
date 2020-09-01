@@ -27,6 +27,8 @@
 
         <!-- Start: Инициатор -->
         <app-user-search class="pr-3"
+                         [label]="'Инициатор'"
+                         [hint]="'Заполните, если инициатор поездки не Вы'"
                          (select)="selectInitiator($event)"
                          (clear)="clearInitiator()">
         </app-user-search>

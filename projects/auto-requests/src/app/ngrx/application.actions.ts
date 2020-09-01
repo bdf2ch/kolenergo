@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { IServerResponse } from '@kolenergo/core';
+import { IServerResponse, SearchFilter } from '@kolenergo/core';
 import { IInitialData } from '../interfaces';
 import { EListMode, EViewMode } from '../enums';
 
@@ -21,8 +21,11 @@ export const enum ApplicationActionTypes {
   APPLICATION_SELECT_VIEW_MODE = '[Application UI] Select requests view mode',
   APPLICATION_SELECT_LIST_MODE = '[Application UI] Select requests list mode',
   APPLICATION_SELECT_DATE = '[Application UI] Select date',
+  APPLICATION_SET_FILTERS = '[Application UI] Set filter value',
+  APPLICATION_CLEAR_FILTERS = '[Application UI] Clear filters',
   APPLICATION_OPEN_SIGN_IN_DIALOG = '[Application UI] Open sign in dialog',
-  APPLICATION_OPEN_ADD_REQUEST_DIALOG = '[Application UI] Open add request dialog'
+  APPLICATION_OPEN_ADD_REQUEST_DIALOG = '[Application UI] Open add request dialog',
+  APPLICATION_OPEN_FILTERS_DIALOG = '[Application UI] Open  filters dialog'
 }
 
 /**
@@ -125,6 +128,21 @@ export class ApplicationSelectDate implements Action {
 }
 
 /**
+ * Установка значения фильтра
+ */
+export class ApplicationSetFilters implements Action {
+  readonly type = ApplicationActionTypes.APPLICATION_SET_FILTERS;
+  constructor(public payload: SearchFilter<any>[]) {}
+}
+
+/**
+ * Сброс фильтров заявок
+ */
+export class ApplicationClearFilters implements Action {
+  readonly type = ApplicationActionTypes.APPLICATION_CLEAR_FILTERS;
+}
+
+/**
  * Открытие диалогового окна авторизации пользователя
  */
 export class ApplicationOpenSignInDialog implements Action {
@@ -137,6 +155,13 @@ export class ApplicationOpenSignInDialog implements Action {
  */
 export class ApplicationOpenAddRequestDialog implements Action {
   readonly type = ApplicationActionTypes.APPLICATION_OPEN_ADD_REQUEST_DIALOG;
+}
+
+/**
+ * Открытие диалогового кона с фильрами заявок
+ */
+export class ApplicationOpenFiltersDialog implements Action {
+  readonly type = ApplicationActionTypes.APPLICATION_OPEN_FILTERS_DIALOG;
 }
 
 /**
@@ -156,5 +181,8 @@ export type ApplicationActions =
   ApplicationSelectViewMode |
   ApplicationSelectListMode |
   ApplicationSelectDate |
+  ApplicationSetFilters |
+  ApplicationClearFilters |
   ApplicationOpenSignInDialog |
-  ApplicationOpenAddRequestDialog;
+  ApplicationOpenAddRequestDialog |
+  ApplicationOpenFiltersDialog;

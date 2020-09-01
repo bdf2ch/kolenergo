@@ -42,9 +42,12 @@ export class CalendarComponent implements OnInit, OnChanges {
      this.generateMonth(changes.date.currentValue, true);
     }
     if (changes.requests && changes.requests.currentValue) {
-      if (this.showNotifications) {
-        this.generateNotifications(changes.requests.currentValue);
-      }
+      if (changes.requests.currentValue.length === 0) {
+        this.clearNotifications();
+      } else {
+        if (this.showNotifications) {
+          this.generateNotifications(changes.requests.currentValue);
+        }}
     }
   }
 
@@ -82,6 +85,15 @@ export class CalendarComponent implements OnInit, OnChanges {
           day.notification = item.count.toString();
         }
       });
+    });
+  }
+
+  /**
+   * Очистка всех уведомлений в календаре
+   */
+  clearNotifications() {
+    this.days.forEach((day: CalendarDay) => {
+      day.notification = null;
     });
   }
 

@@ -4,9 +4,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material';
 
 import { distinctUntilChanged, tap } from 'rxjs/operators';
 
-import { Transport } from '../../models';
-import {User} from 'kolenergo-core/lib/models';
-
+import { Transport, Request } from '../../models';
 
 @Component({
   selector: 'app-transport-typeahead',
@@ -15,6 +13,9 @@ import {User} from 'kolenergo-core/lib/models';
 })
 export class TransportTypeaheadComponent implements OnInit, OnChanges {
   @Input() transport: Transport[];
+  @Input() request: Request;
+  @Input() placeholder: string;
+  @Input() selected: Transport;
   @Output() select: EventEmitter<Transport>;
   @Output() clear: EventEmitter<void>;
   filteredTransport: Transport[];
@@ -24,14 +25,15 @@ export class TransportTypeaheadComponent implements OnInit, OnChanges {
   constructor(private readonly builder: FormBuilder) {
     this.select = new EventEmitter();
     this.clear = new EventEmitter<void>();
-    this.filteredTransport = [];
-    this.selectedTransport = null;
     this.transportForm = this.builder.group({
       transport: new FormControl(null)
     });
+    this.filteredTransport = [];
+    this.selectedTransport = null;
   }
 
   ngOnInit() {
+    this.transportForm.controls.transport.setValue(this.request ? this.request.transport.model : null);
     this.transportForm.controls.transport.valueChanges.pipe(
       distinctUntilChanged(),
       tap((value: any) => {
@@ -50,8 +52,15 @@ export class TransportTypeaheadComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.transport.currentValue) {
+    if (changes.selected && changes.selected.currentValue) {
+      this.selectedTransport = changes.selected.currentValue;
+      // this.transportForm.controls.transport.setValue(changes.selected.currentValue.model);
+    }
+    if (changes.transport && changes.transport.currentValue) {
       this.filteredTransport = changes.transport.currentValue;
+    }
+    if (changes.request && changes.request.currentValue) {
+      this.selectedTransport = changes.request.currentValue.transport;
     }
   }
 
@@ -70,26 +79,34 @@ export class TransportTypeaheadComponent implements OnInit, OnChanges {
    * @param transport - Выбранный транспорт
    */
   display(transport: Transport): string {
+    console.log('selected transport: ', transport);
     return transport ? transport.model : '';
   }
 
   /**
-   * Сравнение выбранной опции со значением транспорт
-   * @param option - Выбранная опция
-   * @param value - Значение транспорта
-   */
-  transportCompare(option: Transport, value: Transport): boolean {
-    return option.id === value.id ? true : false;
-  }
-
-
-  /**
-   * Сброс выбранного пользователя
+   * Сброс выбранного транспорта
    */
   onClear() {
     this.selectedTransport = null;
     this.transportForm.controls.transport.setValue('');
     this.clear.emit();
+  }
+
+  /**
+   * Установка текцущего трансорта
+   * @param transport - Текущий транспорт
+   */
+  setSelected(transport: Transport) {
+    this.selectedTransport = transport;
+    this.transportForm.controls.transport.setValue(transport ? transport.model : null);
+  }
+
+  /**
+   * Сброс выбранного транспорта
+   */
+  clearSelected() {
+    this.selectedTransport = null;
+    this.transportForm.controls.transport.setValue('');
   }
 
 }

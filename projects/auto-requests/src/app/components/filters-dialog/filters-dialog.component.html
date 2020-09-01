@@ -1,0 +1,111 @@
+<div class="sign-in-container">
+
+  <div class="side p-4">
+
+    <div class="label">
+      <div class="title">Фильтры</div>
+      <div class="comment">Используйте сочетания фильтров для фильтрации заявок в требуемом Вам разрезе </div>
+    </div>
+
+    <div>
+      <button mat-raised-button
+              color="primary"
+              class="w-100 pt-2 pb-2"
+              [disabled]="filtersForm.pristine"
+              (click)="applyFilters()">
+        Применить фильтры
+      </button>
+
+      <button mat-raised-button
+              color="warn"
+              class="w-100 mt-2 pt-2 pb-2"
+              [disabled]="filtersForm.pristine"
+              (click)="clearFilters()">
+        Сбросить фильтры
+      </button>
+    </div>
+  </div>
+
+  <div class="content p-4">
+
+    <form class="d-flex flex-column justify-content-between" [formGroup]="filtersForm">
+
+      <div class="row no-gutters w-100">
+        <div class="col">
+          <!-- Start: Начало периода -->
+          <mat-form-field appearance="fill" class="w-100" floatLabel="always">
+            <mat-label>Начало периода</mat-label>
+            <input matInput formControlName="start" [matDatepicker]="start">
+            <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+            <mat-datepicker #start></mat-datepicker>
+          </mat-form-field>
+          <!-- End: Начало периода -->
+        </div>
+        <div class="col-auto d-flex flex-column justify-content-center align-items-center pl-2 pr-2 pb-3">&mdash;</div>
+        <div class="col">
+          <!-- Start: Окончание периода -->
+          <mat-form-field appearance="fill" class="w-100" floatLabel="always">
+            <mat-label>Окончание периода</mat-label>
+            <input matInput formControlName="end"
+                   [matDatepicker]="end"
+                   [min]="filtersForm.controls.start.value ? filtersForm.controls.start.value : null">
+            <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
+            <mat-datepicker #end></mat-datepicker>
+          </mat-form-field>
+          <!-- End: Окончание периода -->
+        </div>
+      </div>
+
+      <!-- Start: Статус заявки -->
+      <mat-form-field appearance="fill" class="w-100 mt-3" floatLabel="always">
+        <mat-label>Статус заявки</mat-label>
+        <mat-icon matPrefix
+                  class="mr-3"
+                  *ngIf="filtersForm.controls.status.value"
+                  [ngStyle]="{'color': filtersForm.controls.status.value?.color}">
+          {{filtersForm.controls.status.value?.icon}}
+        </mat-icon>
+        <mat-select formControlName="status" [compareWith]="statusCompare">
+          <mat-select-trigger>
+            {{filtersForm.controls.status.value?.title}}
+          </mat-select-trigger>
+          <mat-option *ngFor="let status of (statuses$ | async)" [value]="status">
+            <mat-icon class="mr-3" [ngStyle]="{'color': status.color}">{{status.icon}}</mat-icon>
+            {{status.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- End: Статус заявки -->
+
+      <!-- Start: Транспорт -->
+      <app-transport-typeahead class="w-100 mt-3"
+                               #transport
+                               [transport]="transport$ | async"
+                               [selected]="filtersForm.controls.transport.value"
+                               [placeholder]="'Выберите транспорт'"
+                               (select)="transportSelected($event)"
+                               (clear)="transportCleared()">
+      </app-transport-typeahead>
+      <!-- End: Транспорт -->
+
+      <!-- Start: Водитель -->
+      <app-driver-typeahead class="w-100 mt-3"
+                            #driver
+                            [drivers]="drivers$ | async"
+                            (select)="driverSelected($event)"
+                            (clear)="driverCleared()">
+      </app-driver-typeahead>
+      <!-- End: Водитель -->
+
+      <!-- Start: Заказчик -->
+      <app-user-search class="w-100 mt-3"
+                       #user
+                       [label]="'Заказчик'"
+                       (select)="userSelected($event)"
+                       (clear)="userCleared()">
+      </app-user-search>
+      <!-- End: Заказчика -->
+
+    </form>
+  </div>
+</div>

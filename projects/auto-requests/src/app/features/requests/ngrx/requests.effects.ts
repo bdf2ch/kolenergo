@@ -19,12 +19,12 @@ import {
   RequestsEditRequestSuccess,
   RequestsLoadRequests,
   RequestsLoadRequestsFail,
-  RequestsLoadRequestsSuccess
+  RequestsLoadRequestsSuccess, RequestsLoadUserRequestsFail, RequestsLoadUserRequestsSuccess
 } from './requests.actions';
 import { IRequest, IRoutePoint } from '../../../interfaces';
 import { Request } from '../../../models';
 import { IApplicationState } from '../../../ngrx/application.state';
-import { selectCalendarPeriodEnd, selectCalendarPeriodStart, selectSelectedDate } from '../../../ngrx/selectors';
+import {selectCalendarPeriodEnd, selectCalendarPeriodStart, selectSelectedDate, selectUser} from '../../../ngrx/selectors';
 import { selectSelectedRequest } from './requests.selectors';
 import { RequestsService } from '../../../services/requests.service';
 import {
@@ -87,7 +87,53 @@ export class RequestsEffects {
     tap(() => {
       this.snackBar.open('При загрузке заявок произошла ошибка', null, {
         verticalPosition: 'bottom',
-        horizontalPosition: 'center',
+        horizontalPosition: 'right',
+        panelClass: 'message-snack-bar',
+        duration: 3000
+      });
+    }),
+    mergeMap(() => EMPTY)
+  );
+
+  @Effect()
+  loadUserRequests$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.REQUESTS_LOAD_USER_REQUESTS),
+    withLatestFrom(
+      this.store.pipe(select(selectUser)),
+      this.store.pipe(select(selectSelectedDate))
+    ),
+    mergeMap(([action, user, date]) => this.requests.get(
+      '', 0, 0, 0, user.id, '')
+      .pipe(
+        map((response: IServerResponse<IRequest[]>) => new RequestsLoadUserRequestsSuccess(response)),
+        catchError((error: any) => {
+          return of(new RequestsLoadUserRequestsFail());
+        })
+      ))
+  );
+
+  @Effect()
+  loadUserRequestsSuccess$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.REQUESTS_LOAD_USER_REQUESTS_SUCCESS),
+    withLatestFrom(
+      this.store.pipe(select(selectCalendarPeriodStart)),
+      this.store.pipe(select(selectCalendarPeriodEnd))
+    ),
+    mergeMap(([action, start, end]) => of(
+      new ApplicationLoadCalendarRequests({
+        start,
+        end
+      })
+    ))
+  );
+
+  @Effect()
+  loadUserRequestsFail$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.REQUESTS_LOAD_USER_REQUESTS_FAIL),
+    tap(() => {
+      this.snackBar.open('При загрузке заявок произошла ошибка', null, {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'right',
         panelClass: 'message-snack-bar',
         duration: 3000
       });
@@ -116,7 +162,7 @@ export class RequestsEffects {
     tap(() => {
       this.snackBar.open('При загрузке данных произошла ошибка', null, {
         verticalPosition: 'bottom',
-        horizontalPosition: 'center',
+        horizontalPosition: 'right',
         panelClass: 'message-snack-bar',
         duration: 3000
       });
@@ -161,7 +207,7 @@ export class RequestsEffects {
       this.dialog.getDialogById('add-request-dialog').close();
       this.snackBar.open('Заявка добавлена', null, {
         verticalPosition: 'bottom',
-        horizontalPosition: 'center',
+        horizontalPosition: 'right',
         panelClass: 'message-snack-bar',
         duration: 3000
       });
@@ -175,7 +221,7 @@ export class RequestsEffects {
     tap(() => {
       this.snackBar.open('При добавлении заявки произошла ошибка', null, {
         verticalPosition: 'bottom',
-        horizontalPosition: 'center',
+        horizontalPosition: 'right',
         panelClass: 'message-snack-bar',
         duration: 3000
       });
@@ -217,7 +263,7 @@ export class RequestsEffects {
       this.dialog.getDialogById('edit-request-dialog').close();
       this.snackBar.open('Изменения сохранены', null, {
         verticalPosition: 'bottom',
-        horizontalPosition: 'center',
+        horizontalPosition: 'right',
         panelClass: 'message-snack-bar',
         duration: 3000
       });
@@ -231,7 +277,7 @@ export class RequestsEffects {
     tap(() => {
       this.snackBar.open('При сохранении изменений произошла ошибка', null, {
         verticalPosition: 'bottom',
-        horizontalPosition: 'center',
+        horizontalPosition: 'right',
         panelClass: 'message-snack-bar',
         duration: 3000
       });

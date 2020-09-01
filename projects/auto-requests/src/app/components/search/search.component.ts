@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
+import { FilterManager } from '@kolenergo/core';
 
 @Component({
   selector: 'app-search',
@@ -6,10 +8,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search.component.less']
 })
 export class SearchComponent implements OnInit {
+  @Input() filters: FilterManager;
+  @Output() openFilters: EventEmitter<void>;
 
-  constructor() { }
+  constructor() {
+    this.openFilters = new EventEmitter<void>();
+  }
 
   ngOnInit() {
+  }
+
+  /**
+   * Нажатие иконки с фильрами
+   */
+  onOpenFilters() {
+    this.openFilters.emit();
   }
 
 }

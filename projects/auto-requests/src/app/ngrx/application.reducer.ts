@@ -4,6 +4,8 @@ import {RequestsActions, RequestsActionTypes} from '../features/requests/ngrx/re
 import {IDriver, IRequestStatus, IRoutePoint, ITransport} from '../interfaces';
 import {Driver, RequestStatus, RoutePoint, Transport} from '../models';
 import {EListMode} from '../enums';
+import {actionTypes, authenticationActionTypes, FilterManager, SearchFilter} from '@kolenergo/core';
+import * as moment from 'moment';
 
 /**
  * Редуктор состояния приложения
@@ -12,9 +14,19 @@ import {EListMode} from '../enums';
  */
 export function applicationReducer(
   state: IAppState = appInitialState,
-  action: ApplicationActions | RequestsActions
+  action: ApplicationActions | RequestsActions | authenticationActionTypes
 ): IAppState {
   switch (action.type) {
+
+    /**
+     * Завершение сессии пользователя
+     */
+    case actionTypes.AUTHENTICATION_SIGN_OUT_SUCCESS : {
+      return {
+        ...state,
+        listMode: EListMode.ALL_REQUESTS
+      };
+    }
 
     /**
      * Установка режима компактного отображения
@@ -125,6 +137,58 @@ export function applicationReducer(
     }
 
     /**
+     * Установка фильтров заявок
+     */
+    case ApplicationActionTypes.APPLICATION_SET_FILTERS: {
+      return {
+        ...state,
+        filters: new FilterManager(action.payload)
+      };
+    }
+
+    /**
+     * Сборс фильтров заявок
+     */
+    case ApplicationActionTypes.APPLICATION_CLEAR_FILTERS: {
+      return {
+        ...state,
+        listMode: EListMode.ALL_REQUESTS,
+        filters: new FilterManager([
+          new SearchFilter<Date>(
+            'startDate',
+            'Начало периода',
+            null,
+            (val: Date) => `с ${val ? moment(val).format('DD.MM.YYYY') : null}`
+          ),
+          new SearchFilter<Date>(
+            'endDate',
+            'Окончание периода',
+            null,
+            (val: Date) => `по ${val ? moment(val).format('DD.MM.YYYY') : null}`
+          ),
+          new SearchFilter<RequestStatus>(
+            'status',
+            'Статус заявки',
+            null,
+            (val: RequestStatus) => val ? val.title : ''
+          ),
+          new SearchFilter<Transport>(
+            'transport',
+            'Транспорт',
+            null,
+            (val: Transport) => val ?  val.model : ''
+          ),
+          new SearchFilter<Driver>(
+            'driver',
+            'Водитель',
+            null,
+            (val: Driver) => val ? `${val.firstName} ${val.lastName}` : ''
+          ),
+        ])
+      };
+    }
+
+    /**
      * Загрузка заявок
      */
     case RequestsActionTypes.REQUESTS_LOAD_REQUESTS: {
@@ -149,6 +213,36 @@ export function applicationReducer(
      * Не удалось загрузить заявки
      */
     case RequestsActionTypes.REQUESTS_LOAD_REQUESTS_FAIL: {
+      return {
+        ...state,
+        isLoading: false
+      };
+    }
+
+    /**
+     * Загрузка заявок текущего пользователя
+     */
+    case RequestsActionTypes.REQUESTS_LOAD_USER_REQUESTS: {
+      return {
+        ...state,
+        isLoading: true
+      };
+    }
+
+    /**
+     * Загрузка заявок текущего пользователя выполнена успешно
+     */
+    case RequestsActionTypes.REQUESTS_LOAD_USER_REQUESTS_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false
+      };
+    }
+
+    /**
+     * Не удалось загрузить заявки текущего пользователя
+     */
+    case RequestsActionTypes.REQUESTS_LOAD_USER_REQUESTS_FAIL : {
       return {
         ...state,
         isLoading: false

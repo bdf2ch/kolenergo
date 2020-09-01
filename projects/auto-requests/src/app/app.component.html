@@ -56,7 +56,7 @@
         </button>
       </div>
       <div class="search pl-5 pr-5">
-        <app-search></app-search>
+        <app-search [filters]="filters$ | async" (openFilters)="openFiltersDialog()"></app-search>
       </div>
       <div class="controls">
         <button mat-icon-button

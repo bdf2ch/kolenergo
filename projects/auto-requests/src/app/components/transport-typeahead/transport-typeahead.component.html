@@ -6,7 +6,7 @@
              [matAutocomplete]="auto"
              formControlName="transport"
              [readonly]="selectedTransport ? true : false"
-             placeholder="Транспорт не назначен">
+             placeholder="{{placeholder ? placeholder : 'Транспорт не назначен'}}">
       <mat-hint>{{selectedTransport ? selectedTransport.registrationNumber : ''}}</mat-hint>
       <button mat-icon-button
               matSuffix
@@ -17,7 +17,7 @@
         <mat-icon>close</mat-icon>
       </button>
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelect($event)" [displayWith]="display">
-        <mat-option *ngFor="let transport of filteredTransport" [value]="transport">
+        <mat-option *ngFor="let transport of filteredTransport" [value]="transport" >
           <div class="transport-item">
             <span class="primary-data">{{transport.model}}</span>
             <span class="secondary-data">{{transport.registrationNumber}}</span>

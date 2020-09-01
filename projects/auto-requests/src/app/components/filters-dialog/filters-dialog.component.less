@@ -1,0 +1,113 @@
+@side-width: 300px;
+@side-background-color: linear-gradient(#e3f2fd, rgba(235,246,253, 0.7));
+@subtitle-font-family: 'Open Sans Regular';
+@subtitle-font-size: 13px;
+@subtitle-color: #607d8b;
+@title-font-family: 'Open Sans Regular';
+@title-font-size: 24px;
+@title-color: #37474f;
+@caption-font-family: 'Open Sans Light';
+@caption-font-size: 20px;
+@caption-color: #546e7a;
+@info-font-family: 'Open Sans Light';
+@info-font-size: 13px;
+@info-color: #90a4ae;
+@comment-font-family: 'Open Sans Light';
+@comment-font-size: 14px;
+@comment-color: #546e7a;
+
+&:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.sign-in-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+
+  .side {
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: @side-width;
+    background: @side-background-color;
+
+    .label {
+      display: flex;
+      flex-direction: column;
+
+      .subtitle {
+        margin-bottom: 15px;
+        font-family: @subtitle-font-family;
+        font-size: @subtitle-font-size;
+        color: @subtitle-color;
+        text-transform: uppercase;
+      }
+
+      .title {
+        font-family: @title-font-family;
+        font-size: @title-font-size;
+        line-height: @title-font-size;
+        color: @title-color;
+      }
+
+      .comment {
+        margin-top: 40px;
+        font-family: @comment-font-family;
+        font-size: @comment-font-size;
+        line-height: @comment-font-size + 2px;
+        color: @comment-color;
+      }
+    }
+
+    img {
+      height: 240px;
+      margin-right: -50px;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 90%;
+      height: 100%;
+
+      caption {
+        width: 90%;
+        font-family: @caption-font-family;
+        font-size: @caption-font-size;
+        line-height: @caption-font-size + 2px;
+        color: @caption-color;
+        text-align: left;
+      }
+
+      .mat-icon {
+        cursor: pointer;
+      }
+
+      .mat-raised-button {
+        height: 61px;
+        font-family: 'Open Sans Regular'
+      }
+    }
+
+    .info {
+      font-family: @info-font-family;
+      font-size: @info-font-size;
+      line-height: @info-font-size + 2px;
+      text-align: center;
+      color: @info-color;
+    }
+  }
+}

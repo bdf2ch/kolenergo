@@ -1,11 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 
-import {User, UserSearchService} from '@kolenergo/core';
-import {RoutePoint} from '../../models';
-import {debounceTime, distinctUntilChanged, switchMap, tap} from 'rxjs/operators';
-import {Observable, of} from 'rxjs';
+import { User, UserSearchService } from '@kolenergo/core';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 
 @Component({
@@ -17,6 +16,8 @@ export class UserSearchComponent implements OnInit {
   userSearchForm: FormGroup;
   users$: Observable<User[]>;
   selectedUser: User;
+  @Input() label: string;
+  @Input() hint: string;
   @Output() select: EventEmitter<User>;
   @Output() clear: EventEmitter<void>;
 
@@ -66,5 +67,13 @@ export class UserSearchComponent implements OnInit {
     this.selectedUser = null;
     this.userSearchForm.controls.query.setValue('');
     this.clear.emit();
+  }
+
+  /**
+   * Сброс выбранного пользователя
+   */
+  clearSelected() {
+    this.selectedUser = null;
+    this.userSearchForm.controls.query.setValue('');
   }
 }

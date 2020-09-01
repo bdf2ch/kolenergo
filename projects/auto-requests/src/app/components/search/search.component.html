@@ -2,8 +2,23 @@
   <div class="prefix">
     <mat-icon>search</mat-icon>
   </div>
+  <div class="filters" *ngIf="filters.isFiltersApplied()">
+    <div class="filter"
+         *ngFor="let filter of filters.getAppliedFilters()"
+         matTooltip="{{filter.getTitle()}}"
+         matTooltipPosition="below">
+      {{filter.getLabel()}}
+    </div>
+  </div>
   <div class="input">
     <input type="text">
   </div>
-  <div class="controls"></div>
+  <div class="controls">
+    <mat-icon matTooltip="Фильтры"
+              matTooltipPosition="below"
+              (click)="onOpenFilters()">
+      filter_list
+      <span class="indicator" *ngIf="filters.isFiltersApplied()"></span>
+    </mat-icon>
+  </div>
 </div>

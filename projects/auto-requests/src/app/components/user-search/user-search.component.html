@@ -1,7 +1,7 @@
 <div class="route-typeahead">
   <form [formGroup]="userSearchForm">
     <mat-form-field appearance="fill" class="w-100" floatLabel="always">
-      <mat-label>Инициатор</mat-label>
+      <mat-label *ngIf="label">{{label}}</mat-label>
       <input matInput [matAutocomplete]="users" formControlName="query" [readonly]="selectedUser ? true : false">
       <button mat-icon-button
               matSuffix
@@ -11,7 +11,7 @@
               matTooltipPosition="above">
         <mat-icon>close</mat-icon>
       </button>
-      <mat-hint>{{selectedUser ? selectedUser.position : 'Заполните, если инициатор поездки не Вы'}}</mat-hint>
+      <mat-hint>{{selectedUser ? selectedUser.position : hint ? hint : ''}}</mat-hint>
       <mat-autocomplete #users="matAutocomplete" (optionSelected)="onSelect($event)" [displayWith]="display">
         <mat-option *ngFor="let user of users$ | async" [value]="user">
           <span *ngIf="user">{{user.firstName + ' ' + user.lastName}}</span>

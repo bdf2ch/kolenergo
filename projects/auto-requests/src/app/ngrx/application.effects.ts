@@ -2,25 +2,33 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar, MatDialog } from '@angular/material';
 
+import * as moment from 'moment';
 import { select, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import {EMPTY, of} from 'rxjs';
-import {catchError, map, mergeMap, switchMap, tap, withLatestFrom} from 'rxjs/operators';
+import { EMPTY, of } from 'rxjs';
+import { catchError, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
-import {actionTypes, AuthenticationSignInSuccess, IServerResponse, User} from '@kolenergo/core';
+import { actionTypes, AuthenticationSignInSuccess, IServerResponse, User } from '@kolenergo/core';
 import { ApplicationService } from '../services/application.service';
 import { IApplicationState  } from './application.state';
 import {
-  ApplicationActionTypes, ApplicationCloseSidebar, ApplicationLoadInitialDataFail,
+  ApplicationActionTypes,
+  ApplicationCloseSidebar,
+  ApplicationLoadInitialDataFail,
   ApplicationLoadInitialDataSuccess,
-  ApplicationOpenAddRequestDialog, ApplicationOpenSidebar,
-  ApplicationOpenSignInDialog, ApplicationSetCompactMode
+  ApplicationOpenAddRequestDialog,
+  ApplicationOpenSidebar,
+  ApplicationOpenSignInDialog,
+  ApplicationSetCompactMode,
+  ApplicationSetFilters
 } from './application.actions';
-import {selectCalendarPeriodEnd, selectCalendarPeriodStart, selectUser} from './selectors';
+import {selectCalendarPeriodEnd, selectCalendarPeriodStart, selectFilters, selectUser} from './selectors';
 import { IInitialData } from '../interfaces';
 import {SignInModalComponent} from '../components/sign-in-modal/sign-in-modal.component';
 import {ApplicationsLoadApplicationsSuccess} from '../../../../control/src/app/features/applications/ngrx';
 import {AddRequestDialogComponent} from '../components/add-request-dialog/add-request-dialog.component';
+import { RequestsActionTypes, RequestsLoadUserRequests } from '../features/requests/ngrx/requests.actions';
+import { FiltersDialogComponent } from '../components/filters-dialog/filters-dialog.component';
 
 
 @Injectable()
@@ -116,6 +124,20 @@ export class ApplicationEffects {
   );
 
   @Effect()
+  openFiltersDialog$ = this.actions$.pipe(
+    ofType(ApplicationActionTypes.APPLICATION_OPEN_FILTERS_DIALOG),
+    tap(() => {
+      this.dialog.open(FiltersDialogComponent, {
+        id: 'filters-dialog',
+        width: '800px',
+        height: '550px',
+        panelClass: 'sign-in-dialog'
+      });
+    }),
+    mergeMap(() => EMPTY)
+  );
+
+  @Effect()
   signInSuccess$ = this.actions$.pipe(
     ofType(actionTypes.AUTHENTICATION_SIGN_IN_SUCCESS),
     tap(() => {
@@ -124,6 +146,20 @@ export class ApplicationEffects {
         dialog.close();
       }
     }),
+    mergeMap(() => of(new RequestsLoadUserRequests()))
+  );
+
+  /*
+  @Effect()
+  setFilter$ = this.actions$.pipe(
+    ofType(ApplicationActionTypes.APPLICATION_SET_FILTERS),
+    withLatestFrom(this.store.pipe(select(selectFilters))),
+    tap(([action, filters]) => {
+      const filter = filters.getFilterById((action as ApplicationSetFilter).payload.id);
+      filter.setValue(moment((action as ApplicationSetFilter).payload.value).toDate());
+      console.log(filter);
+    }),
     mergeMap(() => EMPTY)
   );
+   */
 }

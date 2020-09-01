@@ -12,6 +12,9 @@ export enum RequestsActionTypes {
   REQUESTS_LOAD_REQUESTS = '[Requests API] Load requests',
   REQUESTS_LOAD_REQUESTS_SUCCESS = '[Requests API] Requests loaded successfully',
   REQUESTS_LOAD_REQUESTS_FAIL = '[Requests API] Failed to load requests',
+  REQUESTS_LOAD_USER_REQUESTS = '[Requests API] Load user requests',
+  REQUESTS_LOAD_USER_REQUESTS_SUCCESS = '[Requests API] User requests loaded successfully',
+  REQUESTS_LOAD_USER_REQUESTS_FAIL = '[Requests API] Failed to load user requests',
   REQUESTS_ADD_REQUEST = '[Requests API] Add request',
   REQUESTS_ADD_REQUEST_SUCCESS = '[Requests API] Request added successfully',
   REQUESTS_ADD_REQUEST_FAIL = '[Requests API] Failed to add request',
@@ -48,6 +51,28 @@ export class RequestsLoadRequestsSuccess implements Action {
  */
 export class RequestsLoadRequestsFail implements Action {
   readonly type = RequestsActionTypes.REQUESTS_LOAD_REQUESTS_FAIL;
+}
+
+/**
+ * Загрузка заявок текущего пользователя
+ */
+export class RequestsLoadUserRequests implements Action {
+  readonly type = RequestsActionTypes.REQUESTS_LOAD_USER_REQUESTS;
+}
+
+/**
+ * Заявки текущего пользователя успешно загружены
+ */
+export class RequestsLoadUserRequestsSuccess implements Action {
+  readonly type = RequestsActionTypes.REQUESTS_LOAD_USER_REQUESTS_SUCCESS;
+  constructor(public payload: IServerResponse<IRequest[]>) {}
+}
+
+/**
+ * Не удалось загрузить заявки текущего пользователя
+ */
+export class RequestsLoadUserRequestsFail implements Action {
+  readonly type = RequestsActionTypes.REQUESTS_LOAD_USER_REQUESTS_FAIL;
 }
 
 /**
@@ -114,6 +139,9 @@ export type RequestsActions =
   RequestsSelectRequest |
   RequestsLoadRequests |
   RequestsLoadRequestsSuccess |
+  RequestsLoadUserRequests |
+  RequestsLoadUserRequestsSuccess |
+  RequestsLoadUserRequestsFail |
   RequestsLoadRequestsFail |
   RequestsAddRequest |
   RequestsAddRequestSuccess |

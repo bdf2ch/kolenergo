@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material';
 
@@ -14,6 +14,7 @@ import { IApplicationState, selectDate, selectDrivers, selectIsLoading, selectRo
 import { RequestsEditRequest } from '../../features/requests/ngrx/requests.actions';
 import { minTime } from '../add-request-dialog/time.validator';
 import { endTime } from '../add-request-dialog/end-time.validator';
+import {requestDurationValidator} from './request-duration.validator';
 
 
 @Component({
@@ -65,13 +66,13 @@ export class EditRequestDialogComponent implements OnInit {
       ),
       endTime: new FormControl(
         moment(this.selectedRequest.endTimeD).format('HH:mm'),
-        [Validators.required, endTime(this.selectedRequest.startTimeD, moment(this.selectedRequest.startTimeD).format('HH:mm'))]
+        [Validators.required]
       ),
       description: new FormControl(this.selectedRequest.description, Validators.required),
       transport: new FormControl(this.selectedRequest.transport),
       driver: new FormControl(this.selectedRequest.driver),
       status: new FormControl(this.selectedRequest.status)
-    });
+    }, {validators: [requestDurationValidator]});
   }
 
   ngOnInit() {
