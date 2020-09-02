@@ -25,6 +25,7 @@ export const enum ApplicationActionTypes {
   APPLICATION_CLEAR_FILTERS = '[Application UI] Clear filters',
   APPLICATION_CLEAR_FILTER = '[Application UI] Clear filter',
   APPLICATION_SEARCH_CHANGED = '[Application UI] Search query changed',
+  APPLICATION_CLEAR_SEARCH = '[Application UI] Clear search',
   APPLICATION_OPEN_SIGN_IN_DIALOG = '[Application UI] Open sign in dialog',
   APPLICATION_OPEN_ADD_REQUEST_DIALOG = '[Application UI] Open add request dialog',
   APPLICATION_OPEN_FILTERS_DIALOG = '[Application UI] Open  filters dialog'
@@ -161,6 +162,13 @@ export class ApplicationSearchChanged implements Action {
 }
 
 /**
+ * Очистка строки поиска заявок
+ */
+export class ApplicationClearSearch implements Action {
+  readonly type = ApplicationActionTypes.APPLICATION_CLEAR_SEARCH;
+}
+
+/**
  * Открытие диалогового окна авторизации пользователя
  */
 export class ApplicationOpenSignInDialog implements Action {
@@ -203,6 +211,7 @@ export type ApplicationActions =
   ApplicationClearFilter |
   ApplicationClearFilters |
   ApplicationSearchChanged |
+  ApplicationClearSearch |
   ApplicationOpenSignInDialog |
   ApplicationOpenAddRequestDialog |
   ApplicationOpenFiltersDialog;

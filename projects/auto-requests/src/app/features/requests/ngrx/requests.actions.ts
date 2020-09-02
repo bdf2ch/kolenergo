@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { FilterManager, IServerResponse } from '@kolenergo/core';
+import { IServerResponse } from '@kolenergo/core';
 import { IRequest, IRoutePoint } from '../../../interfaces';
 import { Request } from '../../../models';
 
@@ -18,6 +18,9 @@ export enum RequestsActionTypes {
   REQUESTS_LOAD_FILTERED_REQUESTS = '[Requests API] Load filtered requests',
   REQUESTS_LOAD_FILTERED_REQUESTS_SUCCESS = '[Requests API] Filtered requests loaded successfully',
   REQUESTS_LOAD_FILTERED_REQUESTS_FAIL = '[Requests API] Failed to load filtered requests',
+  REQUESTS_EXPORT_REQUESTS = '[Requests API] Export requests',
+  REQUESTS_EXPORT_REQUESTS_SUCCESS = '[Requests API] Requests exported successfully',
+  REQUESTS_EXPORT_REQUESTS_FAIL = '[Requests API] Failed to export requests',
   REQUESTS_ADD_REQUEST = '[Requests API] Add request',
   REQUESTS_ADD_REQUEST_SUCCESS = '[Requests API] Request added successfully',
   REQUESTS_ADD_REQUEST_FAIL = '[Requests API] Failed to add request',
@@ -101,6 +104,28 @@ export class RequestsLoadFilteredRequestsFail implements Action {
 }
 
 /**
+ * Экспорт заявок
+ */
+export class RequestsExportRequests implements Action {
+  readonly type = RequestsActionTypes.REQUESTS_EXPORT_REQUESTS;
+}
+
+/**
+ * Экспорт заявок выполнен успешно
+ */
+export class RequestsExportRequestsSuccess implements Action {
+  readonly type = RequestsActionTypes.REQUESTS_EXPORT_REQUESTS_SUCCESS;
+  constructor(public payload: Blob) {}
+}
+
+/**
+ * Не удалось выполнить экспорт заявок
+ */
+export class RequestsExportRequestsFail implements Action {
+  readonly type = RequestsActionTypes.REQUESTS_EXPORT_REQUESTS_FAIL;
+}
+
+/**
  * Добавление новой заявки
  */
 export class RequestsAddRequest implements Action {
@@ -171,6 +196,9 @@ export type RequestsActions =
   RequestsLoadFilteredRequests |
   RequestsLoadFilteredRequestsSuccess |
   RequestsLoadFilteredRequestsFail |
+  RequestsExportRequests |
+  RequestsExportRequestsSuccess |
+  RequestsExportRequestsFail |
   RequestsAddRequest |
   RequestsAddRequestSuccess |
   RequestsAddRequestFail |

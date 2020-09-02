@@ -16,7 +16,8 @@ export class RequestsService {
 
   /**
    * Загрузка заявок с сервера
-   * @param date - Дата
+   * @param periodStart - Начало периода
+   * @param periodEnd - Окончание периода
    * @param statusId - Идентификатор статуса заявки
    * @param transportId - Идентификатор транспорта
    * @param driverId - Идентификатор водителя
@@ -24,7 +25,6 @@ export class RequestsService {
    * @param search - Условие поиска
    */
   get(
-    // date: string,
     periodStart: number,
     periodEnd: number,
     statusId: number,
@@ -103,6 +103,31 @@ export class RequestsService {
           calendarRequests: {date: string, count: number}[],
           routes: IRoutePoint[]
         }>) => response)
+      );
+  }
+
+  /**
+   * Экспорт заявок
+   * @param periodStart - Начало периода
+   * @param periodEnd - Окончание периода
+   * @param statusId - Идентификатор статуса заявки
+   * @param transportId - Идентификатор транспорта
+   * @param driverId - Идентификатор водителя
+   * @param userId - Идентификатор пользователя
+   * @param search - Условие поиска
+   */
+  export(
+    periodStart: number,
+    periodEnd: number,
+    statusId: number,
+    transportId: number,
+    driverId: number,
+    userId: number,
+    search?: string
+  ): Observable<Blob> {
+    return from(this.resource.export(null, {periodStart, periodEnd, statusId, transportId, driverId, userId, search}, null))
+      .pipe(
+        map((response: Blob) => response)
       );
   }
 }

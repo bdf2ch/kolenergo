@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 import { FilterManager, IUser, SearchFilter } from '@kolenergo/core';
 import {
-  ApplicationCalendarPeriodChange, ApplicationClearFilter, ApplicationClearFilters,
+  ApplicationCalendarPeriodChange, ApplicationClearFilter, ApplicationClearFilters, ApplicationClearSearch,
   ApplicationCloseSidebar,
   ApplicationLoadCalendarRequests,
   ApplicationOpenAddRequestDialog,
@@ -21,7 +21,7 @@ import {
   selectFilters,
   selectIsCompactMode,
   selectIsLoading,
-  selectIsSidebarOpened,
+  selectIsSidebarOpened, selectSearch,
   selectSelectedDate,
   selectUser,
   selectViewMode
@@ -150,10 +150,7 @@ export class AppComponent {
    */
   resetFilter(filter: SearchFilter<any>) {
     this.filters.getFilterById(filter.getId()).reset();
-    this.store.dispatch(this.filters.isFiltersApplied()
-      ? new ApplicationClearFilter(this.filters.getFilters())
-      : new ApplicationClearFilters()
-    );
+    this.store.dispatch(new ApplicationClearFilter(this.filters.getFilters()));
   }
 
   /**
@@ -162,5 +159,12 @@ export class AppComponent {
    */
   searchChanged(query: string) {
     this.store.dispatch(new ApplicationSearchChanged(query));
+  }
+
+  /**
+   * Очистка строки поиска заявок
+   */
+  searchCleared() {
+    this.store.dispatch(new ApplicationClearSearch());
   }
 }

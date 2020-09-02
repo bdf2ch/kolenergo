@@ -49,7 +49,7 @@ export const appInitialState: IAppState = {
     new SearchFilter<Driver>('driver', 'Водитель', null, (val: Driver) => val ? `${val.firstName} ${val.lastName}` : ''),
     new SearchFilter<User>('user', 'Заказчик', null, (val: User) => val ? `${val.firstName} ${val.lastName}` : ''),
   ]),
-  search: null,
+  search: '',
   transport: [],
   drivers: [],
   statuses: [],

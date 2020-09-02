@@ -4,13 +4,19 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { FilterManager } from '@kolenergo/core';
-import { RequestsSelectRequest, selectFilteredRequests, selectRequests, selectUserRequests } from '../../ngrx';
+import {
+  RequestsExportRequests,
+  RequestsSelectRequest,
+  selectFilteredRequests,
+  selectRequests,
+  selectUserRequests
+} from '../../ngrx';
 import {
   ApplicationSelectListMode,
   IApplicationState,
   selectFilters,
   selectIsLoading,
-  selectListMode,
+  selectListMode, selectSearch,
   selectSelectedDate
 } from '../../../../ngrx';
 import { Request } from '../../../../models';
@@ -30,6 +36,7 @@ export class RequestsListComponent implements OnInit {
   filteredRequests$: Observable<Request[]>;
   filters$: Observable<FilterManager>;
   listModes = EListMode;
+  search$: Observable<string>;
 
   constructor(private readonly store: Store<IApplicationState>) {}
 
@@ -41,6 +48,7 @@ export class RequestsListComponent implements OnInit {
     this.userRequests$ = this.store.pipe(select(selectUserRequests));
     this.filteredRequests$ = this.store.pipe(select(selectFilteredRequests));
     this.filters$ = this.store.pipe(select(selectFilters));
+    this.search$ = this.store.pipe(select(selectSearch));
   }
 
   /**
@@ -57,5 +65,12 @@ export class RequestsListComponent implements OnInit {
    */
   selectRequest(request: Request) {
     this.store.dispatch(new RequestsSelectRequest(request));
+  }
+
+  /**
+   * Экспорт заявок
+   */
+  exportRequests() {
+    this.store.dispatch(new RequestsExportRequests());
   }
 }

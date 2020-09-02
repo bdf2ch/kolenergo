@@ -59,7 +59,8 @@
         <app-search [filters]="filters$ | async"
                     (openFilters)="openFiltersDialog()"
                     (resetFilter)="resetFilter($event)"
-                    (searchChanged)="searchChanged($event)">
+                    (searchChanged)="searchChanged($event)"
+                    (searchCleared)="searchCleared()">
         </app-search>
       </div>
       <div class="controls">

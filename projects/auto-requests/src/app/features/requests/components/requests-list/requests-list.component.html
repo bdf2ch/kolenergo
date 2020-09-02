@@ -1,10 +1,13 @@
 <div class="tabs"></div>
 <div class="content">
   <app-tabs [listMode]="listMode$ | async"
+            [requests]="requests$ | async"
             [userRequests]="userRequests$ | async"
             [filteredRequests]="filteredRequests$ | async"
             [filters]="filters$ | async"
-            (select)="selectListMode($event)">
+            [search]="search$ | async"
+            (select)="selectListMode($event)"
+            (export)="exportRequests()">
     <app-requests-grid class="mt-2"
                        [requests]="(listMode$ | async) === listModes.ALL_REQUESTS ? (requests$ | async) : (listMode$ | async) === listModes.USER_REQUESTS ? (userRequests$ | async) : (filteredRequests$ | async)"
                        (select)="selectRequest($event)">

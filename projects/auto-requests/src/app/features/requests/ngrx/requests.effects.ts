@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar, MatDialog } from '@angular/material';
 
+import * as saver from 'file-saver';
 import { select, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { EMPTY, of } from 'rxjs';
@@ -16,15 +17,27 @@ import {
   RequestsAddRequestSuccess,
   RequestsEditRequest,
   RequestsEditRequestFail,
-  RequestsEditRequestSuccess, RequestsLoadFilteredRequestsFail, RequestsLoadFilteredRequestsSuccess,
+  RequestsEditRequestSuccess, RequestsExportRequestsFail,
+  RequestsExportRequestsSuccess,
+  RequestsLoadFilteredRequestsFail,
+  RequestsLoadFilteredRequestsSuccess,
   RequestsLoadRequests,
   RequestsLoadRequestsFail,
-  RequestsLoadRequestsSuccess, RequestsLoadUserRequestsFail, RequestsLoadUserRequestsSuccess
+  RequestsLoadRequestsSuccess,
+  RequestsLoadUserRequestsFail,
+  RequestsLoadUserRequestsSuccess
 } from './requests.actions';
 import { IRequest, IRoutePoint } from '../../../interfaces';
 import { Request } from '../../../models';
 import { IApplicationState } from '../../../ngrx/application.state';
-import {selectCalendarPeriodEnd, selectCalendarPeriodStart, selectFilters, selectSelectedDate, selectUser} from '../../../ngrx/selectors';
+import {
+  selectCalendarPeriodEnd,
+  selectCalendarPeriodStart,
+  selectFilters, selectListMode,
+  selectSearch,
+  selectSelectedDate,
+  selectUser
+} from '../../../ngrx/selectors';
 import { selectSelectedRequest } from './requests.selectors';
 import { RequestsService } from '../../../services/requests.service';
 import {
@@ -34,6 +47,8 @@ import {
   ApplicationLoadCalendarRequestsSuccess
 } from '../../../ngrx/application.actions';
 import { EditRequestDialogComponent } from '../../../components/edit-request-dialog/edit-request-dialog.component';
+import {EListMode} from "../../../enums";
+import {ExportReportSuccess} from "../../../../../../operative-situation/src/app/features/operative-situation/ngrx";
 
 @Injectable()
 export class RequestsEffects {
@@ -147,8 +162,11 @@ export class RequestsEffects {
   @Effect()
   loadFilteredRequests$ = this.actions$.pipe(
     ofType(RequestsActionTypes.REQUESTS_LOAD_FILTERED_REQUESTS),
-    withLatestFrom(this.store.pipe(select(selectFilters))),
-    mergeMap(([action, filters]) => this.requests.get(
+    withLatestFrom(
+      this.store.pipe(select(selectFilters)),
+      this.store.pipe(select(selectSearch))
+    ),
+    mergeMap(([action, filters, search]) => this.requests.get(
       filters.getFilterById('startDate').getValue()
         ? moment(filters.getFilterById('startDate').getValue()).startOf('day').unix() * 1000
         : 0,
@@ -159,7 +177,7 @@ export class RequestsEffects {
       filters.getFilterById('transport').getValue() ? filters.getFilterById('transport').getValue().id : 0,
       filters.getFilterById('driver').getValue() ? filters.getFilterById('driver').getValue().id : 0,
       filters.getFilterById('user').getValue() ? filters.getFilterById('user').getValue().id : 0,
-      ''
+      search
       ).pipe(
       map((response: IServerResponse<IRequest[]>) => new RequestsLoadFilteredRequestsSuccess(response)),
       catchError((error: any) => {
@@ -203,6 +221,81 @@ export class RequestsEffects {
     ofType(ApplicationActionTypes.APPLICATION_LOAD_CALENDAR_REQUESTS_FAIL),
     tap(() => {
       this.snackBar.open('При загрузке данных произошла ошибка', null, {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'right',
+        panelClass: 'message-snack-bar',
+        duration: 3000
+      });
+    }),
+    mergeMap(() => EMPTY)
+  );
+
+  @Effect()
+  exportRequests$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.REQUESTS_EXPORT_REQUESTS),
+    withLatestFrom(
+      this.store.pipe(select(selectListMode)),
+      this.store.pipe(select(selectSelectedDate)),
+      this.store.pipe(select(selectFilters)),
+      this.store.pipe(select(selectUser)),
+      this.store.pipe(select(selectSearch))
+    ),
+    mergeMap(([action, mode, date, filters, user, search]) => this.requests.export(
+      mode === EListMode.ALL_REQUESTS
+        ? moment(date).startOf('day').unix() * 1000
+        : mode === EListMode.USER_REQUESTS
+          ? 0
+          : moment(filters.getFilterById('startDate').getValue()).startOf('day').unix() * 1000,
+      mode === EListMode.ALL_REQUESTS
+        ? moment(date).endOf('day').unix() * 1000
+        : mode === EListMode.USER_REQUESTS
+        ? 0
+        : moment(filters.getFilterById('endDate').getValue()).endOf('day').unix() * 1000,
+      mode === EListMode.ALL_REQUESTS || mode === EListMode.USER_REQUESTS
+        ? 0
+        : filters.getFilterById('status').getValue()
+          ? filters.getFilterById('status').getValue().id
+          : 0,
+      mode === EListMode.ALL_REQUESTS || mode === EListMode.USER_REQUESTS
+        ? 0
+        : filters.getFilterById('transport').getValue()
+        ? filters.getFilterById('transport').getValue().id
+        : 0,
+      mode === EListMode.ALL_REQUESTS || mode === EListMode.USER_REQUESTS
+        ? 0
+        : filters.getFilterById('driver').getValue()
+        ? filters.getFilterById('driver').getValue().id
+        : 0,
+      mode === EListMode.ALL_REQUESTS
+        ? 0
+        : mode === EListMode.USER_REQUESTS
+          ? user.id
+          : mode === EListMode.FILTERED_REQUESTS
+            ? filters.getFilterById('user').getValue()
+              ? filters.getFilterById('user').getValue().id
+              : 0
+            : 0,
+      mode === EListMode.ALL_REQUESTS || mode === EListMode.USER_REQUESTS ? '' : search
+    ).pipe(
+      map((response: Blob) => of(new RequestsExportRequestsSuccess(response))),
+      catchError(() => of(new RequestsExportRequestsFail()))
+    ))
+  );
+
+  @Effect()
+  exportRequestsSuccess$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.REQUESTS_EXPORT_REQUESTS_SUCCESS),
+    tap((action) => {
+      saver.saveAs((action as RequestsExportRequestsSuccess).payload, `Заявки на автотранспорт.xlsx`);
+    }),
+    mergeMap(() => EMPTY)
+  );
+
+  @Effect()
+  exportReportsFail$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.REQUESTS_EXPORT_REQUESTS_FAIL),
+    tap(() => {
+      this.snackBar.open('При экспортее заявок произошла ошибка', null, {
         verticalPosition: 'bottom',
         horizontalPosition: 'right',
         panelClass: 'message-snack-bar',

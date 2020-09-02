@@ -13,12 +13,21 @@
       <div class="indicator">{{userRequests.length}}</div>
     </div>
     <div class="tab"
-         *ngIf="filters.isFiltersApplied()"
+         *ngIf="filters.isFiltersApplied() || search"
          [ngClass]="{'selected': listMode === listModes.FILTERED_REQUESTS}"
          (click)="selectTab(listModes.FILTERED_REQUESTS)">
       <div class="title">Найденные</div>
       <div class="indicator">{{filteredRequests.length}}</div>
     </div>
+  </div>
+  <div class="controls">
+    <mat-icon
+      *ngIf="(listMode === listModes.ALL_REQUESTS && requests.length > 0) || (listMode === listModes.USER_REQUESTS && userRequests.length > 0) || (listMode === listModes.FILTERED_REQUESTS && filteredRequests.length > 0)"
+      matTooltip="Экспорт в Excel"
+      matTooltipPosition="above"
+      (click)="exportRequests()">
+      save
+    </mat-icon>
   </div>
 </div>
 <div class="content pl-5 pr-5">

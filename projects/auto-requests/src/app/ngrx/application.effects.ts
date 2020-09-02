@@ -12,7 +12,7 @@ import { actionTypes, AuthenticationSignInSuccess, IServerResponse, User } from 
 import { ApplicationService } from '../services/application.service';
 import { IApplicationState  } from './application.state';
 import {
-  ApplicationActionTypes,
+  ApplicationActionTypes, ApplicationClearFilters,
   ApplicationCloseSidebar,
   ApplicationLoadInitialDataFail,
   ApplicationLoadInitialDataSuccess,
@@ -164,5 +164,20 @@ export class ApplicationEffects {
   clearFilter$ = this.actions$.pipe(
     ofType(ApplicationActionTypes.APPLICATION_CLEAR_FILTER),
     mergeMap(() => of(new RequestsLoadFilteredRequests()))
+  );
+
+  @Effect()
+  searchChanged$ = this.actions$.pipe(
+    ofType(ApplicationActionTypes.APPLICATION_SEARCH_CHANGED),
+    mergeMap(() => of(new RequestsLoadFilteredRequests()))
+  );
+
+  @Effect()
+  searchCleared$ = this.actions$.pipe(
+    ofType(ApplicationActionTypes.APPLICATION_CLEAR_SEARCH),
+    withLatestFrom(this.store.pipe(select(selectFilters))),
+    mergeMap(([action, filters]) => filters.isFiltersApplied()
+      ? of(new RequestsLoadFilteredRequests())
+      : of(new ApplicationClearFilters()))
   );
 }

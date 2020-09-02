@@ -11,14 +11,18 @@ import { EListMode } from '../../../../enums';
 })
 export class TabsComponent implements OnInit {
   @Input() listMode: EListMode;
+  @Input() requests: Request[];
   @Input() userRequests: Request[];
   @Input() filteredRequests: Request[];
   @Input() filters: FilterManager;
+  @Input() search: string;
   @Output() select: EventEmitter<EListMode>;
+  @Output() export: EventEmitter<void>;
   listModes = EListMode;
 
   constructor() {
     this.select = new EventEmitter<EListMode>();
+    this.export = new EventEmitter<void>();
   }
 
   ngOnInit() {}
@@ -31,4 +35,10 @@ export class TabsComponent implements OnInit {
     this.select.emit(mode);
   }
 
+  /**
+   * Экспорт заявок
+   */
+  exportRequests() {
+    this.export.emit();
+  }
 }

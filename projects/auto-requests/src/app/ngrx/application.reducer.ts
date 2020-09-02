@@ -152,7 +152,7 @@ export function applicationReducer(
     case ApplicationActionTypes.APPLICATION_CLEAR_FILTERS: {
       return {
         ...state,
-        listMode: EListMode.ALL_REQUESTS,
+        listMode: state.search ? EListMode.FILTERED_REQUESTS : EListMode.ALL_REQUESTS,
         filters: new FilterManager([
           new SearchFilter<Date>(
             'startDate',
@@ -200,7 +200,10 @@ export function applicationReducer(
     case ApplicationActionTypes.APPLICATION_CLEAR_FILTER: {
       return {
         ...state,
-        filters: new FilterManager(action.payload)
+        filters: new FilterManager(action.payload),
+        listMode: state.filters.isFiltersApplied() || state.search.length > 0
+          ? EListMode.FILTERED_REQUESTS
+          : EListMode.ALL_REQUESTS
       };
     }
 
@@ -211,6 +214,19 @@ export function applicationReducer(
       return {
         ...state,
         search: action.payload
+      };
+    }
+
+    /**
+     * Очистка строки поиска заявок
+     */
+    case ApplicationActionTypes.APPLICATION_CLEAR_SEARCH: {
+      return {
+        ...state,
+        search: '',
+        listMode: state.filters.isFiltersApplied()
+          ? EListMode.FILTERED_REQUESTS
+          : EListMode.ALL_REQUESTS
       };
     }
 
@@ -292,7 +308,9 @@ export function applicationReducer(
       return {
         ...state,
         isLoading: false,
-        listMode: EListMode.FILTERED_REQUESTS
+        listMode: state.filters.isFiltersApplied() || state.search.length > 0
+          ? EListMode.FILTERED_REQUESTS
+          : EListMode.ALL_REQUESTS
       };
     }
 

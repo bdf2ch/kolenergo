@@ -1,19 +1,19 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 import {
-  IResourceMethod,
   IResourceMethodStrict,
   Resource,
   ResourceAction,
   ResourceHandler,
   ResourceParams,
-  ResourceRequestMethod
+  ResourceRequestMethod,
+  ResourceResponseBodyType
 } from '@ngx-resource/core';
 
-import { IServerResponse } from '@kolenergo/core';
-import { IRequest, IRoutePoint } from '../interfaces';
-import { Request } from '../models';
-import { environment } from '../../environments/environment';
+import {IServerResponse} from '@kolenergo/core';
+import {IRequest, IRoutePoint} from '../interfaces';
+import {Request} from '../models';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -72,4 +72,20 @@ export class RequestsResource extends Resource {
     calendarRequests: {date: string, count: number}[],
     routes: IRoutePoint[]
   }>>;
+
+  @ResourceAction({
+    path: '/export',
+    method: ResourceRequestMethod.Get,
+    responseBodyType: ResourceResponseBodyType.Blob,
+    withCredentials: true
+  })
+  export: IResourceMethodStrict<void, {
+    periodStart: number,
+    periodEnd: number,
+    statusId: number,
+    transportId: number,
+    driverId: number,
+    userId: number,
+    search?: string
+  }, void, Blob>;
 }
