@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
+import { FilterManager } from '@kolenergo/core';
 import { Request } from '../../../../models';
 import { EListMode } from '../../../../enums';
 
@@ -12,6 +13,7 @@ export class TabsComponent implements OnInit {
   @Input() listMode: EListMode;
   @Input() userRequests: Request[];
   @Input() filteredRequests: Request[];
+  @Input() filters: FilterManager;
   @Output() select: EventEmitter<EListMode>;
   listModes = EListMode;
 

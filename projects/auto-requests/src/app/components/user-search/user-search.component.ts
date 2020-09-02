@@ -5,6 +5,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { User, UserSearchService } from '@kolenergo/core';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import {Transport} from '../../models';
 
 
 @Component({
@@ -38,7 +39,7 @@ export class UserSearchComponent implements OnInit {
       debounceTime(300),
       distinctUntilChanged(),
       switchMap((value) =>  {
-        return value.length > 2 ? this.users.searchUsers(value, false, false) : of([]);
+        return value && value.length > 2 ? this.users.searchUsers(value, false, false) : of([]);
       })
     );
   }
@@ -57,7 +58,13 @@ export class UserSearchComponent implements OnInit {
    * @param user - Выбранный пользователь
    */
   display(user: User): string {
-    return user ? `${user.firstName} ${user.lastName}` : '';
+    // return user ? `${user.firstName} ${user.lastName}` : '';
+
+    return this.selectedUser
+      ? `${this.selectedUser.firstName} ${this.selectedUser.lastName}`
+      : user
+        ? `${user.firstName} ${user.lastName}`
+        : '';
   }
 
   /**
@@ -67,6 +74,15 @@ export class UserSearchComponent implements OnInit {
     this.selectedUser = null;
     this.userSearchForm.controls.query.setValue('');
     this.clear.emit();
+  }
+
+  /**
+   * Установка текцущего пользователя
+   * @param user - Текущий пользователь
+   */
+  setSelected(user: User) {
+    this.selectedUser = user;
+    this.userSearchForm.controls.query.setValue(user ? user : null);
   }
 
   /**

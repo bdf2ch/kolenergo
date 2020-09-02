@@ -4,18 +4,22 @@ import { BreakpointObserver, BreakpointState, MediaMatcher } from '@angular/cdk/
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { FilterManager, IUser } from '@kolenergo/core';
+import { FilterManager, IUser, SearchFilter } from '@kolenergo/core';
 import {
-  ApplicationCalendarPeriodChange,
+  ApplicationCalendarPeriodChange, ApplicationClearFilter, ApplicationClearFilters,
   ApplicationCloseSidebar,
   ApplicationLoadCalendarRequests,
-  ApplicationOpenAddRequestDialog, ApplicationOpenFiltersDialog,
+  ApplicationOpenAddRequestDialog,
+  ApplicationOpenFiltersDialog,
   ApplicationOpenSidebar,
-  ApplicationOpenSignInDialog,
+  ApplicationOpenSignInDialog, ApplicationSearchChanged,
   ApplicationSelectDate,
-  ApplicationSelectViewMode, ApplicationSetCompactMode,
+  ApplicationSelectViewMode,
+  ApplicationSetCompactMode, ApplicationSetFilters,
   IApplicationState,
-  selectDate, selectFilters, selectIsCompactMode,
+  selectDate,
+  selectFilters,
+  selectIsCompactMode,
   selectIsLoading,
   selectIsSidebarOpened,
   selectSelectedDate,
@@ -43,6 +47,7 @@ export class AppComponent {
   selectedDate$: Observable<Date>;
   calendarRequests$: Observable<{date: string, count: number}[]>;
   filters$: Observable<FilterManager>;
+  filters: FilterManager;
 
   constructor(
     private breakpoint: BreakpointObserver,
@@ -59,13 +64,15 @@ export class AppComponent {
     this.viewMode$ = this.store.pipe(select(selectViewMode));
     this.calendarRequests$ = this.store.pipe(select(selectCalendarRequests));
     this.filters$ = this.store.pipe(select(selectFilters));
+    this.filters$.subscribe((value: FilterManager) => {
+      this.filters = value;
+    });
 
     this.mobileQuery = media.matchMedia('(max-width: 1500px)');
     this.mobileQueryListener = () => this.detector.detectChanges();
     this.mobileQuery.addListener(this.mobileQueryListener);
     this.breakpoint.observe('(max-width: 1500px)').subscribe((result: BreakpointState) => {
       this.store.dispatch(new ApplicationSetCompactMode(result.matches ? true : false));
-      // this.store.dispatch(result.matches ? new ApplicationCloseSidebar() : new ApplicationOpenSidebar());
     });
   }
 
@@ -135,5 +142,25 @@ export class AppComponent {
    */
   openFiltersDialog() {
     this.store.dispatch(new ApplicationOpenFiltersDialog());
+  }
+
+  /**
+   * Сброс фильтра заявок
+   * @param filter - Сбрасываемый фильтр
+   */
+  resetFilter(filter: SearchFilter<any>) {
+    this.filters.getFilterById(filter.getId()).reset();
+    this.store.dispatch(this.filters.isFiltersApplied()
+      ? new ApplicationClearFilter(this.filters.getFilters())
+      : new ApplicationClearFilters()
+    );
+  }
+
+  /**
+   * Изменение строки поиска заявок
+   * @param query - Строка поиска
+   */
+  searchChanged(query: string) {
+    this.store.dispatch(new ApplicationSearchChanged(query));
   }
 }

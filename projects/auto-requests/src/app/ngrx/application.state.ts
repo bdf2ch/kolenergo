@@ -20,6 +20,7 @@ export interface IAppState {
   calendarPeriodStart: number;    // Дата и время начала периода в календаре в формате Unix
   calendarPeriodEnd: number;      // Дата и время окончания периода в календаре в формате Unix
   filters: FilterManager;         // Фильтры заявок
+  search: string;                 // Строка поиска
   transport: Transport[];         // Транспорт
   drivers: Driver[];              // Водители
   statuses: RequestStatus[];      // Статусы заявок
@@ -48,6 +49,7 @@ export const appInitialState: IAppState = {
     new SearchFilter<Driver>('driver', 'Водитель', null, (val: Driver) => val ? `${val.firstName} ${val.lastName}` : ''),
     new SearchFilter<User>('user', 'Заказчик', null, (val: User) => val ? `${val.firstName} ${val.lastName}` : ''),
   ]),
+  search: null,
   transport: [],
   drivers: [],
   statuses: [],

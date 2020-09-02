@@ -1,6 +1,6 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MatSelectChange, MatDatepickerInputEvent, MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 import * as moment from 'moment';
 import { select, Store } from '@ngrx/store';
@@ -22,7 +22,7 @@ import { UserSearchComponent } from '../user-search/user-search.component';
   templateUrl: './filters-dialog.component.html',
   styleUrls: ['./filters-dialog.component.less']
 })
-export class FiltersDialogComponent implements OnInit, AfterViewInit {
+export class FiltersDialogComponent implements OnInit {
   @ViewChild('transport', {static: true}) transport: TransportTypeaheadComponent;
   @ViewChild('driver', {static: true}) driver: DriverTypeaheadComponent;
   @ViewChild('user', {static: true}) user: UserSearchComponent;
@@ -61,10 +61,11 @@ export class FiltersDialogComponent implements OnInit, AfterViewInit {
         this.filtersForm.controls.transport.setValue(filters.getFilterById('transport').getValue());
         this.filtersForm.controls.driver.setValue(filters.getFilterById('driver').getValue());
         this.filtersForm.controls.user.setValue(filters.getFilterById('user').getValue());
-        // this.transport.setSelected(filters.getFilterById('transport').getValue());
+        this.transport.setSelected(filters.getFilterById('transport').getValue());
+        this.driver.setSelected(filters.getFilterById('driver').getValue());
+        this.user.setSelected(filters.getFilterById('user').getValue());
       }
     });
-    console.log(this.transport);
   }
 
   /**
@@ -196,9 +197,5 @@ export class FiltersDialogComponent implements OnInit, AfterViewInit {
     this.user.clearSelected();
     this.filtersForm.markAsPristine();
     this.store.dispatch(new ApplicationClearFilters());
-  }
-
-  ngAfterViewInit(): void {
-
   }
 }

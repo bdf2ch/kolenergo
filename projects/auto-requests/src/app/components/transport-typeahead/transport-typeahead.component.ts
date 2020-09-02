@@ -15,7 +15,6 @@ export class TransportTypeaheadComponent implements OnInit, OnChanges {
   @Input() transport: Transport[];
   @Input() request: Request;
   @Input() placeholder: string;
-  @Input() selected: Transport;
   @Output() select: EventEmitter<Transport>;
   @Output() clear: EventEmitter<void>;
   filteredTransport: Transport[];
@@ -33,7 +32,6 @@ export class TransportTypeaheadComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.transportForm.controls.transport.setValue(this.request ? this.request.transport.model : null);
     this.transportForm.controls.transport.valueChanges.pipe(
       distinctUntilChanged(),
       tap((value: any) => {
@@ -52,15 +50,12 @@ export class TransportTypeaheadComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.selected && changes.selected.currentValue) {
-      this.selectedTransport = changes.selected.currentValue;
-      // this.transportForm.controls.transport.setValue(changes.selected.currentValue.model);
-    }
     if (changes.transport && changes.transport.currentValue) {
       this.filteredTransport = changes.transport.currentValue;
     }
     if (changes.request && changes.request.currentValue) {
       this.selectedTransport = changes.request.currentValue.transport;
+      this.transportForm.controls.transport.setValue(this.selectedTransport ? this.selectedTransport : null);
     }
   }
 
@@ -79,8 +74,7 @@ export class TransportTypeaheadComponent implements OnInit, OnChanges {
    * @param transport - Выбранный транспорт
    */
   display(transport: Transport): string {
-    console.log('selected transport: ', transport);
-    return transport ? transport.model : '';
+    return this.selectedTransport ? this.selectedTransport.model : transport ? transport.model : '';
   }
 
   /**
@@ -98,7 +92,7 @@ export class TransportTypeaheadComponent implements OnInit, OnChanges {
    */
   setSelected(transport: Transport) {
     this.selectedTransport = transport;
-    this.transportForm.controls.transport.setValue(transport ? transport.model : null);
+    this.transportForm.controls.transport.setValue(transport ? transport : null);
   }
 
   /**

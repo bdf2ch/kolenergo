@@ -24,14 +24,16 @@ export class RequestsService {
    * @param search - Условие поиска
    */
   get(
-    date: string,
+    // date: string,
+    periodStart: number,
+    periodEnd: number,
     statusId: number,
     transportId: number,
     driverId: number,
     userId: number,
     search?: string
   ): Observable<IServerResponse<IRequest[]>> {
-    return from(this.resource.get(null, {date, statusId, transportId, driverId, userId, search}, null))
+    return from(this.resource.get(null, {periodStart, periodEnd, statusId, transportId, driverId, userId, search}, null))
       .pipe(
         map((response: IServerResponse<IRequest[]>) => response)
       );
@@ -61,7 +63,7 @@ export class RequestsService {
    */
   add(
     request: Request,
-    date: string,
+    date: Date,
     periodStart: number,
     periodEnd: number
   ): Observable<IServerResponse<{
@@ -92,7 +94,7 @@ export class RequestsService {
     request: Request,
     periodStart: number,
     periodEnd: number,
-    currentDate: string
+    currentDate: Date
   ): Observable<IServerResponse<{requests: IRequest[], calendarRequests: {date: string, count: number}[], routes: IRoutePoint[]}>> {
     return from(this.resource.edit(request, {periodStart, periodEnd, currentDate}, {id: request.id}))
       .pipe(

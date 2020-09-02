@@ -33,7 +33,9 @@ export class RequestsResource extends Resource {
     withCredentials: true
   })
   get: IResourceMethodStrict<void, {
-    date: string,
+    // date: string,
+    periodStart: number,
+    periodEnd: number,
     statusId: number,
     transportId: number,
     driverId: number,
@@ -53,7 +55,7 @@ export class RequestsResource extends Resource {
     method: ResourceRequestMethod.Post,
     withCredentials: true
   })
-  add: IResourceMethodStrict<Request, {date: string, periodStart: number, periodEnd: number}, void, IServerResponse<{
+  add: IResourceMethodStrict<Request, {date: Date, periodStart: number, periodEnd: number}, void, IServerResponse<{
     requests: IRequest[],
     userRequests: IRequest[],
     calendarRequests: {date: string, count: number}[],
@@ -65,7 +67,7 @@ export class RequestsResource extends Resource {
     method: ResourceRequestMethod.Patch,
     withCredentials: true
   })
-  edit: IResourceMethodStrict<Request, {periodStart: number, periodEnd: number, currentDate: string}, {id: number}, IServerResponse<{
+  edit: IResourceMethodStrict<Request, {periodStart: number, periodEnd: number, currentDate: Date}, {id: number}, IServerResponse<{
     requests: IRequest[],
     calendarRequests: {date: string, count: number}[],
     routes: IRoutePoint[]

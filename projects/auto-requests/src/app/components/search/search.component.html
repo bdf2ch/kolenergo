@@ -1,4 +1,4 @@
-<div class="search">
+<div class="search" [formGroup]="searchForm">
   <div class="prefix">
     <mat-icon>search</mat-icon>
   </div>
@@ -6,12 +6,13 @@
     <div class="filter"
          *ngFor="let filter of filters.getAppliedFilters()"
          matTooltip="{{filter.getTitle()}}"
-         matTooltipPosition="below">
+         matTooltipPosition="below"
+         (click)="onResetFilter(filter)">
       {{filter.getLabel()}}
     </div>
   </div>
   <div class="input">
-    <input type="text">
+    <input type="text" formControlName="query">
   </div>
   <div class="controls">
     <mat-icon matTooltip="Фильтры"

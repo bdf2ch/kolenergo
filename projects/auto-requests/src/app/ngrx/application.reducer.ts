@@ -184,7 +184,33 @@ export function applicationReducer(
             null,
             (val: Driver) => val ? `${val.firstName} ${val.lastName}` : ''
           ),
+          new SearchFilter<Driver>(
+            'user',
+            'Заказчик',
+            null,
+            (val: Driver) => val ? `${val.firstName} ${val.lastName}` : ''
+          ),
         ])
+      };
+    }
+
+    /**
+     * Сброс фильтра заявок
+     */
+    case ApplicationActionTypes.APPLICATION_CLEAR_FILTER: {
+      return {
+        ...state,
+        filters: new FilterManager(action.payload)
+      };
+    }
+
+    /**
+     * Изменение строки поиска заявок
+     */
+    case ApplicationActionTypes.APPLICATION_SEARCH_CHANGED: {
+      return {
+        ...state,
+        search: action.payload
       };
     }
 
@@ -243,6 +269,37 @@ export function applicationReducer(
      * Не удалось загрузить заявки текущего пользователя
      */
     case RequestsActionTypes.REQUESTS_LOAD_USER_REQUESTS_FAIL : {
+      return {
+        ...state,
+        isLoading: false
+      };
+    }
+
+    /**
+     * Загрузка отфильтрованных заявок
+     */
+    case RequestsActionTypes.REQUESTS_LOAD_FILTERED_REQUESTS: {
+      return {
+        ...state,
+        isLoading: true
+      };
+    }
+
+    /**
+     * Загрузка отфильтрованных заявок успешно завершена
+     */
+    case RequestsActionTypes.REQUESTS_LOAD_FILTERED_REQUESTS_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        listMode: EListMode.FILTERED_REQUESTS
+      };
+    }
+
+    /**
+     * Не удалось загрузить отфильтрованные заявки
+     */
+    case RequestsActionTypes.REQUESTS_LOAD_FILTERED_REQUESTS_FAIL: {
       return {
         ...state,
         isLoading: false

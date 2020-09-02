@@ -103,7 +103,7 @@ export class AddRequestDialogComponent implements OnInit {
       .hours(parseInt((this.addRequestForm.controls.startTime.value as string).substr(0, 2), 0))
       .minutes(parseInt((this.addRequestForm.controls.startTime.value as string).substr(3, 2), 0))
       .unix() * 1000;
-    this.request.endTime = moment(this.date)
+    this.request.endTime = moment(this.addRequestForm.controls.date.value)
       .hours(parseInt((this.addRequestForm.controls.endTime.value as string).substr(0, 2), 0))
       .minutes(parseInt((this.addRequestForm.controls.endTime.value as string).substr(3, 2), 0))
       .unix() * 1000;

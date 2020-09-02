@@ -7,5 +7,6 @@ export interface IDriver {
   secondName?: string;    // Отчество
   lastName: string;       // Фамилия
   phone?: string;         // Контактный телефон
+  email?: string;         // E-mail
   isEnabled: boolean;     // Доступен ливодитель для назначения в заявки
 }

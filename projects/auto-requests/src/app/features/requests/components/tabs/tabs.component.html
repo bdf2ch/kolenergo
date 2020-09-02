@@ -13,7 +13,7 @@
       <div class="indicator">{{userRequests.length}}</div>
     </div>
     <div class="tab"
-         *ngIf="filteredRequests.length > 0"
+         *ngIf="filters.isFiltersApplied()"
          [ngClass]="{'selected': listMode === listModes.FILTERED_REQUESTS}"
          (click)="selectTab(listModes.FILTERED_REQUESTS)">
       <div class="title">Найденные</div>

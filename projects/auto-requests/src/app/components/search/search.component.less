@@ -9,8 +9,12 @@
 @filter-font-family: 'Open Sans Regular';
 @filter-font-size: 11px;
 @filter-color: #37474f;
-@filter-background-color: #FFCA28;
-@filter-background-color-hover: #ffb300;
+@filter-background-color: #ffd54f;
+@filter-background-color-hover: #ffca28;
+
+@input-font-family: 'Open Sans Regular';
+@input-font-size: 14px;
+@input-color: #263238;
 
 @control-icon-width: 22px;
 @control-icon-height: 22px;
@@ -85,6 +89,9 @@
   .input {
     display: flex;
     flex: 1;
+    font-family: @input-font-family;
+    font-size: @input-font-size;
+    color: @input-color;
 
     input {
       width: 100%;

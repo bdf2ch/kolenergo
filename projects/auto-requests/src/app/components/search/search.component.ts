@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-import { FilterManager } from '@kolenergo/core';
+import { FilterManager, SearchFilter } from '@kolenergo/core';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
@@ -10,12 +12,27 @@ import { FilterManager } from '@kolenergo/core';
 export class SearchComponent implements OnInit {
   @Input() filters: FilterManager;
   @Output() openFilters: EventEmitter<void>;
+  @Output() resetFilter: EventEmitter<SearchFilter<any>>;
+  @Output() searchChanged: EventEmitter<string>;
+  searchForm: FormGroup;
 
-  constructor() {
+  constructor(private readonly builder: FormBuilder) {
     this.openFilters = new EventEmitter<void>();
+    this.resetFilter = new EventEmitter<SearchFilter<any>>();
+    this.searchChanged = new EventEmitter<string>();
+    this.searchForm = this.builder.group({
+      query: new FormControl(null)
+    });
   }
 
   ngOnInit() {
+    this.searchForm.controls.query.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe((value: string) => {
+      console.log('search changed, ', value);
+      this.searchChanged.emit(value);
+    });
   }
 
   /**
@@ -23,6 +40,14 @@ export class SearchComponent implements OnInit {
    */
   onOpenFilters() {
     this.openFilters.emit();
+  }
+
+  /**
+   * Сброс фильтра
+   * @param filter - Сбрасываемый фильтр
+   */
+  onResetFilter(filter: SearchFilter<any>) {
+    this.resetFilter.emit(filter);
   }
 
 }

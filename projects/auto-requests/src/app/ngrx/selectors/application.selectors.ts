@@ -64,6 +64,14 @@ export const selectFilters = createSelector(
 );
 
 /**
+ * Селектор строки поиска
+ */
+export const selectSearch = createSelector(
+  selectApplication,
+  (state: IAppState) => state.search
+);
+
+/**
  * Селектор режима отображения заявок
  */
 export const selectViewMode = createSelector(

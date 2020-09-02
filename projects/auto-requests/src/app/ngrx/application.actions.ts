@@ -23,6 +23,8 @@ export const enum ApplicationActionTypes {
   APPLICATION_SELECT_DATE = '[Application UI] Select date',
   APPLICATION_SET_FILTERS = '[Application UI] Set filter value',
   APPLICATION_CLEAR_FILTERS = '[Application UI] Clear filters',
+  APPLICATION_CLEAR_FILTER = '[Application UI] Clear filter',
+  APPLICATION_SEARCH_CHANGED = '[Application UI] Search query changed',
   APPLICATION_OPEN_SIGN_IN_DIALOG = '[Application UI] Open sign in dialog',
   APPLICATION_OPEN_ADD_REQUEST_DIALOG = '[Application UI] Open add request dialog',
   APPLICATION_OPEN_FILTERS_DIALOG = '[Application UI] Open  filters dialog'
@@ -143,6 +145,22 @@ export class ApplicationClearFilters implements Action {
 }
 
 /**
+ * Сборс фильтра заявок
+ */
+export class ApplicationClearFilter implements Action {
+  readonly type = ApplicationActionTypes.APPLICATION_CLEAR_FILTER;
+  constructor(public payload: SearchFilter<any>[]) {}
+}
+
+/**
+ * Изменение строки поиска заявок
+ */
+export class ApplicationSearchChanged implements Action {
+  readonly type = ApplicationActionTypes.APPLICATION_SEARCH_CHANGED;
+  constructor(public payload: string) {}
+}
+
+/**
  * Открытие диалогового окна авторизации пользователя
  */
 export class ApplicationOpenSignInDialog implements Action {
@@ -182,7 +200,9 @@ export type ApplicationActions =
   ApplicationSelectListMode |
   ApplicationSelectDate |
   ApplicationSetFilters |
+  ApplicationClearFilter |
   ApplicationClearFilters |
+  ApplicationSearchChanged |
   ApplicationOpenSignInDialog |
   ApplicationOpenAddRequestDialog |
   ApplicationOpenFiltersDialog;

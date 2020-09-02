@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { IServerResponse } from '@kolenergo/core';
+import { FilterManager, IServerResponse } from '@kolenergo/core';
 import { IRequest, IRoutePoint } from '../../../interfaces';
 import { Request } from '../../../models';
 
@@ -15,6 +15,9 @@ export enum RequestsActionTypes {
   REQUESTS_LOAD_USER_REQUESTS = '[Requests API] Load user requests',
   REQUESTS_LOAD_USER_REQUESTS_SUCCESS = '[Requests API] User requests loaded successfully',
   REQUESTS_LOAD_USER_REQUESTS_FAIL = '[Requests API] Failed to load user requests',
+  REQUESTS_LOAD_FILTERED_REQUESTS = '[Requests API] Load filtered requests',
+  REQUESTS_LOAD_FILTERED_REQUESTS_SUCCESS = '[Requests API] Filtered requests loaded successfully',
+  REQUESTS_LOAD_FILTERED_REQUESTS_FAIL = '[Requests API] Failed to load filtered requests',
   REQUESTS_ADD_REQUEST = '[Requests API] Add request',
   REQUESTS_ADD_REQUEST_SUCCESS = '[Requests API] Request added successfully',
   REQUESTS_ADD_REQUEST_FAIL = '[Requests API] Failed to add request',
@@ -73,6 +76,28 @@ export class RequestsLoadUserRequestsSuccess implements Action {
  */
 export class RequestsLoadUserRequestsFail implements Action {
   readonly type = RequestsActionTypes.REQUESTS_LOAD_USER_REQUESTS_FAIL;
+}
+
+/**
+ * Загрузка отфильтрованных заявок
+ */
+export class RequestsLoadFilteredRequests implements Action {
+  readonly type = RequestsActionTypes.REQUESTS_LOAD_FILTERED_REQUESTS;
+}
+
+/**
+ * Загрузка отфильтрованных заявок выполнена успешно
+ */
+export class RequestsLoadFilteredRequestsSuccess implements Action {
+  readonly type = RequestsActionTypes.REQUESTS_LOAD_FILTERED_REQUESTS_SUCCESS;
+  constructor(public payload: IServerResponse<IRequest[]>) {}
+}
+
+/**
+ * Не удалось загрузить отфильтрованные заявки
+ */
+export class RequestsLoadFilteredRequestsFail implements Action {
+  readonly type = RequestsActionTypes.REQUESTS_LOAD_FILTERED_REQUESTS_FAIL;
 }
 
 /**
@@ -139,10 +164,13 @@ export type RequestsActions =
   RequestsSelectRequest |
   RequestsLoadRequests |
   RequestsLoadRequestsSuccess |
+  RequestsLoadRequestsFail |
   RequestsLoadUserRequests |
   RequestsLoadUserRequestsSuccess |
   RequestsLoadUserRequestsFail |
-  RequestsLoadRequestsFail |
+  RequestsLoadFilteredRequests |
+  RequestsLoadFilteredRequestsSuccess |
+  RequestsLoadFilteredRequestsFail |
   RequestsAddRequest |
   RequestsAddRequestSuccess |
   RequestsAddRequestFail |

@@ -3,9 +3,10 @@
   <app-tabs [listMode]="listMode$ | async"
             [userRequests]="userRequests$ | async"
             [filteredRequests]="filteredRequests$ | async"
+            [filters]="filters$ | async"
             (select)="selectListMode($event)">
     <app-requests-grid class="mt-2"
-                       [requests]="(listMode$ | async) === listModes.ALL_REQUESTS ? (requests$ | async) : (userRequests$ | async)"
+                       [requests]="(listMode$ | async) === listModes.ALL_REQUESTS ? (requests$ | async) : (listMode$ | async) === listModes.USER_REQUESTS ? (userRequests$ | async) : (filteredRequests$ | async)"
                        (select)="selectRequest($event)">
     </app-requests-grid>
   </app-tabs>
@@ -13,5 +14,10 @@
   <div class="no-requests-placeholder"
        *ngIf="(requests$ | async).length === 0 && (listMode$ | async) === listModes.ALL_REQUESTS && !(loading$ | async)">
     Заявки на {{(selectedDate$ | async) | date: 'dd MMMM'}}<br> отсутствуют
+  </div>
+
+  <div class="no-requests-placeholder"
+       *ngIf="(filteredRequests$ | async).length === 0 && (listMode$ | async) === listModes.FILTERED_REQUESTS && !(loading$ | async)">
+    По заданному условию заявки<br>не найдены
   </div>
 </div>

@@ -3,10 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import {RequestsSelectRequest, selectFilteredRequests, selectRequests, selectUserRequests} from '../../ngrx';
+import { FilterManager } from '@kolenergo/core';
+import { RequestsSelectRequest, selectFilteredRequests, selectRequests, selectUserRequests } from '../../ngrx';
 import {
   ApplicationSelectListMode,
   IApplicationState,
+  selectFilters,
   selectIsLoading,
   selectListMode,
   selectSelectedDate
@@ -26,6 +28,7 @@ export class RequestsListComponent implements OnInit {
   requests$: Observable<Request[]>;
   userRequests$: Observable<Request[]>;
   filteredRequests$: Observable<Request[]>;
+  filters$: Observable<FilterManager>;
   listModes = EListMode;
 
   constructor(private readonly store: Store<IApplicationState>) {}
@@ -37,6 +40,7 @@ export class RequestsListComponent implements OnInit {
     this.requests$ = this.store.pipe(select(selectRequests));
     this.userRequests$ = this.store.pipe(select(selectUserRequests));
     this.filteredRequests$ = this.store.pipe(select(selectFilteredRequests));
+    this.filters$ = this.store.pipe(select(selectFilters));
   }
 
   /**

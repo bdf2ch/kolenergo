@@ -27,7 +27,12 @@ import { IInitialData } from '../interfaces';
 import {SignInModalComponent} from '../components/sign-in-modal/sign-in-modal.component';
 import {ApplicationsLoadApplicationsSuccess} from '../../../../control/src/app/features/applications/ngrx';
 import {AddRequestDialogComponent} from '../components/add-request-dialog/add-request-dialog.component';
-import { RequestsActionTypes, RequestsLoadUserRequests } from '../features/requests/ngrx/requests.actions';
+import {
+  RequestsActionTypes,
+  RequestsLoadFilteredRequests,
+  RequestsLoadRequests,
+  RequestsLoadUserRequests
+} from '../features/requests/ngrx/requests.actions';
 import { FiltersDialogComponent } from '../components/filters-dialog/filters-dialog.component';
 
 
@@ -72,7 +77,7 @@ export class ApplicationEffects {
     tap(() => {
       this.snackBar.open('При загрузке данных с сервера произошла ошибка', null, {
         verticalPosition: 'bottom',
-        horizontalPosition: 'center',
+        horizontalPosition: 'right',
         duration: 3000
       });
     }),
@@ -149,17 +154,15 @@ export class ApplicationEffects {
     mergeMap(() => of(new RequestsLoadUserRequests()))
   );
 
-  /*
   @Effect()
   setFilter$ = this.actions$.pipe(
     ofType(ApplicationActionTypes.APPLICATION_SET_FILTERS),
-    withLatestFrom(this.store.pipe(select(selectFilters))),
-    tap(([action, filters]) => {
-      const filter = filters.getFilterById((action as ApplicationSetFilter).payload.id);
-      filter.setValue(moment((action as ApplicationSetFilter).payload.value).toDate());
-      console.log(filter);
-    }),
-    mergeMap(() => EMPTY)
+    mergeMap(() => of(new RequestsLoadFilteredRequests()))
   );
-   */
+
+  @Effect()
+  clearFilter$ = this.actions$.pipe(
+    ofType(ApplicationActionTypes.APPLICATION_CLEAR_FILTER),
+    mergeMap(() => of(new RequestsLoadFilteredRequests()))
+  );
 }

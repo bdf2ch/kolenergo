@@ -9,6 +9,7 @@ export class Driver implements IDriver {
   secondName: string;     // Отчество
   lastName: string;       // Фамилия
   phone: string;          // Контактный телефон
+  email: string;          // E-mail
   isEnabled: boolean;     // Доступен ли водителья для назначения в заявки
 
   /**
@@ -21,6 +22,7 @@ export class Driver implements IDriver {
     this.secondName = config && config.secondName ? config.secondName : null;
     this.lastName = config ? config.lastName : null;
     this.phone = config && config.phone ? config.phone : null;
+    this.email = config && config.email ? config.email : null;
     this.isEnabled = config ? config.isEnabled : true;
   }
 }

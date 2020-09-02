@@ -84,6 +84,16 @@ export function requestsReducer(
     }
 
     /**
+     * Загрузка отфильтрованных заявок выполнена успешно
+     */
+    case RequestsActionTypes.REQUESTS_LOAD_FILTERED_REQUESTS_SUCCESS: {
+      return {
+        ...state,
+        filteredRequests: action.payload.data.map((item: IRequest) => new Request(item))
+      };
+    }
+
+    /**
      * Загрузка оповещений о завках для календаря выполнена успешно
      */
     case ApplicationActionTypes.APPLICATION_LOAD_CALENDAR_REQUESTS_SUCCESS: {

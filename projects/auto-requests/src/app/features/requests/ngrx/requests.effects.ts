@@ -16,7 +16,7 @@ import {
   RequestsAddRequestSuccess,
   RequestsEditRequest,
   RequestsEditRequestFail,
-  RequestsEditRequestSuccess,
+  RequestsEditRequestSuccess, RequestsLoadFilteredRequestsFail, RequestsLoadFilteredRequestsSuccess,
   RequestsLoadRequests,
   RequestsLoadRequestsFail,
   RequestsLoadRequestsSuccess, RequestsLoadUserRequestsFail, RequestsLoadUserRequestsSuccess
@@ -24,7 +24,7 @@ import {
 import { IRequest, IRoutePoint } from '../../../interfaces';
 import { Request } from '../../../models';
 import { IApplicationState } from '../../../ngrx/application.state';
-import {selectCalendarPeriodEnd, selectCalendarPeriodStart, selectSelectedDate, selectUser} from '../../../ngrx/selectors';
+import {selectCalendarPeriodEnd, selectCalendarPeriodStart, selectFilters, selectSelectedDate, selectUser} from '../../../ngrx/selectors';
 import { selectSelectedRequest } from './requests.selectors';
 import { RequestsService } from '../../../services/requests.service';
 import {
@@ -71,8 +71,14 @@ export class RequestsEffects {
     ofType(RequestsActionTypes.REQUESTS_LOAD_REQUESTS),
     withLatestFrom(this.store.pipe(select(selectSelectedDate))),
     mergeMap(([action, date]) => this.requests.get(
-      moment(date as Date).format('DD.MM.YYYY'), 0, 0, 0, 0, '')
-      .pipe(
+      moment(date).startOf('day').unix() * 1000,
+      moment(date).endOf('day').unix() * 1000,
+      0,
+      0,
+      0,
+      0,
+      ''
+      ).pipe(
         map((response: IServerResponse<IRequest[]>) => new RequestsLoadRequestsSuccess(response)),
         catchError((error: any) => {
           return of(new RequestsLoadRequestsFail());
@@ -98,12 +104,9 @@ export class RequestsEffects {
   @Effect()
   loadUserRequests$ = this.actions$.pipe(
     ofType(RequestsActionTypes.REQUESTS_LOAD_USER_REQUESTS),
-    withLatestFrom(
-      this.store.pipe(select(selectUser)),
-      this.store.pipe(select(selectSelectedDate))
-    ),
-    mergeMap(([action, user, date]) => this.requests.get(
-      '', 0, 0, 0, user.id, '')
+    withLatestFrom(this.store.pipe(select(selectUser))),
+    mergeMap(([action, user]) => this.requests.get(
+      0, 0, 0, 0, 0, user.id, '')
       .pipe(
         map((response: IServerResponse<IRequest[]>) => new RequestsLoadUserRequestsSuccess(response)),
         catchError((error: any) => {
@@ -130,6 +133,45 @@ export class RequestsEffects {
   @Effect()
   loadUserRequestsFail$ = this.actions$.pipe(
     ofType(RequestsActionTypes.REQUESTS_LOAD_USER_REQUESTS_FAIL),
+    tap(() => {
+      this.snackBar.open('При загрузке заявок произошла ошибка', null, {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'right',
+        panelClass: 'message-snack-bar',
+        duration: 3000
+      });
+    }),
+    mergeMap(() => EMPTY)
+  );
+
+  @Effect()
+  loadFilteredRequests$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.REQUESTS_LOAD_FILTERED_REQUESTS),
+    withLatestFrom(this.store.pipe(select(selectFilters))),
+    mergeMap(([action, filters]) => this.requests.get(
+      filters.getFilterById('startDate').getValue()
+        ? moment(filters.getFilterById('startDate').getValue()).startOf('day').unix() * 1000
+        : 0,
+      filters.getFilterById('endDate').getValue()
+        ? moment(filters.getFilterById('endDate').getValue()).endOf('day').unix() * 1000
+        : 0,
+      filters.getFilterById('status').getValue() ? filters.getFilterById('status').getValue().id : 0,
+      filters.getFilterById('transport').getValue() ? filters.getFilterById('transport').getValue().id : 0,
+      filters.getFilterById('driver').getValue() ? filters.getFilterById('driver').getValue().id : 0,
+      filters.getFilterById('user').getValue() ? filters.getFilterById('user').getValue().id : 0,
+      ''
+      ).pipe(
+      map((response: IServerResponse<IRequest[]>) => new RequestsLoadFilteredRequestsSuccess(response)),
+      catchError((error: any) => {
+        return of(new RequestsLoadFilteredRequestsFail());
+      })
+      )
+    )
+  );
+
+  @Effect()
+  loadFilteredRequestsFail$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.REQUESTS_LOAD_FILTERED_REQUESTS_FAIL),
     tap(() => {
       this.snackBar.open('При загрузке заявок произошла ошибка', null, {
         verticalPosition: 'bottom',
@@ -180,7 +222,7 @@ export class RequestsEffects {
     ),
     mergeMap(([action, date, periodStart, periodEnd]) => this.requests.add(
       (action as RequestsAddRequest).payload,
-      moment(date).format('DD.MM.YYYY'),
+      date,
       periodStart,
       periodEnd
       )
@@ -242,7 +284,7 @@ export class RequestsEffects {
         (action as RequestsEditRequest).payload,
         periodStart,
         periodEnd,
-        moment(currentDate).format('DD.MM.YYYY')
+        currentDate
       ).pipe(
         map((response: IServerResponse<{
           requests: IRequest[],

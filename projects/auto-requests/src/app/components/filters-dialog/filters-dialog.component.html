@@ -19,7 +19,7 @@
       <button mat-raised-button
               color="warn"
               class="w-100 mt-2 pt-2 pb-2"
-              [disabled]="filtersForm.pristine"
+              [disabled]="!(filters$ | async).isFiltersApplied() || !filtersForm.pristine"
               (click)="clearFilters()">
         Сбросить фильтры
       </button>
@@ -35,7 +35,7 @@
           <!-- Start: Начало периода -->
           <mat-form-field appearance="fill" class="w-100" floatLabel="always">
             <mat-label>Начало периода</mat-label>
-            <input matInput formControlName="start" [matDatepicker]="start">
+            <input matInput formControlName="start" [matDatepicker]="start" readonly>
             <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
             <mat-datepicker #start></mat-datepicker>
           </mat-form-field>
@@ -46,7 +46,9 @@
           <!-- Start: Окончание периода -->
           <mat-form-field appearance="fill" class="w-100" floatLabel="always">
             <mat-label>Окончание периода</mat-label>
-            <input matInput formControlName="end"
+            <input matInput
+                   readonly
+                   formControlName="end"
                    [matDatepicker]="end"
                    [min]="filtersForm.controls.start.value ? filtersForm.controls.start.value : null">
             <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
@@ -81,7 +83,6 @@
       <app-transport-typeahead class="w-100 mt-3"
                                #transport
                                [transport]="transport$ | async"
-                               [selected]="filtersForm.controls.transport.value"
                                [placeholder]="'Выберите транспорт'"
                                (select)="transportSelected($event)"
                                (clear)="transportCleared()">
