@@ -39,7 +39,7 @@ export class UserSearchComponent implements OnInit {
       debounceTime(300),
       distinctUntilChanged(),
       switchMap((value) =>  {
-        return value && value.length > 2 ? this.users.searchUsers(value, false, false) : of([]);
+        return value && value.length > 2 ? this.users.searchUsers(value, false, false, 8) : of([]);
       })
     );
   }

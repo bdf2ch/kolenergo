@@ -6,7 +6,7 @@ import * as saver from 'file-saver';
 import { select, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { EMPTY, of } from 'rxjs';
-import { catchError, map, mergeMap, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { catchError, map, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { IServerResponse } from '@kolenergo/core';
@@ -47,8 +47,8 @@ import {
   ApplicationLoadCalendarRequestsSuccess
 } from '../../../ngrx/application.actions';
 import { EditRequestDialogComponent } from '../../../components/edit-request-dialog/edit-request-dialog.component';
-import {EListMode} from "../../../enums";
-import {ExportReportSuccess} from "../../../../../../operative-situation/src/app/features/operative-situation/ngrx";
+import { EListMode } from '../../../enums';
+import {RequestDetailsDialogComponent} from '../../../components/request-details-dialog/request-details-dialog.component';
 
 @Injectable()
 export class RequestsEffects {
@@ -63,14 +63,26 @@ export class RequestsEffects {
   @Effect()
   selectRequest$ = this.actions$.pipe(
     ofType(RequestsActionTypes.REQUESTS_SELECT_REQUEST),
-    withLatestFrom(this.store.pipe(select(selectSelectedRequest))),
-    tap(([action, request]) => {
-      this.dialog.open(EditRequestDialogComponent, {
-        id: 'edit-request-dialog',
-        width: '1050px',
-        height: (request as Request).initiator ? '590px' : '500px',
-        panelClass: 'sign-in-dialog'
-      });
+    withLatestFrom(
+      this.store.pipe(select(selectSelectedRequest)),
+      this.store.pipe(select(selectUser))
+    ),
+    tap(([action, request, user]) => {
+      if (user) {
+        this.dialog.open(EditRequestDialogComponent, {
+          id: 'edit-request-dialog',
+          width: '1050px',
+          height: (request as Request).initiator ? '590px' : '500px',
+          panelClass: 'sign-in-dialog'
+        });
+      } else {
+        this.dialog.open(RequestDetailsDialogComponent, {
+          id: 'request-details-dialog',
+          width: '1000px',
+          height: '420px',
+          panelClass: 'sign-in-dialog'
+        });
+      }
     }),
     mergeMap(() => EMPTY)
   );
@@ -277,7 +289,7 @@ export class RequestsEffects {
             : 0,
       mode === EListMode.ALL_REQUESTS || mode === EListMode.USER_REQUESTS ? '' : search
     ).pipe(
-      map((response: Blob) => of(new RequestsExportRequestsSuccess(response))),
+      map((response: Blob) => new RequestsExportRequestsSuccess(response)),
       catchError(() => of(new RequestsExportRequestsFail()))
     ))
   );
@@ -292,7 +304,7 @@ export class RequestsEffects {
   );
 
   @Effect()
-  exportReportsFail$ = this.actions$.pipe(
+  exportRequestsFail$ = this.actions$.pipe(
     ofType(RequestsActionTypes.REQUESTS_EXPORT_REQUESTS_FAIL),
     tap(() => {
       this.snackBar.open('При экспортее заявок произошла ошибка', null, {

@@ -1,0 +1,104 @@
+<div class="sign-in-container">
+
+  <div class="side">
+    <div class="label p-4">
+      <div class="title">Заявка #{{(selectedRequest$| async)?.id}}</div>
+      <div class="comment">
+        от {{(selectedRequest$| async)?.dateCreatedD | date:'dd MMMM yyyy, hh:mm'}}
+      </div>
+      <div class="status" [ngStyle]="{'border-color': (selectedRequest$ | async)?.status.color}">
+        <mat-icon [ngStyle]="{'color': (selectedRequest$ | async)?.status.color}">
+          {{(selectedRequest$ | async)?.status.icon}}
+        </mat-icon>
+        <span class="status-title" [ngStyle]="{'color': (selectedRequest$ | async)?.status.color}">
+          Заявка {{(selectedRequest$ | async)?.status.title.toLowerCase()}}
+        </span>
+      </div>
+    </div>
+    <img src="/assets/images/car2.png" class="image ml-3">
+  </div>
+
+  <div class="content pt-4 pb-4 pl-5 pr-5">
+    <div class="row w-100 h-100">
+      <div class="col-6 h-100 pr-5">
+
+        <!-- Start: Инициатор -->
+        <div class="labeled-field w-100 mb-4" *ngIf="(selectedRequest$ | async)?.initiator">
+          <div class="label">Инициатор</div>
+          <div class="value">
+            {{(selectedRequest$ | async)?.initiator
+              ? (selectedRequest$ | async).initiator.hasOwnProperty('id')
+                ?  (selectedRequest$ | async).initiator.firstName + ' ' + (selectedRequest$ | async).initiator.lastName
+                : (selectedRequest$ | async).initiator
+              : 'Не назначен'}}
+          </div>
+          <div class="description" *ngIf="(selectedRequest$ | async)?.initiator && (selectedRequest$ | async)?.initiator['position']">
+            {{(selectedRequest$ | async)?.initiator['position']}}
+          </div>
+        </div>
+        <!-- End: Инициатор -->
+
+        <!-- Start: Заказчик -->
+        <div class="labeled-field w-100">
+          <div class="label">Заказчик</div>
+          <div class="value">
+            {{(selectedRequest$ | async)?.user.firstName + ' ' + (selectedRequest$ | async)?.user.lastName}}
+          </div>
+          <div class="description" *ngIf="(selectedRequest$ | async)?.user?.position">
+            {{(selectedRequest$ | async)?.user.position}}
+          </div>
+        </div>
+        <!-- End: Заказчик -->
+
+        <!-- Start: Дата и время поездки -->
+        <div class="labeled-field w-100 mt-4">
+          <div class="label">Дата и время поездки</div>
+          <div class="value">
+            {{(selectedRequest$ | async)?.startTimeD | date:'dd MMMM yyyy, HH:mm'}}&mdash;
+            {{(selectedRequest$ | async)?.endTimeD | date:'HH:mm'}}
+          </div>
+        </div>
+        <!-- End: Дата и время поездки -->
+
+        <!-- Start: О поездке -->
+        <div class="labeled-field w-100 mt-4">
+          <div class="label">О поездке</div>
+          <div class="value">
+            {{(selectedRequest$ | async)?.description}}
+          </div>
+        </div>
+        <!-- End: О поездке -->
+
+      </div>
+
+      <div class="col-6 h-100 right-col pl-5">
+
+        <div class="labeled-field w-100">
+          <div class="label">Транспорт</div>
+          <div class="value">
+            {{(selectedRequest$ | async)?.transport ? (selectedRequest$ | async).transport.model : 'Не назначен'}}
+          </div>
+          <div class="description" *ngIf="(selectedRequest$ | async)?.transport">
+            Рег. номер: {{(selectedRequest$ | async)?.transport?.registrationNumber}}
+          </div>
+        </div>
+
+        <div class="labeled-field w-100 mt-4">
+          <div class="label">Водитель</div>
+          <div class="value">
+            {{(selectedRequest$ | async)?.driver ? (selectedRequest$ | async).driver.firstName + ' ' + (selectedRequest$ | async).driver.lastName : 'Не назначен'}}
+          </div>
+          <div class="description" *ngIf="(selectedRequest$ | async)?.driver?.phone">
+            Телефон: {{(selectedRequest$ | async).driver.phone}}
+          </div>
+        </div>
+
+        <div class="labeled-field w-100 mt-4">
+          <div class="label">Маршрут</div>
+          <app-route-path [routes]="(selectedRequest$ | async).route" [extended]="false"></app-route-path>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -32,5 +32,5 @@ export class UserSearchResource extends Resource {
     method: ResourceRequestMethod.Get,
     withCredentials: true
   })
-  searchUsers: IResourceMethodStrict<void, {query: string, withCompany: boolean, withDepartment: boolean}, void, IServerResponse<IUser[]>>;
+  searchUsers: IResourceMethodStrict<void, { query: string, withCompany: boolean, withDepartment: boolean, companyId: number }, void, IServerResponse<IUser[]>>;
 }

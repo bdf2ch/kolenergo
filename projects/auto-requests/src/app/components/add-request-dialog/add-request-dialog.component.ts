@@ -12,6 +12,7 @@ import { Request, RoutePoint } from '../../models';
 import { RequestsAddRequest } from '../../features/requests/ngrx/requests.actions';
 import { endTime } from './end-time.validator';
 import { minTime } from './time.validator';
+import { addRequestValidator } from './add-request.validator';
 
 @Component({
   selector: 'app-add-request-dialog',
@@ -58,14 +59,14 @@ export class AddRequestDialogComponent implements OnInit {
       date: new FormControl(this.selectedDate, Validators.required),
       startTime: new FormControl(
         moment(this.request.startTimeD).format('HH:mm'),
-        [Validators.required, minTime(this.date)]
+        [Validators.required]
       ),
       endTime: new FormControl(
         moment(this.request.endTimeD).format('HH:mm'),
-        [Validators.required, endTime(this.date, moment(this.request.startTimeD).format('HH:mm'))]
+        [Validators.required]
       ),
       description: new FormControl(null, Validators.required)
-    });
+    }, {validators: [addRequestValidator]});
   }
 
   ngOnInit() {}

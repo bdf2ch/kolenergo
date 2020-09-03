@@ -49,6 +49,7 @@ import { TransportTypeaheadComponent } from './components/transport-typeahead/tr
 import { DriverTypeaheadComponent } from './components/driver-typeahead/driver-typeahead.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { FiltersDialogComponent } from './components/filters-dialog/filters-dialog.component';
+import { RequestDetailsDialogComponent } from './components/request-details-dialog/request-details-dialog.component';
 
 export const MY_FORMATS = {
   parse: {
@@ -75,7 +76,8 @@ export const MY_FORMATS = {
     EditRequestDialogComponent,
     TransportTypeaheadComponent,
     DriverTypeaheadComponent,
-    FiltersDialogComponent
+    FiltersDialogComponent,
+    RequestDetailsDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -123,7 +125,8 @@ export const MY_FORMATS = {
     SignInModalComponent,
     AddRequestDialogComponent,
     EditRequestDialogComponent,
-    FiltersDialogComponent
+    FiltersDialogComponent,
+    RequestDetailsDialogComponent
   ],
   bootstrap: [
     AppComponent

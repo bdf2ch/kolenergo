@@ -21,9 +21,10 @@ export class UserSearchService {
    * @param query - Условие поиска
    * @param withCompanyDetails - Включать ли в ответ данные об организации пользователя
    * @param withDepartmentDetails - Включать ли в ответ данные об структурном подразделении организации пользователя
+   * @param companyId - Идентификатор организации
    */
-  searchUsers(query: string, withCompanyDetails: boolean, withDepartmentDetails: boolean): Observable<User[]> {
-    return from(this.resource.searchUsers(null, {query, withCompany: withCompanyDetails, withDepartment: withDepartmentDetails}))
+  searchUsers(query: string, withCompanyDetails: boolean, withDepartmentDetails: boolean, companyId: number): Observable<User[]> {
+    return from(this.resource.searchUsers(null, {query, withCompany: withCompanyDetails, withDepartment: withDepartmentDetails, companyId}))
       .pipe(
         map((response: IServerResponse<IUser[]>) => {
           return response.data.map((item: IUser) => {

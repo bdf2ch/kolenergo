@@ -389,6 +389,36 @@ export function applicationReducer(
       };
     }
 
+    /**
+     * Экспорт заявок
+     */
+    case RequestsActionTypes.REQUESTS_EXPORT_REQUESTS: {
+      return {
+        ...state,
+        isLoading: true
+      };
+    }
+
+    /**
+     * Экспорт заявок выполнен успешно
+     */
+    case RequestsActionTypes.REQUESTS_EXPORT_REQUESTS_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false
+      };
+    }
+
+    /**
+     * Не удалось выполнить экспорт заявок
+     */
+    case RequestsActionTypes.REQUESTS_EXPORT_REQUESTS_FAIL: {
+      return {
+        ...state,
+        isLoading: false
+      };
+    }
+
     default: {
       return state;
     }

@@ -59,7 +59,7 @@ export class UserSearchComponent implements OnInit, OnChanges {
         debounceTime(300),
         distinctUntilChanged(),
         switchMap((value) =>  {
-          return value.length > 2 ? this.userSearchService.searchUsers(value, this.withCompany, this.withDepartment) : of([]);
+          return value.length > 2 ? this.userSearchService.searchUsers(value, this.withCompany, this.withDepartment, 0) : of([]);
         })
       );
 

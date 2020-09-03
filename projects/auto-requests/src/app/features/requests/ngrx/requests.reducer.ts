@@ -50,7 +50,7 @@ export function requestsReducer(
     case ApplicationActionTypes.APPLICATION_CLEAR_FILTERS: {
       return {
         ...state,
-        filteredRequests: []
+        // filteredRequests: []
       };
     }
 
