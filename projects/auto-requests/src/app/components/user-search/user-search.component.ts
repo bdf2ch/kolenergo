@@ -5,8 +5,6 @@ import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { User, UserSearchService } from '@kolenergo/core';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import {Transport} from '../../models';
-
 
 @Component({
   selector: 'app-user-search',
@@ -58,8 +56,6 @@ export class UserSearchComponent implements OnInit {
    * @param user - Выбранный пользователь
    */
   display(user: User): string {
-    // return user ? `${user.firstName} ${user.lastName}` : '';
-
     return this.selectedUser
       ? `${this.selectedUser.firstName} ${this.selectedUser.lastName}`
       : user

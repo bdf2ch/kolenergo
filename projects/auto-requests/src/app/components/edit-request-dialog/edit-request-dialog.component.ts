@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material';
 
-
 import * as moment from 'moment';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -12,10 +11,7 @@ import { Driver, Request, RequestStatus, RoutePoint, Transport } from '../../mod
 import { selectSelectedRequest } from '../../features/requests/ngrx/requests.selectors';
 import { IApplicationState, selectDate, selectDrivers, selectIsLoading, selectRoutes, selectStatuses, selectTransport } from '../../ngrx';
 import { RequestsEditRequest } from '../../features/requests/ngrx/requests.actions';
-import { minTime } from '../add-request-dialog/time.validator';
-import { endTime } from '../add-request-dialog/end-time.validator';
-import {requestDurationValidator} from './request-duration.validator';
-
+import { requestDurationValidator } from './request-duration.validator';
 
 @Component({
   selector: 'app-edit-request-dialog',

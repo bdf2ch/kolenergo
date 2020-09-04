@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { IServerResponse } from '@kolenergo/core';
 import { ApplicationResource } from '../resources/application.resource';
 import { IInitialData } from '../interfaces';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -18,7 +19,7 @@ export class ApplicationService {
    * Получение с сервера данных для инициализации приложения
    */
   init(): Observable<IServerResponse<IInitialData>> {
-    return from(this.resource.init(null))
+    return from(this.resource.init(null, {appCode: environment.appCode}, null))
       .pipe(
         map((response: IServerResponse<IInitialData>) => response)
       );

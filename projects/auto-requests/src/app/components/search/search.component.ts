@@ -32,7 +32,6 @@ export class SearchComponent implements OnInit {
       debounceTime(300),
       distinctUntilChanged(),
     ).subscribe((value: string) => {
-      console.log('search changed, ', value);
       this.searchChanged.emit(value);
     });
   }
@@ -59,5 +58,4 @@ export class SearchComponent implements OnInit {
     this.searchForm.controls.query.setValue('');
     this.searchCleared.emit();
   }
-
 }

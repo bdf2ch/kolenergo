@@ -1,19 +1,19 @@
-@side-width: 270px;
-@side-background-color: linear-gradient(#e3f2fd, rgba(235,246,253, 0.7));
+@side-width: 50%;
+@side-background-color: linear-gradient(#e3f2fd, rgba(235,246,253, 0.5));
 @subtitle-font-family: 'Open Sans Regular';
 @subtitle-font-size: 13px;
 @subtitle-color: #607d8b;
-@title-font-family: 'Open Sans Regular';
+@title-font-family: 'Open Sans Semi Bold';
 @title-font-size: 24px;
 @title-color: #37474f;
 @caption-font-family: 'Open Sans Light';
-@caption-font-size: 20px;
+@caption-font-size: 23px;
 @caption-color: #546e7a;
 @info-font-family: 'Open Sans Light';
 @info-font-size: 13px;
 @info-color: #90a4ae;
 @comment-font-family: 'Open Sans Light';
-@comment-font-size: 13px;
+@comment-font-size: 14px;
 @comment-color: #546e7a;
 
 &:host {
@@ -31,9 +31,76 @@
     overflow: visible;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    // justify-content: space-between;
+    align-items: center;
     width: @side-width;
     background: @side-background-color;
+
+    .title {
+      font-family: @title-font-family;
+      font-size: @title-font-size;
+      line-height: @title-font-size;
+      color: @title-color;
+    }
+
+    .comment {
+      margin-top: 5px;
+      font-family: @comment-font-family;
+      font-size: @comment-font-size;
+      line-height: @comment-font-size + 1px;
+      color: @comment-color;
+    }
+
+    .labeled-field {
+      display: flex;
+      flex-direction: column;
+      min-height: 60px;
+
+      .label {
+        margin-bottom: 10px;
+        font-family: 'Open Sans Regular';
+        font-size: 13px;
+        line-height: 13px;
+        color: #607d8b;
+      }
+
+      .value {
+        margin-bottom: 5px;
+        font-family: 'Open Sans Regular';
+        font-size: 16px;
+        line-height: 18px;
+        color: #263238;
+      }
+
+      .description {
+        font-family: 'Open Sans Light';
+        font-size: 14px;
+        line-height: 14px;
+        color: #757575;
+      }
+    }
+
+    .status {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 50px;
+
+      .mat-icon {
+        width: 40px;
+        height: 40px;
+        margin-right: 20px;
+        font-size: 40px;
+      }
+
+      .status-title {
+        font-family: 'Open Sans Semi Bold';
+        font-size: 18px;
+        line-height: 18px;
+      }
+    }
+
+
 
     .label {
       display: flex;
@@ -66,11 +133,7 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        // padding: 15px;
         margin-top: 50px;
-        // border-width: 2px;
-        // border-style: solid;
-        // border-radius: 8px;
 
         .mat-icon {
           width: 40px;
@@ -88,8 +151,7 @@
     }
 
     img {
-      height: 220px;
-      margin-right: -40px;
+      height: 180px;
     }
   }
 

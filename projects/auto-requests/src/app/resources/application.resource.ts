@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import {
-  IResourceMethod,
+  IResourceMethod, IResourceMethodStrict,
   Resource,
   ResourceAction,
   ResourceHandler,
@@ -30,5 +30,5 @@ export class ApplicationResource extends Resource {
     method: ResourceRequestMethod.Get,
     withCredentials: true
   })
-  init: IResourceMethod<void, IServerResponse<IInitialData>>;
+  init: IResourceMethodStrict<void, {appCode: string}, void, IServerResponse<IInitialData>>;
 }

@@ -69,17 +69,26 @@ export class RequestsEffects {
     ),
     tap(([action, request, user]) => {
       if (user) {
-        this.dialog.open(EditRequestDialogComponent, {
-          id: 'edit-request-dialog',
-          width: '1050px',
-          height: (request as Request).initiator ? '590px' : '500px',
-          panelClass: 'sign-in-dialog'
-        });
+        if (user.permissions.getRoleById(20)) {
+          this.dialog.open(EditRequestDialogComponent, {
+            id: 'edit-request-dialog',
+            width: '1050px',
+            height: (request as Request).initiator ? '590px' : '500px',
+            panelClass: 'sign-in-dialog'
+          });
+        } else {
+          this.dialog.open(RequestDetailsDialogComponent, {
+            id: 'request-details-dialog',
+            width: '850px',
+            height: '600px',
+            panelClass: 'sign-in-dialog'
+          });
+        }
       } else {
         this.dialog.open(RequestDetailsDialogComponent, {
           id: 'request-details-dialog',
-          width: '1000px',
-          height: '420px',
+          width: '850px',
+          height: '600px',
           panelClass: 'sign-in-dialog'
         });
       }
@@ -257,12 +266,16 @@ export class RequestsEffects {
         ? moment(date).startOf('day').unix() * 1000
         : mode === EListMode.USER_REQUESTS
           ? 0
-          : moment(filters.getFilterById('startDate').getValue()).startOf('day').unix() * 1000,
+          : filters.getFilterById('startDate').getValue()
+            ? moment(filters.getFilterById('startDate').getValue()).startOf('day').unix() * 1000
+            : 0,
       mode === EListMode.ALL_REQUESTS
         ? moment(date).endOf('day').unix() * 1000
         : mode === EListMode.USER_REQUESTS
         ? 0
-        : moment(filters.getFilterById('endDate').getValue()).endOf('day').unix() * 1000,
+        : filters.getFilterById('endDate').getValue()
+          ? moment(filters.getFilterById('endDate').getValue()).endOf('day').unix() * 1000
+          : 0,
       mode === EListMode.ALL_REQUESTS || mode === EListMode.USER_REQUESTS
         ? 0
         : filters.getFilterById('status').getValue()
@@ -307,7 +320,7 @@ export class RequestsEffects {
   exportRequestsFail$ = this.actions$.pipe(
     ofType(RequestsActionTypes.REQUESTS_EXPORT_REQUESTS_FAIL),
     tap(() => {
-      this.snackBar.open('При экспортее заявок произошла ошибка', null, {
+      this.snackBar.open('При экспорте заявок произошла ошибка', null, {
         verticalPosition: 'bottom',
         horizontalPosition: 'right',
         panelClass: 'message-snack-bar',

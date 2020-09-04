@@ -4,24 +4,27 @@ import { BreakpointObserver, BreakpointState, MediaMatcher } from '@angular/cdk/
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { FilterManager, IUser, SearchFilter } from '@kolenergo/core';
+import { FilterManager, SearchFilter, User } from '@kolenergo/core';
 import {
-  ApplicationCalendarPeriodChange, ApplicationClearFilter, ApplicationClearFilters, ApplicationClearSearch,
+  ApplicationCalendarPeriodChange,
+  ApplicationClearFilter,
+  ApplicationClearSearch,
   ApplicationCloseSidebar,
   ApplicationLoadCalendarRequests,
   ApplicationOpenAddRequestDialog,
   ApplicationOpenFiltersDialog,
   ApplicationOpenSidebar,
-  ApplicationOpenSignInDialog, ApplicationSearchChanged,
+  ApplicationOpenSignInDialog,
+  ApplicationSearchChanged,
   ApplicationSelectDate,
   ApplicationSelectViewMode,
-  ApplicationSetCompactMode, ApplicationSetFilters,
+  ApplicationSetCompactMode,
   IApplicationState,
   selectDate,
   selectFilters,
   selectIsCompactMode,
   selectIsLoading,
-  selectIsSidebarOpened, selectSearch,
+  selectIsSidebarOpened,
   selectSelectedDate,
   selectUser,
   selectViewMode
@@ -40,7 +43,7 @@ export class AppComponent {
   isCompactMode$: Observable<boolean>;
   isSidebarOpened$: Observable<boolean>;
   idLoading$: Observable<boolean>;
-  user$: Observable<IUser>;
+  user$: Observable<User>;
   viewMode$: Observable<EViewMode>;
   viewModes = EViewMode;
   date$: Observable<Date>;
@@ -67,7 +70,6 @@ export class AppComponent {
     this.filters$.subscribe((value: FilterManager) => {
       this.filters = value;
     });
-
     this.mobileQuery = media.matchMedia('(max-width: 1500px)');
     this.mobileQueryListener = () => this.detector.detectChanges();
     this.mobileQuery.addListener(this.mobileQueryListener);
