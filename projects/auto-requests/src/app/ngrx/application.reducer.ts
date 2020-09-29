@@ -1,11 +1,12 @@
+import * as moment from 'moment';
+
+import {actionTypes, authenticationActionTypes, FilterManager, SearchFilter} from '@kolenergo/core';
+import {IDriver, IRejectReason, IRequestStatus, IRoutePoint, ITransport} from '../interfaces';
+import {Driver, RejectReason, RequestStatus, RoutePoint, Transport} from '../models';
+import {EListMode} from '../enums';
 import {appInitialState, IAppState} from './application.state';
 import {ApplicationActions, ApplicationActionTypes} from './application.actions';
 import {RequestsActions, RequestsActionTypes} from '../features/requests/ngrx/requests.actions';
-import {IDriver, IRequestStatus, IRoutePoint, ITransport} from '../interfaces';
-import {Driver, RequestStatus, RoutePoint, Transport} from '../models';
-import {EListMode} from '../enums';
-import {actionTypes, authenticationActionTypes, FilterManager, SearchFilter} from '@kolenergo/core';
-import * as moment from 'moment';
 
 /**
  * Редуктор состояния приложения
@@ -81,6 +82,7 @@ export function applicationReducer(
         transport: action.payload.data.transport.map((item: ITransport) => new Transport(item)),
         drivers: action.payload.data.drivers.map((item: IDriver) => new Driver(item)),
         statuses: action.payload.data.statuses.map((item: IRequestStatus) => new RequestStatus(item)),
+        rejectReasons: action.payload.data.rejectReasons.map((item: IRejectReason) => new RejectReason(item)),
         routes: action.payload.data.routes.map((item: IRoutePoint) => new RoutePoint(item))
       };
     }
@@ -413,6 +415,36 @@ export function applicationReducer(
      * Не удалось выполнить экспорт заявок
      */
     case RequestsActionTypes.REQUESTS_EXPORT_REQUESTS_FAIL: {
+      return {
+        ...state,
+        isLoading: false
+      };
+    }
+
+    /**
+     * Отмена заявки
+     */
+    case RequestsActionTypes.REQUESTS_CANCEL_REQUEST: {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+
+    /**
+     * Заявка успешно отменена
+     */
+    case RequestsActionTypes.REQUESTS_CANCEL_REQUEST_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false
+      };
+    }
+
+    /**
+     * Не удалось отменить заявку
+     */
+    case RequestsActionTypes.REQUESTS_CANCEL_REQUEST_FAIL: {
       return {
         ...state,
         isLoading: false

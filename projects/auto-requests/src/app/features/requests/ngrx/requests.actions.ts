@@ -26,7 +26,10 @@ export enum RequestsActionTypes {
   REQUESTS_ADD_REQUEST_FAIL = '[Requests API] Failed to add request',
   REQUESTS_EDIT_REQUEST = '[Requests API] Edit request',
   REQUESTS_EDIT_REQUEST_SUCCESS = '[Requests API] Changes to request saved successfully',
-  REQUESTS_EDIT_REQUEST_FAIL = '[Requests API] Failed to save changes to request'
+  REQUESTS_EDIT_REQUEST_FAIL = '[Requests API] Failed to save changes to request',
+  REQUESTS_CANCEL_REQUEST = '[Requests API] Cancel request',
+  REQUESTS_CANCEL_REQUEST_SUCCESS = '[Requests API] Request canceled successfully',
+  REQUESTS_CANCEL_REQUEST_FAIL = '[Requests API] Failed to cancel request'
 }
 
 /**
@@ -183,6 +186,28 @@ export class RequestsEditRequestFail implements Action {
 }
 
 /**
+ * Отмена заявки
+ */
+export class RequestsCancelRequest implements Action {
+  readonly type = RequestsActionTypes.REQUESTS_CANCEL_REQUEST;
+}
+
+/**
+ * Заявка успешно отменена
+ */
+export class RequestsCancelRequestSuccess implements Action {
+  readonly type = RequestsActionTypes.REQUESTS_CANCEL_REQUEST_SUCCESS;
+  constructor(public payload: IServerResponse<IRequest>) {}
+}
+
+/**
+ * не удалось отменить заявку
+ */
+export class RequestsCancelRequestFail implements Action {
+  readonly type = RequestsActionTypes.REQUESTS_CANCEL_REQUEST_FAIL;
+}
+
+/**
  * Множество действий раздела управления заявками
  */
 export type RequestsActions =
@@ -204,4 +229,7 @@ export type RequestsActions =
   RequestsAddRequestFail |
   RequestsEditRequest |
   RequestsEditRequestSuccess |
-  RequestsEditRequestFail;
+  RequestsEditRequestFail |
+  RequestsCancelRequest |
+  RequestsCancelRequestSuccess |
+  RequestsCancelRequestFail;

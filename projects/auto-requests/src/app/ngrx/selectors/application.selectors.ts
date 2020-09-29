@@ -127,6 +127,13 @@ export const selectStatuses = createSelector(
   (state: IAppState) => state.statuses
 );
 
+/**
+ * Селектор причин отклонения заявки заявки
+ */
+export const selectRejectReasons = createSelector(
+  selectApplication,
+  (state: IAppState) => state.rejectReasons
+);
 
 /**
  * Селектор элементов маршрута

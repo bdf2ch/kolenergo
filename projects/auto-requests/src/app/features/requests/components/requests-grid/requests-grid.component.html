@@ -11,7 +11,13 @@
           <span class="secondary-data">#{{request.id}}</span>
           <mat-icon class="mt-2"
                     [ngStyle]="{'color': request.status.color}"
-                    matTooltip="{{request.status.title}}"
+                    matTooltip="{{
+                      request.status.id === 3
+                        ? request.rejectReason
+                          ? request.status.title + ' - ' + request.rejectReason.title
+                          : request.status.title
+                        : request.status.title
+                    }}"
                     matTooltipPosition="above">
             {{request.status.icon}}
           </mat-icon>

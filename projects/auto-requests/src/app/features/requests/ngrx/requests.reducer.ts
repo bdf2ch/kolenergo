@@ -1,9 +1,9 @@
-import {IRequestsState, requestsInitialState} from './requests.state';
-import {RequestsActions, RequestsActionTypes} from './requests.actions';
-import {ApplicationActions, ApplicationActionTypes} from '../../../ngrx';
-import {IRequest} from '../../../interfaces';
-import {Request} from '../../../models';
-import {actionTypes, authenticationActionTypes} from '@kolenergo/core';
+import { actionTypes, authenticationActionTypes } from '@kolenergo/core';
+import { IRequestsState, requestsInitialState } from './requests.state';
+import { RequestsActions, RequestsActionTypes } from './requests.actions';
+import { ApplicationActions, ApplicationActionTypes } from '../../../ngrx';
+import { IRequest } from '../../../interfaces';
+import { Request } from '../../../models';
 
 export function requestsReducer(
   state: IRequestsState = requestsInitialState,
@@ -115,11 +115,32 @@ export function requestsReducer(
       };
     }
 
+    /**
+     * Заявка успешно изменена
+     */
     case RequestsActionTypes.REQUESTS_EDIT_REQUEST_SUCCESS: {
       return {
         ...state,
         requests: action.payload.data.requests.map((item: IRequest) => new Request(item)),
         calendarRequests: action.payload.data.calendarRequests
+      };
+    }
+
+    /**
+     * Заявка успешно отменена
+     */
+    case RequestsActionTypes.REQUESTS_CANCEL_REQUEST_SUCCESS: {
+      return {
+        ...state,
+        requests: state.requests.map((request: Request) => request.id === state.selectedRequest.id
+          ? new Request(action.payload.data)
+          : request
+        ),
+        userRequests: state.userRequests.map((request: Request) => request.id === state.selectedRequest.id
+          ? new Request(action.payload.data)
+          : request
+        ),
+        selectedRequest: new Request(action.payload.data)
       };
     }
 

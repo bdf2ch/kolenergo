@@ -7,9 +7,18 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { User } from '@kolenergo/core';
-import { Driver, Request, RequestStatus, RoutePoint, Transport } from '../../models';
+import {Driver, RejectReason, Request, RequestStatus, RoutePoint, Transport} from '../../models';
 import { selectSelectedRequest } from '../../features/requests/ngrx/requests.selectors';
-import { IApplicationState, selectDate, selectDrivers, selectIsLoading, selectRoutes, selectStatuses, selectTransport } from '../../ngrx';
+import {
+  IApplicationState,
+  selectDate,
+  selectDrivers,
+  selectIsLoading,
+  selectRejectReasons,
+  selectRoutes,
+  selectStatuses,
+  selectTransport
+} from '../../ngrx';
 import { RequestsEditRequest } from '../../features/requests/ngrx/requests.actions';
 import { requestDurationValidator } from './request-duration.validator';
 
@@ -28,7 +37,9 @@ export class EditRequestDialogComponent implements OnInit {
   transport$: Observable<Transport[]>;
   drivers$: Observable<Driver[]>;
   statuses$: Observable<RequestStatus[]>;
+  rejectReasons$: Observable<RejectReason[]>;
   requestForm: FormGroup;
+  initiatorPosition: string;
 
   constructor(
     private readonly builder: FormBuilder,
@@ -39,6 +50,7 @@ export class EditRequestDialogComponent implements OnInit {
     this.selectedRequest$.subscribe((request: Request) => {
       if (request) {
         this.selectedRequest = request.clone();
+        this.initiatorPosition = request.initiator instanceof User ? request.initiator.position : null;
       }
     });
     this.date$ = this.store.pipe(select(selectDate));
@@ -46,6 +58,7 @@ export class EditRequestDialogComponent implements OnInit {
     this.transport$ = this.store.pipe(select(selectTransport));
     this.drivers$ = this.store.pipe(select(selectDrivers));
     this.statuses$ = this.store.pipe(select(selectStatuses));
+    this.rejectReasons$ = this.store.pipe(select(selectRejectReasons));
     this.requestForm = this.builder.group({
       initiator: new FormControl(
         this.selectedRequest.initiator
@@ -67,15 +80,12 @@ export class EditRequestDialogComponent implements OnInit {
       description: new FormControl(this.selectedRequest.description, Validators.required),
       transport: new FormControl(this.selectedRequest.transport),
       driver: new FormControl(this.selectedRequest.driver),
-      status: new FormControl(this.selectedRequest.status)
+      status: new FormControl(this.selectedRequest.status),
+      rejectReason: new FormControl(this.selectedRequest.rejectReason)
     }, {validators: [requestDurationValidator]});
   }
 
-  ngOnInit() {
-    if (this.initiator.nativeElement) {
-      (this.initiator.nativeElement as HTMLInputElement).focus();
-    }
-  }
+  ngOnInit() {}
 
   /**
    * Выбор транспорта
@@ -106,10 +116,22 @@ export class EditRequestDialogComponent implements OnInit {
 
   /**
    * Событие выбора статуса заявки
-   * @param event - Собфтие
+   * @param event - Событие
    */
   selectStatus(event: MatSelectChange) {
     this.selectedRequest.status = event.value;
+    if (event.value.id !== 3) {
+      this.requestForm.controls.rejectReason.setValue(null);
+      this.selectedRequest.rejectReason = null;
+    }
+  }
+
+  /**
+   * Событие выбора причины отклонения заявки
+   * @param event - Событие
+   */
+  selectRejectReason(event: MatSelectChange) {
+    this.selectedRequest.rejectReason = event.value;
   }
 
   /**
@@ -127,6 +149,15 @@ export class EditRequestDialogComponent implements OnInit {
    */
   statusCompare(option: RequestStatus, value: RequestStatus): boolean {
     return option.id === value.id ? true : false;
+  }
+
+  /**
+   * Сравнение выбранной опции со значением причины отклонения
+   * @param option - Выбранная опция
+   * @param value - Значение статуса
+   */
+  reasonStatusCompare(option: RejectReason, value: RejectReason): boolean {
+    return value && value.id === option.id ? true : false;
   }
 
   /**

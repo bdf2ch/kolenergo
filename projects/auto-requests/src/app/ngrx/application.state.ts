@@ -3,7 +3,7 @@ import * as moment from 'moment';
 import {AuthenticationInitialState, FilterManager, IAuthenticationState, SearchFilter, User} from '@kolenergo/core';
 import { IRequestsState, requestsInitialState } from '../features/requests/ngrx/requests.state';
 import { EListMode, EViewMode } from '../enums';
-import { Driver, RequestStatus, RoutePoint, Transport } from '../models';
+import {Driver, RejectReason, RequestStatus, RoutePoint, Transport} from '../models';
 
 /**
  * Интерфейс, описывающий состояние ядра приложения
@@ -24,6 +24,7 @@ export interface IAppState {
   transport: Transport[];         // Транспорт
   drivers: Driver[];              // Водители
   statuses: RequestStatus[];      // Статусы заявок
+  rejectReasons: RejectReason[];  // Причины отклонения заявки
   routes: RoutePoint[];           // Элементы маршрута
 }
 
@@ -53,6 +54,7 @@ export const appInitialState: IAppState = {
   transport: [],
   drivers: [],
   statuses: [],
+  rejectReasons: [],
   routes: []
 };
 

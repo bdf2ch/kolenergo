@@ -74,6 +74,13 @@ export class RequestsResource extends Resource {
   }>>;
 
   @ResourceAction({
+    path: '/{!:id}/cancel',
+    method: ResourceRequestMethod.Patch,
+    withCredentials: true
+  })
+  cancel: IResourceMethodStrict<void, void, {id: number}, IServerResponse<IRequest>>;
+
+  @ResourceAction({
     path: '/export',
     method: ResourceRequestMethod.Get,
     responseBodyType: ResourceResponseBodyType.Blob,

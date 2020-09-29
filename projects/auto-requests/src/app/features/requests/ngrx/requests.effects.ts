@@ -14,7 +14,7 @@ import {
   RequestsActionTypes,
   RequestsAddRequest,
   RequestsAddRequestFail,
-  RequestsAddRequestSuccess,
+  RequestsAddRequestSuccess, RequestsCancelRequest, RequestsCancelRequestFail, RequestsCancelRequestSuccess,
   RequestsEditRequest,
   RequestsEditRequestFail,
   RequestsEditRequestSuccess, RequestsExportRequestsFail,
@@ -28,7 +28,6 @@ import {
   RequestsLoadUserRequestsSuccess
 } from './requests.actions';
 import { IRequest, IRoutePoint } from '../../../interfaces';
-import { Request } from '../../../models';
 import { IApplicationState } from '../../../ngrx/application.state';
 import {
   selectCalendarPeriodEnd,
@@ -48,7 +47,7 @@ import {
 } from '../../../ngrx/application.actions';
 import { EditRequestDialogComponent } from '../../../components/edit-request-dialog/edit-request-dialog.component';
 import { EListMode } from '../../../enums';
-import {RequestDetailsDialogComponent} from '../../../components/request-details-dialog/request-details-dialog.component';
+import { RequestDetailsDialogComponent } from '../../../components/request-details-dialog/request-details-dialog.component';
 
 @Injectable()
 export class RequestsEffects {
@@ -72,15 +71,15 @@ export class RequestsEffects {
         if (user.permissions.getRoleById(20)) {
           this.dialog.open(EditRequestDialogComponent, {
             id: 'edit-request-dialog',
-            width: '1050px',
-            height: (request as Request).initiator ? '590px' : '500px',
+            width: '900px',
+            height: '800px',
             panelClass: 'sign-in-dialog'
           });
         } else {
           this.dialog.open(RequestDetailsDialogComponent, {
             id: 'request-details-dialog',
             width: '850px',
-            height: '600px',
+            height: request.user.id !== user.id || (request.user.id === user.id && request.status.id === 3) ? '600px' : '700px',
             panelClass: 'sign-in-dialog'
           });
         }
@@ -436,6 +435,46 @@ export class RequestsEffects {
     ofType(RequestsActionTypes.REQUESTS_EDIT_REQUEST_FAIL),
     tap(() => {
       this.snackBar.open('При сохранении изменений произошла ошибка', null, {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'right',
+        panelClass: 'message-snack-bar',
+        duration: 3000
+      });
+    }),
+    mergeMap(() => EMPTY)
+  );
+
+  @Effect()
+  cancelRequest$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.REQUESTS_CANCEL_REQUEST),
+    withLatestFrom(this.store.pipe(select(selectSelectedRequest))),
+    mergeMap(([action, request]) => this.requests.cancel(request.id)
+      .pipe(
+        map((response: IServerResponse<IRequest>) => new RequestsCancelRequestSuccess(response)),
+        catchError(() => of(new RequestsCancelRequestFail()))
+      )
+    )
+  );
+
+  @Effect()
+  cancelRequestSuccess$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.REQUESTS_CANCEL_REQUEST_SUCCESS),
+    tap(() => {
+      this.snackBar.open('Заявка отменена', null, {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'right',
+        panelClass: 'message-snack-bar',
+        duration: 3000
+      });
+    }),
+    mergeMap(() => EMPTY)
+  );
+
+  @Effect()
+  cancelRequestFail$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.REQUESTS_CANCEL_REQUEST_FAIL),
+    tap(() => {
+      this.snackBar.open('При отмене заявки возникли ошибки', null, {
         verticalPosition: 'bottom',
         horizontalPosition: 'right',
         panelClass: 'message-snack-bar',

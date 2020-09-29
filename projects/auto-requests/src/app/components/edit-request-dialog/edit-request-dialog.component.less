@@ -1,20 +1,20 @@
-@side-width: 300px;
-@side-background-color: linear-gradient(#e3f2fd, rgba(235,246,253, 0.3));
+@side-width: 400px;
+@side-background-color: linear-gradient(#e3f2fd, rgba(235,246,253, 0.5));
 @subtitle-font-family: 'Open Sans Regular';
 @subtitle-font-size: 13px;
 @subtitle-color: #607d8b;
-@title-font-family: 'Open Sans Regular';
+@title-font-family: 'Open Sans Semi Bold';
 @title-font-size: 24px;
 @title-color: #37474f;
 @caption-font-family: 'Open Sans Light';
-@caption-font-size: 20px;
+@caption-font-size: 23px;
 @caption-color: #546e7a;
 @info-font-family: 'Open Sans Light';
 @info-font-size: 13px;
 @info-color: #90a4ae;
 @comment-font-family: 'Open Sans Light';
-@comment-font-size: 13.5px;
-@comment-color: #757575;
+@comment-font-size: 14px;
+@comment-color: #546e7a;
 
 &:host {
   display: block;
@@ -22,7 +22,7 @@
   height: 100%;
 }
 
-.add-request-container {
+.sign-in-container {
   display: flex;
   flex-direction: row;
   height: 100%;
@@ -31,9 +31,76 @@
     overflow: visible;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    // justify-content: space-between;
+    align-items: center;
     width: @side-width;
     background: @side-background-color;
+
+    .title {
+      font-family: @title-font-family;
+      font-size: @title-font-size;
+      line-height: @title-font-size;
+      color: @title-color;
+    }
+
+    .comment {
+      margin-top: 5px;
+      font-family: @comment-font-family;
+      font-size: @comment-font-size;
+      line-height: @comment-font-size + 1px;
+      color: @comment-color;
+    }
+
+    .labeled-field {
+      display: flex;
+      flex-direction: column;
+      min-height: 60px;
+
+      .label {
+        margin-bottom: 10px;
+        font-family: 'Open Sans Regular';
+        font-size: 13px;
+        line-height: 13px;
+        color: #607d8b;
+      }
+
+      .value {
+        margin-bottom: 5px;
+        font-family: 'Open Sans Regular';
+        font-size: 16px;
+        line-height: 18px;
+        color: #263238;
+      }
+
+      .description {
+        font-family: 'Open Sans Light';
+        font-size: 14px;
+        line-height: 14px;
+        color: #757575;
+      }
+    }
+
+    .status {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 50px;
+
+      .mat-icon {
+        width: 40px;
+        height: 40px;
+        margin-right: 20px;
+        font-size: 40px;
+      }
+
+      .status-title {
+        font-family: 'Open Sans Semi Bold';
+        font-size: 18px;
+        line-height: 18px;
+      }
+    }
+
+
 
     .label {
       display: flex;
@@ -48,7 +115,6 @@
       }
 
       .title {
-        // min-height: 34px;
         font-family: @title-font-family;
         font-size: @title-font-size;
         line-height: @title-font-size;
@@ -56,22 +122,44 @@
       }
 
       .comment {
-        margin-top: 10px;
+        margin-top: 5px;
         font-family: @comment-font-family;
         font-size: @comment-font-size;
-        line-height: @comment-font-size + 3px;
+        line-height: @comment-font-size + 1px;
         color: @comment-color;
+      }
+
+      .status {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 50px;
+
+        .mat-icon {
+          width: 40px;
+          height: 40px;
+          margin-right: 20px;
+          font-size: 40px;
+        }
+
+        .status-title {
+          display: flex;
+          flex-direction: column;
+          font-family: 'Open Sans Semi Bold';
+          font-size: 18px;
+          line-height: 18px;
+
+          .reason {
+            font-family: 'Open Sans Light' !important;
+            font-size: 14px !important;
+            line-height: 14px !important;
+          }
+        }
       }
     }
 
     img {
-      height: 240px;
-      margin-right: -50px;
-    }
-
-    .mat-raised-button {
-      height: 61px;
-      font-family: 'Open Sans Regular'
+      height: 180px;
     }
   }
 
@@ -81,88 +169,36 @@
     align-items: center;
     flex: 1;
 
-    .route {
-      border-left: 1px dotted #eceff1;
+    .right-col {
+      border-left: 1px dotted #e0e0e0;
     }
 
-    form {
+    .labeled-field {
       display: flex;
-      // flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      // width: 90%;
-      height: 100%;
+      flex-direction: column;
+      min-height: 60px;
 
-      caption {
-        width: 90%;
-        padding-top: 0px;
-        font-family: @caption-font-family;
-        font-size: @caption-font-size;
-        line-height: @caption-font-size + 2px;
-        color: @caption-color;
-        text-align: left;
+      .label {
+        margin-bottom: 10px;
+        font-family: 'Open Sans Regular';
+        font-size: 13px;
+        line-height: 13px;
+        color: #607d8b;
       }
 
-      input[type=time]::-webkit-inner-spin-button {
-        display: none;
-
-        &::-webkit-calendar-picker-indicator {
-          display: block;
-          float: left;
-          alignment: left;
-          color: red;
-        }
+      .value {
+        margin-bottom: 5px;
+        font-family: 'Open Sans Regular';
+        font-size: 16px;
+        line-height: 18px;
+        color: #263238;
       }
 
-      input[type="time"]::-webkit-calendar-picker-indicator {
-        color: red !important;
-      }
-
-      input[type='time'] {
-        ::after {
-          display: none;
-          //content: '';
-        }
-        // text-align: center;
-
-        &::-webkit-clear-button {
-          display: none;
-        }
-
-        &::-webkit-inner-spin-button {
-          -webkit-appearance: none;
-          cursor:pointer;
-          display: block;
-          width:20px;
-          color: red;
-          text-align:center;
-          position:relative;
-        }
-      }
-
-      .mat-icon {
-        margin-right: 10px;
-        color: #b0bec5;
-
-        &.clickable {
-          cursor: pointer;
-          &:hover {
-            color: #90a4ae;
-          }
-        }
-
-        &.done {
-          color: #66bb6a;
-        }
-      }
-
-      .mat-raised-button {
-        height: 61px;
-        font-family: 'Open Sans Regular'
-      }
-
-      .mat-form-field-prefix {
-        margin-right: 10px !important;
+      .description {
+        font-family: 'Open Sans Light';
+        font-size: 14px;
+        line-height: 14px;
+        color: #757575;
       }
     }
 

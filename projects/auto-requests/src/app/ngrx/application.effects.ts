@@ -75,7 +75,7 @@ export class ApplicationEffects {
   loadInitialDataFail$ = this.actions$.pipe(
     ofType(ApplicationActionTypes.APPLICATION_LOAD_INITIAL_DATA_FAIL),
     tap(() => {
-      this.snackBar.open('При загрузке данных с сервера произошла ошибка', null, {
+      this.snackBar.open('При загрузке данных произошла ошибка', null, {
         verticalPosition: 'bottom',
         horizontalPosition: 'right',
         duration: 3000
@@ -134,7 +134,7 @@ export class ApplicationEffects {
     tap(() => {
       this.dialog.open(FiltersDialogComponent, {
         id: 'filters-dialog',
-        width: '800px',
+        width: '780px',
         height: '550px',
         panelClass: 'sign-in-dialog'
       });

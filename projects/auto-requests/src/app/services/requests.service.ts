@@ -107,6 +107,17 @@ export class RequestsService {
   }
 
   /**
+   * Отмена заявки
+   * @param requestId - Идентификатор заявки
+   */
+  cancel(requestId: number): Observable<IServerResponse<IRequest>> {
+    return from(this.resource.cancel(null, null, {id: requestId}))
+      .pipe(
+        map((response: IServerResponse<IRequest>) => response)
+      );
+  }
+
+  /**
    * Экспорт заявок
    * @param periodStart - Начало периода
    * @param periodEnd - Окончание периода

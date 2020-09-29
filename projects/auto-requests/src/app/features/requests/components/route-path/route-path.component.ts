@@ -51,7 +51,7 @@ export class RoutePathComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.extended.currentValue !== undefined) {
+    if (changes.extended && changes.extended.currentValue !== undefined) {
       if (this.root.nativeElement) {
         this.root.nativeElement.style.height = changes.extended.currentValue === true ? 'auto' : '100%';
       }
