@@ -7,7 +7,9 @@
              formControlName="transport"
              [readonly]="selectedTransport ? true : false"
              placeholder="{{placeholder ? placeholder : 'Транспорт не назначен'}}">
-      <mat-hint>{{selectedTransport ? selectedTransport.registrationNumber : ''}}</mat-hint>
+      <mat-error>{{error}}</mat-error>
+      <mat-hint *ngIf="transportForm.valid">{{selectedTransport ? selectedTransport.registrationNumber : ''}}</mat-hint>
+
       <button mat-icon-button
               matSuffix
               *ngIf="selectedTransport"

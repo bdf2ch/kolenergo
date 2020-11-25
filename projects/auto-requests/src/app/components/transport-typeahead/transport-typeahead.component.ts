@@ -15,11 +15,13 @@ export class TransportTypeaheadComponent implements OnInit, OnChanges {
   @Input() transport: Transport[];
   @Input() request: Request;
   @Input() placeholder: string;
+  @Input() loading: boolean;
   @Output() select: EventEmitter<Transport>;
   @Output() clear: EventEmitter<void>;
   filteredTransport: Transport[];
   selectedTransport: Transport;
   transportForm: FormGroup;
+  error: string;
 
   constructor(private readonly builder: FormBuilder) {
     this.select = new EventEmitter();
@@ -29,6 +31,7 @@ export class TransportTypeaheadComponent implements OnInit, OnChanges {
     });
     this.filteredTransport = [];
     this.selectedTransport = null;
+    this.error = null;
   }
 
   ngOnInit() {
@@ -52,10 +55,27 @@ export class TransportTypeaheadComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.transport && changes.transport.currentValue) {
       this.filteredTransport = changes.transport.currentValue;
+      if (this.selectedTransport) {
+        const found = this.filteredTransport.find((transport: Transport) => transport.id === this.selectedTransport.id);
+        if (!found) {
+          this.error = 'Транспорт эксплуатируется на другой заявке';
+          this.transportForm.controls.transport.setErrors({transportIsBusy: true});
+        } else {
+          this.error = null;
+          this.transportForm.controls.transport.setErrors(null);
+        }
+      }
     }
     if (changes.request && changes.request.currentValue) {
       this.selectedTransport = changes.request.currentValue.transport;
       this.transportForm.controls.transport.setValue(this.selectedTransport ? this.selectedTransport : null);
+    }
+    if (changes.loading && changes.loading.currentValue) {
+      if (changes.loading.currentValue === true) {
+        this.transportForm.controls.transport.disable();
+      } else if (changes.loading.currentValue === false) {
+        this.transportForm.controls.transport.enable();
+      }
     }
   }
 
@@ -83,11 +103,12 @@ export class TransportTypeaheadComponent implements OnInit, OnChanges {
   onClear() {
     this.selectedTransport = null;
     this.transportForm.controls.transport.setValue('');
+    this.transportForm.controls.transport.setErrors(null);
     this.clear.emit();
   }
 
   /**
-   * Установка текцущего трансорта
+   * Установка текущего транспорта
    * @param transport - Текущий транспорт
    */
   setSelected(transport: Transport) {

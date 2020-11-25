@@ -19,6 +19,7 @@ import {
   MatDatepickerModule,
   MatAutocompleteModule,
   MatSelectModule,
+  MatDividerModule,
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE
 } from '@angular/material';
@@ -50,6 +51,7 @@ import { DriverTypeaheadComponent } from './components/driver-typeahead/driver-t
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { FiltersDialogComponent } from './components/filters-dialog/filters-dialog.component';
 import { RequestDetailsDialogComponent } from './components/request-details-dialog/request-details-dialog.component';
+import { ReportsDialogComponent } from './components/reports-dialog/reports-dialog.component';
 
 export const MY_FORMATS = {
   parse: {
@@ -77,7 +79,8 @@ export const MY_FORMATS = {
     TransportTypeaheadComponent,
     DriverTypeaheadComponent,
     FiltersDialogComponent,
-    RequestDetailsDialogComponent
+    RequestDetailsDialogComponent,
+    ReportsDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -108,6 +111,7 @@ export const MY_FORMATS = {
     MatAutocompleteModule,
     MatMomentDateModule,
     MatSelectModule,
+    MatDividerModule,
     UserSearchModule.forRoot({apiUrl: 'http://127.0.0.1:3000', pathPrefix: '/users'}),
     RequestsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
@@ -126,7 +130,8 @@ export const MY_FORMATS = {
     AddRequestDialogComponent,
     EditRequestDialogComponent,
     FiltersDialogComponent,
-    RequestDetailsDialogComponent
+    RequestDetailsDialogComponent,
+    ReportsDialogComponent
   ],
   bootstrap: [
     AppComponent

@@ -143,4 +143,21 @@ export const selectRoutes = createSelector(
   (state: IAppState) => state.routes
 );
 
+/**
+ * Селектор транспорта, доступного для выбора
+ */
+export const selectAvailableTransport = createSelector(
+  selectApplication,
+  (state: IAppState) => state.availableTransport
+);
+
+/**
+ * Селектор водителей, доступных для выбора
+ */
+export const selectAvailableDrivers = createSelector(
+  selectApplication,
+  (state: IAppState) => state.availableDrivers
+);
+
+
 

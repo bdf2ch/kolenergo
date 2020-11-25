@@ -1,4 +1,4 @@
-import { Request } from '../../../models';
+import { Request, Transport } from '../../../models';
 
 /**
  * Интерфейс, описывающий состояние заявок на автотранспорт
@@ -11,6 +11,7 @@ export interface IRequestsState {
   filteredRequests: Request[];                          // Отфильтрованные заявки
   calendarRequests: {date: string, count: number}[];    // Календарные индикаторы заявок
   selectedRequest: Request;                             // Текущая заявка
+  selectedRequestTransport: Transport;                  // Транспорт текущей заявки
 }
 
 /**
@@ -23,5 +24,6 @@ export const requestsInitialState: IRequestsState = {
   userRequests: [],
   filteredRequests: [],
   calendarRequests: [],
-  selectedRequest: null
+  selectedRequest: null,
+  selectedRequestTransport: null,
 };

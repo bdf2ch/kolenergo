@@ -95,4 +95,27 @@ export class RequestsResource extends Resource {
     userId: number,
     search?: string
   }, void, Blob>;
+
+  @ResourceAction({
+    path: '/busy',
+    method: ResourceRequestMethod.Get,
+    withCredentials: true
+  })
+  getBusy: IResourceMethodStrict<void, {
+    requestId: number,
+    startTime: number,
+    endTime: number,
+  }, void, IServerResponse<{transport: number[], drivers: number[]}>>;
+
+  @ResourceAction({
+    path: '/export',
+    method: ResourceRequestMethod.Get,
+    responseBodyType: ResourceResponseBodyType.Blob,
+    withCredentials: true
+  })
+  loadTransportReport: IResourceMethodStrict<void, {
+    periodStart: number,
+    periodEnd: number,
+    transportId: number,
+  }, void, Blob>;
 }

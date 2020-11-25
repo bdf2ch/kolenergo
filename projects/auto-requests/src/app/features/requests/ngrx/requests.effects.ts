@@ -14,18 +14,29 @@ import {
   RequestsActionTypes,
   RequestsAddRequest,
   RequestsAddRequestFail,
-  RequestsAddRequestSuccess, RequestsCancelRequest, RequestsCancelRequestFail, RequestsCancelRequestSuccess,
+  RequestsAddRequestSuccess,
+  RequestsCancelRequest,
+  RequestsCancelRequestFail,
+  RequestsCancelRequestSuccess,
   RequestsEditRequest,
   RequestsEditRequestFail,
-  RequestsEditRequestSuccess, RequestsExportRequestsFail,
+  RequestsEditRequestSuccess,
+  RequestsExportRequestsFail,
   RequestsExportRequestsSuccess,
+  LoadBusy,
+  LoadBusyFail,
+  LoadBusySuccess,
   RequestsLoadFilteredRequestsFail,
   RequestsLoadFilteredRequestsSuccess,
   RequestsLoadRequests,
   RequestsLoadRequestsFail,
   RequestsLoadRequestsSuccess,
   RequestsLoadUserRequestsFail,
-  RequestsLoadUserRequestsSuccess
+  RequestsLoadUserRequestsSuccess,
+  LoadTransportReport,
+  LoadTransportReportSuccess,
+  LoadTransportReportFail,
+  LoadDriverReport, LoadDriverReportSuccess, LoadDriverReportFail
 } from './requests.actions';
 import { IRequest, IRoutePoint } from '../../../interfaces';
 import { IApplicationState } from '../../../ngrx/application.state';
@@ -48,6 +59,7 @@ import {
 import { EditRequestDialogComponent } from '../../../components/edit-request-dialog/edit-request-dialog.component';
 import { EListMode } from '../../../enums';
 import { RequestDetailsDialogComponent } from '../../../components/request-details-dialog/request-details-dialog.component';
+import { ReportsService } from '../../../services/reports.service';
 
 @Injectable()
 export class RequestsEffects {
@@ -56,7 +68,8 @@ export class RequestsEffects {
               private readonly actions$: Actions,
               private readonly dialog: MatDialog,
               private readonly snackBar: MatSnackBar,
-              private readonly requests: RequestsService
+              private readonly requests: RequestsService,
+              private readonly reports: ReportsService
   ) {}
 
   @Effect()
@@ -210,6 +223,35 @@ export class RequestsEffects {
   @Effect()
   loadFilteredRequestsFail$ = this.actions$.pipe(
     ofType(RequestsActionTypes.REQUESTS_LOAD_FILTERED_REQUESTS_FAIL),
+    tap(() => {
+      this.snackBar.open('При загрузке заявок произошла ошибка', null, {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'right',
+        panelClass: 'message-snack-bar',
+        duration: 3000
+      });
+    }),
+    mergeMap(() => EMPTY)
+  );
+
+  @Effect()
+  loadBusy = this.actions$.pipe(
+    ofType(RequestsActionTypes.LOAD_BUSY),
+    mergeMap((action) => this.requests.getBusy(
+      (action as LoadBusy).payload.requestId,
+      (action as LoadBusy).payload.startTime,
+      (action as LoadBusy).payload.endTime,
+    ).pipe(
+      map((response: IServerResponse<{transport: number[], drivers: number[]}>) => new LoadBusySuccess(response)),
+      catchError((error: any) => {
+        return of(new LoadBusyFail());
+      })
+    ))
+  );
+
+  @Effect()
+  loadRequestsByTransportAndTimeFail$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.LOAD_BUSY_FAIL),
     tap(() => {
       this.snackBar.open('При загрузке заявок произошла ошибка', null, {
         verticalPosition: 'bottom',
@@ -475,6 +517,78 @@ export class RequestsEffects {
     ofType(RequestsActionTypes.REQUESTS_CANCEL_REQUEST_FAIL),
     tap(() => {
       this.snackBar.open('При отмене заявки возникли ошибки', null, {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'right',
+        panelClass: 'message-snack-bar',
+        duration: 3000
+      });
+    }),
+    mergeMap(() => EMPTY)
+  );
+
+  @Effect()
+  loadTransportReport$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.LOAD_TRANSPORT_REPORT),
+    mergeMap((action: LoadTransportReport) => this.reports.loadTransportReport(
+      action.payload.periodStart,
+      action.payload.periodEnd,
+      action.payload.transport.id
+    ).pipe(
+      map((response: Blob) => new LoadTransportReportSuccess(response)),
+      catchError(() => of(new LoadTransportReportFail()))
+    ))
+  );
+
+  @Effect()
+  loadTransportReportSuccess$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.LOAD_TRANSPORT_REPORT_SUCCESS),
+    tap((action) => {
+      saver.saveAs((action as LoadTransportReportSuccess).payload, `Отчет об использовании транспорта.xlsx`);
+    }),
+    mergeMap(() => EMPTY)
+  );
+
+  @Effect()
+  loadTransportReportFail$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.LOAD_TRANSPORT_REPORT_FAIL),
+    tap(() => {
+      this.snackBar.open('При загрузке отчета произошла ошибка', null, {
+        verticalPosition: 'bottom',
+        horizontalPosition: 'right',
+        panelClass: 'message-snack-bar',
+        duration: 3000
+      });
+    }),
+    mergeMap(() => EMPTY)
+  );
+
+  @Effect()
+  loadDriverReport$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.LOAD_DRIVER_REPORT),
+    mergeMap((action: LoadDriverReport) => this.reports.loadDriverReport(
+      action.payload.periodStart,
+      action.payload.periodEnd,
+      action.payload.driver.id
+    ).pipe(
+      map((response: Blob) => new LoadDriverReportSuccess(response)),
+      catchError(() => of(new LoadDriverReportFail()))
+    ))
+  );
+
+  @Effect()
+  loadDriverReportSuccess$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.LOAD_DRIVER_REPORT_SUCCESS),
+    tap((action) => {
+      saver.saveAs((action as LoadDriverReportSuccess).payload, `Отчет о занятости водителя.xlsx`);
+    }),
+    mergeMap(() => EMPTY)
+  );
+
+  @Effect()
+  loadDriverReportFail$ = this.actions$.pipe(
+    ofType(RequestsActionTypes.LOAD_DRIVER_REPORT_FAIL),
+    tap(() => {
+      this.snackBar.open('При загрузке отчета произошла ошибка', null, {
         verticalPosition: 'bottom',
         horizontalPosition: 'right',
         panelClass: 'message-snack-bar',

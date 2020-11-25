@@ -9,23 +9,25 @@ import {Driver, RejectReason, RequestStatus, RoutePoint, Transport} from '../mod
  * Интерфейс, описывающий состояние ядра приложения
  */
 export interface IAppState {
-  isInitialized: boolean;         // Приложение инициализировано
-  isLoading: boolean;             // Выполняется загрузка
-  isSidebarOpened: boolean;       // Состояние боковой панели
-  isCompactMode: boolean;         // Компаетный режим
-  viewMode: EViewMode;            // Режим отображения заявок
-  listMode: EListMode;            // Режим списка заявок
-  date: Date;                     // Текущая дата
-  selectedDate: Date;             // Выбранная дата
-  calendarPeriodStart: number;    // Дата и время начала периода в календаре в формате Unix
-  calendarPeriodEnd: number;      // Дата и время окончания периода в календаре в формате Unix
-  filters: FilterManager;         // Фильтры заявок
-  search: string;                 // Строка поиска
-  transport: Transport[];         // Транспорт
-  drivers: Driver[];              // Водители
-  statuses: RequestStatus[];      // Статусы заявок
-  rejectReasons: RejectReason[];  // Причины отклонения заявки
-  routes: RoutePoint[];           // Элементы маршрута
+  isInitialized: boolean;           // Приложение инициализировано
+  isLoading: boolean;               // Выполняется загрузка
+  isSidebarOpened: boolean;         // Состояние боковой панели
+  isCompactMode: boolean;           // Компактный режим
+  viewMode: EViewMode;              // Режим отображения заявок
+  listMode: EListMode;              // Режим списка заявок
+  date: Date;                       // Текущая дата
+  selectedDate: Date;               // Выбранная дата
+  calendarPeriodStart: number;      // Дата и время начала периода в календаре в формате Unix
+  calendarPeriodEnd: number;        // Дата и время окончания периода в календаре в формате Unix
+  filters: FilterManager;           // Фильтры заявок
+  search: string;                   // Строка поиска
+  transport: Transport[];           // Транспорт
+  drivers: Driver[];                // Водители
+  statuses: RequestStatus[];        // Статусы заявок
+  rejectReasons: RejectReason[];    // Причины отклонения заявки
+  routes: RoutePoint[];             // Элементы маршрута,
+  availableTransport: Transport[];  // Транспорт, доступный для выбора
+  availableDrivers: Driver[];       // Водители, доступные для выбора
 }
 
 /**
@@ -55,7 +57,9 @@ export const appInitialState: IAppState = {
   drivers: [],
   statuses: [],
   rejectReasons: [],
-  routes: []
+  routes: [],
+  availableTransport: [],
+  availableDrivers: []
 };
 
 /**

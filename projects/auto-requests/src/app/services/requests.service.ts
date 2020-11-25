@@ -141,4 +141,21 @@ export class RequestsService {
         map((response: Blob) => response)
       );
   }
+
+  /**
+   * Получение информации о задействованном транспорте и водителях по времени поездки
+   * @param requestId - Идентификатор заявки
+   * @param startTime - Время начала
+   * @param endTime - Время окончания
+   */
+  getBusy(
+    requestId: number,
+    startTime: number,
+    endTime: number
+  ): Observable<IServerResponse<{transport: number[], drivers: number[]}>> {
+    return from(this.resource.getBusy(null, {requestId, startTime, endTime}, null))
+      .pipe(
+        map((response: IServerResponse<{transport: number[], drivers: number[]}>) => response)
+      );
+  }
 }

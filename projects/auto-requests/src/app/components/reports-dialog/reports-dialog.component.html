@@ -1,0 +1,132 @@
+<div class="sign-in-container">
+
+  <div class="side p-4">
+
+    <div class="label">
+      <div class="title">Отчеты</div>
+      <div class="comment">
+        Отчет об использовании транспорта отображает количество и
+        продолжительность поездок в разрезе транспортного средства.
+      </div>
+      <div class="comment">
+        Отчет о занятости водителя отображает количество и
+        продолжительность поездок в разрезе водителя.
+      </div>
+    </div>
+
+    <div>
+      <!--
+      <button mat-raised-button
+              color="primary"
+              class="w-100 pt-2 pb-2"
+              [disabled]="filtersForm.pristine"
+              (click)="applyFilters()">
+        Применить фильтры
+      </button>
+
+      <button mat-raised-button
+              color="warn"
+              class="w-100 mt-2 pt-2 pb-2"
+              [disabled]="!(filters$ | async).isFiltersApplied() || !filtersForm.pristine"
+              (click)="clearFilters()">
+        Сбросить фильтры
+      </button>
+      -->
+    </div>
+  </div>
+
+  <div class="content p-4">
+
+    <form class="d-flex flex-column justify-content-start" [formGroup]="reportsForm">
+
+      <div class="row no-gutters w-100 mb-3">
+        <div class="col">
+          <!-- Start: Начало периода -->
+          <mat-form-field appearance="fill" class="w-100" floatLabel="always">
+            <mat-label>Начало периода</mat-label>
+            <input matInput formControlName="start" [matDatepicker]="start" readonly>
+            <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+            <mat-datepicker #start></mat-datepicker>
+          </mat-form-field>
+          <!-- End: Начало периода -->
+        </div>
+        <div class="col-auto d-flex flex-column justify-content-center align-items-center pl-2 pr-2 pb-3">&mdash;</div>
+        <div class="col">
+          <!-- Start: Окончание периода -->
+          <mat-form-field appearance="fill" class="w-100" floatLabel="always">
+            <mat-label>Окончание периода</mat-label>
+            <input matInput
+                   readonly
+                   formControlName="end"
+                   [matDatepicker]="end"
+                   [min]="reportsForm.controls.start.value ? reportsForm.controls.start.value : null">
+            <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
+            <mat-datepicker #end></mat-datepicker>
+          </mat-form-field>
+          <!-- End: Окончание периода -->
+        </div>
+      </div>
+
+      <div class="caption">Отчет об использовании транспорта</div>
+      <div class="row no-gutters w-100 border-bottom">
+        <div class="col d-flex flex-column justify-content-center">
+          <!-- Start: Транспорт -->
+          <mat-form-field appearance="fill" class="w-100 mt-3" floatLabel="always">
+            <mat-label>Транспорт</mat-label>
+            <mat-select formControlName="transport" [compareWith]="transportCompare">
+              <mat-select-trigger>
+                {{reportsForm.controls.transport.value?.model + ' (' + reportsForm.controls.transport.value?.registrationNumber + ')'}}
+              </mat-select-trigger>
+              <mat-option *ngFor="let transport of (transport$ | async)" [value]="transport">
+                {{transport.model + ' (' + transport.registrationNumber + ')'}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- End: Транспорт -->
+        </div>
+        <div class="col-auto d-flex flex-column justify-content-center pl-4">
+          <button mat-stroked-button
+                  color="primary"
+                  class="h-100"
+                  matTooltip="Загрузить отчет"
+                  matTooltipPosition="above"
+                  [disabled]="reportsForm.controls.start.invalid || reportsForm.controls.end.invalid || reportsForm.controls.transport.invalid"
+                  (click)="loadTransportReport()">
+            <mat-icon>save_alt</mat-icon>
+          </button>
+        </div>
+      </div>
+
+
+      <div class="caption mt-4">Отчет о занятости водителя</div>
+      <div class="row no-gutters w-100">
+        <div class="col d-flex flex-column justify-content-center">
+          <!-- Start: Водитель -->
+          <mat-form-field appearance="fill" class="w-100 mt-3" floatLabel="always">
+            <mat-label>Водитель</mat-label>
+            <mat-select formControlName="driver" [compareWith]="driverCompare">
+              <mat-select-trigger>
+                {{reportsForm.controls.driver.value?.firstName + ' ' + reportsForm.controls.driver.value?.lastName}}
+              </mat-select-trigger>
+              <mat-option *ngFor="let driver of (drivers$ | async)" [value]="driver">
+                {{driver.firstName + ' ' + driver.lastName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- End: Водитель -->
+        </div>
+        <div class="col-auto d-flex flex-column justify-content-center pl-4">
+          <button mat-stroked-button
+                  color="primary"
+                  class="h-100"
+                  [disabled]="reportsForm.controls.start.invalid || reportsForm.controls.end.invalid || reportsForm.controls.driver.invalid"
+                  (click)="loadDriverReport()">
+            <mat-icon>save_alt</mat-icon>
+          </button>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+</div>

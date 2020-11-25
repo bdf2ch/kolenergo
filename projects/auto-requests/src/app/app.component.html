@@ -42,10 +42,11 @@
                 matTooltipPosition="below"
                 [ngClass]="{'active': (viewMode$ | async) === viewModes.VIEW_LIST}"
                 (click)="selectViewMode(viewModes.VIEW_LIST)"
-                class="mr-4 control">
+                class="control">
           <mat-icon>list_alt</mat-icon>
         </button>
 
+        <!--
         <button mat-icon-button
                 matTooltip="Календарь"
                 matTooltipPosition="below"
@@ -54,6 +55,8 @@
                 class="control">
           <mat-icon>event_note</mat-icon>
         </button>
+        -->
+
       </div>
       <div class="search pl-5 pr-5">
         <app-search [filters]="filters$ | async"
@@ -64,6 +67,14 @@
         </app-search>
       </div>
       <div class="controls">
+        <button mat-icon-button
+                matTooltip="Отчеты"
+                matTooltipPosition="below"
+                class="mr-4"
+                *ngIf="(user$ | async)?.permissions.getRoleById(20)"
+                (click)="openReportsDialog()">
+          <mat-icon>insert_chart_outlined</mat-icon>
+        </button>
         <button mat-icon-button
                 matTooltip="Вход в приложение"
                 matTooltipPosition="below"

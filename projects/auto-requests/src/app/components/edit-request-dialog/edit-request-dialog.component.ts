@@ -7,7 +7,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { User } from '@kolenergo/core';
-import {Driver, RejectReason, Request, RequestStatus, RoutePoint, Transport} from '../../models';
+import { Driver, RejectReason, Request, RequestStatus, RoutePoint, Transport } from '../../models';
 import { selectSelectedRequest } from '../../features/requests/ngrx/requests.selectors';
 import {
   IApplicationState,
@@ -17,10 +17,13 @@ import {
   selectRejectReasons,
   selectRoutes,
   selectStatuses,
-  selectTransport
+  selectTransport,
+  selectAvailableTransport, selectAvailableDrivers
 } from '../../ngrx';
-import { RequestsEditRequest } from '../../features/requests/ngrx/requests.actions';
+import { RequestsEditRequest, LoadBusy } from '../../features/requests/ngrx/requests.actions';
 import { requestDurationValidator } from './request-duration.validator';
+import { TransportTypeaheadComponent } from '../transport-typeahead/transport-typeahead.component';
+import { DriverTypeaheadComponent } from '../driver-typeahead/driver-typeahead.component';
 
 @Component({
   selector: 'app-edit-request-dialog',
@@ -29,6 +32,8 @@ import { requestDurationValidator } from './request-duration.validator';
 })
 export class EditRequestDialogComponent implements OnInit {
   @ViewChild('initiator', {static: true}) initiator: ElementRef;
+  @ViewChild('transport', {static: true}) transport: TransportTypeaheadComponent;
+  @ViewChild('driver', {static: true}) driver: DriverTypeaheadComponent;
   isLoading$: Observable<boolean>;
   selectedRequest$: Observable<Request>;
   selectedRequest: Request;
@@ -38,6 +43,8 @@ export class EditRequestDialogComponent implements OnInit {
   drivers$: Observable<Driver[]>;
   statuses$: Observable<RequestStatus[]>;
   rejectReasons$: Observable<RejectReason[]>;
+  availableTransport$: Observable<Transport[]>;
+  availableDrivers$: Observable<Driver[]>;
   requestForm: FormGroup;
   initiatorPosition: string;
 
@@ -59,6 +66,8 @@ export class EditRequestDialogComponent implements OnInit {
     this.drivers$ = this.store.pipe(select(selectDrivers));
     this.statuses$ = this.store.pipe(select(selectStatuses));
     this.rejectReasons$ = this.store.pipe(select(selectRejectReasons));
+    this.availableTransport$ = this.store.pipe(select(selectAvailableTransport));
+    this.availableDrivers$ = this.store.pipe(select(selectAvailableDrivers));
     this.requestForm = this.builder.group({
       initiator: new FormControl(
         this.selectedRequest.initiator
@@ -83,9 +92,65 @@ export class EditRequestDialogComponent implements OnInit {
       status: new FormControl(this.selectedRequest.status),
       rejectReason: new FormControl(this.selectedRequest.rejectReason)
     }, {validators: [requestDurationValidator]});
+
+    this.requestForm.controls.startTime.valueChanges.subscribe((value: string) => {
+      if (value) {
+        this.store.dispatch(
+          new LoadBusy({
+            requestId: this.selectedRequest.id,
+            startTime:
+              moment(this.requestForm.controls.date.value)
+                .hours(parseInt((this.requestForm.controls.startTime.value as string).substr(0, 2), 0))
+                .minutes(parseInt((this.requestForm.controls.startTime.value as string).substr(3, 2), 0))
+                .unix() * 1000,
+            endTime:
+              moment(this.requestForm.controls.date.value)
+                .hours(parseInt((this.requestForm.controls.endTime.value as string).substr(0, 2), 0))
+                .minutes(parseInt((this.requestForm.controls.endTime.value as string).substr(3, 2), 0))
+                .unix() * 1000
+            }
+          )
+        );
+      }
+    });
+
+    this.requestForm.controls.endTime.valueChanges.subscribe((value: string) => {
+      if (value) {
+        this.store.dispatch(
+          new LoadBusy({
+              requestId: this.selectedRequest.id,
+              startTime:
+                moment(this.requestForm.controls.date.value)
+                  .hours(parseInt((this.requestForm.controls.startTime.value as string).substr(0, 2), 0))
+                  .minutes(parseInt((this.requestForm.controls.startTime.value as string).substr(3, 2), 0))
+                  .unix() * 1000,
+              endTime:
+                moment(this.requestForm.controls.date.value)
+                  .hours(parseInt((this.requestForm.controls.endTime.value as string).substr(0, 2), 0))
+                  .minutes(parseInt((this.requestForm.controls.endTime.value as string).substr(3, 2), 0))
+                  .unix() * 1000
+            }
+          )
+        );
+      }
+    });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.store.dispatch(new LoadBusy({
+      requestId: this.selectedRequest.id,
+      startTime:
+        moment(this.requestForm.controls.date.value)
+        .hours(parseInt((this.requestForm.controls.startTime.value as string).substr(0, 2), 0))
+        .minutes(parseInt((this.requestForm.controls.startTime.value as string).substr(3, 2), 0))
+        .unix() * 1000,
+      endTime:
+        moment(this.requestForm.controls.date.value)
+        .hours(parseInt((this.requestForm.controls.endTime.value as string).substr(0, 2), 0))
+        .minutes(parseInt((this.requestForm.controls.endTime.value as string).substr(3, 2), 0))
+        .unix() * 1000
+    }));
+  }
 
   /**
    * Выбор транспорта
@@ -97,11 +162,29 @@ export class EditRequestDialogComponent implements OnInit {
   }
 
   /**
+   * Сброс транспорта
+   */
+  clearTransport() {
+    console.log('transport cleared');
+    console.log(this.transport.transportForm.status);
+    this.selectedRequest.transport = null;
+    this.requestForm.markAsDirty();
+  }
+
+  /**
    * Выбор водителя
    * @param driver - Выбранный водитель
    */
   selectDriver(driver: Driver) {
     this.selectedRequest.driver = driver;
+    this.requestForm.markAsDirty();
+  }
+
+  /**
+   * Сброс водителя
+   */
+  clearDriver() {
+    this.selectedRequest.driver = null;
     this.requestForm.markAsDirty();
   }
 
@@ -161,7 +244,7 @@ export class EditRequestDialogComponent implements OnInit {
   }
 
   /**
-   * Созхранение изменений в заявке
+   * Сохранение изменений в заявке
    */
   editRequest() {
     console.log(this.selectedRequest);
@@ -174,6 +257,8 @@ export class EditRequestDialogComponent implements OnInit {
       .minutes(parseInt((this.requestForm.controls.endTime.value as string).substr(3, 2), 0))
       .unix() * 1000;
     this.selectedRequest.description = this.requestForm.controls.description.value;
+    console.log('start', moment(this.selectedRequest.startTime).format('DD.MM.YYYY HH:mm'));
+    console.log('end', moment(this.selectedRequest.endTime).format('DD.MM.YYYY HH:mm'));
     this.store.dispatch(new RequestsEditRequest(this.selectedRequest));
   }
 

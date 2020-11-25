@@ -25,5 +25,6 @@ export interface IRequest {
   description?: string;               // Детали поездки
   dateCreated: number;                // Дата и время создания заявки в формате Unix
   dateModified?: number;              // Дата и время изменения заявки в формате Unix
+  finishTime?: number;                // Дата и время завершения поездки в формате Unix
   comments?: IRequestComment[];       // Комментарии к заявке
 }

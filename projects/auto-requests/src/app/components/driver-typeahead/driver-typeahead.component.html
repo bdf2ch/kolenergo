@@ -8,6 +8,7 @@
              [readonly]="selectedDriver ? true : false"
              placeholder="Водитель не назначен">
       <mat-hint>{{selectedDriver && selectedDriver.phone ? selectedDriver.phone : ''}}</mat-hint>
+      <mat-error>{{error}}</mat-error>
       <button mat-icon-button
               matSuffix
               *ngIf="selectedDriver"

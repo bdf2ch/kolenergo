@@ -11,7 +11,7 @@ import { RequestStatus } from './request-status.model';
 import { RoutePoint } from './route-point.model';
 import { IRejectReason } from '../interfaces/reject-reason.interface';
 import { RejectReason } from './reject-reason.model';
-import {IRequestComment, IRoutePoint} from '../interfaces';
+import { IRequestComment, IRoutePoint } from '../interfaces';
 import { RequestComment } from './request-comment.model';
 
 /**
@@ -36,6 +36,8 @@ export class Request implements IRequest {
   dateCreatedD: Date;                 // Дата и время создания заявки
   dateModified: number;               // Дата и время изменения заявки в формате Unix
   dateModifiedD: Date;                // Дата и время изменения заявки
+  finishTime: number;                 // Дата и время завершения поездки в формате Unix
+  finishTimeD: Date;                  // Дата и время завершения поездки
   comments: IRequestComment[];        // Комментарии к заявке
 
   /**
@@ -66,6 +68,8 @@ export class Request implements IRequest {
     this.dateCreatedD = config ? new Date(config.dateCreated) : null;
     this.dateModified = config ? config.dateModified : null;
     this.dateModifiedD = config ? new Date(config.dateModified) : null;
+    this.finishTime = config ? config.finishTime : null;
+    this.finishTimeD = config && config.finishTime ? new Date(config.finishTime) : null;
     this.comments = config && config.comments ? config.comments.map((item: IRequestComment) => new RequestComment(item)) : [];
   }
 

@@ -2,13 +2,14 @@ import { Action } from '@ngrx/store';
 
 import { IServerResponse } from '@kolenergo/core';
 import { IRequest, IRoutePoint } from '../../../interfaces';
-import { Request } from '../../../models';
+import {Driver, Request, Transport} from '../../../models';
 
 /**
  * Типы действий раздела заявок на автотранспорт
  */
 export enum RequestsActionTypes {
   REQUESTS_SELECT_REQUEST = '[Application UI] Select request',
+  REQUESTS_SELECT_TRANSPORT = '[Application UI] Select transport',
   REQUESTS_LOAD_REQUESTS = '[Requests API] Load requests',
   REQUESTS_LOAD_REQUESTS_SUCCESS = '[Requests API] Requests loaded successfully',
   REQUESTS_LOAD_REQUESTS_FAIL = '[Requests API] Failed to load requests',
@@ -18,9 +19,18 @@ export enum RequestsActionTypes {
   REQUESTS_LOAD_FILTERED_REQUESTS = '[Requests API] Load filtered requests',
   REQUESTS_LOAD_FILTERED_REQUESTS_SUCCESS = '[Requests API] Filtered requests loaded successfully',
   REQUESTS_LOAD_FILTERED_REQUESTS_FAIL = '[Requests API] Failed to load filtered requests',
+  LOAD_BUSY = '[Requests API] Load busy transport and drivers',
+  LOAD_BUSY_SUCCESS = '[Requests API] Busy transport and drivers loaded successfully',
+  LOAD_BUSY_FAIL = '[Requests API] Failed to load busy transport and drivers',
   REQUESTS_EXPORT_REQUESTS = '[Requests API] Export requests',
   REQUESTS_EXPORT_REQUESTS_SUCCESS = '[Requests API] Requests exported successfully',
   REQUESTS_EXPORT_REQUESTS_FAIL = '[Requests API] Failed to export requests',
+  LOAD_TRANSPORT_REPORT = '[Requests API] Load transport report',
+  LOAD_TRANSPORT_REPORT_SUCCESS = '[Requests API] Transport report loaded successfully',
+  LOAD_TRANSPORT_REPORT_FAIL = '[Requests API] Failed to load transport report',
+  LOAD_DRIVER_REPORT = '[Requests API] Load driver report',
+  LOAD_DRIVER_REPORT_SUCCESS = '[Requests API] Driver report loaded successfully',
+  LOAD_DRIVER_REPORT_FAIL = '[Requests API] Failed to load driver report',
   REQUESTS_ADD_REQUEST = '[Requests API] Add request',
   REQUESTS_ADD_REQUEST_SUCCESS = '[Requests API] Request added successfully',
   REQUESTS_ADD_REQUEST_FAIL = '[Requests API] Failed to add request',
@@ -38,6 +48,14 @@ export enum RequestsActionTypes {
 export class RequestsSelectRequest implements Action {
   readonly type = RequestsActionTypes.REQUESTS_SELECT_REQUEST;
   constructor(public payload: Request) {}
+}
+
+/**
+ * Выбор транспорта в текущей заявке
+ */
+export class RequestsSelectTransport implements Action {
+  readonly type = RequestsActionTypes.REQUESTS_SELECT_TRANSPORT;
+  constructor(public payload: Transport) {}
 }
 
 /**
@@ -107,6 +125,29 @@ export class RequestsLoadFilteredRequestsFail implements Action {
 }
 
 /**
+ * Загрузка задействованного транспорта по времени поездки
+ */
+export class LoadBusy implements Action {
+  readonly type = RequestsActionTypes.LOAD_BUSY;
+  constructor(public payload: { requestId: number, startTime: number, endTime: number }) {}
+}
+
+/**
+ * Загрузка задействованного транспорта по времени поездки выполнена успешно
+ */
+export class LoadBusySuccess implements Action {
+  readonly type = RequestsActionTypes.LOAD_BUSY_SUCCESS;
+  constructor(public payload: IServerResponse<{ transport: number[], drivers: number[] }>) {}
+}
+
+/**
+ * Не удалось выполнить загрузку задействованного транспорта по времени поездки
+ */
+export class LoadBusyFail implements Action {
+  readonly type = RequestsActionTypes.LOAD_BUSY_FAIL;
+}
+
+/**
  * Экспорт заявок
  */
 export class RequestsExportRequests implements Action {
@@ -126,6 +167,52 @@ export class RequestsExportRequestsSuccess implements Action {
  */
 export class RequestsExportRequestsFail implements Action {
   readonly type = RequestsActionTypes.REQUESTS_EXPORT_REQUESTS_FAIL;
+}
+
+/**
+ * Загрузка отчета об использовании транспорта
+ */
+export class LoadTransportReport implements Action {
+  readonly type = RequestsActionTypes.LOAD_TRANSPORT_REPORT;
+  constructor(public payload: {periodStart: number, periodEnd: number, transport: Transport}) {}
+}
+
+/**
+ * Отчет об использовании транспорта успешно загружен
+ */
+export class LoadTransportReportSuccess implements Action {
+  readonly type = RequestsActionTypes.LOAD_TRANSPORT_REPORT_SUCCESS;
+  constructor(public payload: Blob) {}
+}
+
+/**
+ * Не удалось загрузить отчет об использовании транспорта
+ */
+export class LoadTransportReportFail implements Action {
+  readonly type = RequestsActionTypes.LOAD_TRANSPORT_REPORT_FAIL;
+}
+
+/**
+ * Загрузка отчета о занятости водителя
+ */
+export class LoadDriverReport implements Action {
+  readonly type = RequestsActionTypes.LOAD_DRIVER_REPORT;
+  constructor(public payload: {periodStart: number, periodEnd: number, driver: Driver}) {}
+}
+
+/**
+ * Отчет о занятости водителя успешно загружен
+ */
+export class LoadDriverReportSuccess implements Action {
+  readonly type = RequestsActionTypes.LOAD_DRIVER_REPORT_SUCCESS;
+  constructor(public payload: Blob) {}
+}
+
+/**
+ * Не удалось загрузить отчет о занятости водителя
+ */
+export class LoadDriverReportFail implements Action {
+  readonly type = RequestsActionTypes.LOAD_DRIVER_REPORT_FAIL;
 }
 
 /**
@@ -212,6 +299,7 @@ export class RequestsCancelRequestFail implements Action {
  */
 export type RequestsActions =
   RequestsSelectRequest |
+  RequestsSelectTransport |
   RequestsLoadRequests |
   RequestsLoadRequestsSuccess |
   RequestsLoadRequestsFail |
@@ -221,9 +309,18 @@ export type RequestsActions =
   RequestsLoadFilteredRequests |
   RequestsLoadFilteredRequestsSuccess |
   RequestsLoadFilteredRequestsFail |
+  LoadBusy |
+  LoadBusySuccess |
+  LoadBusyFail |
   RequestsExportRequests |
   RequestsExportRequestsSuccess |
   RequestsExportRequestsFail |
+  LoadTransportReport |
+  LoadTransportReportSuccess |
+  LoadTransportReportFail |
+  LoadDriverReport |
+  LoadDriverReportSuccess |
+  LoadDriverReportFail |
   RequestsAddRequest |
   RequestsAddRequestSuccess |
   RequestsAddRequestFail |

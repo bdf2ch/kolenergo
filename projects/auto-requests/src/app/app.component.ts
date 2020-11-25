@@ -12,7 +12,7 @@ import {
   ApplicationCloseSidebar,
   ApplicationLoadCalendarRequests,
   ApplicationOpenAddRequestDialog,
-  ApplicationOpenFiltersDialog,
+  ApplicationOpenFiltersDialog, ApplicationOpenReportsDialog,
   ApplicationOpenSidebar,
   ApplicationOpenSignInDialog,
   ApplicationSearchChanged,
@@ -168,5 +168,12 @@ export class AppComponent {
    */
   searchCleared() {
     this.store.dispatch(new ApplicationClearSearch());
+  }
+
+  /**
+   * Открытие дивлогового окна с отчетами
+   */
+  openReportsDialog() {
+    this.store.dispatch(new ApplicationOpenReportsDialog());
   }
 }

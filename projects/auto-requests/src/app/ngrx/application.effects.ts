@@ -34,6 +34,7 @@ import {
   RequestsLoadUserRequests
 } from '../features/requests/ngrx/requests.actions';
 import { FiltersDialogComponent } from '../components/filters-dialog/filters-dialog.component';
+import {ReportsDialogComponent} from "../components/reports-dialog/reports-dialog.component";
 
 
 @Injectable()
@@ -179,5 +180,19 @@ export class ApplicationEffects {
     mergeMap(([action, filters]) => filters.isFiltersApplied()
       ? of(new RequestsLoadFilteredRequests())
       : of(new ApplicationClearFilters()))
+  );
+
+  @Effect()
+  openReportsDialog$ = this.actions$.pipe(
+    ofType(ApplicationActionTypes.APPLICATION_OPEN_REPORTS_DIALOG),
+    tap(() => {
+      this.dialog.open(ReportsDialogComponent, {
+        id: 'reports-dialog',
+        width: '780px',
+        height: '550px',
+        panelClass: 'sign-in-dialog'
+      });
+    }),
+    mergeMap(() => EMPTY)
   );
 }

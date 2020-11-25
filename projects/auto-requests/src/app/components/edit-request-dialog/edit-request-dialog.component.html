@@ -10,17 +10,21 @@
       <div>
         <!-- Start: Транспорт -->
         <app-transport-typeahead class="w-100"
-                                 [transport]="transport$ | async"
+                                 #transport
+                                 [transport]="availableTransport$ | async"
                                  [request]="selectedRequest$ | async"
-                                 (select)="selectTransport($event)">
+                                 (select)="selectTransport($event)"
+                                 (clear)="clearTransport()">
         </app-transport-typeahead>
         <!-- End: Транспорт -->
 
         <!-- Start: Водитель -->
         <app-driver-typeahead class="w-100 mt-3"
-                              [drivers]="drivers$ | async"
+                              #driver
+                              [drivers]="availableDrivers$ | async"
                               [request]="selectedRequest$ | async"
-                              (select)="selectDriver($event)">
+                              (select)="selectDriver($event)"
+                              (clear)="clearDriver()">
         </app-driver-typeahead>
         <!-- End: Водитель -->
 

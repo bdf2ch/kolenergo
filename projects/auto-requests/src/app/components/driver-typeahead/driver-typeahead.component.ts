@@ -19,6 +19,7 @@ export class DriverTypeaheadComponent implements OnInit, OnChanges {
   filteredDrivers: Driver[];
   selectedDriver: Driver;
   driverForm: FormGroup;
+  error: string;
 
   constructor(private readonly builder: FormBuilder) {
     this.driverForm = this.builder.group({
@@ -28,6 +29,7 @@ export class DriverTypeaheadComponent implements OnInit, OnChanges {
     this.clear = new EventEmitter<void>();
     this.filteredDrivers = [];
     this.selectedDriver = null;
+    this.error = null;
   }
 
   ngOnInit() {
@@ -53,6 +55,16 @@ export class DriverTypeaheadComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.drivers && changes.drivers.currentValue) {
       this.filteredDrivers = changes.drivers.currentValue;
+      if (this.selectedDriver) {
+        const found = this.filteredDrivers.find((driver: Driver) => driver.id === this.selectedDriver.id);
+        if (!found) {
+          this.error = 'Водитель занят на другой заявке';
+          this.driverForm.controls.driver.setErrors({driverIsBusy: true});
+        } else {
+          this.error = null;
+          this.driverForm.controls.driver.setErrors(null);
+        }
+      }
     }
     if (changes.request && changes.request.currentValue) {
       this.selectedDriver = changes.request.currentValue.driver;
@@ -88,6 +100,7 @@ export class DriverTypeaheadComponent implements OnInit, OnChanges {
   onClear() {
     this.selectedDriver = null;
     this.driverForm.controls.driver.setValue('');
+    this.driverForm.controls.driver.setErrors(null);
     this.clear.emit();
   }
 

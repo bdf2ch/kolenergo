@@ -28,7 +28,8 @@ export const enum ApplicationActionTypes {
   APPLICATION_CLEAR_SEARCH = '[Application UI] Clear search',
   APPLICATION_OPEN_SIGN_IN_DIALOG = '[Application UI] Open sign in dialog',
   APPLICATION_OPEN_ADD_REQUEST_DIALOG = '[Application UI] Open add request dialog',
-  APPLICATION_OPEN_FILTERS_DIALOG = '[Application UI] Open  filters dialog'
+  APPLICATION_OPEN_FILTERS_DIALOG = '[Application UI] Open filters dialog',
+  APPLICATION_OPEN_REPORTS_DIALOG = '[Application UI] Open reports dialog'
 }
 
 /**
@@ -184,10 +185,17 @@ export class ApplicationOpenAddRequestDialog implements Action {
 }
 
 /**
- * Открытие диалогового кона с фильрами заявок
+ * Открытие диалогового кона с фильтрами заявок
  */
 export class ApplicationOpenFiltersDialog implements Action {
   readonly type = ApplicationActionTypes.APPLICATION_OPEN_FILTERS_DIALOG;
+}
+
+/**
+ * Открытие диалогового окна с отчетами
+ */
+export class ApplicationOpenReportsDialog implements Action {
+  readonly type = ApplicationActionTypes.APPLICATION_OPEN_REPORTS_DIALOG;
 }
 
 /**
@@ -214,4 +222,5 @@ export type ApplicationActions =
   ApplicationClearSearch |
   ApplicationOpenSignInDialog |
   ApplicationOpenAddRequestDialog |
-  ApplicationOpenFiltersDialog;
+  ApplicationOpenFiltersDialog |
+  ApplicationOpenReportsDialog;

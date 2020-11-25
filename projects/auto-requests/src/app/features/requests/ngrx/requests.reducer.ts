@@ -1,9 +1,9 @@
-import { actionTypes, authenticationActionTypes } from '@kolenergo/core';
-import { IRequestsState, requestsInitialState } from './requests.state';
-import { RequestsActions, RequestsActionTypes } from './requests.actions';
-import { ApplicationActions, ApplicationActionTypes } from '../../../ngrx';
-import { IRequest } from '../../../interfaces';
-import { Request } from '../../../models';
+import {actionTypes, authenticationActionTypes} from '@kolenergo/core';
+import {IRequestsState, requestsInitialState} from './requests.state';
+import {RequestsActions, RequestsActionTypes} from './requests.actions';
+import {ApplicationActions, ApplicationActionTypes} from '../../../ngrx';
+import {IRequest, ITransport} from '../../../interfaces';
+import {Request, Transport} from '../../../models';
 
 export function requestsReducer(
   state: IRequestsState = requestsInitialState,
@@ -41,6 +41,16 @@ export function requestsReducer(
       return {
         ...state,
         selectedRequest: action.payload
+      };
+    }
+
+    /**
+     * Выбор транспорта текущей заявки
+     */
+    case RequestsActionTypes.REQUESTS_SELECT_TRANSPORT: {
+      return {
+        ...state,
+        selectedRequestTransport: action.payload
       };
     }
 

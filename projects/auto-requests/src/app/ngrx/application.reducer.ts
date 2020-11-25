@@ -83,7 +83,8 @@ export function applicationReducer(
         drivers: action.payload.data.drivers.map((item: IDriver) => new Driver(item)),
         statuses: action.payload.data.statuses.map((item: IRequestStatus) => new RequestStatus(item)),
         rejectReasons: action.payload.data.rejectReasons.map((item: IRejectReason) => new RejectReason(item)),
-        routes: action.payload.data.routes.map((item: IRoutePoint) => new RoutePoint(item))
+        routes: action.payload.data.routes.map((item: IRoutePoint) => new RoutePoint(item)),
+        availableTransport: action.payload.data.transport.map((item: ITransport) => new Transport(item))
       };
     }
 
@@ -327,6 +328,31 @@ export function applicationReducer(
     }
 
     /**
+     * Загрузка заявок по транспорту и времени поездки выполнена успешно
+     */
+    case RequestsActionTypes.LOAD_BUSY_SUCCESS: {
+      return {
+        ...state,
+        availableTransport:
+          action.payload.data.transport.length > 0
+            ? state.transport.filter(
+                (transport: Transport) => action.payload.data.transport.find(
+              (transportId: number) => transportId === transport.id
+                ) ? false : true
+              )
+            : state.transport,
+        availableDrivers:
+          action.payload.data.drivers.length > 0
+            ? state.drivers.filter(
+            (driver: Driver) => action.payload.data.drivers.find(
+              (driverId: number) => driverId === driver.id
+            ) ? false : true
+            )
+            : state.drivers
+      };
+    }
+
+    /**
      * Добавление новой заявки
      */
     case RequestsActionTypes.REQUESTS_ADD_REQUEST: {
@@ -445,6 +471,66 @@ export function applicationReducer(
      * Не удалось отменить заявку
      */
     case RequestsActionTypes.REQUESTS_CANCEL_REQUEST_FAIL: {
+      return {
+        ...state,
+        isLoading: false
+      };
+    }
+
+    /**
+     * Загрузка отчета об использовании транспорта
+     */
+    case RequestsActionTypes.LOAD_TRANSPORT_REPORT: {
+      return {
+        ...state,
+        isLoading: true
+      };
+    }
+
+    /**
+     * Загрузка отчета об использовании транспорта выполнена успешно
+     */
+    case RequestsActionTypes.LOAD_TRANSPORT_REPORT_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false
+      };
+    }
+
+    /**
+     * Не удалось загрузить отчет об использовании транспорта
+     */
+    case RequestsActionTypes.LOAD_TRANSPORT_REPORT_FAIL: {
+      return {
+        ...state,
+        isLoading: false
+      };
+    }
+
+    /**
+     * Загрузка отчета о занятости водителя
+     */
+    case RequestsActionTypes.LOAD_DRIVER_REPORT: {
+      return {
+        ...state,
+        isLoading: true
+      };
+    }
+
+    /**
+     * Загрузка отчета о занятости водителя выполнена успешно
+     */
+    case RequestsActionTypes.LOAD_DRIVER_REPORT_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false
+      };
+    }
+
+    /**
+     * Не удалось загрузить отчет о занятости водителя
+     */
+    case RequestsActionTypes.LOAD_DRIVER_REPORT_FAIL: {
       return {
         ...state,
         isLoading: false
