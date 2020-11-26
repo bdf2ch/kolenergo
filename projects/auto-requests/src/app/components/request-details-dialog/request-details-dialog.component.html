@@ -22,8 +22,8 @@
       <div class="value">
         {{(selectedRequest$ | async)?.driver ? (selectedRequest$ | async).driver.firstName + ' ' + (selectedRequest$ | async).driver.lastName : 'Не назначен'}}
       </div>
-      <div class="description" *ngIf="(selectedRequest$ | async)?.driver?.phone">
-        Телефон: {{(selectedRequest$ | async).driver.phone}}
+      <div class="description" *ngIf="(selectedRequest$ | async)?.driver?.mobile">
+        Телефон: {{(selectedRequest$ | async).driver.mobile}}
       </div>
     </div>
 

@@ -6,7 +6,7 @@ export interface IDriver {
   firstName: string;      // Имя
   secondName?: string;    // Отчество
   lastName: string;       // Фамилия
-  phone?: string;         // Контактный телефон
+  mobile?: string;        // Контактный телефон
   email?: string;         // E-mail
-  isEnabled: boolean;     // Доступен ливодитель для назначения в заявки
+  isEnabled: boolean;     // Доступен ли водитель для назначения в заявки
 }

@@ -86,7 +86,7 @@
           <div class="label">Водитель</div>
           <ng-container *ngIf="request.driver">
             <span class="primary-data">{{request.driver.firstName + ' ' + request.driver.lastName}}</span>
-            <span class="secondary-data" *ngIf="request.driver.phone">{{request.driver.phone}}</span>
+            <span class="secondary-data" *ngIf="request.driver.mobile">{{request.driver.mobile}}</span>
           </ng-container>
           <span class="primary-data empty" *ngIf="!request.driver">Не назначен</span>
         </div>
