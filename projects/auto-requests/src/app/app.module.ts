@@ -112,7 +112,7 @@ export const MY_FORMATS = {
     MatMomentDateModule,
     MatSelectModule,
     MatDividerModule,
-    UserSearchModule.forRoot({apiUrl: 'http://127.0.0.1:3000', pathPrefix: '/users'}),
+    UserSearchModule.forRoot({apiUrl: environment.apiUrl, pathPrefix: '/users'}),
     RequestsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
