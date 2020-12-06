@@ -18,7 +18,8 @@ import {
   selectRoutes,
   selectStatuses,
   selectTransport,
-  selectAvailableTransport, selectAvailableDrivers
+  selectAvailableTransport,
+  selectAvailableDrivers
 } from '../../ngrx';
 import { RequestsEditRequest, LoadBusy } from '../../features/requests/ngrx/requests.actions';
 import { requestDurationValidator } from './request-duration.validator';
@@ -41,6 +42,7 @@ export class EditRequestDialogComponent implements OnInit {
   routes$: Observable<RoutePoint[]>;
   transport$: Observable<Transport[]>;
   drivers$: Observable<Driver[]>;
+  drivers: Driver[];
   statuses$: Observable<RequestStatus[]>;
   rejectReasons$: Observable<RejectReason[]>;
   availableTransport$: Observable<Transport[]>;
@@ -64,6 +66,7 @@ export class EditRequestDialogComponent implements OnInit {
     this.routes$ = this.store.pipe(select(selectRoutes));
     this.transport$ = this.store.pipe(select(selectTransport));
     this.drivers$ = this.store.pipe(select(selectDrivers));
+    this.drivers = [];
     this.statuses$ = this.store.pipe(select(selectStatuses));
     this.rejectReasons$ = this.store.pipe(select(selectRejectReasons));
     this.availableTransport$ = this.store.pipe(select(selectAvailableTransport));
@@ -134,6 +137,11 @@ export class EditRequestDialogComponent implements OnInit {
         );
       }
     });
+    this.drivers$.subscribe((value: Driver[]) => {
+      if (value) {
+        this.drivers = value;
+      }
+    });
   }
 
   ngOnInit() {
@@ -158,6 +166,13 @@ export class EditRequestDialogComponent implements OnInit {
    */
   selectTransport(transport: Transport) {
     this.selectedRequest.transport = transport;
+    if (transport.driverId) {
+      const driver = this.drivers.find((dr: Driver) => dr.id === transport.driverId);
+      if (driver) {
+        this.driver.setSelected(driver);
+        this.selectedRequest.driver = driver;
+      }
+    }
     this.requestForm.markAsDirty();
   }
 

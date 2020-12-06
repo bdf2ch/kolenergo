@@ -12,4 +12,5 @@ export interface ITransport {
   model?: string;               // Модель
   description?: string;         // Описание
   isEnabled: boolean;           // Доступна ли транспортное средство для назначения в заявки
+  driverId: number;             // Идентификатор водителя по умолчанию
 }

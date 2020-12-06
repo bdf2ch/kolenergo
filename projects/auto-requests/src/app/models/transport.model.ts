@@ -14,6 +14,7 @@ export class Transport implements ITransport {
   model: string;                // Модель
   description: string;          // Описание
   isEnabled: boolean;           // Доступно ли транспортное средство для назначения в заявки
+  driverId: number;             // Идентификатор водителя по умолчанию
 
   /**
    * Конструктор
@@ -27,5 +28,6 @@ export class Transport implements ITransport {
     this.model = config && config.model ? config.model : null;
     this.description = config && config.description ? config.description : null;
     this.isEnabled = config ? config.isEnabled : true;
+    this.driverId = config ? config.driverId : null;
   }
 }
